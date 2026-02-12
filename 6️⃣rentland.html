@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rent or Lease Farms | Zera3a-Tech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Light Theme Variables */
+            --primary: #1e5959;
+            --primary-dark: #164545;
+            --primary-light: #e6f0f0;
+            --secondary: #e67e3a;
+            --secondary-dark: #d46b25;
+            --background: #fafaf9;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e5e5e5;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --nav-bg: #ffffff;
+            --nav-text: #333;
+            --btn-hover: #f0f0f0;
+            --input-bg: #ffffff;
+            --transition-speed: 0.4s;
+        }
+
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --primary: #1e5959;
+            --primary-dark: #1e5959;
+            --primary-light: #263238;
+            --secondary: #ffab91;
+            --secondary-dark: #e67e3a;
+            --background: #121212;
+            --surface: #1e1e1e;
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border: #333333;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --nav-bg: #1e1e1e;
+            --nav-text: #f5f5f5;
+            --btn-hover: #2c2c2c;
+            --input-bg: #2c2c2c;
+        }
+
+        body {
+            font-family: "Poppins", "Inter", sans-serif;
+            color: var(--text);
+            background: var(--background);
+            line-height: 1.6;
+            margin: 0;
+            padding-top: 80px; /* Space for fixed topbar */
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        /* --- TOPBAR DESIGN --- */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .topbar-left, .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--nav-text);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .topbar-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+        }
+
+        .topbar-btn i {
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 3rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--background) 100%);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            transition: background var(--transition-speed);
+        }
+
+        /* Add border for dark mode contrast */
+        [data-theme="dark"] .hero {
+            border: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: color var(--transition-speed);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero input {
+            width: 100%;
+            max-width: 460px;
+            padding: 0.9rem 1.2rem 0.9rem 3rem;
+            border-radius: 30px;
+            border: 2px solid var(--border);
+            outline: none;
+            font-size: 1rem;
+            background: var(--input-bg);
+            color: var(--text);
+            transition: border-color var(--transition-speed), background-color var(--transition-speed);
+        }
+
+        .hero input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Rentals Section */
+        .rental-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .rental-section .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            transition: color var(--transition-speed);
+        }
+
+        .rental-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .rental-card {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease, background-color var(--transition-speed), border-color var(--transition-speed);
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .rental-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--shadow);
+            border-color: var(--secondary);
+        }
+
+        .rental-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .rental-info {
+            padding: 1.8rem;
+            text-align: left;
+            color: var(--text);
+        }
+
+        [dir="rtl"] .rental-info {
+            text-align: right;
+        }
+
+        .rental-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            transition: color var(--transition-speed);
+        }
+
+        .rental-info p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            transition: color var(--transition-speed);
+        }
+
+        .rental-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            transition: color var(--transition-speed);
+        }
+
+        .rental-info .btn-primary {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+        }
+
+        .rental-info .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 89, 89, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3rem; }
+            .rental-section .section-title { font-size: 2rem; }
+            .topbar { padding: 0 20px; }
+            .rental-grid { grid-template-columns: 1fr; }
+        }
+        /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+    </style>
+</head>
+<body>
+
+    <!-- NEW TOPBAR -->
+    <div class="topbar">
+        <!-- Left: Back Button -->
+        <div class="topbar-left" style="display:flex; align-items:center; gap:10px;">
+          <a href="./animals.html" class="topbar-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-i18n="btn_back">Back Home</span>
+          </a>
+        </div>
+
+        <!-- Right: Controls -->
+        <div class="topbar-right" style="display:flex; align-items:center; gap:10px;">
+          <button id="langToggle" class="topbar-btn">
+            <span data-i18n="btn_lang" style="font-weight:bold;">عربي</span>
+            <i class="fa-solid fa-language"></i>
+          </button>
+          <button id="modeToggle" class="topbar-btn">
+            🌙
+          </button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-i18n="hero_title">Rent or Lease Farms</h1>
+            <p data-i18n="hero_subtitle">
+                Lease farms short-term or long-term for cultivation, livestock, or agri-investment opportunities.
+            </p>
+            <div style="position: relative; max-width: 460px; margin: 0 auto;">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Search by location, size, or type..." onkeyup="searchRental()">
+            </div>
+        </div>
+    </section>
+
+    <!-- Rental Farms Section -->
+    <section class="rental-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="section_title">Available Rentals</h2>
+            <div class="rental-grid" id="rentalGrid">
+
+                <!-- Card 1 -->
+                <div class="rental-card">
+                    <!-- Replaced local image with Unsplash for demo -->
+                    <img src="https://picsum.photos/seed/fayoum/400/300" alt="Land Fayoum">
+                    <div class="rental-info">
+                        <h3 data-i18n="card1Title">Agricultural Land – Fayoum</h3>
+                        <p class="land-tags" data-i18n="card1Tags">Crops • Irrigated • Clay Soil</p>
+                        <p>
+                            <span data-i18n="size">Size</span>: 5 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Nile Irrigation<br>
+                            <span data-i18n="road">Road Access</span>: Available
+                        </p>
+                        <p class="rental-price">EGP 10,000 / month</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="rental-card">
+                    <img src="https://picsum.photos/seed/ismailia/400/300" alt="Land Ismailia">
+                    <div class="rental-info">
+                        <h3 data-i18n="card2Title">Greenhouse Land – Ismailia</h3>
+                        <p class="land-tags" data-i18n="card2Tags">Greenhouses • Sandy Soil</p>
+                        <p>
+                            <span data-i18n="size">Size</span>: 3 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Well<br>
+                            <span data-i18n="electricity">Electricity</span>: Available
+                        </p>
+                        <p class="rental-price">EGP 8,500 / month</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="rental-card">
+                    <img src="https://picsum.photos/seed/minya/400/300" alt="Land Minya">
+                    <div class="rental-info">
+                        <h3 data-i18n="card3Title">Livestock Land – Minya</h3>
+                        <p class="land-tags" data-i18n="card3Tags">Livestock • Wide Area</p>
+                        <p>
+                            <span data-i18n="size">Size</span>: 10 Feddan<br>
+                            <span data-i18n="livestockDesc">Suitable for cattle & sheep</span><br>
+                            <span data-i18n="fenced">Fenced land</span>
+                        </p>
+                        <p class="rental-price">EGP 15,000 / month</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="rental-card">
+                    <img src="https://picsum.photos/seed/nubaria/400/300" alt="Land Nubaria">
+                    <div class="rental-info">
+                        <h3 data-i18n="card4Title">Commercial Farm – Nubaria</h3>
+                        <p class="land-tags" data-i18n="card4Tags">Commercial • Export Crops</p>
+                        <p>
+                            <span data-i18n="size">Size</span>: 20 Feddan<br>
+                            <span data-i18n="irrigation">Modern Irrigation System</span><br>
+                            <span data-i18n="highway">Near main highway</span>
+                        </p>
+                        <p class="rental-price">EGP 30,000 / month</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="rental-card">
+                    <img src="https://picsum.photos/seed/sohag/400/300" alt="Land Sohag">
+                    <div class="rental-info">
+                        <h3 data-i18n="card5Title">Crops & Vegetables – Sohag</h3>
+                        <p class="land-tags" data-i18n="card5Tags">Vegetables • Fertile Soil</p>
+                        <p>
+                            <span data-i18n="size">Size</span>: 6 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Canal<br>
+                            <span data-i18n="road">Road Access</span>: Available
+                        </p>
+                        <p class="rental-price">EGP 12,000 / month</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="rental-card">
+                    <img src="https://picsum.photos/seed/giza/400/300" alt="Land Giza">
+                    <div class="rental-info">
+                        <h3 data-i18n="card6Title">Organic Farming – Giza</h3>
+                        <p class="land-tags" data-i18n="card6Tags">Crops • Organic • Fertile Soil</p>
+                        <p>
+                            <span data-i18n="size">Size</span>: 4 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Well<br>
+                            <span data-i18n="electricity">Electricity</span>: Available
+                        </p>
+                        <p class="rental-price">EGP 9,500 / month</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- COMBINED SCRIPT -->
+    <script>
+        // --- 1. Theme Logic ---
+        const modeToggle = document.getElementById('modeToggle');
+        
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                modeToggle.innerText = '☀️'; // Change emoji
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                modeToggle.innerText = '🌙'; // Change emoji
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Add event listener for the new button
+        modeToggle.addEventListener('click', toggleTheme);
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if(savedTheme === 'dark') {
+                modeToggle.innerText = '☀️';
+            }
+        } else {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                modeToggle.innerText = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // --- 2. Translation Logic ---
+        const translations = {
+            en: {
+                btn_back: "Back Home",
+                btn_lang: "عربي",
+                hero_title: "Rent or Lease Farms",
+                hero_subtitle: "Lease farms short-term or long-term for cultivation, livestock, or agri-investment opportunities.",
+                searchPlaceholder: "Search by location, size, or type...",
+                section_title: "Available Rentals",
+                viewDetails: "View Details",
+                size: "Size",
+                water: "Water Source",
+                road: "Road Access",
+                electricity: "Electricity",
+                livestockDesc: "Suitable for cattle & sheep",
+                fenced: "Fenced land",
+                irrigation: "Modern Irrigation System",
+                highway: "Near main highway",
+                card1Title: "Agricultural Land – Fayoum",
+                card1Tags: "Crops • Irrigated • Clay Soil",
+                card2Title: "Greenhouse Land – Ismailia",
+                card2Tags: "Greenhouses • Sandy Soil",
+                card3Title: "Livestock Land – Minya",
+                card3Tags: "Livestock • Wide Area",
+                card4Title: "Commercial Farm – Nubaria",
+                card4Tags: "Commercial • Export Crops",
+                card5Title: "Crops & Vegetables – Sohag",
+                card5Tags: "Vegetables • Fertile Soil",
+                card6Title: "Organic Farming – Giza",
+                card6Tags: "Crops • Organic • Fertile Soil"
+            },
+            ar: {
+                btn_back: "العودة للرئيسية",
+                btn_lang: "English",
+                hero_title: "تأجير أو استئجار المزارع",
+                hero_subtitle: "استأجر المزارع لفترات قصيرة أو طويلة للزراعة، الثروة الحيوانية، أو فرص الاستثمار الزراعي.",
+                searchPlaceholder: "ابحث حسب الموقع، المساحة، أو النوع...",
+                section_title: "عقارات متاحة للإيجار",
+                viewDetails: "عرض التفاصيل",
+                size: "المساحة",
+                water: "مصدر المياه",
+                road: "طريق عام",
+                electricity: "كهرباء",
+                livestockDesc: "مناسبة للأبقار والأغنام",
+                fenced: "أرض محوطة",
+                irrigation: "نظام ري حديث",
+                highway: "قريب من الطريق الرئيسي",
+                card1Title: "أرض زراعية – الفيوم",
+                card1Tags: "محاصيل • ري • طينية",
+                card2Title: "أرض صوب زراعية – الإسماعيلية",
+                card2Tags: "صوب • رملية",
+                card3Title: "أرض مواشي – المنيا",
+                card3Tags: "مواشي • مساحة واسعة",
+                card4Title: "مزرعة تجارية – النوبارية",
+                card4Tags: "تجاري • تصدير",
+                card5Title: "محاصيل وخضروات – سوهاج",
+                card5Tags: "خضروات • تربة خصبة",
+                card6Title: "زراعة عضوية – الجيزة",
+                card6Tags: "محاصيل • عضوية • خصبة"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            const html = document.documentElement;
+            
+            if (currentLang === 'en') {
+                currentLang = 'ar';
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+            } else {
+                currentLang = 'en';
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+            }
+
+            // Apply translations
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            // Translate Placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
+            });
+        }
+
+        document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+
+        // Load saved language
+        const savedLang = localStorage.getItem("lang");
+        if (savedLang && savedLang !== 'en') {
+            toggleLanguage();
+        }
+
+        // --- 3. Search Logic ---
+        function searchRental() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll(".rental-card");
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? "block" : "none";
+            });
+        }
+    </script>
+    <footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

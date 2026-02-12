@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Farm - منصة العمال الزراعيين</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="worker.css">
+    <style>
+        /* ===== NAVBAR ===== */
+        .navbar-main {
+            background: #0f4c5c;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            height: 75px;
+            border-radius: 30px;
+            box-shadow: 0 6px 6px rgba(31, 38, 135, .37);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .btn-signin {
+            background: #fff;
+            border: 2px solid #0f4c5c;
+            border-radius: 12px;
+            padding: 5px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* الرابط جوه الزرار */
+        .btn-signin a {
+            color: black;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* Hover */
+        .btn-signin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            /* background: linear-gradient(135deg, #0d6efd, #1fb6a6); */
+        }
+
+        /* Active */
+        .btn-signin:active {
+            transform: scale(0.96);
+        }
+
+        /* body.light .navbar-main { box-shadow: 0 6px 6px rgba(0,0,0,0.1); } */
+
+        /* LOGO */
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .navbar-logo img {
+            height: 55px;
+            object-fit: contain;
+        }
+
+        .navbar-logo span {
+            color: #fff;
+        }
+
+        body.light .navbar-logo {
+            color: #0f4c5c;
+        }
+
+        body.dark .navbar-logo {
+            color: #fff;
+        }
+
+        /* CENTER LINKS */
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        body.dark .navbar-links a {
+            color: #fff;
+        }
+
+        .navbar-links a:hover {
+            background: #e07a5f;
+            color: #fff;
+        }
+
+        /* BUTTONS */
+        .navbar-main .btn {
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        body.light .btn {
+            border-color: #0f4c5c;
+            color: #0f4c5c;
+        }
+
+        .btn:hover {
+            background: #e07a5f;
+            border-color: #e07a5f;
+            color: #fff;
+        }
+
+        /* RIGHT SIDE */
+        .navbar-right {
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* USER MENU */
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .user-name:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        body.light .user-name:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 110%;
+            right: 0;
+            background: white;
+            min-width: 160px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .user-dropdown a {
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .user-dropdown a:hover {
+            background: #f1f1f1;
+        }
+
+        /* DARK MODE */
+        body.dark {
+            background: #1f1f1f;
+            color: #fff;
+        }
+
+        /* body.dark .navbar-main { background: #0a2e3a; } */
+        body.dark .btn {
+            border-color: #fff;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="navbar-main">
+
+        <!-- LOGO -->
+        <div class="navbar-logo" id="navbarLogo">
+            <img src="smart_farm_no_bg-removebg-preview.png" alt="Logo">
+            <span id="siteName" data-key="siteName">زراعة تك</span>
+        </div>
+
+        <!-- LOGGED IN LINKS -->
+        <ul class="navbar-links navbar-center" id="authLinks" style="display:none">
+            <li><a href="consumer-market.html" data-key="nav_marketplace">Marketplace</a></li>
+            <li><a href="wallet.html" data-key="nav_wallet">Wallet</a></li>
+            <li><a href="tasks.html" data-key="nav_community">Community</a></li>
+            <li><a href="contact-about.html" data-key="nav_contact">contact us</a></li>
+            <li><a href="banks.html" data-key="nav_banks">banks</a></li>
+            <li><a href="./offer/ddd.html" data-key="nav_packages">packages</a></li>
+
+
+
+        </ul>
+
+        <!-- GUEST LINKS -->
+        <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
+            <li><a href="about.html" data-key="nav_about">About Us</a></li>
+        </ul>
+
+        <!-- RIGHT -->
+        <div class="navbar-right">
+
+            <button id="langToggle" class="btn">EN</button>
+            <button id="themeToggle" class="btn">☀️</button>
+
+            <!-- USER MENU -->
+            <div class="user-menu" id="userMenu" style="display:none">
+                <div class="user-name" id="userName">
+
+                    <!-- صورة البروفايل -->
+                    <img id="navbarProfileImage" src=""
+                        style="width:50px;height:50px;border-radius:50%;object-fit:cover;display:none;">
+
+                    <!-- أيقونة افتراضية -->
+                    <i id="defaultUserIcon" class="fas fa-user-circle" style="font-size:22px;"></i>
+
+                    <span data-key="nav_username">Username</span>
+                    <i class="fas fa-caret-down"></i>
+                </div>
+
+
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="./Profile/profile.html" data-key="profileLink">
+                        <i class="fas fa-id-badge"></i> Profile
+                    </a>
+                    <a href="#" id="logoutBtn" data-key="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- SIGN IN -->
+            <button id="signInBtn" class="btn-signin">
+                <a href="./signinsignup/signin.html" data-key="signin_btn">Sign In</a>
+            </button>
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <div class="badge" data-key="hero_badge">👷 منصة العمال الزراعيين</div>
+            <h1 data-key="hero_title">
+                اشتغل بثقة في<br>
+                <span>الزراعة الحديثة</span>
+            </h1>
+            <p data-key="hero_desc">
+                فرص عمل زراعية حقيقية بعقود واضحة، أجر مضمون، ومتابعة لحقوقك.
+                انضم إلى آلاف العمال الذين وجدوا فرص عمل مناسبة عبر منصتنا.
+            </p>
+            <div class="hero-actions">
+                <a href="#jobs" class="btn-ghost" data-key="hero_btn2">
+                    شوف فرص العمل 🔍
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card card-1">
+                <div class="icon">📄</div>
+                <div data-key="hero_card1">عقود واضحة</div>
+            </div>
+            <div class="floating-card card-2">
+                <div class="icon">💰</div>
+                <div data-key="hero_card2">أجر مضمون</div>
+            </div>
+            <div class="floating-card card-3">
+                <div class="icon">⭐</div>
+                <div data-key="hero_card3">تقييم عادل</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section id="jobs" class="section-container jobs-section">
+        <div class="section-header">
+            <div class="section-badge" data-key="jobs_badge">
+                🔥 فرص عمل متاحة
+            </div>
+            <h1 class="section-title" data-key="jobs_title">
+                فرص شغل <span class="highlight" data-key="jobs_highlight">قريبة منك</span>
+            </h1>
+            <p class="section-subtitle" data-key="jobs_subtitle">
+                اختار من مئات فرص العمل الزراعية حسب المكان، المدة، ونوع الشغل
+            </p>
+        </div>
+
+        <div class="jobs-grid">
+            <div class="job-card">
+                <div class="job-icon">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <h3 data-key="job1_title">مشرف مزرعة</h3>
+                <p data-key="job1_desc">إدارة فريق عمل ومراقبة جودة الإنتاج في مزرعة دواجن متكاملة</p>
+                <div class="job-meta">
+                    <div class="job-meta-item">
+                        <div class="job-meta-label">الموقع</div>
+                        <div class="job-meta-value" data-key="job1_location">المنيا</div>
+                    </div>
+                    <div class="job-meta-item">
+                        <div class="job-meta-label">الراتب</div>
+                        <div class="job-meta-value" data-key="job1_salary">٥٠٠٠ ج</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 data-key="job2_title">عامل زراعي</h3>
+                <p data-key="job2_desc">العمل في زراعة وحصاد المحاصيل الموسمية بمزرعة خضروات</p>
+                <div class="job-meta">
+                    <div class="job-meta-item">
+                        <div class="job-meta-label">الموقع</div>
+                        <div class="job-meta-value" data-key="job2_location">الفيوم</div>
+                    </div>
+                    <div class="job-meta-item">
+                        <div class="job-meta-label">الراتب</div>
+                        <div class="job-meta-value" data-key="job2_salary">٣٥٠٠ ج</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-icon">
+                    <i class="fas fa-cow"></i>
+                </div>
+                <h3 data-key="job3_title">مربي ماشية</h3>
+                <p data-key="job3_desc">رعاية وتغذية القطعان في مزرعة تسمين المواشي</p>
+                <div class="job-meta">
+                    <div class="job-meta-item">
+                        <div class="job-meta-label">الموقع</div>
+                        <div class="job-meta-value" data-key="job3_location">بني سويف</div>
+                    </div>
+                    <div class="job-meta-item">
+                        <div class="job-meta-label">الراتب</div>
+                        <div class="job-meta-value" data-key="job3_salary">٤٥٠٠ ج</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="job-card">
+                <div class="job-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+
+                <h3 data-key="job4_title">عامل حصاد</h3>
+
+                <p data-key="job3_desc">
+                    المشاركة في جمع المحاصيل وفرزها وتجهيزها بعد الحصاد
+                </p>
+
+                <div class="job4-meta">
+                    <div class="job-meta-item">
+                        <div class="job-meta-label">الموقع</div>
+                        <div class="job-meta-value" data-key="job3_location">بني سويف</div>
+                    </div>
+                    <div class="job4-meta-item">
+                        <div class="job-meta-label">الراتب</div>
+                        <div class="job-meta-value" data-key="job4_salary">٤٠٠٠ ج</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="./tasks.html" class="btn-primary" data-key="jobs_button">
+                عرض كل فرص العمل 🔍
+            </a>
+        </div>
+    </section>
+
+    <!-- Work Types Section -->
+    <section id="work-types" class="work-types-section">
+        <div class="section-header">
+            <div class="section-badge" data-key="types_badge">
+                💼 أنواع الشغل
+            </div>
+            <h1 class="section-title" data-key="types_title">
+                اختر نوع الشغل<br>
+                <span class="highlight" data-key="types_highlight">المناسب لمهاراتك</span>
+            </h1>
+        </div>
+
+        <div class="work-types-grid">
+            <div class="work-type-card">
+                <div class="work-type-icon">🌾</div>
+                <h3 data-key="type1_title">عمالة زراعية</h3>
+                <p data-key="type1_desc">زراعة، ري، حصاد</p>
+            </div>
+
+            <div class="work-type-card">
+                <div class="work-type-icon">🚜</div>
+                <h3 data-key="type2_title">تشغيل معدات</h3>
+                <p data-key="type2_desc">جرارات، حصادات، معدات</p>
+            </div>
+
+            <div class="work-type-card">
+                <div class="work-type-icon">🌱</div>
+                <h3 data-key="type3_title">عناية بالمحاصيل</h3>
+                <p data-key="type3_desc">تسميد، رش، وقاية</p>
+            </div>
+
+            <div class="work-type-card">
+                <div class="work-type-icon">🧪</div>
+                <h3 data-key="type4_title">مساعد فني</h3>
+                <p data-key="type4_desc">مختبرات، تحاليل</p>
+            </div>
+
+            <div class="work-type-card">
+                <div class="work-type-icon">🏗️</div>
+                <h3 data-key="type5_title">مشروعات استثمارية</h3>
+                <p data-key="type5_desc">مشاريع كبيرة</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="./tasks.html" class="btn-primary" data-key="types_button">
+                تفاصيل أنواع الشغل 📋
+            </a>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section-container how-it-works-section">
+        <div class="section-header">
+            <div class="section-badge" data-key="how_badge">
+                📱 كيف تشتغل معنا
+            </div>
+            <h1 class="section-title" data-key="how_title">
+                إزاي تشتغل على<br>
+                <span class="highlight" data-key="how_highlight">المنصة؟</span>
+            </h1>
+            <p class="section-subtitle" data-key="how_subtitle">
+                ٤ خطوات بسيطة تبدأ بيها رحلتك معنا وتوصل لأجرك المضمون
+            </p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">١</div>
+                <h3 data-key="step1_title">سجل بياناتك</h3>
+                <p data-key="step1_desc">أنشئ حسابك وأكمل ملفك الشخصي بالمهارات والخبرات</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">٢</div>
+                <h3 data-key="step2_title">اختار الشغل</h3>
+                <p data-key="step2_desc">تصفح الفرص المتاحة وقدم على الأنسب لمهاراتك</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">٣</div>
+                <h3 data-key="step3_title">ابدأ التنفيذ</h3>
+                <p data-key="step3_desc">التزم بشروط العقد وساعات العمل المتفق عليها</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">٤</div>
+                <h3 data-key="step4_title">استلم أجرك</h3>
+                <p data-key="step4_desc">تحصل على أجرك المضمون في الموعد المتفق عليه</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="./tasks.html" class="btn-primary" data-key="how_button">
+                ابدأ من هنا 🚀
+            </a>
+        </div>
+    </section>
+
+    <!-- Rights Section -->
+    <section id="rights" class="rights-section">
+        <div class="section-header">
+            <h1 class="section-title" data-key="rights_title">
+                حقوقك وأمانك<br>
+                <span class="highlight" data-key="rights_highlight">مضمونة</span>
+            </h1>
+            <p class="section-subtitle" data-key="rights_subtitle">
+                نضمن لك بيئة عمل آمنة وعادلة مع حماية كاملة لحقوقك
+            </p>
+        </div>
+
+        <div class="rights-grid">
+            <div class="right-card">
+                <div class="right-icon">🛡️</div>
+                <h3 data-key="right1_title">عقود واضحة</h3>
+                <p data-key="right1_desc">جميع بنود العمل مكتوبة وواضحة، ما فيهاش غموض</p>
+            </div>
+
+            <div class="right-card">
+                <div class="right-icon">💵</div>
+                <h3 data-key="right2_title">أجر متفق عليه</h3>
+                <p data-key="right2_desc">تستلم أجرك كاملاً كما تم الاتفاق عليه مسبقاً</p>
+            </div>
+
+            <div class="right-card">
+                <div class="right-icon">⭐</div>
+                <h3 data-key="right3_title">نظام تقييم</h3>
+                <p data-key="right3_desc">تقييم عادل يعكس مجهودك وأداءك في العمل</p>
+            </div>
+
+            <div class="right-card">
+                <div class="right-icon">📞</div>
+                <h3 data-key="right4_title">دعم فني</h3>
+                <p data-key="right4_desc">دعم متوفر لحل أي مشكلة تواجهك خلال العمل</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section-container reviews-section">
+        <div class="section-header">
+            <div class="section-badge" data-key="reviews_badge">
+                ⭐ تجارب حقيقية
+            </div>
+            <h1 class="section-title" data-key="reviews_title">
+                تقييمات<br>
+                <span class="highlight" data-key="reviews_highlight">العمّال</span>
+            </h1>
+            <p class="section-subtitle" data-key="reviews_subtitle">
+                آراء عمّال اشتغلوا فعلاً على المنصة وشاركوا تجربتهم
+            </p>
+        </div>
+
+        <div class="reviews-slider">
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">م</div>
+                    <div class="reviewer-details">
+                        <h4 data-key="review1_name">محمد أحمد</h4>
+                        <p data-key="review1_role">عامل زراعي</p>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text" data-key="review1_text">
+                    أول مرة أشتغل بعقد واضح وأجر مضمون. المنصة وفرتلي فرصة عمل محترمة مع متابعة مستمرة.
+                </p>
+            </div>
+
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">س</div>
+                    <div class="reviewer-details">
+                        <h4 data-key="review2_name">سعيد خالد</h4>
+                        <p data-key="review2_role">سائق معدات</p>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="review-text" data-key="review2_text">
+                    الدعم الفني سريع والدفع منتظم. أنصح أي عامل يبحث عن عمل محترم بالتسجيل في المنصة.
+                </p>
+            </div>
+
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">ع</div>
+                    <div class="reviewer-details">
+                        <h4 data-key="review3_name">علي محمود</h4>
+                        <p data-key="review3_role">فني زراعي</p>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text" data-key="review3_text">
+                    التقييم العادل كان حافز لي أقدم أفضل ما عندي. شكراً لفريق المنصة على المتابعة والدعم.
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- سيكشن 9: الشراء المباشر من الفلاح -->
+    <section id="direct-buy" class="direct-buy-section">
+        <div class="section-header">
+            <div class="section-badge" data-key="direct_buy_badge">
+                🧺 بدون وسطاء
+            </div>
+            <h1 class="section-title" data-key="direct_buy_title">
+                اشتري من الفلاح<br>
+                <span class="highlight" data-key="direct_buy_highlight">مباشرة</span>
+            </h1>
+            <p class="section-subtitle" data-key="direct_buy_subtitle">
+                اشترِ المحاصيل الزراعية مباشرة من الفلاح بدون وسطاء،
+                بأسعار عادلة وجودة مضمونة وتواصل مباشر.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <h3 data-key="feature1_title">❌ بدون وسطاء</h3>
+                <p data-key="feature1_desc">شراء مباشر بدون عمولات أو تكاليف إضافية</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3 data-key="feature2_title">💰 سعر أوفر</h3>
+                <p data-key="feature2_desc">أسعار تنافسية توفر حتى 40% من سعر السوق</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3 data-key="feature3_title">🤝 تواصل مباشر</h3>
+                <p data-key="feature3_desc">تفاعل مباشر مع الفلاح والمتابعة لحظة بلحظة</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 data-key="feature4_title">🌾 جودة مضمونة</h3>
+                <p data-key="feature4_desc">من المصدر مع ضمان الجودة وتتبع المنتج</p>
+            </div>
+        </div>
+
+        <!-- المنتجات المباشرة -->
+        <div class="products-showcase">
+            <div class="products-header">
+                <h2 data-key="products_title">منتجات مباشرة من المزارع</h2>
+                <p data-key="products_subtitle">تسوق الآن من أفضل المحاصيل الموسمية</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card-direct">
+                    <div class="product-image">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 data-key="product1_name">طماطم عضوية</h3>
+                        <div class="product-meta">
+                            <span data-key="product1_farmer">من مزرعة أبو أحمد</span>
+                            <span data-key="product1_location">الفيوم</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="old-price" data-key="product1_oldprice">١٥ ج/كجم</span>
+                            <span class="current-price" data-key="product1_price">١٠ ج/كجم</span>
+                        </div>
+                        <div class="product-stats">
+                            <span><i class="fas fa-star"></i> ٤٫٨</span>
+                            <span><i class="fas fa-check-circle"></i> جودة مضمونة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card-direct">
+                    <div class="product-image">
+                        <i class="fas fa-lemon"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 data-key="product2_name">برتقال سكري</h3>
+                        <div class="product-meta">
+                            <span data-key="product2_farmer">من مزرعة العجمي</span>
+                            <span data-key="product2_location">المنيا</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="old-price" data-key="product2_oldprice">٨ ج/كجم</span>
+                            <span class="current-price" data-key="product2_price">٥ ج/كجم</span>
+                        </div>
+                        <div class="product-stats">
+                            <span><i class="fas fa-star"></i> ٤٫٩</span>
+                            <span><i class="fas fa-bolt"></i> طازج يومياً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card-direct">
+                    <div class="product-image">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 data-key="product3_name">خيار بلدي</h3>
+                        <div class="product-meta">
+                            <span data-key="product3_farmer">من مزرعة السلام</span>
+                            <span data-key="product3_location">بني سويف</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="old-price" data-key="product3_oldprice">٦ ج/كجم</span>
+                            <span class="current-price" data-key="product3_price">٤ ج/كجم</span>
+                        </div>
+                        <div class="product-stats">
+                            <span><i class="fas fa-star"></i> ٤٫٧</span>
+                            <span><i class="fas fa-seedling"></i> عضوي</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- زرار التصفح -->
+        <div class="section-actions">
+            <a href="./consumer-market.html" class="btn-primary btn-large" data-key="direct_buy_button">
+                <i class="fas fa-store"></i>
+                تصفح المنتجات الزراعية
+            </a>
+        </div>
+    </section>
+
+    <!-- سيكشن 10: التعاقد على المحاصيل قبل الحصاد -->
+    <section id="pre-harvest" class="pre-harvest-section">
+        <div class="section-header">
+            <div class="section-badge" data-key="preharvest_badge">
+                📑 حصاد مضمون
+            </div>
+
+            <h1 class="section-title" data-key="preharvest_title">
+                تعاقد على المحصول<br>
+                <span class="highlight" data-key="preharvest_highlight">قبل الحصاد</span>
+            </h1>
+
+            <p class="section-subtitle" data-key="preharvest_subtitle">
+                احجز محصولك قبل الحصاد واتفق على السعر والكمية
+                بضمان المنصة وعقود ذكية وآمنة.
+            </p>
+        </div>
+
+        <!-- خطوات التعاقد -->
+        <div class="contract-steps">
+            <div class="contract-step">
+                <div class="step-number">١</div>
+                <div class="step-content">
+                    <h3 data-key="contract_step1_title">اختر المحصول</h3>
+                    <p data-key="contract_step1_desc">تصفح أنواع المحاصيل واختر ما يناسب احتياجاتك</p>
+                </div>
+                <div class="step-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="contract-step">
+                <div class="step-number">٢</div>
+                <div class="step-content">
+                    <h3 data-key="contract_step2_title">حدّد الكمية والموعد</h3>
+                    <p data-key="contract_step2_desc">اختر الكمية المطلوبة وموعد التسليم المناسب</p>
+                </div>
+                <div class="step-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+            </div>
+
+            <div class="contract-step">
+                <div class="step-number">٣</div>
+                <div class="step-content">
+                    <h3 data-key="contract_step3_title">وقّع العقد</h3>
+                    <p data-key="contract_step3_desc">اتفق على الشروط ووقّع العقد الذكي الموثّق</p>
+                </div>
+                <div class="step-icon">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+            </div>
+
+            <div class="contract-step">
+                <div class="step-number">٤</div>
+                <div class="step-content">
+                    <h3 data-key="contract_step4_title">استلم وقت الحصاد</h3>
+                    <p data-key="contract_step4_desc">تحصل على محصولك طازجاً في الموعد المتفق عليه</p>
+                </div>
+                <div class="step-icon">
+                    <i class="fas fa-truck-loading"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- مميزات التعاقد -->
+        <div class="contract-features">
+            <div class="feature-highlight">
+                <div class="feature-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <div>
+                    <h3 data-key="contract_feature1_title">📄 عقد موثّق</h3>
+                    <p data-key="contract_feature1_desc">عقود ذكية موثقة رقمياً ومحمية قانونياً</p>
+                </div>
+            </div>
+
+            <div class="feature-highlight">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div>
+                    <h3 data-key="contract_feature2_title">📆 ضمان التوريد</h3>
+                    <p data-key="contract_feature2_desc">تسليم في الموعد المحدد بضمان المنصة</p>
+                </div>
+            </div>
+
+            <div class="feature-highlight">
+                <div class="feature-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div>
+                    <h3 data-key="contract_feature3_title">💵 سعر ثابت</h3>
+                    <p data-key="contract_feature3_desc">سعر مضمون بغض النظر عن تغيرات السوق</p>
+                </div>
+            </div>
+
+            <div class="feature-highlight">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h3 data-key="contract_feature4_title">🛡️ حماية للطرفين</h3>
+                    <p data-key="contract_feature4_desc">حماية حقوق المشتري والفلاح</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- محفظة العقود -->
+        <div class="contracts-portfolio">
+            <h2 data-key="contracts_title">عقود متاحة للتعاقد</h2>
+            <p data-key="contracts_subtitle">احجز محصولك الموسمي مسبقاً</p>
+
+            <div class="contracts-grid">
+                <div class="contract-card">
+                    <div class="contract-header">
+                        <h3 data-key="contract1_crop">قطن مصري</h3>
+                        <span class="contract-badge" data-key="contract1_status">حصاد سبتمبر</span>
+                    </div>
+                    <div class="contract-details">
+                        <p data-key="contract1_desc">قطن طويل التيلة - جودة تصدير</p>
+                        <div class="contract-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> <span
+                                    data-key="contract1_location">الغربية</span></span>
+                            <span><i class="fas fa-calendar"></i> ٩٠ يوم</span>
+                        </div>
+                        <div class="contract-price">
+                            <div class="price-label" data-key="contract1_pricelabel">السعر المضمون</div>
+                            <div class="price-value" data-key="contract1_price">٢٥٠٠٠ ج/فدان</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contract-card">
+                    <div class="contract-header">
+                        <h3 data-key="contract2_crop">قمح شتوي</h3>
+                        <span class="contract-badge" data-key="contract2_status">حصاد أبريل</span>
+                    </div>
+                    <div class="contract-details">
+                        <p data-key="contract2_desc">قمح صلب - إنتاجية عالية</p>
+                        <div class="contract-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> <span
+                                    data-key="contract2_location">الدقهلية</span></span>
+                            <span><i class="fas fa-calendar"></i> ١٢٠ يوم</span>
+                        </div>
+                        <div class="contract-price">
+                            <div class="price-label" data-key="contract2_pricelabel">السعر المضمون</div>
+                            <div class="price-value" data-key="contract2_price">٣٠٠٠٠ ج/فدان</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contract-card">
+                    <div class="contract-header">
+                        <h3 data-key="contract3_crop">بطاطس مبكرة</h3>
+                        <span class="contract-badge" data-key="contract3_status">حصاد ديسمبر</span>
+                    </div>
+                    <div class="contract-details">
+                        <p data-key="contract3_desc">بطاطس سبونتا - صنف مبكر</p>
+                        <div class="contract-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> <span
+                                    data-key="contract3_location">البحيرة</span></span>
+                            <span><i class="fas fa-calendar"></i> ٧٠ يوم</span>
+                        </div>
+                        <div class="contract-price">
+                            <div class="price-label" data-key="contract3_pricelabel">السعر المضمون</div>
+                            <div class="price-value" data-key="contract3_price">٢٠٠٠٠ ج/فدان</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- زرار البدء -->
+        <div class="section-actions">
+            <a href="./banks.html" class="btn-primary btn-large" data-key="preharvest_button">
+                <i class="fas fa-file-contract"></i>
+                ابدأ التعاقد الآن
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="register" class="cta-section">
+        <div class="cta-content">
+            <h1 class="cta-title" data-key="cta_title">جاهز تبدأ شغلك؟</h1>
+            <p class="cta-subtitle" data-key="cta_subtitle">
+                انضم الآن إلى منصة Smart Farm للعمال الزراعيين وابدأ رحلتك المهنية
+                في الزراعة الحديثة بأمان وثقة
+            </p>
+            <a href="./tasks.html" class="cta-button" data-key="cta_button">
+                <i class="fas fa-rocket"></i>
+                ابدأ كعامل الآن 🚀
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-leaf"></i>
+                <span>Smart Farm Worker</span>
+            </div>
+            <div class="footer-links">
+                <a href="#about" data-key="footer_about">عن المنصة</a>
+                <a href="#contact" data-key="footer_contact">اتصل بنا</a>
+                <a href="#privacy" data-key="footer_privacy">سياسة الخصوصية</a>
+                <a href="#terms" data-key="footer_terms">الشروط والأحكام</a>
+                <a href="#faq" data-key="footer_faq">الأسئلة الشائعة</a>
+            </div>
+            <div class="copyright" data-key="footer_copyright">
+                © 2023 منصة Smart Farm للعمال الزراعيين. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- الشات بوت للعامل الزراعي -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-hard-hat"></i>
+                <h3>مساعد العامل الزراعي</h3>
+            </div>
+            <div class="chatbot-controls">
+                <button class="chatbot-btn close-btn" id="closeChatbot">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-text">
+                        👋 مرحباً يا صديقي العامل الزراعي! أنا مساعدك الذكي في Smart Farm.<br>
+                        كيف يمكنني مساعدتك في إيجاد فرص العمل المناسبة؟
+                    </div>
+                    <div class="message-time">الآن</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-suggestions" id="quickSuggestions">
+            <button class="suggestion-btn" data-question="كيف أجد فرص عمل قريبة مني؟">
+                <i class="fas fa-map-marker-alt"></i> فرص قريبة
+            </button>
+            <button class="suggestion-btn" data-question="ما هي أنواع الشغل المتاحة؟">
+                <i class="fas fa-tools"></i> أنواع الشغل
+            </button>
+            <button class="suggestion-btn" data-question="كيف أتأكد من حصولي على أجر عادل؟">
+                <i class="fas fa-money-bill-wave"></i> الأجر العادل
+            </button>
+            <button class="suggestion-btn" data-question="ما هي حقوقي كعامل زراعي؟">
+                <i class="fas fa-gavel"></i> حقوقي
+            </button>
+        </div>
+
+        <div class="chatbot-input-area">
+            <div class="input-wrapper">
+                <input type="text" id="chatInput" placeholder="اكتب استفسارك هنا..." autocomplete="off">
+                <button class="input-btn send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="input-hint" style="font-size: 12px; color: #666; text-align: center;">
+                اضغط Enter لإرسال الرسالة
+            </div>
+        </div>
+    </div>
+
+    <!-- زر فتح الشات بوت -->
+    <button class="chatbot-toggle-btn" id="chatbotToggle">
+        <i class="fas fa-comments"></i>
+        <span class="notification-badge" id="notificationBadge">3</span>
+    </button>
+
+
+
+    <script>
+        // ===== قاعدة المعرفة للعامل الزراعي =====
+        const chatbotKnowledge = {
+            // فرص العمل
+            'كيف أجد فرص عمل قريبة مني؟': 'يمكنك تصفح قسم "فرص العمل" في الموقع. استخدم فلتر الموقع للبحث عن فرص قريبة من منطقتك.',
+            'ما هي أنواع الشغل المتاحة؟': 'هناك عدة أنواع: عمال زراعيين، سائق معدات، فني ري، مشرف مزارع، وعمال حصاد.',
+            'كيف أتقدم لوظيفة؟': 'اضغط على الوظيفة التي تناسبك، ثم اضغط "تقدم للوظيفة" واملأ بياناتك.',
+            'هل هناك عمل بدوام جزئي؟': 'نعم، بعض الفرص تكون بدوام جزئي. استخدم فلتر "نوع الدوام" للبحث.',
+
+            // الأجور والحقوق
+            'كيف أتأكد من حصولي على أجر عادل؟': 'جميع الوظائف توضح الراتب مسبقاً. نضمن لك الحصول على الأجر المتفق عليه في العقد.',
+            'ما هي حقوقي كعامل زراعي؟': 'لك الحق في: عقد عمل واضح، أجر عادل، بيئة عمل آمنة، أوقات راحة، وتأمينات.',
+            'كيف أتأكد من صحة العقد؟': 'يمكنك مراجعة قسم "حقوقك" في الموقع أو استشارة فريق الدعم قبل التوقيع.',
+            'متى يتم صرف الراتب؟': 'يتم تحديد موعد الصرف في العقد. عادة يكون نهاية كل شهر أو نهاية المهمة.',
+
+            // التسجيل والمهارات
+            'كيف أسجل في المنصة؟': 'اضغط على زر "سجل كعامل" في أعلى الصفحة، ثم املأ بياناتك ومهاراتك.',
+            'ما هي المهارات المطلوبة؟': 'تختلف حسب الوظيفة. المهارات الأساسية تشمل: العمل الجماعي، اللياقة البدنية، معرفة بالأدوات الزراعية.',
+            'هل أحتاج خبرة سابقة؟': 'بعض الوظائف تتطلب خبرة، لكن هناك فرص للمبتدئين أيضاً.',
+            'كيف أطور مهاراتي؟': 'نوفر دورات تدريبية مجانية في قسم "التدريبات" للمسجلين في المنصة.',
+
+            // الشكاوى والمشاكل
+            'كيف أبلغ عن مشكلة في العمل؟': 'يمكنك التواصل مع فريق الدعم على الرقم 19090 أو عبر البريد support@smartfarm.com',
+            'ماذا أفعل إذا لم أحصل على راتبي؟': 'اتصل فوراً بدعم المنصة. لدينا نظام لحماية حقوق العمال.',
+            'هل هناك تأمين ضد الإصابات؟': 'نعم، جميع العقود تتضمن تأميناً ضد الإصابات أثناء العمل.',
+
+            // معلومات عامة
+            'ما هي مزايا العمل عبر المنصة؟': 'عقود واضحة، أجور مضمونة، تقييم عادل، دعم مستمر، وفرص تدريب.',
+            'كيف يتم تقييمي؟': 'يتم تقييمك من قبل صاحب العمل بناءً على أدائك والتزامك بالعقد.',
+            'هل يمكنني العمل في أكثر من وظيفة؟': 'نعم، إذا كانت الأوقات لا تتعارض وموافقة أصحاب العمل.',
+            'كيف أتواصل مع صاحب العمل؟': 'يتم توفير قناة اتصال آمنة بعد قبول طلبك للوظيفة.',
+
+            // أسئلة شائعة
+            'ما هي وثائق التسجيل المطلوبة؟': 'صورة بطاقة الرقم القومي، صورة شخصية، وشهادات الخبرة إن وجدت.',
+            'هل هناك حد أدنى للعمر؟': 'نعم، يجب أن يكون عمرك 18 سنة أو أكثر.',
+            'كيف أعرف أن طلبي قُبل؟': 'ستصلك رسالة على هاتفك وستظهر إشعار في حسابك.',
+            'هل يمكنني إلغاء طلب بعد التقديم؟': 'نعم، يمكنك إلغاء الطلب قبل قبوله من صاحب العمل.',
+
+            // نصائح عملية
+            'نصائح للمقابلة الشخصية': 'كن صادقاً، اذكر مهاراتك بوضوح، ارتد ملابس مناسبة، واسأل عن تفاصيل العمل.',
+            'كيف أحافظ على سلامتي في العمل؟': 'استخدم أدوات الحماية، اتبع تعليمات السلامة، خذ فترات راحة منتظمة.',
+            'ماذا أفعل في حالة الطقس السيء؟': 'اتبع تعليمات المشرف، أوقف العمل إذا كان خطيراً، واتصل بالدعم.',
+
+            // الرد العام
+            'default': 'أعتذر، لم أفهم سؤالك تماماً. يمكنك اختيار أحد الأسئلة السريعة أو كتابة سؤال محدد عن فرص العمل، الأجور، أو حقوقك كعامل.'
+        };
+
+        // ===== العناصر الأساسية =====
+        const chatbotContainer = document.getElementById('chatbotContainer');
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const closeChatbot = document.getElementById('closeChatbot');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const notificationBadge = document.getElementById('notificationBadge');
+
+        // ===== فتح وإغلاق الشات بوت =====
+        chatbotToggle.addEventListener('click', function () {
+            chatbotContainer.classList.add('active');
+            notificationBadge.style.display = 'none';
+            chatInput.focus();
+        });
+
+        closeChatbot.addEventListener('click', function () {
+            chatbotContainer.classList.remove('active');
+        });
+
+        // إغلاق بالنقر خارج الشات بوت
+        document.addEventListener('click', function (event) {
+            if (!chatbotContainer.contains(event.target) &&
+                !chatbotToggle.contains(event.target) &&
+                chatbotContainer.classList.contains('active')) {
+                chatbotContainer.classList.remove('active');
+            }
+        });
+
+        // ===== إضافة رسالة =====
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+
+            const time = new Date().toLocaleTimeString('ar-EG', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            messageDiv.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas ${isUser ? 'fa-user' : 'fa-hard-hat'}"></i>
+        </div>
+        <div class="message-content">
+            <div class="message-text">${text}</div>
+            <div class="message-time">${time}</div>
+        </div>
+    `;
+
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // ===== إضافة مؤشر الكتابة =====
+        function addTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message';
+            typingDiv.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas fa-hard-hat"></i>
+        </div>
+        <div class="message-content">
+            <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+    `;
+
+            chatMessages.appendChild(typingDiv);
+            scrollToBottom();
+            return typingDiv;
+        }
+
+        // ===== التمرير للأسفل =====
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // ===== البحث عن إجابة =====
+        function findAnswer(question) {
+            question = question.toLowerCase();
+
+            // البحث الدقيق أولاً
+            for (const [key, answer] of Object.entries(chatbotKnowledge)) {
+                if (key.toLowerCase() === question || question.includes(key.toLowerCase())) {
+                    return answer;
+                }
+            }
+
+            // البحث عن الكلمات المفتاحية
+            const keywords = {
+                'عمل': 'كيف أجد فرص عمل قريبة مني؟',
+                'شغل': 'ما هي أنواع الشغل المتاحة؟',
+                'راتب': 'كيف أتأكد من حصولي على أجر عادل؟',
+                'أجر': 'كيف أتأكد من حصولي على أجر عادل؟',
+                'حقوق': 'ما هي حقوقي كعامل زراعي؟',
+                'تسجيل': 'كيف أسجل في المنصة؟',
+                'مهارات': 'ما هي المهارات المطلوبة؟',
+                'مشكلة': 'كيف أبلغ عن مشكلة في العمل؟',
+                'عقد': 'كيف أتأكد من صحة العقد؟',
+                'تأمين': 'هل هناك تأمين ضد الإصابات؟',
+                'نصائح': 'نصائح للمقابلة الشخصية',
+                'سلامة': 'كيف أحافظ على سلامتي في العمل؟',
+                'طقس': 'ماذا أفعل في حالة الطقس السيء؟'
+            };
+
+            for (const [keyword, responseKey] of Object.entries(keywords)) {
+                if (question.includes(keyword)) {
+                    return chatbotKnowledge[responseKey];
+                }
+            }
+
+            // إجابة عامة
+            return chatbotKnowledge['default'];
+        }
+
+        // ===== معالجة الرسالة =====
+        function processMessage(message) {
+            if (!message.trim()) return;
+
+            // إضافة رسالة المستخدم
+            addMessage(message, true);
+
+            // إضافة مؤشر الكتابة
+            const typingIndicator = addTypingIndicator();
+
+            // البحث عن إجابة بعد تأخير محاكاة للتفكير
+            setTimeout(() => {
+                // إزالة مؤشر الكتابة
+                if (typingIndicator && typingIndicator.parentNode) {
+                    typingIndicator.remove();
+                }
+
+                // إيجاد الإجابة وإضافتها
+                const answer = findAnswer(message);
+                addMessage(answer, false);
+
+                // إذا كان السؤال عن فرص عمل، إضافة رابط
+                if (message.includes('عمل') || message.includes('فرص') || message.includes('وظيفة')) {
+                    setTimeout(() => {
+                        addMessage('🔍 يمكنك أيضاً زيارة <a href="#jobs" style="color: var(--primary); font-weight: 600;">قسم فرص العمل</a> لمشاهدة كل الفرص المتاحة.', false);
+                    }, 500);
+                }
+
+            }, 800 + Math.random() * 400);
+        }
+
+        // ===== إرسال الرسالة =====
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            processMessage(message);
+            chatInput.value = '';
+            chatInput.focus();
+
+            // تسجيل التفاعل
+            logInteraction(message);
+        }
+
+        // ===== معالجات الأحداث =====
+        sendBtn.addEventListener('click', sendMessage);
+
+        chatInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // ===== الأزرار السريعة =====
+        document.querySelectorAll('.suggestion-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const question = this.getAttribute('data-question');
+                processMessage(question);
+            });
+        });
+
+        // ===== إشعارات الترحيب =====
+        setTimeout(() => {
+            const isFirstVisit = !localStorage.getItem('workerFirstVisit');
+
+            if (isFirstVisit) {
+                showNotification('👋 مرحباً بك! مساعد العامل الزراعي جاهز لمساعدتك في إيجاد فرص العمل', 'info');
+                localStorage.setItem('workerFirstVisit', 'true');
+
+                // إضافة رسالة ترحيبية في الشات بوت
+                setTimeout(() => {
+                    if (!chatbotContainer.classList.contains('active')) {
+                        addMessage('أهلاً وسهلاً بك في منصة العمال الزراعيين! أنا هنا لمساعدتك في إيجاد فرص عمل مناسبة وحماية حقوقك.', false);
+                    }
+                }, 1000);
+            }
+        }, 2000);
+
+        // ===== وظائف مساعدة =====
+        function logInteraction(question) {
+            // يمكن إضافة كود لتسجيل التفاعلات للتحليل
+            console.log(`Worker asked: ${question}`);
+        }
+
+        function showNotification(message, type = 'info') {
+            // دالة لعرض الإشعارات
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+        <i class="fas ${type === 'info' ? 'fa-info-circle' : 'fa-check-circle'}"></i>
+        <span>${message}</span>
+    `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // ===== تحديث الإشعارات =====
+        function updateNotifications() {
+            // محاكاة تحديث عدد الإشعارات
+            const notifications = Math.floor(Math.random() * 5);
+            if (notifications > 0 && !chatbotContainer.classList.contains('active')) {
+                notificationBadge.textContent = notifications;
+                notificationBadge.style.display = 'flex';
+            }
+        }
+
+        // تحديث الإشعارات كل دقيقة
+        setInterval(updateNotifications, 60000);
+
+        // ===== التهيئة الأولية =====
+        window.addEventListener('load', function () {
+            console.log('Worker Chatbot initialized successfully!');
+            updateNotifications();
+        });
+
+        // إخفاء الإشعار بعد 5 ثوان
+        setTimeout(() => {
+            notificationBadge.style.display = 'none';
+        }, 5000);
+
+        // إضافة رسائل مسبقة للعرض
+        setTimeout(() => {
+            const greetings = [
+                "مرحباً! هل تحتاج مساعدة في إيجاد فرص عمل؟",
+                "أهلاً! يمكنني مساعدتك في معرفة حقوقك كعامل",
+                "مرحباً بك! اسألني عن أي شيء يخص العمل الزراعي"
+            ];
+
+            if (Math.random() > 0.7 && !chatbotContainer.classList.contains('active')) {
+                notificationBadge.textContent = "جديد";
+                notificationBadge.style.display = 'flex';
+            }
+        }, 10000);
+    </script>
+
+
+    <script src="worker.js"></script>
+    <script type="module">
+        /* =========================
+           🔥 Firebase Imports
+        ========================= */
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        /* =========================
+           🔧 Firebase Config
+        ========================= */
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+            authDomain: "smart-farm-8d3f5.firebaseapp.com",
+            projectId: "smart-farm-8d3f5",
+            storageBucket: "smart-farm-8d3f5.appspot.com",
+            messagingSenderId: "317371842198",
+            appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+        };
+
+        /* =========================
+           🚀 Init
+        ========================= */
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        /* =========================
+           🎯 Navbar Elements
+        ========================= */
+        const authLinks = document.getElementById("authLinks");
+        const guestLinks = document.getElementById("guestLinks");
+        const userMenu = document.getElementById("userMenu");
+        const signInBtn = document.getElementById("signInBtn");
+        const userNameSpan = document.querySelector("#userName span");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const userDropdown = document.getElementById("userDropdown");
+        const userNameBox = document.getElementById("userName");
+
+        /* =========================
+           👤 Auth State
+        ========================= */
+        onAuthStateChanged(auth, async (user) => {
+
+            // ❌ مش مسجل
+            if (!user) {
+                authLinks.style.display = "none";
+                guestLinks.style.display = "flex";
+                userMenu.style.display = "none";
+                signInBtn.style.display = "flex";
+                return;
+            }
+
+            try {
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+
+                if (!userSnap.exists()) {
+                    await signOut(auth);
+                    location.href = "././signinsignup/signin.html";
+                    return;
+                }
+
+                const data = userSnap.data();
+                const role = data.role;
+
+                /* 🚫 مش عامل */
+                if (role !== "worker") {
+                    alert("أنت داخل صفحة مش بتاعتك، هيتم تحويلك دلوقتي");
+                    redirectByRole(role);
+                    return;
+                }
+
+                /* ✅ عامل */
+                authLinks.style.display = "flex";
+                guestLinks.style.display = "none";
+                userMenu.style.display = "flex";
+                signInBtn.style.display = "none";
+
+                userNameSpan.textContent =
+                    data.name || user.displayName || user.email || "Worker";
+
+            } catch (err) {
+                console.error(err);
+                await signOut(auth);
+                location.href = "././signinsignup/signin.html";
+            }
+        });
+
+        /* =========================
+           🔁 Redirect
+        ========================= */
+        function redirectByRole(role) {
+            if (role === "farmer") {
+                location.href = "farmer-ar.html";
+            } else if (role === "worker") {
+                location.href = "worker.html";
+            } else if (role === "investor") {
+                location.href = "investor.html";
+            } else {
+                location.href = "././signinsignup/signin.html";
+            }
+        }
+
+        /* =========================
+           🔽 Dropdown
+        ========================= */
+        userNameBox?.addEventListener("click", () => {
+            userDropdown.style.display =
+                userDropdown.style.display === "flex" ? "none" : "flex";
+        });
+
+        /* =========================
+           🔒 Logout
+        ========================= */
+        logoutBtn?.addEventListener("click", async (e) => {
+            e.preventDefault();
+            await signOut(auth);
+            location.href = "./signinsignup/signin.html";
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const navbarImage = document.getElementById("navbarProfileImage");
+            const defaultIcon = document.getElementById("defaultUserIcon");
+
+            const savedImage = localStorage.getItem("profileImage");
+
+            if (savedImage) {
+                navbarImage.src = savedImage;
+                navbarImage.style.display = "inline-block";
+                defaultIcon.style.display = "none";
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

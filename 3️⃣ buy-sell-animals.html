@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Buy & Sell Animals | Zera3a-Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./marketplace.css">
+  <style>
+  
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+</style>
+</head>
+
+<body>
+
+  <!-- NAVBAR (Top Bar) -->
+  <div class="topbar">
+    <!-- Left: Back Button -->
+    <div class="topbar-left" style="display:flex; align-items:center; gap:10px;">
+      <a href="./animals.html" class="topbar-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span data-i18n="btn_back">Back Home</span>
+      </a>
+    </div>
+
+    <!-- Center: Title -->
+
+    <!-- Right: Controls -->
+    <div class="topbar-right" style="display:flex; align-items:center; gap:10px;">
+      <button id="langToggle" class="topbar-btn">
+        <span data-i18n="btn_lang" style="font-weight:bold;">عربي</span>
+        <i class="fa-solid fa-language"></i>
+      </button>
+      <button id="modeToggle" class="topbar-btn">
+        🌙
+      </button>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <h1 data-i18n="hero_title">Buy & Sell Animals</h1>
+      <p data-i18n="hero_desc">Trade cattle, poultry, sheep, goats, and other livestock safely.</p>
+    </div>
+  </section>
+
+  <!-- ANIMALS SECTION -->
+  <section class="users-section">
+    <div class="container">
+      <h2 class="section-title" data-i18n="section_title">Available Animals</h2>
+
+      <div class="users-grid">
+
+        <!-- Cattle -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <!-- Using Picsum placeholder as fallback -->
+            <img src="cattle.png" onerror="this.src='https://picsum.photos/seed/cattle/400/300'" alt="Cattle">
+          </div>
+          <h3 data-i18n="card_cattle_title">Cattle</h3>
+          <p data-i18n="card_cattle_desc">Buy or sell cows and bulls for dairy and meat production.</p>
+          <a href="./4️⃣markets.html" class="btn-primary" data-i18n="btn_view">View Listings</a>
+        </div>
+
+        <!-- Poultry -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <img src="poultry.png" onerror="this.src='https://picsum.photos/seed/poultry/400/300'" alt="Poultry">
+          </div>
+          <h3 data-i18n="card_poultry_title">Poultry</h3>
+          <p data-i18n="card_poultry_desc">Chickens, ducks, and turkeys for eggs or meat.</p>
+          <a href="./4️⃣markets.html" class="btn-primary" data-i18n="btn_view">View Listings</a>
+        </div>
+
+        <!-- Sheep & Goats -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <img src="sheep-goat.png" onerror="this.src='https://picsum.photos/seed/sheep/400/300'"
+              alt="Sheep and Goats">
+          </div>
+          <h3 data-i18n="card_sheep_title">Sheep & Goats</h3>
+          <p data-i18n="card_sheep_desc">Ideal for meat, milk, and breeding purposes.</p>
+          <a href="./4️⃣4️⃣markets.html" class="btn-primary" data-i18n="btn_view">View Listings</a>
+        </div>
+
+        <!-- Other Livestock -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <img src="other-livestock.png" onerror="this.src='https://picsum.photos/seed/other/400/300'"
+              alt="Other Livestock">
+          </div>
+          <h3 data-i18n="card_other_title">Other Livestock</h3>
+          <p data-i18n="card_other_desc">Rabbits, quails, bees, and more for extra income.</p>
+          <a href="./4️⃣4️⃣markets.html" class="btn-primary" data-i18n="btn_view">View Listings</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // ================= TRANSLATIONS =================
+    const translations = {
+      en: {
+        btn_back: "Back Home",
+        nav_title: "Animals",
+        btn_lang: "عربي",
+        hero_title: "Buy & Sell Animals",
+        hero_desc: "Trade cattle, poultry, sheep, goats, and other livestock safely.",
+        section_title: "Available Animals",
+        card_cattle_title: "Cattle",
+        card_cattle_desc: "Buy or sell cows and bulls for dairy and meat production.",
+        card_poultry_title: "Poultry",
+        card_poultry_desc: "Chickens, ducks, and turkeys for eggs or meat.",
+        card_sheep_title: "Sheep & Goats",
+        card_sheep_desc: "Ideal for meat, milk, and breeding purposes.",
+        card_other_title: "Other Livestock",
+        card_other_desc: "Rabbits, quails, bees, and more for extra income.",
+        btn_view: "View Listings"
+      },
+      ar: {
+        btn_back: "العودة الرئيسية",
+        nav_title: "الحيوانات",
+        btn_lang: "English",
+        hero_title: "شراء وبيع الحيوانات",
+        hero_desc: "تداول الأبقار، الدواجن، الأغنام، الماعز، والماشية الأخرى بأمان.",
+        section_title: "الحيوانات المتاحة",
+        card_cattle_title: "الأبقار",
+        card_cattle_desc: "اشترِ أو بعِ الأبقار والثيران لإنتاج الألبان واللحوم.",
+        card_poultry_title: "الدواجن",
+        card_poultry_desc: "دجاج، بط، ورومي للبيض أو اللحوم.",
+        card_sheep_title: "الأغنام والماعز",
+        card_sheep_desc: "مناسبة تماماً للحم والحليب وأغراض التربية.",
+        card_other_title: "حيوانات أخرى",
+        card_other_desc: "أرانب، سماناندي، نحل، والمزيد لدخل إضافي.",
+        btn_view: "عرض القوائم"
+      }
+    };
+
+    // ================= STATE MANAGEMENT =================
+    let currentLang = localStorage.getItem("lang") || "en";
+    let currentTheme = localStorage.getItem("theme") || "light";
+
+    // ================= FUNCTIONS =================
+    function updateLanguage() {
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      document.documentElement.lang = currentLang;
+
+      // Update Button Text
+      const langText = document.querySelector('#langToggle span');
+      if (langText) langText.textContent = currentLang === "en" ? "عربي" : "English";
+
+      // Update Content
+      const elements = document.querySelectorAll("[data-i18n]");
+      elements.forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+
+      localStorage.setItem("lang", currentLang);
+    }
+
+    function updateTheme() {
+      const body = document.body;
+      const modeBtn = document.getElementById("modeToggle");
+
+      if (currentTheme === "dark") {
+        body.classList.add("dark-mode");
+        modeBtn.textContent = "☀️";
+      } else {
+        body.classList.remove("dark-mode");
+        modeBtn.textContent = "🌙";
+      }
+      localStorage.setItem("theme", currentTheme);
+    }
+
+    // ================= EVENT LISTENERS =================
+    document.getElementById("langToggle").addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      updateLanguage();
+    });
+
+    document.getElementById("modeToggle").addEventListener("click", () => {
+      currentTheme = currentTheme === "light" ? "dark" : "light";
+      updateTheme();
+    });
+
+    // ================= INITIALIZATION =================
+    document.addEventListener("DOMContentLoaded", () => {
+      updateLanguage();
+      updateTheme();
+    });
+  </script>
+</body>
+
+</html>

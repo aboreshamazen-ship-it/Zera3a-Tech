@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zera3a-tech - التمويل الزراعي الذكي</title>
+    <!-- خطوط جوجل -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap">
+    <!-- ملف CSS الخارجي -->
+    <link rel="stylesheet" href="./بنوك زراعيه333/styles.css">
+    <style>
+        /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+    </style>
+</head>
+
+<body>
+    <!-- الشريط العلوي -->
+    <div class="top-bar">
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="smart_farm_no_bg-removebg-preview.png" alt="zera3a-tech Logo">
+                <span>zera3a-tech</span>
+            </a>
+            <div class="top-bar-actions">
+                
+
+                <span id="topBarText" style="margin-top: -1000px;">المنصة الأولى للتمويل الزراعي</span>
+                <button class="action-btn" id="themeToggleBtn">
+                    <i class="fas fa-moon"></i>
+                    <span>الوضع </span>
+                </button>
+                <button class="action-btn" id="languageToggleBtn">
+                    <i class="fas fa-globe"></i>
+                    <span>English</span>
+                </button>
+                <button class="action-btn back-home-btn" id="backHomeBtn">
+    <i class="fas fa-arrow-right"></i>
+    <span>العودة للرئيسية</span>
+</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم البطل -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>التمويل الزراعي الذكي<br><span>للمشاريع الناجحة</span></h1>
+                    <p>نوفر حلول تمويلية متكاملة للقطاع الزراعي المصري، مع شراكات استراتيجية مع أهم البنوك والمؤسسات
+                        التمويلية. احصل على تمويلك بأفضل الشروط وأسرع وقت.</p>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <h4>5%</h4>
+                            <p>فائدة سنوية مخفضة</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>15 سنة</h4>
+                            <p>أقصى فترة سداد</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>48 ساعة</h4>
+                            <p>سرعة الموافقة</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="#agricultural-banks" class="btn btn-primary">استعرض البنوك الشريكة</a>
+                        <a href="#forms" class="btn btn-secondary">تقديم طلب تمويل</a>
+                        <a href="#investor-section" class="btn btn-outline">التعاقد مع مستثمر</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <!-- صورة عن الاستثمار والبنوك الزراعية -->
+                    <img src="بنوك زراعيه333/WhatsApp Image 2026-01-28 at 12.23.47 PM.jpeg"
+                        alt="الاستثمار والبنوك الزراعية">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم البنوك الزراعية -->
+    <section class="grid-section" id="agricultural-banks">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">البنوك والمؤسسات التمويلية</h2>
+                <p class="section-subtitle">شراكات استراتيجية مع أهم البنوك والمؤسسات التمويلية في مصر</p>
+            </div>
+
+            <div class="banks-grid">
+                <!-- البنك الزراعي المصري -->
+                <div class="bank-card">
+                    <div class="bank-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/8/8a/Agricultural_Bank_of_Egypt_logo.svg/320px-Agricultural_Bank_of_Egypt_logo.svg.png"
+                            alt="اي" class="bank-icon-img">
+                        <div class="bank-info">
+                            <h3>البنك الزراعي المصري</h3>
+                            <p>التمويل المتكامل للقطاع الزراعي</p>
+                        </div>
+                    </div>
+
+                    <p class="bank-description">
+                        يقدم البنك حلول تمويلية متكاملة للمشاريع الزراعية بفائدة مخفضة تبدأ من 5% مع مرونة في فترات
+                        السداد.
+                    </p>
+                    <ul class="bank-features">
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">قروض تصل إلى 5 مليون
+                                جنيه</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">فترة سداد تصل إلى 15
+                                سنة</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">فترة سماح تصل إلى
+                                سنة</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">تمويل المشاريع الصغيرة
+                                والمتوسطة</span></li>
+                    </ul>
+                    <div class="card-footer">
+                        <button class="btn btn-primary bank-btn" onclick="goToForm('farmer')">تقديم طلب للبنك
+                            الزراعي</button>
+                    </div>
+                </div>
+
+                <!-- بنك التنمية والائتمان الزراعي -->
+                <div class="bank-card">
+                    <div class="bank-header">
+                        <div class="bank-icon-custom">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="bank-info">
+                            <h3>بنك التنمية والائتمان الزراعي</h3>
+                            <p>دعم المشاريع الزراعية الحديثة</p>
+                        </div>
+                    </div>
+                    <p class="bank-description">
+                        متخصص في تمويل المشاريع الزراعية الحديثة والتكنولوجية مع دعم خاص للشباب والخريجين الجدد.
+                    </p>
+                    <ul class="bank-features">
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">قروض حتى 2 مليون
+                                جنيه</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">فترة سداد 8 سنوات</span>
+                        </li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">دعم تقاوي وبذور
+                                محسنة</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">تدريب فني مجاني</span>
+                        </li>
+                    </ul>
+                    <div class="card-footer">
+                        <button class="btn btn-primary bank-btn" onclick="goToForm('farmer')">التقديم الآن</button>
+                    </div>
+                </div>
+
+                <!-- بنك ناصر الاجتماعي -->
+                <div class="bank-card">
+                    <div class="bank-header">
+                        <div class="bank-icon-custom secondary">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="bank-info">
+                            <h3>بنك ناصر الاجتماعي</h3>
+                            <p>دعم صغار المزارعين</p>
+                        </div>
+                    </div>
+                    <p class="bank-description">
+                        متخصص في دعم صغار المزارعين والأسر محدودة الدخل بتمويل ميسر بدون ضمانات بنكية معقدة.
+                    </p>
+                    <ul class="bank-features">
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">قروض حتى 500,000
+                                جنيه</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">فائدة 7% فقط</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">سداد على 5 سنوات</span>
+                        </li>
+                        <li><i class="fas fa-check-circle"></i> <span class="bank-feature-text">بدون ضمانات
+                                عقارية</span></li>
+                    </ul>
+                    <div class="card-footer">
+                        <button class="btn btn-primary bank-btn" onclick="goToForm('farmer')">التقديم الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الخدمات -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">خدماتنا المتكاملة</h2>
+                <p class="section-subtitle">نقدم مجموعة متكاملة من الخدمات التمويلية والدعم الفني للقطاع الزراعي</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>تمويل المحاصيل</h3>
+                    <p class="service-description">تمويل شامل لجميع أنواع المحاصيل الزراعية مع دعم فني متكامل.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <h3>تمويل المعدات</h3>
+                    <p class="service-description">تمويل شراء وتأجير المعدات الزراعية بأفضل الشروط.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cow"></i>
+                    </div>
+                    <h3>تمويل الثروة الحيوانية</h3>
+                    <p class="service-description">تمويل متكامل لمشاريع الثروة الحيوانية والداجنة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التعاقد مع المستثمر -->
+    <section class="investor-section" id="investor-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">التعاقد مع المستثمرين</h2>
+                <p class="section-subtitle">ربط المزارعين بالمستثمرين الراغبين في استثمار أموالهم في القطاع الزراعي</p>
+            </div>
+
+            <div class="investor-grid">
+                <div class="investor-card">
+                    <div class="investor-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>شراكة استثمارية</h3>
+                    <p class="investor-description">
+                        ربط المزارعين بأصحاب رؤوس الأموال للاستثمار في مشاريع زراعية مربحة. نحن نضمن حقوق جميع الأطراف
+                        من خلال عقود واضحة ومصدقة.
+                    </p>
+                    <button class="btn btn-primary investor-btn" onclick="showInvestorForm()">طلب شراكة
+                        استثمارية</button>
+                </div>
+
+                <div class="investor-card">
+                    <div class="investor-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>تمويل بالمشاركة</h3>
+                    <p class="investor-description">
+                        تمويل المشاريع الزراعية بنظام المشاركة في الأرباح. المستثمر يقدم التمويل والمزارع يقدم الأرض
+                        والعمل، وتقسيم الأرباح حسب الاتفاق.
+                    </p>
+                    <button class="btn btn-secondary investor-btn" onclick="showInvestorForm()">طلب تمويل
+                        بالمشاركة</button>
+                </div>
+
+                <div class="investor-card">
+                    <div class="investor-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>مجتمع المستثمرين</h3>
+                    <p class="investor-description">
+                        انضم إلى مجتمع المستثمرين في القطاع الزراعي. نوفر لك دراسات جدوى مفصلة وتقارير دورية عن أداء
+                        الاستثمار.
+                    </p>
+                    <button class="btn btn-outline investor-btn" onclick="showInvestorForm()">الانضمام للمجتمع</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم النماذج -->
+    <section class="forms-section" id="forms">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">تقديم طلب تمويل</h2>
+                <p class="section-subtitle">اختر نوع التمويل المناسب واحصل على أفضل العروض من البنوك الشريكة</p>
+            </div>
+
+            <div class="form-box">
+                <div class="form-tabs">
+                    <button class="tab-btn active" data-tab="farmer">قرض زراعي</button>
+                    <button class="tab-btn" data-tab="livestock">قرض حيواني</button>
+                    <button class="tab-btn" data-tab="equipment">قرض معدات</button>
+                    <button class="tab-btn" data-tab="investor">شراكة مع مستثمر</button>
+                </div>
+
+                <!-- نموذج القرض الزراعي -->
+                <form id="farmer-form" class="form-content active">
+                    <div class="form-group">
+                        <label class="form-label">الاسم الكامل للمتقدم</label>
+                        <input type="text" class="form-control" placeholder="أدخل الاسم ثلاثي كما في البطاقة" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رقم الهاتف للتواصل</label>
+                        <input type="tel" class="form-control" placeholder="01xxxxxxxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المحافظة</label>
+                        <select class="form-control">
+                            <option value="">اختر المحافظة</option>
+                            <option>القاهرة</option>
+                            <option>الجيزة</option>
+                            <option>الشرقية</option>
+                            <option>الدقهلية</option>
+                            <option>البحيرة</option>
+                            <option>المنيا</option>
+                            <option>أسوان</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">نوع المحصول المراد تمويله</label>
+                        <select class="form-control">
+                            <option>قمح</option>
+                            <option>ذرة</option>
+                            <option>أرز</option>
+                            <option>قطن</option>
+                            <option>خضروات</option>
+                            <option>فاكهة</option>
+                            <option>نباتات طبية وعطرية</option>
+                            <option>محاصيل أخرى</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المساحة المزروعة (فدان)</label>
+                        <input type="number" class="form-control" placeholder="أدخل المساحة بالفدان" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit-btn">إرسال طلب التمويل</button>
+                </form>
+
+                <!-- نموذج القرض الحيواني -->
+                <form id="livestock-form" class="form-content">
+                    <div class="form-group">
+                        <label class="form-label">نوع الثروة الحيوانية</label>
+                        <select class="form-control">
+                            <option>أبقار حلوب</option>
+                            <option>أبقار تسمين</option>
+                            <option>أغنام</option>
+                            <option>ماعز</option>
+                            <option>دواجن لحم</option>
+                            <option>دواجن بيض</option>
+                            <option>أسماك</option>
+                            <option>نحل</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">الغرض من القرض</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox"> <span>شراء حيوانات</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox"> <span>شراء أعلاف</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox"> <span>معدات رعاية</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox"> <span>علاجات بيطرية</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المبلغ المطلوب (جنيه مصري)</label>
+                        <input type="number" class="form-control" placeholder="المبلغ بالجنيه المصري" required>
+                    </div>
+                    <button type="submit" class="btn btn-secondary form-submit-btn">إرسال طلب القرض الحيواني</button>
+                </form>
+
+                <!-- نموذج القرض المعدات -->
+                <form id="equipment-form" class="form-content">
+                    <div class="form-group">
+                        <label class="form-label">نوع المعدة المطلوبة</label>
+                        <select class="form-control">
+                            <option>جرار زراعي</option>
+                            <option>حصادة</option>
+                            <option>مضخة ري</option>
+                            <option>معدات تعبئة وتغليف</option>
+                            <option>معدات تحضير التربة</option>
+                            <option>معدات الرش</option>
+                            <option>معدات الحصاد</option>
+                            <option>معدات النقل</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">نوع التمويل المطلوب</label>
+                        <select class="form-control">
+                            <option>شراء معدات جديدة</option>
+                            <option>شراء معدات مستعملة</option>
+                            <option>تأجير مع خيار التمليك</option>
+                            <option>تأجير شهري</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">تكلفة المعدة المتوقعة</label>
+                        <input type="number" class="form-control" placeholder="التكلفة الإجمالية المتوقعة بالجنيه"
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit-btn">طلب تمويل المعدات</button>
+                </form>
+
+                <!-- نموذج الشراكة مع المستثمر -->
+                <form id="investor-form" class="form-content">
+                    <div class="form-group">
+                        <label class="form-label">نوع الشراكة المطلوبة</label>
+                        <select class="form-control">
+                            <option>تمويل بالمشاركة في الأرباح</option>
+                            <option>تمويل بقرض من المستثمر</option>
+                            <option>استثمار كامل في المشروع</option>
+                            <option>شراكة في الإدارة والتشغيل</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">نوع المشروع</label>
+                        <select class="form-control">
+                            <option>مشروع زراعي تقليدي</option>
+                            <option>مشروع زراعة عضوية</option>
+                            <option>مشروع تربية حيوانية</option>
+                            <option>مشروع دواجن</option>
+                            <option>مشروع أسماك</option>
+                            <option>مشروع زراعي تكنولوجي</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رأس المال المطلوب (جنيه مصري)</label>
+                        <input type="number" class="form-control" placeholder="المبلغ المطلوب للاستثمار" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ملاحظات إضافية</label>
+                        <textarea class="form-control" placeholder="أي معلومات إضافية عن المشروع أو شروط الشراكة..."
+                            rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-secondary form-submit-btn">إرسال طلب الشراكة</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- الأسئلة الشائعة -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">الأسئلة الشائعة</h2>
+                <p class="section-subtitle">إجابات على الأسئلة الأكثر شيوعًا حول التمويل الزراعي</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>ما هي نسبة الفائدة على القروض الزراعية؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>نقدم من خلال شركائنا من البنوك الزراعية نسب فائدة تبدأ من 5% سنوياً، وهي من أقل المعدلات في
+                            السوق المصرية. تختلف النسبة حسب نوع القرض ومدة السداد وحجم المشروع والبنك المقدم للقرض.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>كم يستغرق الموافقة على طلب القرض؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>بفضل النظام الرقمي الخاص بنا، تتم دراسة الطلب والموافقة عليه في مدة تتراوح بين 3 إلى 5 أيام
+                            عمل فقط. في الحالات العاجلة يمكن تقليل المدة إلى 48 ساعة.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>هل يمكنني الحصول على قرض بدون ضمانات عقارية؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>نعم، بعض البنوك مثل بنك ناصر الاجتماعي تقدم قروض بدون ضمانات عقارية للصغار المزارعين. كما
+                            يمكن قبول المحصول أو المعدات الزراعية كضمان بديل في بعض الحالات.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>هل يوجد قروض للشباب حديثي التخرج؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>نعم، لدينا برامج تمويلية خاصة للشباب حديثي التخرج برأس مال يبدأ من 50,000 جنيه مع فترة سماح
+                            تصل إلى سنة قبل بدء السداد، ودعم فني مجاني لمدة عام.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>zera3a-tech</h3>
+                    <p class="footer-about">المنصة الرقمية الأولى للالقروض والتمويل الزراعي في مصر، نعمل من أجل تمويل
+                        زراعي ميسر وفلاح مصري متمكن.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#agricultural-banks">البنوك الشريكة</a></li>
+                        <li><a href="#services">خدماتنا</a></li>
+                        <li><a href="#investor-section">المستثمرون</a></li>
+                        <li><a href="#forms">تقديم طلب</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>تواصل معنا</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> <span>19623</span></li>
+                        <li><i class="fas fa-envelope"></i> <span>info@zera3a-tech.com</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span>القاهرة، مصر</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>© 2024 zera3a-tech - جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- إشعار -->
+    <div class="notification" id="notification"></div>
+
+    <!-- ملف JavaScript الخارجي -->
+    <script src="./بنوك زراعيه333/script.js"></script>
+<script type="module">
+    /* ================= Firebase Imports ================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* ================= Firebase Config ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+  authDomain: "smart-farm-8d3f5.firebaseapp.com",
+  projectId: "smart-farm-8d3f5",
+  storageBucket: "smart-farm-8d3f5.appspot.com",
+  messagingSenderId: "317371842198",
+  appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+};
+
+/* ================= Init ================= */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* ================= Elements ================= */
+const themeBtn = document.getElementById("themeToggleBtn");
+const langBtn = document.getElementById("languageToggleBtn");
+const backHomeBtn = document.getElementById("backHomeBtn");
+
+/* ================= Language ================= */
+let currentLang = localStorage.getItem("lang") || "ar";
+let currentUserName = "";
+
+function updateLanguage(lang) {
+  if (lang === "ar") {
+    document.documentElement.dir = "rtl";
+    document.documentElement.lang = "ar";
+    if (langBtn) langBtn.querySelector("span").textContent = "English";
+  } else {
+    document.documentElement.dir = "ltr";
+    document.documentElement.lang = "en";
+    if (langBtn) langBtn.querySelector("span").textContent = "العربية";
+  }
+}
+
+updateLanguage(currentLang);
+
+if (langBtn) {
+  langBtn.addEventListener("click", () => {
+    currentLang = currentLang === "ar" ? "en" : "ar";
+    localStorage.setItem("lang", currentLang);
+    updateLanguage(currentLang);
+  });
+}
+
+/* ================= Theme ================= */
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+} else {
+  document.body.classList.add("light");
+}
+
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+
+    const theme = document.body.classList.contains("dark") ? "dark" : "light";
+    localStorage.setItem("theme", theme);
+  });
+}
+
+/* ================= Auth + Role Check ================= */
+onAuthStateChanged(auth, async (user) => {
+
+  // ❌ مش مسجل دخول
+  if (!user) {
+    window.location.href = "./signinsignup/signin.html";
+    return;
+  }
+
+  try {
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      window.location.href = "./signinsignup/signin.html";
+      return;
+    }
+
+    const role = userSnap.data().role;
+
+    // ❌ Investor أو أي Role غير farmer / worker
+    if (role !== "farmer" && role !== "worker") {
+      alert("⚠️ انت موجود في صفحة غير مخصصة ليك");
+      setTimeout(() => {
+        window.location.href = "./signinsignup/signin.html";
+      }, 1500);
+      return;
+    }
+
+    // ✅ مسموح
+    currentUserName =
+      user.displayName ||
+      userSnap.data().name ||
+      user.email.split("@")[0];
+
+  } catch (error) {
+    console.error(error);
+    window.location.href = "./signinsignup/signin.html";
+  }
+});
+
+/* ================= Back Home Button ================= */
+if (backHomeBtn) {
+  backHomeBtn.addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      window.location.href = "./signinsignup/signin.html";
+      return;
+    }
+
+    try {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        window.location.href = "./signinsignup/signin.html";
+        return;
+      }
+
+      const role = userSnap.data().role;
+
+      if (role === "farmer") {
+        window.location.href = "./farmer-ar.html";
+      } else if (role === "worker") {
+        window.location.href = "./worker.html";
+      } else if (role === "investor") {
+         alert("⚠️ انت موجود في صفحة غير مخصصة ليك");
+        window.location.href = "./investor.html";
+      } 
+
+    } catch (err) {
+      console.error(err);
+      window.location.href = "./signinsignup/signin.html";
+    }
+  });
+}
+
+/* ================= Logout ================= */
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "./signinsignup/signin.html";
+  });
+}
+
+</script>
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+
+</body>
+
+</html>

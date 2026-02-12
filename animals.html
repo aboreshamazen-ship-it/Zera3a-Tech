@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Zera3a-Tech | Livestock & Animals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+    /* =========================================
+       1. CSS VARIABLES
+       ========================================= */
+    :root {
+      /* Core Brand Colors */
+      --primary: #1e5959;
+      --primary-dark: #164545;
+      --secondary: #e67e3a;
+      --secondary-dark: #d46b25;
+      --accent: #c9b896;
+
+      /* Backgrounds */
+      --background: #fafaf9;
+      --surface: #ffffff;
+      --bg-light: #f4f6f6;
+
+      /* Section Backgrounds */
+      --bg-profit-section: #eef5f5;
+      /* Light Teal */
+      --bg-care-section: #f9f6f0;
+      /* Light Beige */
+      --bg-market-section: #fff2e6;
+      /* Light Orange */
+      --bg-land-section: #ffffff;
+      /* White */
+      --bg-stats-section: #1e5959;
+      --bg-testi-section: #fff7f0;
+
+      /* Typography */
+      --text: #1a1a1a;
+      --text-muted: #666666;
+      --text-on-dark: #ffffff;
+
+      /* UI Elements */
+      --border: #e5e5e5;
+      --shadow-sm: 0 2px 4px rgba(30, 89, 89, 0.05);
+      --shadow-md: 0 6px 12px rgba(30, 89, 89, 0.08);
+      --shadow-lg: 0 12px 24px rgba(30, 89, 89, 0.12);
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-pill: 50px;
+
+      /* Gradients */
+      --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      --gradient-hero: linear-gradient(120deg, #ffffff 0%, #eef5f5 100%);
+    }
+
+    /* =========================================
+       2. DARK MODE
+       ========================================= */
+    body.dark-mode {
+      --primary: #285e61;
+      --primary-dark: #285e61;
+      --secondary: #fb923c;
+      --secondary-dark: #c2410c;
+      --accent: #e2e8f0;
+
+      /* Dark Surfaces */
+      --background: #121a1a;
+      --surface: #1e2828;
+      --bg-light: #152020;
+      --border: #334155;
+
+      /* Dark Section Backgrounds */
+      --bg-profit-section: #1a2525;
+      --bg-care-section: #252019;
+      --bg-market-section: #261d14;
+      --bg-land-section: #1e2828;
+      --bg-stats-section: #0f1f1f;
+      --bg-testi-section: #261d14;
+
+      /* Dark Text */
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+
+      /* Darker Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.4);
+
+      /* Dark Gradients */
+      --gradient-hero: linear-gradient(120deg, #1a2525 0%, #152020 100%);
+    }
+
+    /* =========================================
+       3. GLOBAL RESET
+       ========================================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    html[lang="ar"] body {
+      font-family: 'Cairo', sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* =========================================
+       4. SCROLL ANIMATIONS
+       ========================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================
+       5. NAVBAR
+       ========================================= */
+    .topbar {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1200px, 94%);
+      height: 64px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      z-index: 1000;
+    }
+
+    .topbar-btn {
+      height: 42px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .topbar-btn:hover {
+      background-color: var(--bg-light);
+      color: var(--primary);
+    }
+
+    .back-btn {
+      background-color: var(--bg-profit-section);
+      color: var(--secondary);
+      border: 1px solid var(--border);
+    }
+
+    .back-btn:hover {
+      background-color: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    #langToggle,
+    #modeToggle {
+      background-color: var(--surface);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0 18px;
+      height: 44px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      width: auto !important;
+      min-width: 90px;
+    }
+
+    #langToggle:hover {
+      background-color: var(--primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    body.dark-mode #langToggle {
+      background-color: transparent;
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    body.dark-mode #langToggle:hover {
+      background-color: var(--secondary);
+      color: #fff;
+    }
+
+    .icon-btn {
+      width: 42px;
+      justify-content: center;
+      padding: 0;
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .icon-btn:hover {
+      color: var(--secondary);
+      background-color: var(--bg-care-section);
+      transform: scale(1.05);
+    }
+
+    /* =========================================
+       6. LAYOUT
+       ========================================= */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--secondary);
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+
+    .section-description {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      line-height: 1.7;
+    }
+
+    .bg-profit {
+      background-color: var(--bg-profit-section);
+    }
+
+    .bg-care {
+      background-color: var(--bg-care-section);
+    }
+
+    .bg-market {
+      background-color: var(--bg-market-section);
+    }
+
+    .bg-land {
+      background-color: var(--bg-land-section);
+    }
+
+    .bg-stats {
+      background-color: var(--bg-stats-section);
+      color: #fff;
+    }
+
+    .bg-testi {
+      background-color: var(--bg-testi-section);
+    }
+
+    /* =========================================
+       7. HERO
+       ========================================= */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: var(--gradient-hero);
+      padding-top: 120px;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.2;
+      animation: moveBlob 20s infinite alternate;
+    }
+
+    .blob-1 {
+      top: -10%;
+      right: -5%;
+      width: 600px;
+      height: 600px;
+      background: var(--secondary);
+      animation-duration: 25s;
+    }
+
+    .blob-2 {
+      bottom: 10%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: var(--primary);
+      animation-duration: 30s;
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes moveBlob {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(50px, 80px);
+      }
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-subtitle::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+      max-width: 500px;
+    }
+
+    .hero-image {
+      flex: 1;
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      transform: rotate(2deg);
+      border: 4px solid var(--surface);
+      transition: transform 0.5s ease;
+    }
+
+    .hero-image:hover img {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    /* =========================================
+       8. PROFIT SECTION DESIGN (UPDATED)
+       ========================================= */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .profit-card {
+      background-color: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 420px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.4s ease;
+      box-shadow: var(--shadow-md);
+    }
+
+    .profit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .profit-card .feature-img {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .profit-card .feature-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .profit-card:hover .feature-img img {
+      transform: scale(1.1);
+    }
+
+    .profit-card .card-content {
+      position: relative;
+      z-index: 2;
+      padding: 25px;
+      background: linear-gradient(to top, var(--primary-dark) 0%, rgba(30, 89, 89, 0.7) 50%, transparent 100%);
+      color: #fff;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      /* Helps push content to bottom if needed */
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    html[dir="rtl"] .profit-card .card-content {
+      text-align: right;
+    }
+
+    .profit-card h3 {
+      color: #fff;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .profit-card p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Unified Button Style for Profit Cards */
+    .profit-card .ask-btn {
+      /* Unified Color & Style */
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      border: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: fit-content;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .profit-card .ask-btn:hover {
+      background: #fff;
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* =========================================
+       9. CARE SECTION DESIGN (UPDATED)
+       ========================================= */
+    .care-card {
+      background-color: var(--surface);
+      padding: 0;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.3s ease;
+      position: relative;
+      top: 0;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      /* Space for bottom button */
+      height: 100%;
+      /* Full height for grid alignment */
+    }
+
+    .care-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    /* Top strip */
+    .care-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--primary);
+    }
+
+    .care-card .feature-icon {
+      display: block !important;
+      font-size: 2.5rem;
+      background: var(--surface);
+      border: 4px solid var(--surface);
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      line-height: 62px;
+      margin: 0 auto 15px auto;
+      z-index: 2;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .care-card .feature-img {
+      height: 140px;
+      width: 90%;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .care-card .feature-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .care-card:hover .feature-img img {
+      transform: scale(1.05);
+    }
+
+    .care-card .card-content {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-grow: 1;
+      /* Take available space */
+      width: 100%;
+    }
+
+    .care-card h3 {
+      color: var(--primary);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .care-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex-grow: 1;
+      /* Push button down */
+    }
+
+    /* Unified Button Style for Care Cards */
+    .care-card .ask-btn {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      border: none;
+      transition: 0.3s;
+      margin-top: auto;
+      /* Align to bottom */
+    }
+
+    .care-card .ask-btn:hover {
+      background: var(--primary-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* =========================================
+       10. STATS, MARKET & LAND (UPDATED)
+       ========================================= */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    .stat-item p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .users-grid,
+    .land-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .user-card,
+    .land-card {
+      background-color: var(--surface);
+      padding: 40px 30px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      transition: 0.3s;
+    }
+
+    .user-card:hover,
+    .land-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-5px);
+    }
+
+    .user-icon,
+    .land-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+      background: var(--bg-profit-section);
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-card h3,
+    .land-card h3 {
+      color: var(--text);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .user-card p,
+    .land-card p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex-grow: 1;
+      /* Push button to bottom */
+    }
+
+    /* FORCE UNIFIED BUTTON STYLES FOR USER & LAND CARDS */
+    .user-card .btn,
+    .land-card .btn {
+      background-color: var(--primary) !important;
+      /* Force Primary Color */
+      color: #fff !important;
+      border-color: var(--primary) !important;
+      padding: 12px 28px;
+      margin-top: auto;
+      /* Align to bottom */
+      white-space: nowrap;
+    }
+
+    .user-card .btn:hover,
+    .land-card .btn:hover {
+      background-color: var(--primary-dark) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(30, 89, 89, 0.3);
+    }
+
+    /* =========================================
+       11. TESTIMONIALS & FOOTER
+       ========================================= */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .testi-card {
+      background: var(--surface);
+      padding: 30px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .testi-card i {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .testi-text {
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .testi-user {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .testi-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .testi-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testi-info h4 {
+      font-size: 1rem;
+      margin-bottom: 2px;
+      color: var(--primary);
+    }
+
+    .testi-info span {
+      font-size: 0.85rem;
+      color: var(--secondary);
+    }
+
+    footer {
+      background-color: var(--primary-dark);
+      color: #fff;
+      padding: 80px 0 20px;
+      text-align: center;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: left;
+      margin-bottom: 60px;
+    }
+
+    html[dir="rtl"] .footer-grid {
+      text-align: right;
+    }
+
+    .footer-col h4 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col a {
+      color: rgba(255, 255, 255, 0.8);
+      transition: 0.3s;
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+      padding-left: 5px;
+    }
+
+    html[dir="rtl"] .footer-col a:hover {
+      padding-left: 0;
+      padding-right: 5px;
+    }
+
+    .newsletter input {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      width: 70%;
+      margin-bottom: 10px;
+    }
+
+    .newsletter button {
+      padding: 10px 20px;
+      background: var(--secondary);
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* =========================================
+       12. BUTTONS & CHAT
+       ========================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(30, 89, 89, 0.3);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-accent {
+      background-color: var(--secondary);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(230, 126, 58, 0.3);
+    }
+
+    .btn-accent:hover {
+      background-color: var(--secondary-dark);
+      transform: translateY(-2px);
+    }
+
+    .chat-interface {
+      max-width: 750px;
+      margin: 0 auto;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .chat-header {
+      background-color: var(--primary);
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 4px solid var(--secondary);
+    }
+
+    .chat-header h3 {
+      color: #fff;
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .chat-window {
+      height: 400px;
+      overflow-y: auto;
+      padding: 25px;
+      background-color: var(--bg-light);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .chat-message {
+      max-width: 80%;
+      padding: 15px 20px;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-message.bot {
+      background-color: var(--surface);
+      color: var(--text);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .chat-message.user {
+      background-color: var(--secondary);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 10px rgba(230, 126, 58, 0.2);
+    }
+
+    html[dir="rtl"] .chat-message.bot {
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 4px;
+    }
+
+    html[dir="rtl"] .chat-message.user {
+      align-self: flex-start;
+      margin-left: 0;
+      margin-right: auto;
+      border-bottom-right-radius: 18px;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 15px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      margin-right: 15px;
+      background: var(--bg-light);
+      color: var(--text);
+      font-family: inherit;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--surface);
+    }
+
+    html[dir="rtl"] .chat-input {
+      margin-right: 0;
+      margin-left: 15px;
+    }
+
+    .advisor-cta {
+      background-color: var(--bg-profit-section);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .advisor-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--gradient-primary);
+    }
+
+    /* =========================================
+       13. RESPONSIVE
+       ========================================= */
+    @media (max-width: 768px) {
+      .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        justify-content: center;
+      }
+
+      .topbar {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        border-radius: 0;
+        padding: 10px 20px;
+        height: auto;
+        flex-wrap: wrap;
+      }
+
+      .topbar-left,
+      .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+
+      .blob-1,
+      .blob-2 {
+        width: 300px;
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP CONTROLS -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="#" id="backBtn" class="topbar-btn back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back Home</span>
+      </a>
+
+    </div>
+
+    <div class="topbar-right">
+      <button id="langToggle" class="topbar-btn icon-btn">
+        <span data-i18n="btn_lang" style="font-size: 14px; font-weight: bold;">عربي</span>
+        <i class="fa-solid fa-language"></i>
+      </button>
+      <button id="modeToggle" class="topbar-btn icon-btn" title="Toggle Theme"> 🌙</button>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text reveal">
+          <h1 data-i18n="hero_title">Livestock Management</h1>
+          <p class="hero-subtitle" data-i18n="hero_subtitle">Smart Animal Farming Starts Here</p>
+          <p data-i18n="hero_desc">
+            Learn how to profit from farm animals, take proper care of them,
+            and trade animals and animal products in one trusted platform.
+          </p>
+        </div>
+        <div class="hero-image reveal">
+          <img src="./image.png" alt="Farm Animals" onerror="this.src='https://picsum.photos/seed/animals/500/400'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section class="bg-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <h3>10k+</h3>
+          <p data-i18n="stat_farmers">Happy Farmers</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>5M+</h3>
+          <p data-i18n="stat_animals">Animals Traded</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>120</h3>
+          <p data-i18n="stat_countries">Countries Served</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>24/7</h3>
+          <p data-i18n="stat_support">Expert Support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFIT SECTION -->
+  <section class="bg-profit">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title" data-i18n="profit_title">How to Profit from Animals</h2>
+        <p class="section-description" data-i18n="profit_desc">
+          Animals provide multiple income sources when managed efficiently.
+          Learn how to maximize profit from milk, eggs, meat, by-products, and more.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card profit-card reveal">
+          <div class="feature-img"><img src="./images/milk.png"
+              onerror="this.src='https://picsum.photos/seed/milk/300/200'" alt="Milk"></div>
+          <div class="card-content">
+            <h3 data-i18n="card_milk_title">Milk Production</h3>
+            <p data-i18n="card_milk_desc">Sell fresh milk or produce cheese, yogurt, and butter. Optimize by selecting
+              high-yield breeds, providing balanced feed, and maintaining hygienic milking practices.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="feature-card profit-card reveal">
+          <div class="feature-img"><img src="./images/eggs.png"
+              onerror="this.src='https://picsum.photos/seed/eggs/300/200'" alt="Eggs"></div>
+          <div class="card-content">
+            <h3 data-i18n="card_eggs_title">Egg Farming</h3>
+            <p data-i18n="card_eggs_desc">Daily egg production creates a stable income. Use protein-rich feed, proper
+              housing, and separate layers from broilers to maximize yield.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="feature-card profit-card reveal">
+          <div class="feature-img"><img src="./images/meat.png"
+              onerror="this.src='https://picsum.photos/seed/meat/300/200'" alt="Meat"></div>
+          <div class="card-content">
+            <h3 data-i18n="card_meat_title">Meat Production</h3>
+            <p data-i18n="card_meat_desc">High-demand market for poultry, cattle, and sheep meat. Track animal weight,
+              select fast-growing breeds, and sell during peak seasons for maximum profit.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="feature-card profit-card reveal">
+          <div class="feature-img"><img src="./images/byproducts.jpeg"
+              onerror="this.src='https://picsum.photos/seed/wool/300/200'" alt="By-Products"></div>
+          <div class="card-content">
+            <h3 data-i18n="card_byproducts_title">By-Products</h3>
+            <p data-i18n="card_byproducts_desc">Sell wool, leather, manure, honey, and organic fertilizers. Compost
+              manure
+              to increase value and explore specialty products like beeswax or feathers.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="feature-card profit-card reveal">
+          <div class="feature-img"><img src="./images/animals.jpeg"
+              onerror="this.src='https://picsum.photos/seed/farm/300/200'" alt="Diversification"></div>
+          <div class="card-content">
+            <h3 data-i18n="card_diversify_title">Diversification</h3>
+            <p data-i18n="card_diversify_desc">Raise a mix of animals to reduce risk. If one market drops, others still
+              provide income. Consider poultry, dairy, meat animals, and specialty animals like bees or rabbits.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARE SECTION -->
+  <section class="bg-care">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title" data-i18n="care_title">How to Care for Farm Animals</h2>
+        <p class="section-description" data-i18n="care_desc">
+          Healthy animals mean higher productivity, better profits, and sustainable farming.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- 1. Balanced Feeding -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">🌾</div>
+          <div class="feature-img"><img src="./images/balance-feed.png"
+              onerror="this.src='https://picsum.photos/seed/feed/300/200'" alt="Feeding"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_feed_title">Balanced Feeding</h3>
+            <p data-i18n="care_feed_desc">Provide high-quality feed suited to species, age, and production goals.
+              Include
+              proteins, carbohydrates, fats, vitamins, and minerals. Ensure access to clean, fresh water at all times.
+            </p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 2. Health & Vaccines -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">💉</div>
+          <div class="feature-img"><img src="./images/vaccine.png"
+              onerror="this.src='https://picsum.photos/seed/vaccine/300/200'" alt="Vaccine"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_health_title">Health & Vaccines</h3>
+            <p data-i18n="care_health_desc">Establish a vaccination schedule to prevent common diseases. Deworm
+              regularly,
+              monitor for signs of illness, isolate sick animals, and schedule routine vet check-ups.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 3. Proper Shelter -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">🏠</div>
+          <div class="feature-img"><img src="./images/shelter.png"
+              onerror="this.src='https://picsum.photos/seed/shelter/300/200'" alt="Shelter"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_shelter_title">Proper Shelter</h3>
+            <p data-i18n="care_shelter_desc">Provide clean, ventilated, and spacious housing. Protect animals from
+              extreme
+              temperatures, rain, wind, and predators. Use bedding like straw for comfort and insulation.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 4. Tracking & Records -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">📊</div>
+          <div class="feature-img"><img src="./images/track.png"
+              onerror="this.src='https://picsum.photos/seed/track/300/200'" alt="Tracking"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_track_title">Tracking & Records</h3>
+            <p data-i18n="care_track_desc">Keep detailed records of growth, production (milk, eggs, meat), feeding,
+              treatments, breeding, and expenses. Monitoring helps detect problems early and improve productivity.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 5. Breeding & Genetics -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">🐑</div>
+          <div class="feature-img"><img src="./images/genes.png"
+              onerror="this.src='https://picsum.photos/seed/genes/300/200'" alt="Genetics"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_breed_title">Breeding & Genetics</h3>
+            <p data-i18n="care_breed_desc">Select animals with strong genetics for higher productivity. Avoid
+              inbreeding,
+              monitor breeding cycles, and maintain records of parentage and offspring growth for healthier livestock.
+            </p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 6. Hygiene & Biosecurity -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">🧼</div>
+          <div class="feature-img"><img src="./images/Hygiene.png"
+              onerror="this.src='https://picsum.photos/seed/hygiene/300/200'" alt="Hygiene"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_hygiene_title">Hygiene & Biosecurity</h3>
+            <p data-i18n="care_hygiene_desc">Regularly clean feeding and watering equipment, bathe or groom animals if
+              needed, quarantine new animals, and manage waste properly to prevent disease.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 7. Exercise & Enrichment -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">🏃‍♂️</div>
+          <div class="feature-img"><img src="./images/exercise.png"
+              onerror="this.src='https://picsum.photos/seed/exercise/300/200'" alt="Exercise"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_exercise_title">Exercise & Enrichment</h3>
+            <p data-i18n="care_exercise_desc">Allow animals to move freely and provide environmental enrichment
+              (perches,
+              scratching posts, toys) to reduce stress and improve physical health.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 8. Environmental Conditions -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">🌤️</div>
+          <div class="feature-img"><img src="./images/environment.png"
+              onerror="this.src='https://picsum.photos/seed/weather/300/200'" alt="Environment"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_env_title">Environmental Conditions</h3>
+            <p data-i18n="care_env_desc">Maintain proper temperature, humidity, ventilation, and lighting. Protect
+              animals
+              from pests, predators, and extreme weather to keep them healthy and productive.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 9. Stress Reduction -->
+        <div class="feature-card care-card reveal">
+          <div class="feature-icon">🧘</div>
+          <div class="feature-img"><img src="./images/stress.png"
+              onerror="this.src='https://picsum.photos/seed/stress/300/200'" alt="Stress"></div>
+          <div class="card-content">
+            <h3 data-i18n="care_stress_title">Stress Reduction</h3>
+            <p data-i18n="care_stress_desc">Handle animals calmly, avoid overcrowding and excessive noise, and provide
+              comfortable resting areas to reduce stress, which directly impacts productivity.</p>
+            <a href="#ask-expert" class="ask-btn" data-i18n="btn_ask_bot">Ask FarmBot <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE SECTION -->
+  <section class="bg-market" id="users-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title" data-i18n="market_title">Animal Marketplace</h2>
+        <p class="section-description" data-i18n="market_desc">
+          Buy animal needs, sell animal products, and trade livestock easily.
+        </p>
+      </div>
+
+      <div class="users-grid">
+        <div class="user-card reveal">
+          <div class="user-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+          <h3 data-i18n="market_supplies_title">Animal Supplies</h3>
+          <p data-i18n="market_supplies_desc">Feed, medicine, vitamins, equipment, and daily farm essentials.</p>
+          <a href="./1️⃣ animal-supplies.html" class="btn btn-primary" data-i18n="btn_store">Go to Store</a>
+        </div>
+
+        <div class="user-card reveal">
+          <div class="user-icon"><i class="fa-solid fa-cash-register"></i></div>
+          <h3 data-i18n="market_sell_title">Sell Animal Products</h3>
+          <p data-i18n="market_sell_desc">Milk, eggs, meat, wool, leather, and organic fertilizer.</p>
+          <a href="./2️⃣ sell-products.html" class="btn btn-accent" data-i18n="btn_sell_now">Sell Products</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LAND & FARMS MARKETPLACE -->
+  <section class="bg-land" id="land-marketplace">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title" data-i18n="land_title">Land & Farm Marketplace</h2>
+        <p class="section-description" data-i18n="land_desc">
+          Buy, sell, or lease agricultural lands and farms easily and securely.
+        </p>
+      </div>
+
+      <div class="land-grid">
+        <div class="land-card reveal">
+          <div class="land-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <h3 data-i18n="land_buy_title">Buy Agricultural Land</h3>
+          <p data-i18n="land_buy_desc">Browse verified agricultural lands suitable for crops, livestock, greenhouses,
+            and large-scale farming projects.</p>
+          <a href="./5️⃣buyland.html" class="btn btn-primary" data-i18n="btn_browse_lands">Browse Lands</a>
+        </div>
+
+        <div class="land-card reveal">
+          <div class="land-icon"><i class="fa-solid fa-file-contract"></i></div>
+          <h3 data-i18n="land_sell_land_title">Sell Your Land</h3>
+          <p data-i18n="land_sell_land_desc">List your land for sale with photos, location, size, water access, and soil
+            details.</p>
+          <a href="./7️⃣listproperty.html" class="btn btn-primary" data-i18n="btn_list_prop">List Property</a>
+        </div>
+
+        <div class="land-card reveal">
+          <div class="land-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
+          <h3 data-i18n="land_rent_title">Rent or Lease Farms</h3>
+          <p data-i18n="land_rent_desc">Lease farms short-term or long-term for cultivation, livestock, or
+            agri-investment opportunities.</p>
+          <a href="./6️⃣rentland.html" class="btn btn-secondary" data-i18n="btn_view_rentals">View Rentals</a>
+        </div>
+
+        <div class="land-card reveal">
+          <div class="land-icon"><i class="fa-solid fa-tractor"></i></div>
+          <h3 data-i18n="land_sell_farm_title">Sell Your Farm</h3>
+          <p data-i18n="land_sell_farm_desc">List your farm for sale with photos, location, size, water access, and soil
+            details.</p>
+          <a href="./7️⃣listproperty.html" class="btn btn-primary" data-i18n="btn_list_prop">List Property</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="bg-testi">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title" data-i18n="testi_title">Success Stories</h2>
+        <p class="section-description" data-i18n="testi_desc">
+          See how Zera3a-Tech helped farmers increase their productivity.
+        </p>
+      </div>
+
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <i class="fa-solid fa-quote-left"></i>
+          <p class="testi-text" data-i18n="testi_1_text">"My milk production increased by 40% after following feeding
+            strategies. Amazing platform!"</p>
+          <div class="testi-user">
+            <div class="testi-avatar"><img src="https://picsum.photos/seed/farmer1/100/100" alt="User"></div>
+            <div class="testi-info">
+              <h4 data-i18n="testi_1_name">Ahmed Ali</h4>
+              <span data-i18n="role_farmer">Dairy Farmer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal">
+          <i class="fa-solid fa-quote-left"></i>
+          <p class="testi-text" data-i18n="testi_2_text">"I sold my first herd of sheep in just 2 days through the
+            marketplace. Safe and fast."</p>
+          <div class="testi-user">
+            <div class="testi-avatar"><img src="https://picsum.photos/seed/farmer2/100/100" alt="User"></div>
+            <div class="testi-info">
+              <h4 data-i18n="testi_2_name">Sarah Smith</h4>
+              <span data-i18n="role_livestock">Livestock Owner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal">
+          <i class="fa-solid fa-quote-left"></i>
+          <p class="testi-text" data-i18n="testi_3_text">"The AI advisor helped me diagnose a disease in my chickens
+            early. Saved my entire flock!"</p>
+          <div class="testi-user">
+            <div class="testi-avatar"><img src="https://picsum.photos/seed/farmer3/100/100" alt="User"></div>
+            <div class="testi-info">
+              <h4 data-i18n="testi_3_name">Omar Khaled</h4>
+              <span data-i18n="role_poultry">Poultry Farmer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAT SECTION -->
+  <section class="bg-care" id="ask-expert">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title" data-i18n="chat_title">Ask Farm Expert</h2>
+        <p class="section-description" data-i18n="chat_desc">
+          Have a question about livestock care, profit, or supplies? Ask our AI assistant!
+        </p>
+      </div>
+
+      <div class="chat-interface reveal">
+        <div class="chat-header">
+          <i class="fa-solid fa-robot" style="font-size: 1.5rem;"></i>
+          <h3 data-i18n="chat_header">FarmBot Assistant</h3>
+        </div>
+
+        <div class="chat-window" id="chat-window">
+          <div class="chat-message bot" data-i18n="chat_welcome">
+            Hello! I'm your Farm Expert. Ask me about animal care, how to make money from livestock, or what supplies
+            you might need.
+          </div>
+        </div>
+
+
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" id="chat-input" data-i18n-placeholder="chat_placeholder"
+            placeholder="Type your question (e.g., 'How do I care for a cow?')...">
+          <button class="btn btn-primary" id="chat-send-btn"
+            style="border-radius: 50%; width: 48px; height: 48px; padding: 0; display: flex; align-items: center; justify-content: center;">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVISOR CTA -->
+  <section class="advisor-cta">
+    <div class="container">
+      <div class="advisor-content-box reveal"
+        style="text-align: center; padding: 4rem 2rem; background: var(--surface); border-radius: var(--radius-lg); border: 1px dashed var(--primary);">
+        <h2 style="color:var(--primary); font-size:2.2rem; margin-bottom:1rem;" data-i18n="advisor_title">Want More
+          Detailed Guidance?</h2>
+        <p style="color:var(--text-muted); font-size:1.1rem; margin-bottom:2rem;" data-i18n="advisor_desc">
+          Get personalized livestock care plans, feeding strategies, and profit recommendations from our Smart Livestock
+          Advisor.
+        </p>
+        <a href="./advisor.html" class="btn btn-accent" style="padding: 14px 32px; font-size: 1.1rem;"
+          data-i18n="btn_advisor">
+          💡 Go to Advisor
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 data-i18n="footer_about">Zera3a-Tech</h4>
+          <p style="opacity:0.8; font-size:0.9rem;" data-i18n="footer_desc">
+            Leading the digital transformation of agriculture. Connect, trade, and grow with technology.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_links">Quick Links</h4>
+          <ul>
+            <li><a href="#" data-i18n="link_about">About Us</a></li>
+            <li><a href="#" data-i18n="link_market">Marketplace</a></li>
+            <li><a href="#" data-i18n="link_blog">Blog</a></li>
+            <li><a href="#" data-i18n="link_contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_support">Support</h4>
+          <ul>
+            <li><a href="#" data-i18n="link_help">Help Center</a></li>
+            <li><a href="#" data-i18n="link_terms">Terms of Service</a></li>
+            <li><a href="#" data-i18n="link_privacy">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col newsletter">
+          <h4 data-i18n="footer_news">Newsletter</h4>
+          <input type="email" placeholder="Your email">
+          <button data-i18n="btn_subscribe">Subscribe</button>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Zera3a-Tech. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // ================= TRANSLATION DATABASE =================
+    const translations = {
+      en: {
+        btn_home: "Home",
+        hero_title: "Livestock Management",
+        hero_subtitle: "Smart Animal Farming Starts Here",
+        hero_desc: "Learn how to profit from farm animals, take proper care of them, and trade animals and animal products in one trusted platform.",
+        profit_title: "How to Profit from Animals",
+        profit_desc: "Animals provide multiple income sources when managed efficiently. Learn how to maximize profit from milk, eggs, meat, by-products, and more.",
+        card_milk_title: "Milk Production",
+        card_milk_desc: "Sell fresh milk or produce cheese, yogurt, and butter. Optimize by selecting high-yield breeds, providing balanced feed, and maintaining hygienic milking practices.",
+        card_eggs_title: "Egg Farming",
+        card_eggs_desc: "Daily egg production creates a stable income. Use protein-rich feed, proper housing, and separate layers from broilers to maximize yield.",
+        card_meat_title: "Meat Production",
+        card_meat_desc: "High-demand market for poultry, cattle, and sheep meat. Track animal weight, select fast-growing breeds, and sell during peak seasons for maximum profit.",
+        card_byproducts_title: "By-Products",
+        card_byproducts_desc: "Sell wool, leather, manure, honey, and organic fertilizers. Compost manure to increase value and explore specialty products like beeswax or feathers.",
+        card_diversify_title: "Diversification",
+        card_diversify_desc: "Raise a mix of animals to reduce risk. If one market drops, others still provide income. Consider poultry, dairy, meat animals, and specialty animals like bees or rabbits.",
+        btn_ask_bot: "Ask FarmBot",
+        care_title: "How to Care for Farm Animals",
+        care_desc: "Healthy animals mean higher productivity, better profits, and sustainable farming.",
+        care_feed_title: "Balanced Feeding",
+        care_feed_desc: "Provide high-quality feed suited to species, age, and production goals. Include proteins, carbohydrates, fats, vitamins, and minerals. Ensure access to clean, fresh water at all times.",
+        care_health_title: "Health & Vaccines",
+        care_health_desc: "Establish a vaccination schedule to prevent common diseases. Deworm regularly, monitor for signs of illness, isolate sick animals, and schedule routine vet check-ups.",
+        care_shelter_title: "Proper Shelter",
+        care_shelter_desc: "Provide clean, ventilated, and spacious housing. Protect animals from extreme temperatures, rain, wind, and predators. Use bedding like straw for comfort and insulation.",
+        care_track_title: "Tracking & Records",
+        care_track_desc: "Keep detailed records of growth, production (milk, eggs, meat), feeding, treatments, breeding, and expenses. Monitoring helps detect problems early and improve productivity.",
+        care_breed_title: "Breeding & Genetics",
+        care_breed_desc: "Select animals with strong genetics for higher productivity. Avoid inbreeding, monitor breeding cycles, and maintain records of parentage and offspring growth for healthier livestock.",
+        care_hygiene_title: "Hygiene & Biosecurity",
+        care_hygiene_desc: "Regularly clean feeding and watering equipment, bathe or groom animals if needed, quarantine new animals, and manage waste properly to prevent disease.",
+        care_exercise_title: "Exercise & Enrichment",
+        care_exercise_desc: "Allow animals to move freely and provide environmental enrichment (perches, scratching posts, toys) to reduce stress and improve physical health.",
+        care_env_title: "Environmental Conditions",
+        care_env_desc: "Maintain proper temperature, humidity, ventilation, and lighting. Protect animals from pests, predators, and extreme weather to keep them healthy and productive.",
+        care_stress_title: "Stress Reduction",
+        care_stress_desc: "Handle animals calmly, avoid overcrowding and excessive noise, and provide comfortable resting areas to reduce stress, which directly impacts productivity.",
+        market_title: "Animal Marketplace",
+        market_desc: "Buy animal needs, sell animal products, and trade livestock easily.",
+        market_supplies_title: "Animal Supplies",
+        market_supplies_desc: "Feed, medicine, vitamins, equipment, and daily farm essentials.",
+        btn_store: "Go to Store",
+        market_sell_title: "Sell Animal Products",
+        market_sell_desc: "Milk, eggs, meat, wool, leather, and organic fertilizer.",
+        btn_sell_now: "Sell Products",
+        market_verified_title: "Verified Sellers",
+        market_verified_desc: "Deal with trusted farmers and suppliers only.",
+        btn_browse: "Browse Sellers",
+        land_title: "Land & Farm Marketplace",
+        land_desc: "Buy, sell, or lease agricultural lands and farms easily and securely.",
+        land_buy_title: "Buy Agricultural Land",
+        land_buy_desc: "Browse verified agricultural lands suitable for crops, livestock, greenhouses, and large-scale farming projects.",
+        btn_browse_lands: "Browse Lands",
+        land_sell_land_title: "Sell Your Land",
+        land_sell_land_desc: "List your land for sale with photos, location, size, water access, and soil details.",
+        land_rent_title: "Rent or Lease Farms",
+        land_rent_desc: "Lease farms short-term or long-term for cultivation, livestock, or agri-investment opportunities.",
+        btn_view_rentals: "View Rentals",
+        land_sell_farm_title: "Sell Your Farm",
+        land_sell_farm_desc: "List your farm for sale with photos, location, size, water access, and soil details.",
+        btn_list_prop: "List Property",
+        chat_title: "Ask Farm Expert",
+        chat_desc: "Have a question about livestock care, profit, or supplies? Ask our AI assistant!",
+        chat_header: "FarmBot Assistant",
+        chat_welcome: "Hello! I'm your Farm Expert. Ask me about animal care, how to make money from livestock, or what supplies you might need.",
+        chat_typing: "FarmBot is typing...",
+        chat_placeholder: "Type your question (e.g., 'How do I care for a cow?')...",
+        advisor_title: "Want More Detailed Guidance?",
+        advisor_desc: "Get personalized livestock care plans, feeding strategies, and profit recommendations from our Smart Livestock Advisor.",
+        btn_advisor: "💡 Go to Advisor",
+        btn_back_home: "Back Home",
+        page_title: "Agricultural Risk Guard",
+        btn_lang: "عربي",
+        btn_mode: "Theme",
+        // NEW KEYS
+        stat_farmers: "Happy Farmers", stat_animals: "Animals Traded", stat_countries: "Countries Served", stat_support: "Expert Support",
+        testi_title: "Success Stories", testi_desc: "See how Zera3a-Tech helped farmers increase their productivity.",
+        testi_1_text: "My milk production increased by 40% after following feeding strategies. Amazing platform!", testi_1_name: "Ahmed Ali", role_farmer: "Dairy Farmer",
+        testi_2_text: "I sold my first herd of sheep in just 2 days through the marketplace. Safe and fast.", testi_2_name: "Sarah Smith", role_livestock: "Livestock Owner",
+        testi_3_text: "The AI advisor helped me diagnose a disease in my chickens early. Saved my entire flock!", testi_3_name: "Omar Khaled", role_poultry: "Poultry Farmer",
+        footer_about: "Zera3a-Tech", footer_desc: "Leading the digital transformation of agriculture. Connect, trade, and grow with technology.",
+        footer_links: "Quick Links", link_about: "About Us", link_market: "Marketplace", link_blog: "Blog", link_contact: "Contact",
+        footer_support: "Support", link_help: "Help Center", link_terms: "Terms of Service", link_privacy: "Privacy Policy",
+        footer_news: "Newsletter", btn_subscribe: "Subscribe"
+      },
+      ar: {
+        btn_home: "الرئيسية",
+        hero_title: "إدارة الثروة الحيوانية",
+        hero_subtitle: "ابدأ تربية الحيوانات الذكية هنا",
+        hero_desc: "تعلم كيفية الربح من الحيوانات، الاهتمام بها، والتجارة في المنتجات الحيوانية في منصة موثوقة واحدة.",
+        profit_title: "كيفية الربح من الحيوانات",
+        profit_desc: "توفر الحيوانات مصادر دخل متعددة عند إدارتها بكفاءة. تعلم كيفية زيادة الربح من الحليب، البيض، اللحوم، المنتجات الثانوية، وأكثر.",
+        card_milk_title: "إنتاج الحليب",
+        card_milk_desc: "بيع الحليب الطازج أو إنتاج الجبن، الزبادي، والزبدة. حسن الإنتاج باختيار سلالات عالية الإنتاج، وتوفير علف متوازن، والمحافظة على نظافة الحلب.",
+        card_eggs_title: "تربية الدواجن البيضية",
+        card_eggs_desc: "الإنتاج اليومي للبيض يخلق دخلًا ثابتًا. استخدم علف غني بالبروتين، وحافظ على سكن مناسب، وافصل الدجاج البياض عن اللحم لزيادة الإنتاج.",
+        card_meat_title: "إنتاج اللحوم",
+        card_meat_desc: "سوق الطلب مرتفع للدواجن، الماشية، ولحوم الأغنام. تتبع وزن الحيوانات، اختر السلالات سريعة النمو، وبيع في موسم الذروة لزيادة الربح.",
+        card_byproducts_title: "المنتجات الثانوية",
+        card_byproducts_desc: "بيع الصوف، الجلد، السماد، العسل، والأسمدة العضوية. قم بتسميد السماد لزيادة قيمته واستكشاف منتجات خاصة مثل شمع النحل أو الريش.",
+        card_diversify_title: "تنويع الإنتاج",
+        card_diversify_desc: "قم بتربية مجموعة متنوعة من الحيوانات لتقليل المخاطر. إذا انخفض سوق واحد، فإن الآخرين يوفرون دخلًا مستمرًا. ضع في اعتبارك الدواجن، الألبان، والحيوانات المتخصصة.",
+        btn_ask_bot: "اسأل FarmBot",
+        care_title: "كيفية العناية بالحيوانات",
+        care_desc: "الحيوانات الصحية تعني إنتاجية أعلى، أرباح أفضل، وزراعة مستدامة.",
+        care_feed_title: "التغذية المتوازنة",
+        care_feed_desc: "قدم علفًا عالي الجودة مناسب للنوع، العمر، وأهداف الإنتاج. يشمل البروتينات، الكربوهيدرات، الدهون، الفيتامينات، والمعادن. تأكد من وجود ماء نظيف وعذب دائمًا.",
+        care_health_title: "الصحة والتطعيمات",
+        care_health_desc: "ضع جدول تطعيم لمنع الأمراض الشائعة. قم بإزالة الديدان بانتظام، راقب علامات المرض، عزل الحيوانات المريضة، وحدد مواعيد الفحص البيطري الروتيني.",
+        care_shelter_title: "المأوى المناسب",
+        care_shelter_desc: "وفر مساكن نظيفة وتهوية ومساحة كافية. احمِ الحيوانات من درجات الحرارة القصوى، المطر، الرياح، والحيوانات المفترسة. استخدم فرشة مثل القش للراحة والعزل.",
+        care_track_title: "التتبع والسجلات",
+        care_track_desc: "احتفظ بسجلات مفصلة للنمو، الإنتاج (الحليب، البيض، اللحوم)، التغذية، العلاجات، التكاثر، والنفقات. يساعد المتابعة في اكتشاف المشاكل مبكرًا وزيادة الإنتاجية.",
+        care_breed_title: "التكاثر والجينات",
+        care_breed_desc: "اختر الحيوانات ذات الجينات القوية لإنتاجية أعلى. تجنب التزاوج الداخلي، راقب دورات التكاثر، واحفظ سجلات الأنساب ونمو النسل للحفاظ على صحة أفضل.",
+        care_hygiene_title: "النظافة والأمن البيولوجي",
+        care_hygiene_desc: "نظف معدات التغذية والشراب بانتظام، استحمِ أو اعتنِ بالحيوانات عند الحاجة، ضع الحيوانات الجديدة في الحجر الصحي، وأدِر النفايات بشكل صحيح لمنع الأمراض.",
+        care_exercise_title: "التمارين والتحفيز",
+        care_exercise_desc: "اسمح للحيوانات بالحركة بحرية وقدم التحفيز البيئي (عواميد، أماكن للخدش، ألعاب) لتقليل التوتر وتحسين الصحة البدنية.",
+        care_env_title: "الظروف البيئية",
+        care_env_desc: "حافظ على درجة حرارة مناسبة، رطوبة، تهوية، وإضاءة. احمِ الحيوانات من الآفات، الحيوانات المفترسة، والطقس القاسي للحفاظ على صحتها وإنتاجيتها.",
+        care_stress_title: "تقليل التوتر",
+        care_stress_desc: "عامل الحيوانات بهدوء، تجنب الاكتظاظ والضوضاء الزائدة، وقدم مناطق راحة مريحة لتقليل التوتر، مما يؤثر مباشرة على الإنتاجية.",
+        market_title: "سوق الحيوانات",
+        market_desc: "اشترِ مستلزمات الحيوانات، بيع المنتجات الحيوانية، وتداول الثروة الحيوانية بسهولة.",
+        market_supplies_title: "مستلزمات الحيوانات",
+        market_supplies_desc: "علف، دواء، فيتامينات، معدات، واحتياجات المزرعة اليومية.",
+        btn_store: "اذهب للمتجر",
+        market_sell_title: "بيع المنتجات الحيوانية",
+        market_sell_desc: "حليب، بيض، لحوم، صوف، جلد، وأسمدة عضوية.",
+        btn_sell_now: "بيع المنتجات",
+        market_verified_title: "البائعون الموثوقون",
+        market_verified_desc: "تعامل مع مزارعين وموردين موثوقين فقط.",
+        btn_browse: "تصفح البائعين",
+        land_title: "سوق الأراضي والمزارع",
+        land_desc: "اشترِ، بيع، أو استأجر الأراضي الزراعية والمزارع بسهولة وأمان.",
+        land_buy_title: "شراء الأراضي الزراعية",
+        land_buy_desc: "تصفح الأراضي الزراعية الموثوقة المناسبة للمحاصيل، الثروة الحيوانية، البيوت المحمية، والمشاريع الزراعية الكبيرة.",
+        btn_browse_lands: "تصفح الأراضي",
+        land_sell_land_title: "بيع أرضك",
+        land_sell_land_desc: "قم بإدراج أرضك للبيع مع الصور، الموقع، الحجم، الوصول للمياه، وتفاصيل التربة.",
+        land_rent_title: "استئجار أو تأجير المزارع",
+        land_rent_desc: "استأجر المزارع قصير أو طويل الأجل للزراعة، الثروة الحيوانية، أو فرص الاستثمار الزراعي.",
+        btn_view_rentals: "عرض الإيجارات",
+        land_sell_farm_title: "بيع مزرعتك",
+        land_sell_farm_desc: "قم بإدراج مزرعتك للبيع مع الصور، الموقع، الحجم، الوصول للمياه، وتفاصيل التربة.",
+        btn_list_prop: "إدراج العقار",
+        chat_title: "اسأل خبير المزرعة",
+        chat_desc: "لديك سؤال حول رعاية الحيوانات، الربح، أو المستلزمات؟ اسأل مساعدنا الذكي!",
+        chat_header: "مساعد FarmBot",
+        chat_welcome: "مرحبًا! أنا خبير المزرعة الخاص بك. اسألني عن رعاية الحيوانات، كيفية الربح من الماشية، أو ما هي المستلزمات التي قد تحتاجها.",
+        chat_typing: "جاري الكتابة...",
+        chat_placeholder: "اكتب سؤالك (مثال: 'كيف أعتني بالبقرة؟')...",
+        advisor_title: "هل تريد إرشادات أكثر تفصيلاً؟",
+        advisor_desc: "احصل على خطط رعاية مخصصة للثروة الحيوانية واستراتيجيات تغذية وتوصيات الربح من مستشارنا الذكي.",
+        btn_advisor: "💡 اذهب للمستشار",
+        btn_back_home: "العودة الرئيسية",
+        page_title: "الحارس الزراعي",
+        btn_lang: "English",
+        btn_mode: "مظهر",
+        // NEW KEYS
+        stat_farmers: "مزارعين سعداء", stat_animals: "حيوانات تم تداولها", stat_countries: "دولة مستهدفة", stat_support: "دعم فني",
+        testi_title: "قصص النجاح", testi_desc: "شاهد كيف ساعدت Zera3a-Tech المزارعين على زيادة إنتاجيتهم.",
+        testi_1_text: "زيادة إنتاج الحليب بنسبة 40٪ بعد اتباع استراتيجيات التغذية. منصة مذهلة!", testi_1_name: "أحمد علي", role_farmer: "مزارع ألبان",
+        testi_2_text: "بعتهم قطيع الغنام الأول في يومين فقط عبر السوق. آمن وسريع.", testi_2_name: "سارة سميث", role_livestock: "صاحبة ثروة حيوانية",
+        testi_3_text: "ساعدني المستشار الذكي في تشخيص مرض في الدجاج مبكرًا. أنقذ القطيع بالكامل!", testi_3_name: "عمر خالد", role_poultry: "مزارع دواجن",
+        footer_about: "زراعة تك", footer_desc: "نقود التحول الرقمي في الزراعة. اتصل، تاجر، وانم مع التكنولوجيا.",
+        footer_links: "روابط سريعة", link_about: "من نحن", link_market: "السوق", link_blog: "المدونة", link_contact: "تواصل معنا",
+        footer_support: "الدعم", link_help: "مركز المساعدة", link_terms: "شروط الخدمة", link_privacy: "سياسة الخصوصية",
+        footer_news: "النشرة البريدية", btn_subscribe: "اشترك الآن"
+      }
+    };
+
+    // ================= STATE & LOGIC =================
+    let currentLang = localStorage.getItem("lang") || "en";
+    const langBtn = document.getElementById("langToggle");
+    const modeToggle = document.getElementById("modeToggle");
+
+    function updateLanguage() {
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      document.documentElement.lang = currentLang;
+
+      const langText = document.querySelector('#langToggle span');
+      if (langText) langText.textContent = currentLang === "en" ? "عربي" : "English";
+
+      const elements = document.querySelectorAll("[data-i18n]");
+      elements.forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+
+      const inputs = document.querySelectorAll("[data-i18n-placeholder]");
+      inputs.forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (translations[currentLang][key]) {
+          el.placeholder = translations[currentLang][key];
+        }
+      });
+
+      localStorage.setItem("lang", currentLang);
+    }
+
+    langBtn.addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      updateLanguage();
+    });
+
+    // ================= DARK MODE LOGIC =================
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+      modeToggle.innerHTML = document.body.classList.contains("dark-mode") ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+      localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+    }
+
+    modeToggle.addEventListener("click", toggleTheme);
+
+    // SCROLL REVEAL LOGIC
+    document.addEventListener("DOMContentLoaded", () => {
+      updateLanguage();
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        modeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      } else {
+        modeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+      }
+
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+
+    // ================= CHATBOT LOGIC =================
+    const chatWindow = document.getElementById('chat-window');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send-btn');
+    const typingIndicator = document.getElementById('typing-indicator');
+
+    const knowledgeBase = [
+      { keywords: ['profit', 'money', 'earn', 'sell', 'income', 'value', 'ربح', 'مال', 'دخل'], response: { en: 'You can profit from livestock through multiple streams: selling milk, eggs, meat, and by-products.', ar: 'يمكنك الربح من الثروة الحيوانية عبر عدة مصادر: بيع الحليب، البيض، اللحوم، والمنتجات الثانوية.' } },
+      { keywords: ['cow', 'cattle', 'milk', 'bqra', 'baqar', 'بقر', 'حليب'], response: { en: 'Cows require clean shelter and balanced feed. Profit by selling milk or dairy products.', ar: 'الأبقار تحتاج إلى مأوى نظيف وعلف متوازن. للربح، قم ببيع الحليب أو منتجات الألبان.' } },
+      { keywords: ['chicken', 'poultry', 'egg', 'hen', 'dajaj', 'yagah', 'دجاج', 'بيض'], response: { en: 'Chickens need a secure coop and water. Profit from eggs or meat.', ar: 'الدجاج يحتاج إلى حظيرة آمنة وماء. يمكنك الربح من البيض أو اللحم.' } },
+      { keywords: ['care', 'health', 'sick', 'vaccine', 'riayah', 'sihhah', 'عناية', 'صحة', 'تطعيم'], response: { en: 'Care involves Nutrition, Housing, and Health (vaccinations). Isolate sick animals.', ar: 'الرعاية تتضمن التغذية، السكن، والصحة (التطعيمات). قم بعزل الحيوانات المريضة.' } }
+    ];
+
+    const defaultResponse = {
+      en: "I'm not sure about that, but healthy animals are profitable. Ask about cows or chickens.",
+      ar: "لست متأكداً، لكن الحيوانات الصحية مربحة. اسأل عن الأبقار أو الدجاج."
+    };
+
+    function getBotResponse(input) {
+      const lowerInput = input.toLowerCase();
+      for (const item of knowledgeBase) {
+        if (item.keywords.some(k => lowerInput.includes(k))) return item.response[currentLang] || item.response['en'];
+      }
+      return defaultResponse[currentLang] || defaultResponse['en'];
+    }
+
+    function addMessage(text, sender) {
+      const div = document.createElement('div');
+      div.className = `chat-message ${sender}`;
+      div.textContent = text;
+      chatWindow.appendChild(div);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      if (sender === 'bot') {
+        const btn = document.createElement('button');
+        btn.className = 'advisor-btn';
+        btn.textContent = currentLang === 'ar' ? "💡 المزيد من المستشار" : "💡 More info from Advisor";
+        btn.onclick = () => window.location.href = "./advisor.html";
+        div.appendChild(document.createElement('br'));
+        div.appendChild(btn);
+      }
+    }
+
+    function handleUserMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      addMessage(text, 'user');
+      chatInput.value = '';
+      typingIndicator.style.display = 'block';
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      setTimeout(() => {
+        addMessage(getBotResponse(text), 'bot');
+        typingIndicator.style.display = 'none';
+      }, 1000);
+    }
+
+    sendBtn.addEventListener('click', handleUserMessage);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleUserMessage(); });
+  </script>
+
+  <!-- Firebase Auth Placeholder -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+      authDomain: "smart-farm-8d3f5.firebaseapp.com",
+      projectId: "smart-farm-8d3f5",
+      storageBucket: "smart-farm-8d3f5.appspot.com",
+      messagingSenderId: "317371842198",
+      appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const backBtn = document.getElementById("backBtn");
+
+    backBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      onAuthStateChanged(auth, async (user) => {
+
+        // ❌ مش مسجل دخول
+        if (!user) {
+          window.location.href = "./signinsignup/signin.html";
+          return;
+        }
+
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (!userSnap.exists()) {
+            window.location.href = "./signinsignup/signin.html";
+            return;
+          }
+
+          const role = userSnap.data().role;
+
+          // ✅ تحويل حسب الدور
+          if (role === "farmer") {
+            window.location.href = "./farmer-ar.html";
+          }
+          else if (role === "investor") {
+            window.location.href = "./investor.html";
+          }
+          else {
+            window.location.href = "./signinsignup/signin.html";
+          }
+
+        } catch (error) {
+          console.error("Firebase Error:", error);
+          window.location.href = "./signinsignup/signin.html";
+        }
+      });
+    });
+  </script>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+</body>
+
+</html>

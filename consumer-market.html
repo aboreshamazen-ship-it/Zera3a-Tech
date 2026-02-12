@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Tech | ماركت المحاصيل</title>
+    
+    <!-- خطوط عربية وإنجليزية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+       .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--surface);
+            color: var(--primary-dark);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--surface);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 89, 89, 0.3);
+        }
+
+        /* ==================== إعدادات الألوان ==================== */
+        :root {
+            --primary: #1e5959;       /* أخضر زراعي غامق */
+            --primary-dark: #164545; /* أخضر أغمق */
+            --secondary: #e67e3a;     /* برتقالي للنمو */
+            --secondary-dark: #d46b25;
+            --accent: #c9b896;       /* لون ذهبي للتقنية */
+            --background: #fafaf9;   /* خلفية فاتحة */
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e5e5e5;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==================== Dark Mode Variables ==================== */
+        [data-theme="dark"] {
+            --primary: #164545;      /* أخضر فاتح للتباين */
+            --primary-dark: #1e5959; 
+            --secondary: #ffab91;     /* برتقالي فاتح */
+            --secondary-dark: #e67e3a;
+            --accent: #d4af37;
+            --background: #121212;   /* خلفية داكنة جداً */
+            --surface: #1e1e1e;      /* سطح الكروت */
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border: #333333;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s; /* سلاسة التحويل */
+        }
+
+        body.lang-en { font-family: 'Roboto', sans-serif; direction: ltr; }
+
+        /* ==================== الهيدر مع الصورة الدائرية الدوارة ==================== */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 3rem 5%;
+            color: white;
+            position: relative;
+            box-shadow: 0 10px 30px var(--shadow);
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            animation: slideDown 0.8s ease-out;
+            transition: background 0.3s;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+            transition: background 0.3s;
+        }
+
+        /* الجزء الأيسر: الصورة */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        /* === الإطار الخارجي (يدور ببطء) === */
+        .circular-frame {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            padding: 6px; 
+            background: conic-gradient(from 0deg, var(--secondary), var(--accent), var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            animation: rotateOuter 5s linear infinite;
+        }
+
+        /* === الحاوية الداخلية (الصورة) - تدور بسرعة مختلفة === */
+        .header-img-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-dark);
+            background-color: white;
+            animation: rotateInner 10s linear infinite;
+        }
+
+        .header-rect-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            padding: 35px;
+        }
+
+        /* الاسم والتعريف */
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .brand-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 5px;
+            letter-spacing: -2px;
+        }
+
+        .farm { color: var(--background); }
+        .tech { color: var(--secondary); }
+
+        .brand-desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.95);
+            max-width: 550px;
+            border-right: 5px solid var(--secondary);
+            padding-right: 20px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px 25px;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .header-tools {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .search-input {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            width: 280px;
+            font-family: inherit;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        
+        /* Dark mode specific for search input */
+        [data-theme="dark"] .search-input {
+            background: rgba(0,0,0,0.4);
+            color: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: white;
+            color: var(--primary);
+            width: 320px;
+            box-shadow: 0 0 0 4px var(--secondary);
+        }
+
+        /* Shared Button Styles */
+        .control-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--surface);
+            color: var(--background);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-btn:hover {
+            background: var(--secondary);
+            color: var(--surface);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(230, 126, 58, 0.4);
+        }
+
+        [data-theme="dark"] .control-btn {
+            background: rgba(0,0,0,0.3);
+            border-color: #aaa;
+        }
+        
+        /* Specific adjustment for theme button width */
+        .theme-btn {
+             padding: 12px 20px;
+        }
+
+        /* ==================== شريط التنقل ==================== */
+        .nav-bar {
+            background-color: var(--surface);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 4px 6px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--primary);
+            color: var(--surface);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(30, 89, 89, 0.3);
+        }
+
+        /* ==================== شبكة المنتجات ==================== */
+        main {
+            max-width: 1600px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-container {
+            display: none;
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-container.active {
+            display: block;
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+
+        .section-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 5px 10px var(--shadow));
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+            padding-bottom: 50px;
+        }
+
+        /* ==================== البطاقة ==================== */
+        .card {
+            background: var(--surface);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px var(--shadow);
+            transition: 0.5s;
+            opacity: 0;
+            transform: translateY(40px);
+            border: 1px solid var(--border);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 30px var(--shadow);
+            border-color: var(--secondary);
+        }
+
+        .card-img-box {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.6s ease;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        .card-body {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: var(--surface);
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .add-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        /* ==================== سلة المشتريات ==================== */
+        .cart-float {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--surface);
+            box-shadow: 0 15px 30px rgba(230, 126, 58, 0.4);
+            cursor: pointer;
+            z-index: 200;
+            transition: 0.4s;
+            border: 4px solid var(--accent);
+        }
+
+        body.lang-en .cart-float { right: auto; left: 50px; }
+
+        .cart-float:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary-dark);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 3px solid var(--surface);
+            animation: pulse 2s infinite;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 400px;
+            height: 100vh;
+            background: var(--surface);
+            z-index: 201;
+            box-shadow: -15px 0 40px rgba(0,0,0,0.2);
+            transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+        }
+
+        body.lang-en .cart-sidebar { right: auto; left: -450px; }
+
+        .cart-sidebar.open { right: 0; }
+        body.lang-en .cart-sidebar.open { left: 0; }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 89, 89, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            display: none;
+        }
+
+        /* ==================== أنيميشن ==================== */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInLeft { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-20px);} 60% {transform: translateY(-10px);} }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+        
+        @keyframes rotateOuter {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateInner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 30px; padding: 2rem; text-align: center; }
+            .header-left { flex-direction: column; }
+            .header-right { width: 100%; align-items: center; text-align: center; }
+            .header-tools { width: 100%; justify-content: center; margin: 10px 0 0 0; }
+            .brand-desc { border: none; padding: 0; width: 100%; }
+            body.lang-en .brand-desc { border: none; }
+            .brand-title { font-size: 2.8rem; }
+            .nav-bar { overflow-x: auto; justify-content: flex-start; padding: 10px; }
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+            .card-img-box { height: 200px; }
+            .cart-float { width: 60px; height: 60px; font-size: 1.5rem; bottom: 20px; right: 20px; }
+            body.lang-en .cart-float { left: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header>
+<button class="back-btn" onclick="handleBack()">←</button>
+
+        <!-- اليسار: الصورة الدائرية -->
+        <div class="header-left">
+            <div class="circular-frame">
+                <div class="header-img-inner">
+                    <img src="smart_farm_no_bg-removebg-preview.png" alt="Zera3a- Tech" class="header-rect-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- اليمين: الاسم والتعريف -->
+        <div class="header-right">
+            <div class="brand-title">
+                <span class="farm">Zera3a-</span> <span class="tech">Tech</span>
+            </div>
+            <div class="brand-desc" data-key="slogan">منصة ذكية توفر لك أجود محاصيل الأرض من المزرعة لمائدتك بجودة عالية وأسعار مناسبة</div>
+            
+            <div class="header-tools">
+                <input type="text" class="search-input" id="searchInput" placeholder="بحث عن منتج..." data-ph-key="search">
+                <button class="control-btn" id="langBtn">English</button>
+                <!-- زر الوضع الليلي الجديد -->
+                <button class="control-btn theme-btn" id="themeBtn">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- شريط التنقل -->
+    <nav class="nav-bar">
+        <button class="nav-btn active" onclick="showSection('all', this)">
+            <span>🛒</span> <span data-key="all">الكل</span>
+        </button>
+        <button class="nav-btn" onclick="showSection('vegetables', this)">
+            <span>🥦</span> <span data-key="veg">خضروات</span>
+        </button>
+        <button class="nav-btn" onclick="showSection('fruits', this)">
+            <span>🍎</span> <span data-key="fruit">فواكه</span>
+        </button>
+    </nav>
+
+    <!-- المحتوى -->
+    <main>
+        <!-- قسم الكل -->
+        <div id="all" class="section-container active">
+            <div class="section-header">
+                <span class="section-icon">🛒</span>
+                <h2 class="section-title" data-key="allTitle">كل المحاصيل</h2>
+            </div>
+            <div class="products-grid" id="grid-all"></div>
+        </div>
+
+        <!-- قسم الخضروات -->
+        <div id="vegetables" class="section-container">
+            <div class="section-header">
+                <span class="section-icon">🥦</span>
+                <h2 class="section-title" data-key="vegTitle">محاصيل الخضر</h2>
+            </div>
+            <div class="products-grid" id="grid-vegetables"></div>
+        </div>
+
+        <!-- قسم الفواكه -->
+        <div id="fruits" class="section-container">
+            <div class="section-header">
+                <span class="section-icon">🍎</span>
+                <h2 class="section-title" data-key="fruitTitle">محاصيل الفاكهة</h2>
+            </div>
+            <div class="products-grid" id="grid-fruits"></div>
+        </div>
+    </main>
+
+    <!-- سلة المشتريات -->
+    <button class="cart-float" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge" id="cartCount">0</div>
+    </button>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 style="color:var(--primary);" data-key="cartTitle">السلة</h2>
+            <button onclick="toggleCart()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <div style="flex:1; overflow-y:auto;" id="cartItems"></div>
+        <div style="margin-top:20px; border-top:1px solid #e5e5e5; padding-top:20px;">
+            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:900; margin-bottom:15px; color:var(--primary);">
+                <span data-key="total">الإجمالي:</span>
+                <span id="cartTotal">0.00</span>
+            </div>
+            <a href="wallet.html" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:50px; font-weight:bold; font-size:1.2rem; cursor:pointer;" data-key="checkout">إتمام الشراء</a>
+        </div>
+    </aside>
+
+    <script>
+        // بيانات 45 منتج
+        const products = [
+            // خضروات
+            { id: 1, nameAr: "طماطم طازجة", nameEn: "Fresh Tomatoes", price: 15.00, cat: "vegetables", img:"./consumer/حقائق-مثيرة-عن-الطماطم-1.jpg" },
+            { id: 2, nameAr: "خيار ملكي", nameEn: "Royal Cucumber", price: 12.00, cat: "vegetables", img: "./consumer/Cucumbers (1).jpg" },
+            { id: 3, nameAr: "فلفل ألوان", nameEn: "Colored Peppers", price: 25.00, cat: "vegetables", img: "./consumer/Untitled-design-21.png" },
+            { id: 4, nameAr: "باذنجان بنفسجي", nameEn: "Purple Eggplant", price: 18.00, cat: "vegetables", img: "./consumer/300px-Solanum_melongena.jpg" },
+            { id: 5, nameAr: "بصل أحمر", nameEn: "Red Onion", price: 10.00, cat: "vegetables", img: "./consumer/red-onions.jpg" },
+            { id: 6, nameAr: "جزر برتقالي", nameEn: "Orange Carrots", price: 9.00, cat: "vegetables", img: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=600&q=80" },
+            { id: 7, nameAr: "بطاطس جالا", nameEn: "Gala Potatoes", price: 22.00, cat: "vegetables", img: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600&q=80" },
+            { id: 8, nameAr: "بامية خضراء", nameEn: "Green Okra", price: 20.00, cat: "vegetables", img: "./consumer/Untitleddesign_28.webp" },
+            { id: 9, nameAr: "كوسة خضراء", nameEn: "Green Zucchini", price: 16.00, cat: "vegetables", img: "./consumer/8467c96a-dbd1-4bb3-8ff2-2126737b2fe0-1000x1000-gaRAf7e1Xp5px6Smzs6pePrIJJm9AxvxN03VmwF4.webp" },
+            { id: 10, nameAr: "قرع عسلي", nameEn: "Honey Squash", price: 18.00, cat: "vegetables", img:"./consumer/201903110454285428.webp" },
+            { id: 11, nameAr: "فجل أحمر", nameEn: "Red Radish", price: 8.00, cat: "vegetables", img: "فجل-احمر-./consumer/2.jpg" },
+            { id: 12, nameAr: "ليمون", nameEn: "lemon", price: 22.00, cat: "vegetables", img: "./consumer/lemons.webp" },
+            { id: 13, nameAr: "كرنب", nameEn: "Cabbage", price: 12.00, cat: "vegetables", img: "./consumer/Cabbage-Whitepale-green.-1.jpg" },
+            { id: 14, nameAr: "بروكلي", nameEn: "Broccoli", price: 25.00, cat: "vegetables", img: "./consumer/fe912e04040eee2a3a3a9faa789d821a.jpg" },
+            { id: 15, nameAr: "سبانخ", nameEn: "Spinach", price: 10.00, cat: "vegetables", img: "./consumer/201712201111461146.jpg" },
+            { id: 16, nameAr: "فلفل حراق", nameEn: "Chili Pepper", price: 15.00, cat: "vegetables", img: "./consumer/001086-14327217PA_Papryka_De_Cayenne-m.webp" },
+            { id: 17, nameAr: "بقدونس", nameEn: "Parsley", price: 5.00, cat: "vegetables", img: "./consumer/بقدونس.jpeg" },
+            { id: 18, nameAr: "بطاطس حلوه", nameEn: "sweet potatoes", price: 15.00, cat: "vegetables", img: "./consumer/sweet-potato.jpg" },
+            { id: 19, nameAr: "ثوم", nameEn: "Garlic", price: 12.00, cat: "vegetables", img: "./consumer/tbl_articles_article_10091_122a2e3531f-b1cb-4078-9152-81bd822c9d30.jpg" },
+            { id: 20, nameAr: "قلقاس", nameEn: "Taro", price: 20.00, cat: "vegetables", img: "./consumer/2568779_0.jpg" },
+            { id: 21, nameAr: "بصل أخضر", nameEn: "Green Onion", price: 8.00, cat: "vegetables", img:"./consumer/15-حقائق-مثيرة-للاهتمام-حول-الكراث-البصل-الأخضر-1200x630.jpg" },
+            { id: 22, nameAr: "بنجر", nameEn: "Beetroot", price: 30.00, cat: "vegetables", img: "./consumer/19_2025-639009641468085563-808.jpeg" },
+            { id: 23, nameAr: "مشرومة", nameEn: "Mushroom", price: 200.00, cat: "vegetables", img: "./consumer/getty_e9ba675788754107801a2a6289434ddf-600x315w.jpg" },
+
+            // فواكه
+            { id: 24, nameAr: "تفاح أحمر", nameEn: "Red Apples", price: 35.00, cat: "fruits", img: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600&q=80" },
+            { id: 25, nameAr: "موز أصفر", nameEn: "Yellow Bananas", price: 18.00, cat: "fruits", img: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=600&q=80" },
+            { id: 26, nameAr: "برتقال عصير", nameEn: "Juice Oranges", price: 25.00, cat: "fruits", img: "tbl_articles_article_20874_64472056cb5-2b35-4913-8998-fdeeb28f3101.gif" },
+            { id: 27, nameAr: "فراولة طازجة", nameEn: "Fresh Strawberries", price: 40.00, cat: "fruits", img: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600&q=80" },
+            { id: 28, nameAr: "أناناس ذهبي", nameEn: "Golden Pineapple", price: 45.00, cat: "fruits", img: "health-benefits-of-pineapple-scaled.jpg" },
+            { id: 29, nameAr: "كيوي", nameEn: "Kiwifruit", price: 30.00, cat: "fruits", img: "./consumer/tbl_articles_article_14975_64077994be-e7b2-4784-bef0-595a4f3dae20.jpg" },
+            { id: 30, nameAr: "عنب أخضر", nameEn: "Green Grapes", price: 50.00, cat: "fruits", img: "./consumer/article_1_259.jpg" },
+            { id: 31, nameAr: "جوافة", nameEn: "Guava", price: 20.00, cat: "fruits", img: "./consumer/56923-جوافة.jpg" },
+            { id: 32, nameAr: "مانجو", nameEn: "Mango", price: 60.00, cat: "fruits", img: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=600&q=80" },
+            { id: 33, nameAr: "برقوق", nameEn: "Plum", price: 45.00, cat: "fruits", img: "./consumer/77_20190712184222.jpg" },
+            { id: 34, nameAr: "كرز", nameEn: "Cherries", price: 80.00, cat: "fruits", img: "./consumer/image.jpg" },
+            { id: 35, nameAr: "توت أزرق", nameEn: "Blueberries", price: 55.00, cat: "fruits", img: "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=600&q=80" },
+            { id: 37, nameAr: "رمان", nameEn: "Pomegranate", price: 35.00, cat: "fruits", img: "./consumer/image.png" },
+            { id: 38, nameAr: "خوخ", nameEn: "Peach", price: 25.00, cat: "fruits", img: "./consumer/eleman-15643951360000021_baladi-peaches_415.webp" },
+            { id: 39, nameAr: "بطيخ", nameEn: "Watermelon", price: 215.00, cat: "fruits", img: "./consumer/485.jpeg" },
+            { id: 40, nameAr: "شمام", nameEn: "Melon", price: 20.00, cat: "fruits", img: "./consumer/tbl_articles_article_23906_738629e0a61-5319-4e4d-ab67-9196dd853c54.jpg" },
+            { id: 41, nameAr: "مشمش", nameEn:"Apricot", price: 130.00, cat: "fruits", img: "./consumer/88876-المشمش.webp" },
+            { id: 42, nameAr: "جريب فروت", nameEn: "Grapefruit", price: 30.00, cat: "fruits", img:"./consumer/d969218ad780785b3903fd8300637444.jpeg" },
+            { id: 43, nameAr: "كيوي جولد", nameEn: "Gold Kiwi", price: 35.00, cat: "fruits", img: "./consumer/goldkiwi_16f3e04e-032f-4f82-a4d6-5f30fdbd10a0.webp" },
+            { id: 44, nameAr: "توت بري", nameEn: "Raspberry", price: 45.00, cat: "fruits", img: "./consumer/shutterstock_87820951_333668.jpg" },
+            { id: 45, nameAr: "مانجو عسل", nameEn: "Honey Mango", price: 55.00, cat: "fruits", img: "./consumer/s72014167172.webp" }
+        ];
+
+        const translations = {
+            ar: { 
+                slogan: "منصة ذكية توفر لك أجود محاصيل الأرض من المزرعة لمائدتك بجودة عالية وأسعار مناسبة",
+                all: "الكل", veg: "خضروات", fruit: "فواكه",
+                allTitle: "كل المحاصيل", vegTitle: "محاصيل الخضر", fruitTitle: "محاصيل الفاكهة",
+                search: "بحث عن منتج...", cartTitle: "السلة", total: "الإجمالي:", checkout: "إتمام الشراء"
+            },
+            en: { 
+                slogan: "Smart platform providing best earth crops from farm to your table with high quality",
+                all: "All", veg: "Vegetables", fruit: "Fruits",
+                allTitle: "All Crops", vegTitle: "Vegetable Crops", fruitTitle: "Fruit Crops",
+                search: "Search product...", cartTitle: "Cart", total: "Total:", checkout: "Checkout"
+            }
+        };
+
+        let state = { lang: 'ar', theme: 'light', cart: [] };
+
+        function t(key) { return translations[state.lang][key]; }
+
+        function createCard(p) {
+            const name = state.lang === 'ar' ? p.nameAr : p.nameEn;
+            const btnText = state.lang === 'ar' ? "أضف للسلة" : "Add to Cart";
+            
+            return `
+                <div class="card">
+                    <div class="card-img-box">
+                        <img src="${p.img}" alt="${name}" class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${name}</h3>
+                        <div class="card-price">${p.price.toFixed(2)} <span style="font-size:1rem; color:var(--text-muted);">EGP</span></div>
+                        <button class="add-btn" onclick="addToCart(${p.id})">${btnText}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function render() {
+            document.documentElement.lang = state.lang;
+            document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+            document.body.className = state.lang === 'ar' ? '' : 'lang-en';
+            document.getElementById('langBtn').textContent = state.lang === 'ar' ? 'English' : 'عربي';
+            document.getElementById('searchInput').placeholder = t('search');
+            document.querySelectorAll('[data-key]').forEach(el => el.textContent = t(el.getAttribute('data-key')));
+
+            // Apply Theme
+            document.documentElement.setAttribute('data-theme', state.theme);
+            const themeIcon = document.querySelector('#themeBtn i');
+            if (state.theme === 'light') {
+                themeIcon.className = 'fa-solid fa-moon';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun';
+            }
+
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            
+            ['all', 'vegetables', 'fruits'].forEach(cat => {
+                const container = document.getElementById(`grid-${cat}`);
+                container.innerHTML = '';
+                
+                // تصفية المنتجات بناءً على القسم والبحث
+                products.filter(p => {
+                    const name = state.lang === 'ar' ? p.nameAr : p.nameEn;
+                    const matchesCat = cat === 'all' || p.cat === cat;
+                    const matchesSearch = name.toLowerCase().includes(term);
+                    return matchesCat && matchesSearch;
+                }).forEach(p => {
+                    container.innerHTML += createCard(p);
+                });
+            });
+
+            renderCart();
+            checkScroll();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            let total = 0;
+
+            if (state.cart.length === 0) {
+                container.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:50px;">${state.lang==='ar'?'السلة فارغة':'Cart is empty'}</div>`;
+            } else {
+                state.cart.forEach((item, idx) => {
+                    const p = products.find(x => x.id === item.id);
+                    if(p) {
+                        total += p.price;
+                        const name = state.lang === 'ar' ? p.nameAr : p.nameEn;
+                        container.innerHTML += `
+                            <div style="display:flex; gap:10px; margin-bottom:15px; border-bottom:1px solid #e5e5e5; padding-bottom:10px;">
+                                <img src="${p.img}" style="width:70px; height:70px; border-radius:15px; object-fit:cover;">
+                                <div style="flex:1;">
+                                    <div style="font-weight:bold; font-size:0.9rem;">${name}</div>
+                                    <div style="color:var(--primary); font-weight:bold;">${p.price.toFixed(2)} EGP</div>
+                                </div>
+                                <button onclick="removeFromCart(${idx})" style="color:var(--primary-dark); background:none; border:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+                            </div>`;
+                    }
+                });
+            }
+            document.getElementById('cartTotal').textContent = total.toFixed(2) + ' EGP';
+            document.getElementById('cartCount').textContent = state.cart.length;
+        }
+
+        window.showSection = function(id, btn) {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
+            const section = document.getElementById(id);
+            section.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.addToCart = function(id) {
+            state.cart.push({id});
+            renderCart();
+            const btn = document.querySelector('.cart-float');
+            btn.style.transform = 'scale(1.2)';
+            setTimeout(() => btn.style.transform = '', 200);
+        };
+
+        window.removeFromCart = function(idx) {
+            state.cart.splice(idx, 1);
+            renderCart();
+        };
+
+        window.toggleCart = function() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+            const ov = document.getElementById('cartOverlay');
+            ov.style.display = ov.style.display === 'block' ? 'none' : 'block';
+        };
+
+        document.getElementById('langBtn').addEventListener('click', () => {
+            state.lang = state.lang === 'ar' ? 'en' : 'ar';
+            render();
+        });
+
+        // Theme Toggle Logic
+        document.getElementById('themeBtn').addEventListener('click', () => {
+            state.theme = state.theme === 'light' ? 'dark' : 'light';
+            render();
+        });
+
+        document.getElementById('searchInput').addEventListener('input', render);
+
+        // Scroll Animation Logic
+        function checkScroll() {
+            const cards = document.querySelectorAll('.card');
+            const triggerBottom = window.innerHeight * 0.85;
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < triggerBottom) {
+                    card.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        render();
+    </script>
+    <script type="module">
+/* ================= Firebase ================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+  authDomain: "smart-farm-8d3f5.firebaseapp.com",
+  projectId: "smart-farm-8d3f5",
+  storageBucket: "smart-farm-8d3f5.appspot.com",
+  messagingSenderId: "317371842198",
+  appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* ================= Back Button Logic ================= */
+window.handleBack = function () {
+  onAuthStateChanged(auth, async (user) => {
+    // ❌ مش مسجل دخول
+    if (!user) {
+      window.location.href = "main.html";
+      return;
+    }
+
+    try {
+      const userRef = doc(db, "users", user.uid);
+      const snap = await getDoc(userRef);
+
+      if (!snap.exists()) {
+        window.location.href = "main.html";
+        return;
+      }
+
+      const role = snap.data().role;
+
+      // 🌾 فلاح → ممنوع هنا
+      if (role === "farmer") {
+        alert("هذه الصفحة مخصصة للمستهلكين والمستثمرين فقط 🌱");
+        window.location.href = "farmer-ar.html";
+        return;
+      }
+
+      // 👷‍♂️ عامل أو 💼 مستثمر → مسموح
+      if (role === "worker" || role === "investor" || role === "investor") {
+        // يفضل في الصفحة أو يرجع للماركت
+        window.location.href = "investor.html"; 
+        return;
+      }
+
+      // أي حالة تانية
+      window.location.href = "main.html";
+
+    } catch (error) {
+      console.error("Back button error:", error);
+      window.location.href = "main.html";
+    }
+  });
+};
+</script>
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

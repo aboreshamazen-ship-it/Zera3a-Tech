@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera3a-Tech | منصة الفلاح</title>
+    
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        teal: {
+                            light: '#1a6a7e',
+                            DEFAULT: '#0F4C5C', // Deep Teal
+                            dark: '#0a3541',
+                            darker: '#05191e',
+                        },
+                        sand: {
+                            light: '#f2e9d9',
+                            DEFAULT: '#E6D5B8', // Warm Sand
+                            dark: '#d4c09d',
+                        },
+                        orange: {
+                            light: '#f09a83',
+                            DEFAULT: '#E07A5F', // Sunset Orange
+                            dark: '#c85e44',
+                        },
+                        offWhite: '#FAF9F6', // Off White Background
+                        darkBg: '#0a1a1e',
+                        darkCard: '#112529',
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* تخصيصات إضافية */
+        body {
+            background-color: #FAF9F6; /* Off White Canvas */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #0a1a1e;
+            color: #f1f5f9;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(15, 76, 92, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .hero-pattern {
+            background-image: radial-gradient(circle, #E6D5B8 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0a1a1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E6D5B8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E07A5F;
+        }
+    </style>
+</head>
+<body class="font-cairo text-sand-dark dark:text-sand-light overflow-x-hidden selection:bg-orange selection:text-white">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 bg-transparent">
+        <div class="max-w-[1280px] mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-teal rounded-lg flex items-center justify-center shadow-md">
+                    <i class="ph-bold ph-plant text-sand text-2xl"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tight text-teal dark:text-white nav-text">
+                    Zera3a<span class="text-orange">Tech</span>
+                </span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="backHomeBtn"
+  class="hidden sm:flex items-center gap-2 px-5 h-12 rounded-2xl bg-white/10 border border-teal/10 dark:border-white/10 hover:bg-teal hover:text-white dark:hover:bg-sand dark:hover:text-teal transition-all font-black text-sm text-teal dark:text-sand shadow-sm nav-btn">
+  <i class="ph-bold ph-house"></i>
+  <span data-i18n="backToHomeNav">العودة للرئيسية</span>
+</button>
+
+                
+                <button onclick="toggleTheme()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 border border-teal/10 dark:border-white/10 hover:bg-orange hover:text-white transition-all text-2xl text-teal dark:text-sand shadow-sm">
+                    <i id="theme-icon" class="ph-bold ph-moon"></i>
+                </button>
+
+                <button onclick="toggleLang()" class="px-4 h-12 flex items-center justify-center rounded-2xl bg-white/10 border border-teal/10 dark:border-white/10 hover:bg-teal hover:text-white dark:hover:bg-sand dark:hover:text-teal transition-all font-black text-sm text-teal dark:text-sand shadow-sm">
+                    <span id="lang-btn-text">English</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-24 pb-20 pt-28">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="relative bg-teal dark:bg-teal-darker rounded-[30px] lg:rounded-[40px] p-6 md:p-10 lg:p-12 overflow-hidden shadow-2xl animate-fade-in-up transition-colors duration-300">
+            <div class="absolute inset-0 hero-pattern opacity-10 pointer-events-none"></div>
+            <div class="absolute -top-20 -right-20 w-[400px] h-[400px] bg-orange/10 rounded-full blur-[80px]"></div>
+            <div class="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-sand/10 rounded-full blur-[80px]"></div>
+            
+            <div class="relative z-10 grid lg:grid-cols-[1fr_1fr] gap-12 items-center">
+                <div class="text-right space-y-8 hero-content" dir="rtl">
+                    <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-sand font-black text-[10px] md:text-xs tracking-widest uppercase">
+                        <span class="flex h-2 w-2 rounded-full bg-orange animate-pulse"></span>
+                        <span data-i18n="heroBadge">الريادة في الزراعة الرقمية المصرية</span>
+                    </div>
+                    
+                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-black leading-[1.3] tracking-tight">
+                        <span data-i18n="heroTitle1">نحمل خير</span> 
+                        <span class="text-orange underline decoration-sand/30 underline-offset-[12px]"><span data-i18n="heroTitle2">الأرض</span></span> 
+                        <br/> 
+                        <span data-i18n="heroTitle3">لباب</span> 
+                        <span class="text-sand italic"><span data-i18n="heroTitle4">منزلك</span></span>
+                    </h1>
+                    
+                    <p class="text-white/90 text-base md:text-lg lg:text-xl font-medium leading-relaxed max-w-lg mb-4" data-i18n="heroDesc">
+                        نحن لسنا مجرد وسيط، نحن شركاء الأرض. نضمن للمزارع حقه، وللمستهلك أفضل جودة طازجة تصل إليه في ساعات معدودة.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 pt-2 justify-start">
+                        <button onclick="scrollToSection('how-it-works')" class="bg-orange text-white px-8 py-3 rounded-[1.5rem] font-black text-lg shadow-2xl shadow-orange/40 hover:bg-orange-dark hover:-translate-y-1 active:translate-y-0 transition-all duration-300" data-i18n="heroBtn1">
+                            ابدأ رحلتك معنا
+                        </button>
+                        <button onclick="scrollToSection('story')" class="bg-white/5 backdrop-blur-xl border border-white/10 text-white px-8 py-3 rounded-[1.5rem] font-black text-lg hover:bg-white/10 transition-all flex items-center gap-3 group hover:-translate-y-1 active:translate-y-0">
+                            <i class="ph-bold ph-play-circle text-2xl text-sand group-hover:scale-110 transition-transform"></i>
+                            <span data-i18n="heroBtn2">قصة نجاحنا</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative hidden lg:block hero-image">
+                    <div class="relative z-10 animate-float">
+                        <div class="absolute -inset-3 bg-sand/20 rounded-[30px] blur-xl opacity-40"></div>
+                        <div class="relative rounded-[30px] border-[8px] border-white/10 overflow-hidden shadow-2xl transition-transform duration-700 rotate-2 hover:rotate-0">
+                            <img src="https://cdn.arabsstock.com/uploads/images/146152/growing-small-seedlings-farms-and-thumbnail-146152.webp" alt="Harvest" class="w-full aspect-[16/9] object-cover scale-105 hover:scale-100 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-teal/60 via-transparent to-transparent"></div>
+                            
+                            <div class="absolute bottom-6 left-6 right-6 p-4 glass rounded-2xl border border-white/20 shadow-xl">
+                                <div class="flex justify-between items-center text-right">
+                                    <div>
+                                        <p class="text-teal dark:text-white font-black text-lg tracking-tighter" data-i18n="heroImgTitle">حصاد الغد</p>
+                                        <p class="text-teal/60 dark:text-white/60 text-[10px] font-bold" data-i18n="heroImgSub">بأيدي مزارعين مصريين</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-orange text-white rounded-xl flex items-center justify-center text-xl shadow-lg shadow-orange/20">
+                                        <i class="ph-bold ph-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute top-6 -left-8 w-16 h-16 bg-sand rounded-2xl rotate-12 -z-10 animate-float delay-75 opacity-30"></div>
+                    <div class="absolute -bottom-6 right-6 w-24 h-24 bg-orange rounded-full -z-10 blur-xl opacity-20 animate-pulse"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <div id="story" class="scroll-mt-32">
+            <section class="relative overflow-hidden py-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1 relative group">
+                        <div class="absolute -inset-4 bg-sand-light dark:bg-teal-darker rounded-[30px] rotate-2 -z-10 group-hover:rotate-0 transition-transform duration-700 opacity-50"></div>
+                        
+                        <!-- Image Container (Keeps rounded corners) -->
+                        <div class="relative overflow-hidden rounded-[30px] shadow-2xl">
+                            <img src="https://modo3.com/thumbs/fit630x300/75978/1666518407/%D8%A8%D8%AD%D8%AB_%D8%B9%D9%86_%D8%A7%D9%84%D8%B2%D8%B1%D8%A7%D8%B9%D8%A9.jpg" alt="Story" class="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-1000 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-teal/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                        </div>
+                        
+                        <!-- Quote Card: Positioned INSIDE the image bounds to avoid clipping -->
+                        <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-[90%] md:w-[320px] z-20">
+                            <div class="bg-white/95 dark:bg-darkCard/95 backdrop-blur-sm p-5 md:p-6 rounded-[25px] shadow-2xl border border-sand/20 dark:border-white/10 transition-colors">
+                                <i class="ph-fill ph-quotes text-4xl text-orange/20 absolute top-4 left-4"></i>
+                                <p class="text-teal dark:text-white font-bold italic text-sm leading-relaxed relative z-10 text-right mb-3" data-i18n="storyQuote">
+                                    "الأرض لا تبخل أبداً، نحن فقط من نحتاج لتنظيم وصول خيرها للناس."
+                                </p>
+                                <div class="flex items-center gap-2 border-t border-sand/20 dark:border-white/5 pt-3">
+                                    <div class="w-2 h-2 rounded-full bg-orange"></div>
+                                    <p class="text-orange font-black text-xs" data-i18n="storyAuthor">- الحاج صبحي، مزارع شريك</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-1 lg:order-2 text-right space-y-6 pr-4">
+                        <div class="inline-block px-3 py-1 bg-sand-light dark:bg-teal-dark text-teal dark:text-sand rounded-md font-black text-xs tracking-widest uppercase mb-1" data-i18n="storyBadge">
+                            جذورنا وقيمنا
+                        </div>
+                        <h2 class="text-teal dark:text-white text-4xl md:text-5xl font-black leading-tight">
+                            <span data-i18n="storyTitle1">حكاية بدأت من</span> <br/> <span class="text-orange italic" data-i18n="storyTitle2">عشق الأرض</span>
+                        </h2>
+                        <div class="w-20 h-1.5 bg-orange rounded-full mr-auto ml-0"></div>
+                        
+                        <div class="space-y-4 text-gray-700 dark:text-gray-300 text-base md:text-lg font-medium leading-relaxed">
+                            <p data-i18n="storyP1">بدأت فكرة منصة الفلاح من ملاحظة بسيطة ومؤلمة: المزارع يبذل عرق جبينه ليحصل على ملاليم، بينما يدفع المستهلك أضعافاً للوسطاء.</p>
+                            <p class="p-6 bg-white dark:bg-darkCard border-r-4 border-orange rounded-2xl shadow-sm italic transition-colors text-sm md:text-base" data-i18n="storyP2">
+                                قررنا أن نكون الحل التقني الذي يزيل هذه الحواجز. منصتنا ليست مجرد "تطبيق"، بل هي نظام بيئي متكامل يربط المزرعة بالمنزل مباشرة.
+                            </p>
+                            <p data-i18n="storyP3">نحن نؤمن بالشفافية المطلقة، بالجودة التي لا تقبل المساومة، وبأن التكنولوجيا يجب أن تخدم الإنسان والأرض معاً.</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-sand-light dark:border-white/5">
+                            <div>
+                                <p class="text-teal dark:text-orange font-black text-2xl" data-i18n="storyStat1">100%</p>
+                                <p class="text-gray-500 dark:text-gray-400 font-bold text-sm" data-i18n="storyStat1Label">منتج محلي أصيل</p>
+                            </div>
+                            <div>
+                                <p class="text-teal dark:text-orange font-black text-2xl" data-i18n="storyStat2">صفر</p>
+                                <p class="text-gray-500 dark:text-gray-400 font-bold text-sm" data-i18n="storyStat2Label">وسطاء مخفيين</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Features Section -->
+        <div id="features" class="scroll-mt-32">
+            <section class="bg-sand dark:bg-darkCard p-8 md:p-16 rounded-[30px] shadow-sm border border-sand-dark/10 dark:border-white/5 relative overflow-hidden transition-colors">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full -mr-32 -mt-32 blur-3xl mix-blend-overlay"></div>
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                    <h2 class="text-teal dark:text-white text-4xl font-black" data-i18n="featuresTitle">لماذا نحن مختلفون؟ ✨</h2>
+                    <p class="text-teal/80 dark:text-gray-400 font-bold text-lg leading-relaxed" data-i18n="featuresSubtitle">لسنا مجرد خدمة توصيل، بل ثورة في طريقة تداول الغذاء في مصر.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="group relative">
+                        <div class="bg-white dark:bg-teal-darker p-8 rounded-[30px] border-2 border-transparent hover:border-orange transition-all duration-500 h-full flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:-translate-y-2">
+                            <div class="w-20 h-20 bg-white dark:bg-darkCard text-orange rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-xl shadow-orange/10 group-hover:bg-orange group-hover:text-white transition-all duration-500 rotate-3 group-hover:rotate-0">
+                                <i class="ph-bold ph-tractor"></i>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3 tracking-tight group-hover:text-orange transition-colors" data-i18n="feat1Title">مباشر من الحقل</h3>
+                            <p class="text-teal/80 dark:text-gray-400 text-base leading-relaxed font-medium" data-i18n="feat1Desc">نختصر المسافات لنحضر لك المحصول فور حصاده دون تخزين ممل.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="group relative">
+                        <div class="bg-white dark:bg-teal-darker p-8 rounded-[30px] border-2 border-transparent hover:border-orange transition-all duration-500 h-full flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:-translate-y-2">
+                            <div class="w-20 h-20 bg-white dark:bg-darkCard text-orange rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-xl shadow-orange/10 group-hover:bg-orange group-hover:text-white transition-all duration-500 rotate-3 group-hover:rotate-0">
+                                <i class="ph-bold ph-shield-check"></i>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3 tracking-tight group-hover:text-orange transition-colors" data-i18n="feat2Title">أمان بلا حدود</h3>
+                            <p class="text-teal/80 dark:text-gray-400 text-base leading-relaxed font-medium" data-i18n="feat2Desc">رقابة صارمة على استخدام الأسمدة والمبيدات لضمان صحة عائلتك.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="group relative">
+                        <div class="bg-white dark:bg-teal-darker p-8 rounded-[30px] border-2 border-transparent hover:border-orange transition-all duration-500 h-full flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:-translate-y-2">
+                            <div class="w-20 h-20 bg-white dark:bg-darkCard text-orange rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-xl shadow-orange/10 group-hover:bg-orange group-hover:text-white transition-all duration-500 rotate-3 group-hover:rotate-0">
+                                <i class="ph-bold ph-hand-coins"></i>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3 tracking-tight group-hover:text-orange transition-colors" data-i18n="feat3Title">سعر عادل للكل</h3>
+                            <p class="text-teal/80 dark:text-gray-400 text-base leading-relaxed font-medium" data-i18n="feat3Desc">نضمن ربحاً مجزياً للفلاح وسعراً اقتصادياً يناسب ميزانيتك.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="group relative">
+                        <div class="bg-white dark:bg-teal-darker p-8 rounded-[30px] border-2 border-transparent hover:border-orange transition-all duration-500 h-full flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:-translate-y-2">
+                            <div class="w-20 h-20 bg-white dark:bg-darkCard text-orange rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-xl shadow-orange/10 group-hover:bg-orange group-hover:text-white transition-all duration-500 rotate-3 group-hover:rotate-0">
+                                <i class="ph-bold ph-leaf"></i>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3 tracking-tight group-hover:text-orange transition-colors" data-i18n="feat4Title">استدامة حقيقية</h3>
+                            <p class="text-teal/80 dark:text-gray-400 text-base leading-relaxed font-medium" data-i18n="feat4Desc">ندعم ممارسات الزراعة النظيفة التي تحافظ على خصوبة تربتنا.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- How It Works Section -->
+        <div id="how-it-works" class="scroll-mt-32">
+            <section class="py-10 relative overflow-hidden">
+                <div class="text-center mb-16">
+                    <h2 class="text-teal dark:text-white text-4xl font-black mb-4" data-i18n="hiwTitle">رحلة المحصول من الحقل 🚜</h2>
+                    <p class="text-gray-600 dark:text-gray-400 font-bold text-lg" data-i18n="hiwSubtitle">خطوات بسيطة تضمن لك جودة استثنائية كل يوم.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="hidden lg:block absolute top-1/4 left-[10%] right-[10%] h-px border-t-2 border-dashed border-sand-dark dark:border-white/10 -z-10"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                        <!-- Step 1 -->
+                        <div class="relative flex flex-col items-center text-center group">
+                            <div class="w-24 h-24 bg-white dark:bg-darkCard border-4 border-sand dark:border-teal text-teal dark:text-white rounded-full flex items-center justify-center text-4xl mb-8 shadow-2xl relative z-10 transition-all duration-500 group-hover:bg-teal group-hover:text-white group-hover:border-teal group-hover:scale-110">
+                                <i class="ph-bold ph-device-mobile-speaker"></i>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center text-lg font-black border-4 border-white dark:border-darkCard">1</div>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3" data-i18n="step1Title">اطلب سلتك</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-base leading-relaxed font-medium px-4" data-i18n="step1Desc">تصفح قائمة المحاصيل المتاحة لهذا اليوم واطلب ما تشتهي.</p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="relative flex flex-col items-center text-center group">
+                            <div class="w-24 h-24 bg-white dark:bg-darkCard border-4 border-sand dark:border-teal text-teal dark:text-white rounded-full flex items-center justify-center text-4xl mb-8 shadow-2xl relative z-10 transition-all duration-500 group-hover:bg-teal group-hover:text-white group-hover:border-teal group-hover:scale-110">
+                                <i class="ph-bold ph-plant"></i>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center text-lg font-black border-4 border-white dark:border-darkCard">2</div>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3" data-i18n="step2Title">نحصد لك</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-base leading-relaxed font-medium px-4" data-i18n="step2Desc">بمجرد تأكيد طلبك، يبدأ المزارعون بجمع المحصول طازجاً.</p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="relative flex flex-col items-center text-center group">
+                            <div class="w-24 h-24 bg-white dark:bg-darkCard border-4 border-sand dark:border-teal text-teal dark:text-white rounded-full flex items-center justify-center text-4xl mb-8 shadow-2xl relative z-10 transition-all duration-500 group-hover:bg-teal group-hover:text-white group-hover:border-teal group-hover:scale-110">
+                                <i class="ph-bold ph-microscope"></i>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center text-lg font-black border-4 border-white dark:border-darkCard">3</div>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3" data-i18n="step3Title">نفحص الجودة</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-base leading-relaxed font-medium px-4" data-i18n="step3Desc">تمر كل شحنة عبر مركز الفرز للتأكد من مطابقتها لمعاييرنا.</p>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="relative flex flex-col items-center text-center group">
+                            <div class="w-24 h-24 bg-white dark:bg-darkCard border-4 border-sand dark:border-teal text-teal dark:text-white rounded-full flex items-center justify-center text-4xl mb-8 shadow-2xl relative z-10 transition-all duration-500 group-hover:bg-teal group-hover:text-white group-hover:border-teal group-hover:scale-110">
+                                <i class="ph-bold ph-moped"></i>
+                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center text-lg font-black border-4 border-white dark:border-darkCard">4</div>
+                            </div>
+                            <h3 class="text-teal dark:text-white text-xl font-black mb-3" data-i18n="step4Title">نصل لبابك</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-base leading-relaxed font-medium px-4" data-i18n="step4Desc">أسطولنا المبرد ينطلق فوراً لتصلك السلة في أوج نضارتها.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-16 p-8 bg-teal dark:bg-teal-darker rounded-[30px] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl transition-colors">
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-3xl text-sand">
+                            <i class="ph-bold ph-clock"></i>
+                        </div>
+                        <div class="text-right">
+                            <h4 class="text-xl font-black mb-1 text-sand" data-i18n="bannerTitle">توصيل خلال 12 ساعة</h4>
+                            <p class="text-white/60 font-bold text-sm" data-i18n="bannerDesc">لضمان وصول المحصول وهو في أبهى صوره.</p>
+                        </div>
+                    </div>
+                    <button class="bg-orange text-white px-8 py-3 rounded-2xl font-black text-lg hover:bg-orange-dark transition-all shadow-xl shadow-black/20" data-i18n="bannerBtn">
+                        اطلب الآن
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Stats Section -->
+        <section class="bg-gradient-to-br from-teal to-teal-dark dark:from-teal-darker dark:to-teal-dark text-white p-12 md:p-20 rounded-[40px] shadow-2xl relative overflow-hidden border-none group transition-all">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+            <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-orange/10 rounded-full -mr-48 -mt-48 blur-[100px] group-hover:scale-110 transition-transform duration-1000"></div>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center relative z-10">
+                <div class="space-y-4">
+                    <div class="text-sand/30 text-4xl mx-auto flex justify-center">
+                        <i class="ph-fill ph-users-three"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-orange tabular-nums tracking-tighter" data-i18n="stat1Num">+٥,٠٠٠</div>
+                    <div class="text-sand font-black text-sm tracking-wide uppercase opacity-70 border-t border-white/10 pt-3 max-w-[140px] mx-auto" data-i18n="stat1Label">فلاح شريك</div>
+                </div>
+                <div class="space-y-4">
+                    <div class="text-sand/30 text-4xl mx-auto flex justify-center">
+                        <i class="ph-fill ph-leaf"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-orange tabular-nums tracking-tighter" data-i18n="stat2Num">+١٢٠</div>
+                    <div class="text-sand font-black text-sm tracking-wide uppercase opacity-70 border-t border-white/10 pt-3 max-w-[140px] mx-auto" data-i18n="stat2Label">صنف زراعي</div>
+                </div>
+                <div class="space-y-4">
+                    <div class="text-sand/30 text-4xl mx-auto flex justify-center">
+                        <i class="ph-fill ph-smiley-wink"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-orange tabular-nums tracking-tighter" data-i18n="stat3Num">+٥٠ ألف</div>
+                    <div class="text-sand font-black text-sm tracking-wide uppercase opacity-70 border-t border-white/10 pt-3 max-w-[140px] mx-auto" data-i18n="stat3Label">سلة تم تسليمها</div>
+                </div>
+                <div class="space-y-4">
+                    <div class="text-sand/30 text-4xl mx-auto flex justify-center">
+                        <i class="ph-fill ph-map-trifold"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-orange tabular-nums tracking-tighter" data-i18n="stat4Num">٢٧</div>
+                    <div class="text-sand font-black text-sm tracking-wide uppercase opacity-70 border-t border-white/10 pt-3 max-w-[140px] mx-auto" data-i18n="stat4Label">محافظة مصرية</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <div id="testimonials" class="scroll-mt-32">
+            <section class="py-10">
+                <div class="text-center mb-12">
+                    <h2 class="text-teal dark:text-white text-3xl font-black mb-4" data-i18n="testTitle">ماذا يقول عنا شركاء النجاح؟ 🤝</h2>
+                    <p class="text-teal/80 dark:text-gray-400 font-bold" data-i18n="testSubtitle">آراء عملائنا هي الوقود الذي يحركنا للأمام دائماً.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="group bg-white dark:bg-darkCard p-8 rounded-[30px] border border-sand/30 dark:border-white/5 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative flex flex-col items-center text-center">
+                        <div class="absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-orange rounded-xl flex items-center justify-center text-white text-2xl shadow-lg shadow-orange/30 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-quotes"></i>
+                        </div>
+                        
+                        <p class="text-teal/80 dark:text-white/80 font-bold italic mb-8 leading-relaxed text-base" data-i18n="test1Text">"أفضل تجربة شراء خضار أونلاين في مصر بلا منازع. الطعم فعلاً مختلف والنظافة ممتازة. فخورين بوجود منصة زي دي."</p>
+                        
+                        <div class="mt-auto pt-6 border-t border-sand/30 dark:border-white/10 w-full flex flex-col items-center">
+                            <div class="relative mb-3">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjrGr2hAaEHwa8ipPuj4pGkgQihFSWCrjA_w&s" alt="User" class="w-16 h-16 rounded-xl border-4 border-sand dark:border-teal object-cover shadow-md">
+                                <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-teal dark:bg-orange rounded-full flex items-center justify-center text-white border-2 border-white dark:border-darkCard">
+                                    <i class="ph-bold ph-check text-[10px]"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-teal dark:text-white font-black text-lg mb-1" data-i18n="test1Name">م. محمد أحمد</h4>
+                            <p class="text-orange font-black text-xs tracking-widest uppercase" data-i18n="test1Role">عميل منذ ٢٠٢٣</p>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="group bg-white dark:bg-darkCard p-8 rounded-[30px] border border-sand/30 dark:border-white/5 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative flex flex-col items-center text-center">
+                        <div class="absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-orange rounded-xl flex items-center justify-center text-white text-2xl shadow-lg shadow-orange/30 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-quotes"></i>
+                        </div>
+                        
+                        <p class="text-teal/80 dark:text-white/80 font-bold italic mb-8 leading-relaxed text-base" data-i18n="test2Text">"الخضار بيوصل لسة بريحة الأرض. والتعامل مع المندوبين قمة في الرقي. والأسعار فعلاً أرخص من هايبرات كتير."</p>
+                        
+                        <div class="mt-auto pt-6 border-t border-sand/30 dark:border-white/10 w-full flex flex-col items-center">
+                            <div class="relative mb-3">
+                                <img src="https://img.freepik.com/free-photo/lifestyle-beauty-fashion-people-emotions-concept-young-asian-female-office-manager-ceo-with-pleased-expression-standing-white-background-smiling-with-arms-crossed-chest_1258-59329.jpg?semt=ais_hybrid&w=740&q=80" alt="User" class="w-16 h-16 rounded-xl border-4 border-sand dark:border-teal object-cover shadow-md">
+                                <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-teal dark:bg-orange rounded-full flex items-center justify-center text-white border-2 border-white dark:border-darkCard">
+                                    <i class="ph-bold ph-check text-[10px]"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-teal dark:text-white font-black text-lg mb-1" data-i18n="test2Name">سارة علي</h4>
+                            <p class="text-orange font-black text-xs tracking-widest uppercase" data-i18n="test2Role">ربة منزل</p>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="group bg-white dark:bg-darkCard p-8 rounded-[30px] border border-sand/30 dark:border-white/5 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative flex flex-col items-center text-center">
+                        <div class="absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-orange rounded-xl flex items-center justify-center text-white text-2xl shadow-lg shadow-orange/30 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-quotes"></i>
+                        </div>
+                        
+                        <p class="text-teal/80 dark:text-white/80 font-bold italic mb-8 leading-relaxed text-base" data-i18n="test3Text">"كنت بشكك في موضوع 'مباشر من المزرعة' لحد ما جربت. الفرق في الجودة بيبان من أول طبخة. تسلم إيديكم."</p>
+                        
+                        <div class="mt-auto pt-6 border-t border-sand/30 dark:border-white/10 w-full flex flex-col items-center">
+                            <div class="relative mb-3">
+                                <img src="https://png.pngtree.com/thumb_back/fh260/background/20220416/pngtree-businessman-real-people-one-person-suit-photo-photo-image_36091008.jpg" alt="User" class="w-16 h-16 rounded-xl border-4 border-sand dark:border-teal object-cover shadow-md">
+                                <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-teal dark:bg-orange rounded-full flex items-center justify-center text-white border-2 border-white dark:border-darkCard">
+                                    <i class="ph-bold ph-check text-[10px]"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-teal dark:text-white font-black text-lg mb-1" data-i18n="test3Name">خالد عمر</h4>
+                            <p class="text-orange font-black text-xs tracking-widest uppercase" data-i18n="test3Role">طالب جامعي</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="scroll-mt-32">
+            <section class="bg-sand dark:bg-darkCard p-6 md:p-12 rounded-[30px] shadow-sm border border-sand-dark/10 dark:border-white/5 overflow-hidden relative transition-colors">
+                <div class="absolute bottom-0 right-0 w-48 h-48 bg-white/20 rounded-full blur-3xl -mb-24 -mr-24"></div>
+                
+                <div class="grid lg:grid-cols-[1fr_1.5fr] gap-12 relative z-10">
+                    <div class="text-right space-y-8">
+                        <div>
+                            <h2 class="text-teal dark:text-white text-3xl font-black mb-4" data-i18n="contactTitle">كن على اتصال 📲</h2>
+                            <p class="text-teal/80 dark:text-gray-400 font-bold text-base" data-i18n="contactSubtitle">سواء كنت مزارعاً يرغب في الانضمام إلينا، أو مستهلكاً لديه استفسار، نحن هنا لأجلك.</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="group flex items-center gap-4 p-4 rounded-2xl bg-offWhite dark:bg-teal-darker border-2 border-transparent hover:border-orange transition-all cursor-pointer">
+                                <div class="w-12 h-12 bg-white dark:bg-darkCard rounded-xl flex items-center justify-center text-orange text-2xl shadow-sm group-hover:scale-110 transition-transform">
+                                    <i class="ph-bold ph-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1" data-i18n="contactHotline">الخط الساخن</p>
+                                    <p class="text-teal dark:text-white font-black text-lg">19000</p>
+                                </div>
+                            </div>
+                            
+                            <div class="group flex items-center gap-4 p-4 rounded-2xl bg-offWhite dark:bg-teal-darker border-2 border-transparent hover:border-orange transition-all cursor-pointer">
+                                <div class="w-12 h-12 bg-white dark:bg-darkCard rounded-xl flex items-center justify-center text-orange text-2xl shadow-sm group-hover:scale-110 transition-transform">
+                                    <i class="ph-bold ph-envelope-simple"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1" data-i18n="contactEmail">البريد الإلكتروني</p>
+                                    <p class="text-teal dark:text-white font-black text-lg">hello@zera3a-tech.com</p>
+                                </div>
+                            </div>
+
+                            <div class="group flex items-center gap-4 p-4 rounded-2xl bg-offWhite dark:bg-teal-darker border-2 border-transparent hover:border-orange transition-all cursor-pointer">
+                                <div class="w-12 h-12 bg-white dark:bg-darkCard rounded-xl flex items-center justify-center text-orange text-2xl shadow-sm group-hover:scale-110 transition-transform">
+                                    <i class="ph-bold ph-map-pin"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1" data-i18n="contactAddr">المقر الرئيسي</p>
+                                    <p class="text-teal dark:text-white font-black text-lg" data-i18n="contactAddrValue">التجمع الخامس، القاهرة</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="contactForm" class="bg-white dark:bg-teal-darker p-6 md:p-10 rounded-[25px] shadow-2xl border border-sand/20 dark:border-white/5 space-y-5 text-right">
+                        <h3 class="text-teal dark:text-white text-xl font-black mb-6 border-b-2 border-sand/20 pb-3 flex items-center gap-3">
+                            <i class="ph-bold ph-chat-centered-text text-orange"></i>
+                            <span data-i18n="contactFormTitle">أرسل لنا رسالة سريعة</span>
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="space-y-2">
+                                <label class="text-teal dark:text-sand font-black text-xs" data-i18n="contactNameLabel">الاسم بالكامل</label>
+                                <input type="text" required class="w-full p-3 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-offWhite dark:bg-darkCard dark:text-white focus:border-orange focus:bg-white dark:focus:bg-teal-dark transition-all font-bold text-sm">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-teal dark:text-sand font-black text-xs" data-i18n="contactEmailLabel">البريد الإلكتروني</label>
+                                <input type="email" required class="w-full p-3 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-offWhite dark:bg-darkCard dark:text-white focus:border-orange focus:bg-white dark:focus:bg-teal-dark transition-all font-bold text-sm">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-teal dark:text-sand font-black text-xs" data-i18n="contactPhoneLabel">رقم الهاتف</label>
+                            <input type="tel" required class="w-full p-3 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-offWhite dark:bg-darkCard dark:text-white focus:border-orange focus:bg-white dark:focus:bg-teal-dark transition-all font-bold text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-teal dark:text-sand font-black text-xs" data-i18n="contactMsgLabel">الرسالة</label>
+                            <textarea rows="3" required class="w-full p-3 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-offWhite dark:bg-darkCard dark:text-white focus:border-orange focus:bg-white dark:focus:bg-teal-dark transition-all font-bold resize-none text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-teal dark:bg-teal text-white py-3 rounded-xl font-black text-lg shadow-xl shadow-teal/20 hover:bg-teal-dark hover:-translate-y-1 active:translate-y-0 transition-all" data-i18n="contactSubmit">
+                            إرسال الآن 🚀
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <!-- Complaints Toggle -->
+        <div class="flex flex-col items-center gap-6 mt-16">
+            <div class="flex items-center gap-4">
+               <div class="w-10 h-px bg-sand-dark opacity-30"></div>
+               <i class="ph-bold ph-leaf text-orange text-lg"></i>
+               <div class="w-10 h-px bg-sand-dark opacity-30"></div>
+            </div>
+            <button 
+                id="complaintToggleBtn"
+                onclick="toggleComplaints()"
+                class="group relative px-10 py-4 rounded-2xl font-black transition-all duration-500 overflow-hidden shadow-2xl hover:scale-105 active:scale-95 bg-white dark:bg-darkCard border-2 border-orange text-orange shadow-orange/10 hover:bg-orange hover:text-white text-base md:text-lg"
+            >
+                <span class="relative z-10 flex items-center gap-3">
+                    <i class="ph-bold ph-chat-teardrop-dots"></i>
+                    <span id="complaintBtnText" data-i18n="complaintOpen">تقديم شكوى أو اقتراح</span>
+                </span>
+            </button>
+        </div>
+
+        <!-- Complaints Section (Hidden by default) -->
+        <div id="complaintsSection" class="hidden mt-10 animate-fade-in-up">
+            <section class="bg-white dark:bg-darkCard p-8 md:p-14 rounded-[30px] shadow-2xl border border-sand/40 dark:border-white/5 relative overflow-hidden transition-colors">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-orange/10 rounded-bl-[50px]"></div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12 space-y-3">
+                        <div class="w-16 h-16 bg-orange/10 text-orange rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
+                            <i class="ph-bold ph-headset"></i>
+                        </div>
+                        <h2 class="text-teal dark:text-white text-4xl font-black" data-i18n="compTitle">مركز العناية بالعملاء 🎧</h2>
+                        <p class="text-gray-600 dark:text-gray-400 font-bold text-lg" data-i18n="compSubtitle">صوتك مسموع، ورضاك هو غايتنا الأولى.</p>
+                    </div>
+                    
+                    <form id="complaintForm" class="space-y-6 bg-offWhite dark:bg-teal-darker p-6 md:p-10 rounded-[30px] shadow-inner border border-sand/20 dark:border-white/5 text-right">
+                        
+                        <div class="space-y-4">
+                             <p class="text-teal dark:text-white font-black text-base mb-2" data-i18n="compMethodQ">كيف تود أن نتواصل معك؟</p>
+                             <div class="flex flex-wrap gap-4">
+                                <button type="button" onclick="setContactMethod('phone')" id="btn-phone" class="flex-1 min-w-[160px] p-5 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black text-base bg-teal border-teal text-white shadow-xl shadow-teal/20">
+                                    <i class="ph-bold ph-phone text-xl"></i>
+                                    <span data-i18n="compMethodP">رقم الهاتف</span>
+                                </button>
+                                <button type="button" onclick="setContactMethod('email')" id="btn-email" class="flex-1 min-w-[160px] p-5 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 font-black text-base bg-white dark:bg-darkCard border-sand text-teal dark:text-sand hover:border-teal/50">
+                                    <i class="ph-bold ph-at text-xl"></i>
+                                    <span data-i18n="compMethodE">البريد الإلكتروني</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-teal dark:text-sand font-black text-xs pr-1" data-i18n="compContactLabel">بيانات التواصل</label>
+                                <input 
+                                    type="tel" 
+                                    id="contactInput"
+                                    placeholder="٠١xxxxxxxxx" 
+                                    required 
+                                    class="w-full p-4 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-white dark:bg-darkCard dark:text-white focus:border-orange focus:outline-none font-bold shadow-sm transition-all"
+                                />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-teal dark:text-sand font-black text-xs pr-1" data-i18n="compNameLabel">الاسم الثلاثي</label>
+                                <input 
+                                    id="complaintNameInput"
+                                    type="text" 
+                                    placeholder="أدخل اسمك بالكامل" 
+                                    required 
+                                    class="w-full p-4 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-white dark:bg-darkCard dark:text-white focus:border-orange focus:outline-none font-bold shadow-sm transition-all"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-teal dark:text-sand font-black text-xs pr-1" data-i18n="compCatLabel">تصنيف الملاحظة</label>
+                            <div class="relative">
+                                <select required class="w-full p-4 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-white dark:bg-darkCard dark:text-white focus:border-orange focus:outline-none font-black shadow-sm transition-all appearance-none cursor-pointer text-sm">
+                                    <option value="" disabled selected data-i18n="compCatPh">ما هو موضوع تواصلك؟</option>
+                                    <option value="quality" data-i18n="compCatOpt1">جودة المحاصيل</option>
+                                    <option value="delivery" data-i18n="compCatOpt2">خدمة التوصيل</option>
+                                    <option value="app" data-i18n="compCatOpt3">مشكلة في التطبيق</option>
+                                    <option value="suggestion" data-i18n="compCatOpt4">اقتراح لتطوير الخدمة</option>
+                                    <option value="other" data-i18n="compCatOpt5">أخرى</option>
+                                </select>
+                                <i class="ph-bold ph-caret-down absolute left-4 top-1/2 -translate-y-1/2 text-teal pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-teal dark:text-sand font-black text-xs pr-1" data-i18n="compDetailsLabel">التفاصيل</label>
+                            <textarea 
+                                rows="4" 
+                                placeholder="اكتب لنا كل ما يجول بخاطرك، نحن نستمع بدقة..." 
+                                required 
+                                class="w-full p-4 rounded-xl border-2 border-sand/30 dark:border-white/10 bg-white dark:bg-darkCard dark:text-white focus:border-orange focus:outline-none font-bold shadow-sm transition-all resize-none text-sm"
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" id="compSubmitBtn" class="w-full py-4 rounded-2xl font-black text-lg shadow-2xl transition-all flex items-center justify-center gap-3 bg-orange text-white hover:bg-orange-dark hover:-translate-y-1 shadow-orange/30">
+                            <span data-i18n="compSubmit">إرسال الملاحظة</span>
+                            <i class="ph-bold ph-paper-plane-tilt"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Floating Back to Top Button -->
+    <button
+        id="scrollTopBtn"
+        onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+        class="fixed bottom-8 left-8 z-50 w-12 h-12 bg-teal text-sand rounded-xl shadow-2xl flex items-center justify-center transition-all duration-500 hover:bg-orange hover:text-white group translate-y-20 opacity-0 pointer-events-none"
+    >
+        <i class="ph-bold ph-caret-double-up text-xl group-hover:animate-bounce"></i>
+    </button>
+    
+    <!-- Footer -->
+    <footer class="bg-teal dark:bg-teal-darker py-16 text-center text-white relative overflow-hidden transition-colors">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange to-transparent opacity-30"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="inline-flex items-center gap-3 mb-4">
+                <i class="ph-fill ph-plant text-3xl text-sand"></i>
+                <h2 class="text-3xl font-black text-sand italic tracking-tighter">Zera3a<span class="text-white">Tech</span></h2>
+            </div>
+            <p class="text-sand/70 mb-8 max-w-lg mx-auto text-base leading-relaxed font-medium" data-i18n="footerDesc">نحن نؤمن بأن التكنولوجيا هي المفتاح لمستقبل زراعي مستدام وعادل لكل المصريين، حيث تلتقي الأصالة بالابتكار.</p>
+            
+            <div class="flex justify-center gap-6 mb-10">
+                <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-orange hover:border-orange transition-all duration-300 text-2xl group">
+                    <i class="ph-bold ph-facebook-logo group-hover:scale-110 transition-transform"></i>
+                </a>
+                <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-orange hover:border-orange transition-all duration-300 text-2xl group">
+                    <i class="ph-bold ph-instagram-logo group-hover:scale-110 transition-transform"></i>
+                </a>
+                <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-orange hover:border-orange transition-all duration-300 text-2xl group">
+                    <i class="ph-bold ph-twitter-logo group-hover:scale-110 transition-transform"></i>
+                </a>
+                <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-orange hover:border-orange transition-all duration-300 text-2xl group">
+                    <i class="ph-bold ph-whatsapp-logo group-hover:scale-110 transition-transform"></i>
+                </a>
+            </div>
+            
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs opacity-60 font-bold">
+                <p>© <span id="year"></span> Zera3a-Tech | <span data-i18n="footerRights">جميع الحقوق محفوظة</span></p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-sand transition-colors" data-i18n="footerPrivacy">سياسة الخصوصية</a>
+                    <a href="#" class="hover:text-sand transition-colors" data-i18n="footerTerms">الشروط والأحكام</a>
+                </div>
+            </div>
+            <p class="mt-3 text-[10px] opacity-30 uppercase tracking-[4px]" data-i18n="footerMadeWith">صُنع بحب لأرض الكنانة</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Translations Data ---
+        const translations = {
+            ar: {
+                backToHomeNav: 'العودة للرئيسية',
+                heroBadge: 'الريادة في الزراعة الرقمية المصرية',
+                heroTitle1: 'نحمل خير',
+                heroTitle2: 'الأرض',
+                heroTitle3: 'لباب',
+                heroTitle4: 'منزلك',
+                heroDesc: 'نحن لسنا مجرد وسيط، نحن شركاء الأرض. نضمن للمزارع حقه، وللمستهلك أفضل جودة طازجة تصل إليه في ساعات معدودة.',
+                heroBtn1: 'ابدأ رحلتك معنا',
+                heroBtn2: 'قصة نجاحنا',
+                heroImgTitle: 'حصاد الغد',
+                heroImgSub: 'بأيدي مزارعين مصريين',
+                
+                storyBadge: 'جذورنا وقيمنا',
+                storyTitle1: 'حكاية بدأت من',
+                storyTitle2: 'عشق الأرض',
+                storyQuote: '"الأرض لا تبخل أبداً، نحن فقط من نحتاج لتنظيم وصول خيرها للناس."',
+                storyAuthor: '- الحاج صبحي، مزارع شريك',
+                storyP1: 'بدأت فكرة منصة الفلاح من ملاحظة بسيطة ومؤلمة: المزارع يبذل عرق جبينه ليحصل على ملاليم، بينما يدفع المستهلك أضعافاً للوسطاء.',
+                storyP2: 'قررنا أن نكون الحل التقني الذي يزيل هذه الحواجز. منصتنا ليست مجرد "تطبيق"، بل هي نظام بيئي متكامل يربط المزرعة بالمنزل مباشرة.',
+                storyP3: 'نحن نؤمن بالشفافية المطلقة، بالجودة التي لا تقبل المساومة، وبأن التكنولوجيا يجب أن تخدم الإنسان والأرض معاً.',
+                storyStat1: '100%',
+                storyStat1Label: 'منتج محلي أصيل',
+                storyStat2: 'صفر',
+                storyStat2Label: 'وسطاء مخفيين',
+
+                featuresTitle: 'لماذا نحن مختلفون؟ ✨',
+                featuresSubtitle: 'لسنا مجرد خدمة توصيل، بل ثورة في طريقة تداول الغذاء في مصر.',
+                feat1Title: 'مباشر من الحقل',
+                feat1Desc: 'نختصر المسافات لنحضر لك المحصول فور حصاده دون تخزين ممل.',
+                feat2Title: 'أمان بلا حدود',
+                feat2Desc: 'رقابة صارمة على استخدام الأسمدة والمبيدات لضمان صحة عائلتك.',
+                feat3Title: 'سعر عادل للكل',
+                feat3Desc: 'نضمن ربحاً مجزياً للفلاح وسعراً اقتصادياً يناسب ميزانيتك.',
+                feat4Title: 'استدامة حقيقية',
+                feat4Desc: 'ندعم ممارسات الزراعة النظيفة التي تحافظ على خصوبة تربتنا.',
+
+                hiwTitle: 'رحلة المحصول من الحقل 🚜',
+                hiwSubtitle: 'خطوات بسيطة تضمن لك جودة استثنائية كل يوم.',
+                step1Title: 'اطلب سلتك',
+                step1Desc: 'تصفح قائمة المحاصيل المتاحة لهذا اليوم واطلب ما تشتهي.',
+                step2Title: 'نحصد لك',
+                step2Desc: 'بمجرد تأكيد طلبك، يبدأ المزارعون بجمع المحصول طازجاً.',
+                step3Title: 'نفحص الجودة',
+                step3Desc: 'تمر كل شحنة عبر مركز الفرز للتأكد من مطابقتها لمعاييرنا.',
+                step4Title: 'نصل لبابك',
+                step4Desc: 'أسطولنا المبرد ينطلق فوراً لتصلك السلة في أوج نضارتها.',
+                bannerTitle: 'توصيل خلال 12 ساعة',
+                bannerDesc: 'لضمان وصول المحصول وهو في أبهى صوره.',
+                bannerBtn: 'اطلب الآن',
+
+                stat1Num: '+٥,٠٠٠',
+                stat1Label: 'فلاح شريك',
+                stat2Num: '+١٢٠',
+                stat2Label: 'صنف زراعي',
+                stat3Num: '+٥٠ ألف',
+                stat3Label: 'سلة تم تسليمها',
+                stat4Num: '٢٧',
+                stat4Label: 'محافظة مصرية',
+
+                testTitle: 'ماذا يقول عنا شركاء النجاح؟ 🤝',
+                testSubtitle: 'آراء عملائنا هي الوقود الذي يحركنا للأمام دائماً.',
+                test1Text: '"أفضل تجربة شراء خضار أونلاين في مصر بلا منازع. الطعم فعلاً مختلف والنظافة ممتازة. فخورين بوجود منصة زي دي."',
+                test1Name: 'م. محمد أحمد',
+                test1Role: 'عميل منذ ٢٠٢٣',
+                test2Text: '"الخضار بيوصل لسة بريحة الأرض. والتعامل مع المندوبين قمة في الرقي. والأسعار فعلاً أرخص من هايبرات كتير."',
+                test2Name: 'سارة علي',
+                test2Role: 'ربة منزل',
+                test3Text: '"كنت بشكك في موضوع \'مباشر من المزرعة\' لحد ما جربت. الفرق في الجودة بيبان من أول طبخة. تسلم إيديكم."',
+                test3Name: 'خالد عمر',
+                test3Role: 'طالب جامعي',
+
+                contactTitle: 'كن على اتصال 📲',
+                contactSubtitle: 'سواء كنت مزارعاً يرغب في الانضمام إلينا، أو مستهلكاً لديه استفسار، نحن هنا لأجلك.',
+                contactHotline: 'الخط الساخن',
+                contactEmail: 'البريد الإلكتروني',
+                contactAddr: 'المقر الرئيسي',
+                contactAddrValue: 'التجمع الخامس، القاهرة',
+                contactFormTitle: 'أرسل لنا رسالة سريعة',
+                contactNameLabel: 'الاسم بالكامل',
+                contactEmailLabel: 'البريد الإلكتروني',
+                contactPhoneLabel: 'رقم الهاتف',
+                contactMsgLabel: 'الرسالة',
+                contactSubmit: 'إرسال الآن 🚀',
+
+                complaintOpen: 'تقديم شكوى أو اقتراح',
+                complaintClose: 'إغلاق قسم الشكاوى',
+                compTitle: 'مركز العناية بالعملاء 🎧',
+                compSubtitle: 'صوتك مسموع، ورضاك هو غايتنا الأولى.',
+                compMethodQ: 'كيف تود أن نتواصل معك؟',
+                compMethodP: 'رقم الهاتف',
+                compMethodE: 'البريد الإلكتروني',
+                compContactLabel: 'بيانات التواصل',
+                compNameLabel: 'الاسم الثلاثي',
+                compNamePh: 'أدخل اسمك بالكامل',
+                compCatLabel: 'تصنيف الملاحظة',
+                compCatPh: 'ما هو موضوع تواصلك؟',
+                compCatOpt1: 'جودة المحاصيل',
+                compCatOpt2: 'خدمة التوصيل',
+                compCatOpt3: 'مشكلة في التطبيق',
+                compCatOpt4: 'اقتراح لتطوير الخدمة',
+                compCatOpt5: 'أخرى',
+                compDetailsLabel: 'التفاصيل',
+                compDetailsPh: 'اكتب لنا كل ما يجول بخاطرك...',
+                compSubmit: 'إرسال الملاحظة',
+
+                footerDesc: 'نحن نؤمن بأن التكنولوجيا هي المفتاح لمستقبل زراعي مستدام وعادل لكل المصريين، حيث تلتقي الأصالة بالابتكار.',
+                footerRights: 'جميع الحقوق محفوظة',
+                footerPrivacy: 'سياسة الخصوصية',
+                footerTerms: 'الشروط والأحكام',
+                footerMadeWith: 'صُنع بحب لأرض الكنانة'
+            },
+            en: {
+                backToHomeNav: 'Back to Home',
+                heroBadge: 'Pioneering Digital Agriculture in Egypt',
+                heroTitle1: 'Bringing the',
+                heroTitle2: 'Land\'s',
+                heroTitle3: 'Best to',
+                heroTitle4: 'Your Door',
+                heroDesc: 'We are not just a middleman; we are partners of the land. We guarantee the farmer\'s rights and the consumer\'s best fresh quality delivered in hours.',
+                heroBtn1: 'Start Your Journey',
+                heroBtn2: 'Our Success Story',
+                heroImgTitle: 'Tomorrow\'s Harvest',
+                heroImgSub: 'By Egyptian Farmers',
+                
+                storyBadge: 'Our Roots & Values',
+                storyTitle1: 'A story that began with',
+                storyTitle2: 'Love for the Land',
+                storyQuote: '"The earth never holds back; we just need to organize how its bounty reaches the people."',
+                storyAuthor: '- Haj Sobhy, Partner Farmer',
+                storyP1: 'The idea for Zera3a-Tech started from a simple and painful observation: the farmer works tirelessly for pennies while consumers pay double to middlemen.',
+                storyP2: 'We decided to be the tech solution that removes these barriers. Our platform isn\'t just an "app," it\'s a complete ecosystem linking farm to home.',
+                storyP3: 'We believe in absolute transparency, uncompromised quality, and that technology should serve both humanity and the earth.',
+                storyStat1: '100%',
+                storyStat1Label: 'Authentic Local Product',
+                storyStat2: 'Zero',
+                storyStat2Label: 'Hidden Middlemen',
+
+                featuresTitle: 'Why are we different? ✨',
+                featuresSubtitle: 'We aren\'t just a delivery service; we\'re a revolution in how food is traded in Egypt.',
+                feat1Title: 'Direct from Field',
+                feat1Desc: 'We shorten distances to bring you the harvest immediately after picking, without dull storage.',
+                feat2Title: 'Safety Without Limits',
+                feat2Desc: 'Strict monitoring of fertilizers and pesticides to ensure your family\'s health.',
+                feat3Title: 'Fair Price for All',
+                feat3Desc: 'We guarantee a rewarding profit for the farmer and an economical price for your budget.',
+                feat4Title: 'True Sustainability',
+                feat4Desc: 'We support clean farming practices that preserve our soil\'s fertility.',
+
+                hiwTitle: 'Journey from Field 🚜',
+                hiwSubtitle: 'Simple steps ensuring exceptional quality every day.',
+                step1Title: 'Order Your Basket',
+                step1Desc: 'Browse today\'s available crops and order what you desire.',
+                step2Title: 'We Harvest for You',
+                step2Desc: 'Once your order is confirmed, farmers begin collecting fresh crops.',
+                step3Title: 'Quality Inspection',
+                step3Desc: 'Every shipment passes through a sorting center to match our standards.',
+                step4Title: 'To Your Door',
+                step4Desc: 'Our refrigerated fleet departs immediately to deliver your basket at its peak.',
+                bannerTitle: 'Delivery within 12 Hours',
+                bannerDesc: 'To guarantee the harvest arrives in its best form.',
+                bannerBtn: 'Order Now',
+
+                stat1Num: '+5,000',
+                stat1Label: 'Partner Farmer',
+                stat2Num: '+120',
+                stat2Label: 'Crop Variety',
+                stat3Num: '+50K',
+                stat3Label: 'Delivered Basket',
+                stat4Num: '27',
+                stat4Label: 'Egyptian Governorate',
+
+                testTitle: 'What do our success partners say? 🤝',
+                testSubtitle: 'Our customers\' opinions are the fuel that always moves us forward.',
+                test1Text: '"Hands down the best online vegetable shopping experience in Egypt. The taste is truly different and cleanliness is excellent."',
+                test1Name: 'Eng. Mohamed Ahmed',
+                test1Role: 'Customer since 2023',
+                test2Text: '"Vegetables arrive still smelling like the earth. Dealing with delivery staff is top-notch, and prices are truly cheaper than many hypers."',
+                test2Name: 'Sarah Ali',
+                test2Role: 'Housewife',
+                test3Text: '"I was skeptical about \'Direct from Farm\' until I tried it. The quality difference shows from the first cooking."',
+                test3Name: 'Khaled Omar',
+                test3Role: 'University Student',
+
+                contactTitle: 'Get in Touch 📲',
+                contactSubtitle: 'Whether you\'re a farmer wanting to join us or a consumer with an inquiry, we\'re here for you.',
+                contactHotline: 'Hotline',
+                contactEmail: 'Email',
+                contactAddr: 'Headquarters',
+                contactAddrValue: 'The Fifth Settlement, Cairo',
+                contactFormTitle: 'Send us a Quick Message',
+                contactNameLabel: 'Full Name',
+                contactEmailLabel: 'Email',
+                contactPhoneLabel: 'Phone Number',
+                contactMsgLabel: 'Message',
+                contactSubmit: 'Send Now 🚀',
+
+                complaintOpen: 'Submit a Complaint or Suggestion',
+                complaintClose: 'Close Complaints Section',
+                compTitle: 'Customer Care Center 🎧',
+                compSubtitle: 'Your voice is heard, and your satisfaction is our primary goal.',
+                compMethodQ: 'How would you like us to contact you?',
+                compMethodP: 'Phone Number',
+                compMethodE: 'Email',
+                compContactLabel: 'Contact Information',
+                compNameLabel: 'Full Name',
+                compNamePh: 'Enter your full name',
+                compCatLabel: 'Category',
+                compCatPh: 'What is your topic?',
+                compCatOpt1: 'Crop Quality',
+                compCatOpt2: 'Delivery Service',
+                compCatOpt3: 'App Issue',
+                compCatOpt4: 'Improvement Suggestion',
+                compCatOpt5: 'Other',
+                compDetailsLabel: 'Details',
+                compDetailsPh: 'Write everything on your mind...',
+                compSubmit: 'Send Feedback',
+
+                footerDesc: 'We believe that technology is the key to a sustainable and fair agricultural future for all Egyptians, where heritage meets innovation.',
+                footerRights: 'All Rights Reserved',
+                footerPrivacy: 'Privacy Policy',
+                footerTerms: 'Terms & Conditions',
+                footerMadeWith: 'Made with love for the land of Egypt'
+            }
+        };
+
+        // --- State & Logic ---
+        let currentLang = 'ar';
+        let isDark = false;
+        let contactMethod = 'phone';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Navbar Scroll Effect
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                const scrollTopBtn = document.getElementById('scrollTopBtn');
+                
+                if (window.scrollY > 50) {
+                    nav.classList.add('py-3', 'glass', 'shadow-lg');
+                    nav.classList.remove('py-6', 'bg-transparent');
+                } else {
+                    nav.classList.remove('py-3', 'glass', 'shadow-lg');
+                    nav.classList.add('py-6', 'bg-transparent');
+                }
+
+                if (window.scrollY > 400) {
+                    scrollTopBtn.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+                    scrollTopBtn.classList.add('translate-y-0', 'opacity-100');
+                } else {
+                    scrollTopBtn.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                    scrollTopBtn.classList.remove('translate-y-0', 'opacity-100');
+                }
+            });
+        });
+
+        // Language Toggle
+        function toggleLang() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const html = document.documentElement;
+            const body = document.body;
+            const langBtnText = document.getElementById('lang-btn-text');
+            const contactInput = document.getElementById('contactInput');
+            const complaintNameInput = document.getElementById('complaintNameInput');
+            const heroContent = document.querySelector('.hero-content');
+            const heroImage = document.querySelector('.hero-image');
+            const storyQuote = document.querySelector('[data-i18n="storyQuote"]');
+            
+            // Toggle Direction & Font
+            if (currentLang === 'ar') {
+                html.setAttribute('dir', 'rtl');
+                html.setAttribute('lang', 'ar');
+                body.classList.remove('font-inter');
+                body.classList.add('font-cairo');
+                langBtnText.textContent = 'English';
+                
+                heroContent.classList.remove('text-left');
+                heroContent.classList.add('text-right');
+                storyQuote.classList.remove('text-left');
+                storyQuote.classList.add('text-right');
+                
+                if(contactInput) contactInput.placeholder = '٠١xxxxxxxxx';
+                if(complaintNameInput) complaintNameInput.placeholder = translations['ar'].compNamePh;
+                
+                if(window.innerWidth >= 1024) {
+                    heroImage.classList.remove('order-first');
+                    heroImage.classList.add('order-last');
+                }
+            } else {
+                html.setAttribute('dir', 'ltr');
+                html.setAttribute('lang', 'en');
+                body.classList.remove('font-cairo');
+                body.classList.add('font-inter');
+                langBtnText.textContent = 'العربية';
+                
+                heroContent.classList.remove('text-right');
+                heroContent.classList.add('text-left');
+                storyQuote.classList.remove('text-right');
+                storyQuote.classList.add('text-left');
+                
+                if(contactInput) contactInput.placeholder = '01xxxxxxxxx';
+                if(complaintNameInput) complaintNameInput.placeholder = translations['en'].compNamePh;
+
+                if(window.innerWidth >= 1024) {
+                    heroImage.classList.remove('order-last');
+                    heroImage.classList.add('order-first'); 
+                }
+            }
+
+            // Update Text Content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            // Update placeholder specifically for textareas
+            document.querySelectorAll('textarea').forEach(el => {
+               if(el.closest('#complaintForm')) {
+                   el.placeholder = currentLang === 'ar' ? translations['ar'].compDetailsPh : translations['en'].compDetailsPh;
+               }
+            });
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            isDark = !isDark;
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (isDark) {
+                html.classList.add('dark');
+                icon.classList.remove('ph-moon');
+                icon.classList.add('ph-sun');
+            } else {
+                html.classList.remove('dark');
+                icon.classList.remove('ph-sun');
+                icon.classList.add('ph-moon');
+            }
+        }
+
+        // Complaints Section Toggle
+        function toggleComplaints() {
+            const section = document.getElementById('complaintsSection');
+            const btnText = document.getElementById('complaintBtnText');
+            const btnIcon = document.querySelector('#complaintToggleBtn i');
+            const btn = document.getElementById('complaintToggleBtn');
+
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+                btnText.textContent = translations[currentLang].complaintClose;
+                btnIcon.classList.remove('ph-chat-teardrop-dots');
+                btnIcon.classList.add('ph-x-circle');
+                btn.classList.remove('bg-white', 'dark:bg-darkCard', 'border-orange', 'text-orange', 'hover:bg-orange');
+                btn.classList.add('bg-teal', 'border-teal', 'text-white');
+            } else {
+                section.classList.add('hidden');
+                btnText.textContent = translations[currentLang].complaintOpen;
+                btnIcon.classList.add('ph-chat-teardrop-dots');
+                btnIcon.classList.remove('ph-x-circle');
+                btn.classList.add('bg-white', 'dark:bg-darkCard', 'border-orange', 'text-orange', 'hover:bg-orange');
+                btn.classList.remove('bg-teal', 'border-teal', 'text-white');
+            }
+        }
+
+        // Complaint Contact Method Toggle
+        function setContactMethod(method) {
+            contactMethod = method;
+            const btnPhone = document.getElementById('btn-phone');
+            const btnEmail = document.getElementById('btn-email');
+            const input = document.getElementById('contactInput');
+            
+            const activeClass = ['bg-teal', 'border-teal', 'text-white', 'shadow-xl', 'shadow-teal/20'];
+            const inactiveClass = ['bg-white', 'dark:bg-darkCard', 'border-sand', 'text-teal', 'dark:text-sand'];
+
+            if (method === 'phone') {
+                btnPhone.classList.add(...activeClass);
+                btnPhone.classList.remove(...inactiveClass);
+                btnEmail.classList.remove(...activeClass);
+                btnEmail.classList.add(...inactiveClass);
+                input.type = 'tel';
+                input.placeholder = currentLang === 'ar' ? '٠١xxxxxxxxx' : '01xxxxxxxxx';
+            } else {
+                btnEmail.classList.add(...activeClass);
+                btnEmail.classList.remove(...inactiveClass);
+                btnPhone.classList.remove(...activeClass);
+                btnPhone.classList.add(...inactiveClass);
+                input.type = 'email';
+                input.placeholder = 'example@mail.com';
+            }
+        }
+
+        // Smooth Scroll
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const navHeight = document.getElementById('navbar').offsetHeight;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navHeight - 20;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+
+        // Form Submissions
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const msg = currentLang === 'ar' ? 'شكراً لتواصلك معنا! سنقوم بالرد عليك في أسرع وقت ممكن.' : 'Thank you for contacting us! We will reply as soon as possible.';
+            alert(msg);
+            this.reset();
+        });
+
+        document.getElementById('complaintForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('compSubmitBtn');
+            const originalContent = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<div class="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>`;
+            
+            setTimeout(() => {
+                const ticketId = Math.floor(Math.random() * 90000 + 10000);
+                const successMsg = currentLang === 'ar' ? `شكراً لثقتك بنا. تم استلام رسالتك، رقم التذكرة: #${ticketId}` : `Thank you for your trust. Message received, Ticket ID: #${ticketId}`;
+                
+                alert(successMsg);
+                this.reset();
+                
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                
+                toggleComplaints();
+            }, 1500);
+        });
+
+    </script>
+    <script type="module">
+  // ================= Firebase =================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+    authDomain: "smart-farm-8d3f5.firebaseapp.com",
+    projectId: "smart-farm-8d3f5",
+    storageBucket: "smart-farm-8d3f5.appspot.com",
+    messagingSenderId: "317371842198",
+    appId: "1:317371842198:web:4765ea8c0036ae64b10cb7",
+  };
+
+  // Init Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // ================= Back To Home Logic =================
+  const backHomeBtn = document.getElementById("backHomeBtn");
+
+  if (backHomeBtn) {
+    backHomeBtn.addEventListener("click", async () => {
+      const user = auth.currentUser;
+
+      // لو مش مسجل دخول
+      if (!user) {
+        window.location.href = "signin.html";
+        return;
+      }
+
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+
+        if (!userDoc.exists()) {
+          alert("بيانات المستخدم غير موجودة");
+          return;
+        }
+
+        const { role } = userDoc.data();
+
+        // التحويل حسب الدور
+        switch (role) {
+          case "farmer":
+            window.location.href = "farmer-ar.html";
+            break;
+
+          case "investor":
+            window.location.href = "investor.html";
+            break;
+
+          case "worker":
+            window.location.href = "worker.html";
+            break;
+
+          case "consumer":
+            window.location.href = "consumer.html";
+            break;
+
+          default:
+            alert("الدور غير معروف");
+        }
+
+      } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء التحقق من الحساب");
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

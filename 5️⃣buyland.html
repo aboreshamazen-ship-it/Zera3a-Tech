@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Agricultural Land | Zera3a-Tech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Light Theme Variables */
+            --primary: #1e5959;
+            --primary-dark: #164545;
+            --primary-light: #e6f0f0;
+            --secondary: #e67e3a;
+            --secondary-dark: #d46b25;
+            --background: #f8f9fa; /* خلفية فاتحة جداً للعين */
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e5e5e5;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --nav-bg: #ffffff;
+            --nav-text: #333;
+            --btn-hover: #f0f0f0;
+            --input-bg: #ffffff;
+            --transition-speed: 0.4s;
+        }
+
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --primary: #4db6ac;
+            --primary-dark: #1e5959;
+            --primary-light: #263238; /* لون أغمق قليلاً للهيرو في الدارك مود */
+            --secondary: #ffab91;
+            --secondary-dark: #e67e3a;
+            --background: #121212; /* خلفية داكنة */
+            --surface: #1e1e1e;
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border: #333333;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --nav-bg: #1e1e1e;
+            --nav-text: #f5f5f5;
+            --btn-hover: #2c2c2c;
+            --input-bg: #2c2c2c;
+        }
+
+        body {
+            font-family: "Poppins", "Inter", sans-serif;
+            color: var(--text);
+            background-color: var(--background); /* تم تفعيل هذا السطر لتغيير خلفية الصفحة */
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            margin: 0;
+            padding-top: 80px; /* Space for fixed topbar */
+            overflow-x: hidden;
+        }
+
+        /* --- TOPBAR DESIGN --- */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .topbar-left, .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--nav-text);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .topbar-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+        }
+
+        .topbar-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .land-hero {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--background) 100%);
+            border-radius: 20px;
+            padding: 3rem 1.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid transparent;
+            transition: background var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        /* إضافة حدود خفيفة للهيرو في الدارك مود لتمييزه */
+        [data-theme="dark"] .land-hero {
+            border-color: var(--border);
+        }
+
+        .land-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: color var(--transition-speed);
+        }
+
+        .land-hero p {
+            max-width: 750px;
+            margin: 0 auto 2rem;
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            transition: color var(--transition-speed);
+        }
+
+        .land-hero input {
+            width: 100%;
+            padding: 0.9rem 1.2rem 0.9rem 3rem;
+            border-radius: 30px;
+            border: 2px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text);
+            outline: none;
+            font-size: 1rem;
+            transition: border-color var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed);
+            box-sizing: border-box;
+        }
+
+        /* RTL Adjustments */
+        [dir="rtl"] .search-box i {
+            left: auto;
+            right: 20px;
+        }
+        
+        [dir="rtl"] .land-hero input {
+            padding: 0.9rem 3rem 0.9rem 1.2rem;
+        }
+
+        .land-hero input:focus {
+            border-color: var(--primary);
+        }
+
+        /* --- Grid & Cards --- */
+        .land-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .land-section .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            transition: color var(--transition-speed);
+        }
+
+        .land-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .land-card {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease, background-color var(--transition-speed), border-color var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+            
+            /* Animation Properties */
+            opacity: 0; /* Start hidden */
+            transform: translateY(30px);
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        /* Staggered Animation Delays */
+        .land-card:nth-child(1) { animation-delay: 0.1s; }
+        .land-card:nth-child(2) { animation-delay: 0.2s; }
+        .land-card:nth-child(3) { animation-delay: 0.3s; }
+        .land-card:nth-child(4) { animation-delay: 0.4s; }
+        .land-card:nth-child(5) { animation-delay: 0.5s; }
+        .land-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .land-card:hover {
+            transform: translateY(-8px); /* Stronger lift on hover */
+            box-shadow: 0 12px 30px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .land-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background-color: var(--border);
+            transition: transform 0.5s ease;
+        }
+
+        .land-card:hover img {
+            transform: scale(1.05); /* Subtle zoom on image */
+        }
+
+        .land-info {
+            padding: 1.8rem;
+            text-align: left; /* Default LTR */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        [dir="rtl"] .land-info {
+            text-align: right;
+        }
+
+        .land-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            transition: color var(--transition-speed);
+        }
+
+        .land-tags {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+            transition: color var(--transition-speed);
+        }
+
+        .land-details {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            transition: color var(--transition-speed);
+        }
+
+        .land-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            margin-top: auto;
+            transition: color var(--transition-speed);
+        }
+
+        .land-info .btn-primary {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .land-info .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 89, 89, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .topbar { padding: 0 20px; }
+            .land-hero h1 { font-size: 2.2rem; }
+            .topbar-btn span { display: inline-block; }
+        }
+        /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <!-- Left: Back Button -->
+        <div class="topbar-left" style="display:flex; align-items:center; gap:10px;">
+          <a href="./animals.html" class="topbar-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-i18n="btn_back">Back Home</span>
+          </a>
+        </div>
+
+        <!-- Right: Controls -->
+        <div class="topbar-right" style="display:flex; align-items:center; gap:10px;">
+          <button id="langToggle" class="topbar-btn">
+            <span data-i18n="btn_lang" style="font-weight:bold;">عربي</span>
+            <i class="fa-solid fa-language"></i>
+          </button>
+          <button id="modeToggle" class="topbar-btn">
+            🌙
+          </button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="land-hero">
+        <div class="container">
+            <h1 data-i18n="heroTitle">Buy Agricultural Land</h1>
+            <p data-i18n="heroSubtitle">
+                Browse verified agricultural lands suitable for crops, livestock,
+                greenhouses, and large-scale farming projects.
+            </p>
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" onkeyup="searchLand()">
+            </div>
+        </div>
+    </section>
+
+    <!-- LAND RECOMMENDATIONS -->
+    <section class="land-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="sectionTitle">Recommended Lands</h2>
+
+            <div class="land-grid" id="landGrid">
+                
+                <!-- Static Card 1 -->
+                <div class="land-card">
+                    <img src="https://picsum.photos/seed/fayoum/400/300" alt="Land Fayoum">
+                    <div class="land-info">
+                        <h3 data-i18n="card1Title">Agricultural Land – Fayoum</h3>
+                        <p class="land-tags" data-i18n="card1Tags">Crops • Irrigated • Clay Soil</p>
+                        <p class="land-details">
+                            <span data-i18n="size">Size</span>: 5 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Nile Irrigation<br>
+                            <span data-i18n="road">Road Access</span>: Available
+                        </p>
+                        <p class="land-price">EGP 1,250,000</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Static Card 2 -->
+                <div class="land-card">
+                    <img src="https://picsum.photos/seed/ismailia/400/300" alt="Land Ismailia">
+                    <div class="land-info">
+                        <h3 data-i18n="card2Title">Greenhouse Land – Ismailia</h3>
+                        <p class="land-tags" data-i18n="card2Tags">Greenhouses • Sandy Soil</p>
+                        <p class="land-details">
+                            <span data-i18n="size">Size</span>: 3 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Well<br>
+                            <span data-i18n="electricity">Electricity</span>: Available
+                        </p>
+                        <p class="land-price">EGP 820,000</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Static Card 3 -->
+                <div class="land-card">
+                    <img src="https://picsum.photos/seed/minya/400/300" alt="Land Minya">
+                    <div class="land-info">
+                        <h3 data-i18n="card3Title">Livestock Land – Minya</h3>
+                        <p class="land-tags" data-i18n="card3Tags">Livestock • Wide Area</p>
+                        <p class="land-details">
+                            <span data-i18n="size">Size</span>: 10 Feddan<br>
+                            <span data-i18n="livestockDesc">Suitable for cattle & sheep</span><br>
+                            <span data-i18n="fenced">Fenced land</span>
+                        </p>
+                        <p class="land-price">EGP 1,900,000</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Static Card 4 -->
+                <div class="land-card">
+                    <img src="https://picsum.photos/seed/nubaria/400/300" alt="Land Nubaria">
+                    <div class="land-info">
+                        <h3 data-i18n="card4Title">Large Scale Farming – Nubaria</h3>
+                        <p class="land-tags" data-i18n="card4Tags">Commercial • Export Crops</p>
+                        <p class="land-details">
+                            <span data-i18n="size">Size</span>: 20 Feddan<br>
+                            <span data-i18n="irrigation">Modern Irrigation System</span><br>
+                            <span data-i18n="highway">Near main highway</span>
+                        </p>
+                        <p class="land-price">EGP 4,600,000</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Static Card 5 -->
+                <div class="land-card">
+                    <img src="https://picsum.photos/seed/sohag/400/300" alt="Land Sohag">
+                    <div class="land-info">
+                        <h3 data-i18n="card5Title">Crops & Vegetables – Sohag</h3>
+                        <p class="land-tags" data-i18n="card5Tags">Vegetables • Fertile Soil</p>
+                        <p class="land-details">
+                            <span data-i18n="size">Size</span>: 6 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Canal<br>
+                            <span data-i18n="road">Road Access</span>: Available
+                        </p>
+                        <p class="land-price">EGP 1,400,000</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Static Card 6 -->
+                <div class="land-card">
+                    <img src="https://picsum.photos/seed/giza/400/300" alt="Land Giza">
+                    <div class="land-info">
+                        <h3 data-i18n="card6Title">Organic Farming – Giza</h3>
+                        <p class="land-tags" data-i18n="card6Tags">Crops • Organic • Fertile Soil</p>
+                        <p class="land-details">
+                            <span data-i18n="size">Size</span>: 4 Feddan<br>
+                            <span data-i18n="water">Water Source</span>: Well<br>
+                            <span data-i18n="electricity">Electricity</span>: Available
+                        </p>
+                        <p class="land-price">EGP 1,100,000</p>
+                        <a href="#" class="btn-primary" data-i18n="viewDetails">View Details</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- 1. Theme Logic ---
+        const modeToggle = document.getElementById('modeToggle');
+        
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                modeToggle.innerText = '☀️'; // Change emoji
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                modeToggle.innerText = '🌙'; // Change emoji
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        modeToggle.addEventListener('click', toggleTheme);
+
+        // Load saved theme immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if(savedTheme === 'dark') {
+                modeToggle.innerText = '☀️';
+            }
+        } else {
+            // Check system preference if no saved theme
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                modeToggle.innerText = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // --- 2. Translation Logic ---
+        const translations = {
+            en: {
+                btn_back: "Back Home",
+                btn_lang: "عربي",
+                heroTitle: "Buy Agricultural Land",
+                heroSubtitle: "Browse verified agricultural lands suitable for crops, livestock, greenhouses, and large-scale farming projects.",
+                searchPlaceholder: "Search by location, size, or land type...",
+                sectionTitle: "Recommended Lands",
+                viewDetails: "View Details",
+                size: "Size",
+                water: "Water Source",
+                road: "Road Access",
+                electricity: "Electricity",
+                livestockDesc: "Suitable for cattle & sheep",
+                fenced: "Fenced land",
+                irrigation: "Modern Irrigation System",
+                highway: "Near main highway",
+                card1Title: "Agricultural Land – Fayoum",
+                card1Tags: "Crops • Irrigated • Clay Soil",
+                card2Title: "Greenhouse Land – Ismailia",
+                card2Tags: "Greenhouses • Sandy Soil",
+                card3Title: "Livestock Land – Minya",
+                card3Tags: "Livestock • Wide Area",
+                card4Title: "Large Scale Farming – Nubaria",
+                card4Tags: "Commercial • Export Crops",
+                card5Title: "Crops & Vegetables – Sohag",
+                card5Tags: "Vegetables • Fertile Soil",
+                card6Title: "Organic Farming – Giza",
+                card6Tags: "Crops • Organic • Fertile Soil"
+            },
+            ar: {
+                btn_back: "العودة للرئيسية",
+                btn_lang: "English",
+                heroTitle: "شراء أراضٍ زراعية",
+                heroSubtitle: "تصفح الأراضي الزراعية الموثقة المناسبة للمحاصيل، والثروة الحيوانية، والصوبات الزراعية، ومشروعات الزراعة واسعة النطاق.",
+                searchPlaceholder: "ابحث حسب الموقع، المساحة، أو نوع الأرض...",
+                sectionTitle: "أراضٍ مُقترحة",
+                viewDetails: "عرض التفاصيل",
+                size: "المساحة",
+                water: "مصدر المياه",
+                road: "طريق عام",
+                electricity: "كهرباء",
+                livestockDesc: "مناسبة للأبقار والأغنام",
+                fenced: "أرض محوطة",
+                irrigation: "نظام ري حديث",
+                highway: "قريب من الطريق الرئيسي",
+                card1Title: "أرض زراعية – الفيوم",
+                card1Tags: "محاصيل • ري • طينية",
+                card2Title: "أرض صوب زراعية – الإسماعيلية",
+                card2Tags: "صوب • رملية",
+                card3Title: "أرض مواشي – المنيا",
+                card3Tags: "مواشي • مساحة واسعة",
+                card4Title: "زراعة مكثفة – النوبارية",
+                card4Tags: "تجاري • تصدير",
+                card5Title: "محاصيل وخضروات – سوهاج",
+                card5Tags: "خضروات • تربة خصبة",
+                card6Title: "زراعة عضوية – الجيزة",
+                card6Tags: "محاصيل • عضوية • خصبة"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            const html = document.documentElement;
+            
+            if (currentLang === 'en') {
+                currentLang = 'ar';
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+            } else {
+                currentLang = 'en';
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+            }
+
+            // Apply translations
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            // Translate Placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
+            });
+        }
+
+        document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+
+        // --- 4. Search Logic ---
+        function searchLand() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll(".land-card");
+            
+            cards.forEach((card, index) => {
+                const text = card.innerText.toLowerCase();
+                if(text.includes(input)) {
+                    card.style.display = "flex";
+                    // Re-trigger animation if it was hidden
+                    card.style.animation = 'none';
+                    card.offsetHeight; /* trigger reflow */
+                    card.style.animation = `fadeUp 0.3s ease-out forwards ${index * 0.05}s`;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // --- 5. Load User Farms (Mocking LocalStorage) ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const landGrid = document.getElementById('landGrid');
+            const farms = JSON.parse(localStorage.getItem('farms')) || [];
+
+            farms.forEach((farm, index) => {
+                const card = document.createElement('div');
+                card.classList.add('land-card');
+                const t = translations[currentLang];
+                
+                // Assign delay for animation based on current grid length
+                const delay = (6 + index) * 0.1;
+                card.style.animationDelay = `${delay}s`;
+                
+                card.innerHTML = `
+                    <img src="https://picsum.photos/seed/${farm.landTitle}/400/300" alt="${farm.landTitle}">
+                    <div class="land-info">
+                        <h3>${farm.landTitle}</h3>
+                        <p class="land-tags">${farm.tags}</p>
+                        <p class="land-details">
+                            <span>${t.size}</span>: ${farm.size} Feddan<br>
+                            <span>${t.water}</span>: ${farm.waterSource}<br>
+                            <span>${t.road}</span>: ${farm.roadAccess}
+                        </p>
+                        <p class="land-price">EGP ${farm.price}</p>
+                        <a href="#" class="btn-primary">${t.viewDetails}</a>
+                    </div>
+                `;
+                landGrid.appendChild(card);
+            });
+        });
+    </script>
+    <footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

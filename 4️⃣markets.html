@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Marketplace | Zera3a-Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ===== VARIABLES ===== */
+    :root {
+      --primary: #1e5959;
+      --primary-dark: #164545;
+      --secondary: #e67e3a;
+      --secondary-dark: #d46b25;
+      --background: #f7f7f5;
+      --surface: rgba(255, 255, 255, 0.85);
+      --surface-solid: #ffffff;
+      --text: #2e2e2e;
+      --text-muted: #666666;
+      --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+      --radius: 20px;
+      --radius-pill: 50px;
+    }
+
+    body.dark-mode {
+      --background: #0f1212;
+      --surface: rgba(30, 40, 40, 0.85);
+      --surface-solid: #1a2525;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ===== GLOBAL ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    html[lang="ar"] body {
+      font-family: 'Cairo', sans-serif;
+    }
+
+    /* ===== NAVBAR ===== */
+    .topbar {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1200px, 94%);
+      height: 64px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      z-index: 1000;
+    }
+
+    .topbar-btn {
+      height: 42px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .topbar-btn:hover {
+      background-color: var(--bg-light);
+      color: var(--primary);
+    }
+
+    .back-btn {
+      background-color: var(--bg-profit-section);
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background-color: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    #langToggle,
+    #modeToggle {
+      background-color: var(--surface);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0 18px;
+      height: 44px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      width: auto !important;
+      min-width: 90px;
+    }
+
+    #langToggle:hover {
+      background-color: var(--primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    body.dark-mode #langToggle {
+      background-color: transparent;
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    body.dark-mode #langToggle:hover {
+      background-color: var(--secondary);
+      color: #fff;
+    }
+
+    .icon-btn {
+      width: 42px;
+      justify-content: center;
+      padding: 0;
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .icon-btn:hover {
+      color: var(--secondary);
+      background-color: var(--bg-care-section);
+      transform: scale(1.05);
+    }
+
+
+    /* ===== CART BUTTON ===== */
+    .cart-btn {
+      position: relative;
+    }
+
+    #cartToggle {
+      border: 2px solid var(--primary);
+
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: var(--secondary);
+      border: 2px solid var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.3s;
+    }
+
+    .cart-badge.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ===== HERO & SEARCH ===== */
+    .hero-new {
+      padding: 5rem 1rem;
+      padding-top: 140px;
+      background: linear-gradient(135deg, #eef5f5 0%, #fdf1e8 100%);
+      text-align: center;
+      position: relative;
+    }
+
+    body.dark-mode .hero-new {
+      background: linear-gradient(135deg, #152020 0%, #0f1212 100%);
+    }
+
+    .hero-new h1 {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+      border-bottom: 5px solid var(--secondary);
+      border-radius: 12px;
+      display: inline-block;
+
+    }
+
+    .search-section {
+      max-width: 700px;
+      margin: -30px auto 40px auto;
+      margin-top: 50px;
+      position: relative;
+      z-index: 10;
+      border: 2px solid var(--primary);
+      border-radius: 55px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-pill);
+      border: 2px solid transparent;
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      font-size: 1rem;
+      color: var(--text);
+      font-family: inherit;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      background: var(--surface-solid);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(30, 89, 89, 0.2);
+    }
+
+    /* ===== PRODUCTS GRID ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .products-section {
+      padding: 4rem 0;
+    }
+
+    /* Alternating Backgrounds */
+    .bg-feed,
+    .bg-vet,
+    .bg-vits,
+    .bg-milk,
+    .bg-byprod,
+    .bg-cattle,
+    .bg-other {
+      background-color: var(--background);
+    }
+
+    .bg-equip,
+    .bg-eggs,
+    .bg-meat,
+    .bg-poultry,
+    .bg-sheep {
+      background-color: #fff2e6;
+    }
+
+    body.dark-mode .bg-equip,
+    body.dark-mode .bg-eggs,
+    body.dark-mode .bg-meat,
+    body.dark-mode .bg-poultry,
+    body.dark-mode .bg-sheep {
+      background-color: #152020;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--secondary);
+      margin: 10px auto 0;
+      border-radius: 4px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .product-card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--secondary);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .product-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+
+    .product-category {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--secondary);
+      background: rgba(230, 126, 58, 0.15);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .currency {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .price-value {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: 0 4px 8px rgba(230, 126, 58, 0.2);
+    }
+
+    .btn-buy {
+      margin-top: auto;
+      padding: 0.6rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(30, 89, 89, 0.25);
+      transition: all 0.3s;
+    }
+
+    .btn-buy:hover {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+      transform: translateY(-2px);
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.95);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .btn-buy.clicked {
+      animation: pop 0.2s ease-in-out;
+    }
+
+    /* ===== CART SIDEBAR ===== */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      backdrop-filter: blur(4px);
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      background: var(--surface-solid);
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cart-sidebar.open {
+      right: 0;
+    }
+
+    html[dir="rtl"] .cart-sidebar {
+      right: auto;
+      left: -400px;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.15);
+    }
+
+    html[dir="rtl"] .cart-sidebar.open {
+      left: 0;
+    }
+
+    .cart-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .cart-header h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .close-cart {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .empty-cart-msg {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--text-muted);
+    }
+
+    .empty-cart-msg i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    html[dir="rtl"] .cart-item {
+      animation-name: slideInRTL;
+    }
+
+    @keyframes slideInRTL {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .cart-item-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .cart-item-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cart-item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: var(--radius-pill);
+      padding: 2px 6px;
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .qty-btn:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .qty-value {
+      font-size: 0.9rem;
+      padding: 0 8px;
+      font-weight: 600;
+    }
+
+    .remove-item {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .cart-footer {
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.02);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-pill);
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-checkout:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-new {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: var(--surface);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-new h1 {
+        font-size: 2.2rem;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-sidebar {
+        max-width: 100%;
+        right: -100%;
+      }
+
+      html[dir="rtl"] .cart-sidebar {
+        left: -100%;
+      }
+
+      .cart-sidebar.open {
+        right: 0;
+      }
+
+      html[dir="rtl"] .cart-sidebar.open {
+        left: 0;
+      }
+    }
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="./animals.html" id="backBtn" class="topbar-btn back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span data-i18n="btn_back">Back Home</span>
+      </a>
+    </div>
+    <div class="topbar-right">
+      <!-- Cart Button -->
+      <button id="cartToggle" class="topbar-btn cart-btn">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cartCount" class="cart-badge">0</span>
+      </button>
+
+      <button id="langToggle" class="topbar-btn icon-btn">
+        <span data-i18n="btn_lang" style="font-weight:bold;">عربي</span>
+        <i class="fa-solid fa-language"></i>
+      </button>
+      <button id="modeToggle" class="topbar-btn icon-btn"> 🌙 </button>
+    </div>
+  </div>
+
+  <!-- HERO / SEARCH -->
+  <section class="hero-new">
+    <h1 data-i18n="hero_title">Farm Marketplace</h1>
+    <div class="search-section">
+      <input type="text" id="searchInput" class="search-input" data-i18n-placeholder="search_placeholder"
+        placeholder="Search products..." onkeyup="searchProducts()">
+    </div>
+  </section>
+
+  <!-- PRODUCTS CONTAINER -->
+  <div class="all-products-container">
+
+    <!-- 1. FEED & NUTRITION -->
+    <section class="products-section bg-feed">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_feed">Feed & Nutrition</h2>
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/premium%20animal%20feed%20sack%20farm?width=400&height=300&nologo=true&seed=101"
+              alt="Premium Feed">
+            <h3 data-i18n="item_feed_1">Premium Animal Feed</h3>
+            <p class="product-category" data-i18n="cat_feed">Feed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">350</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p1" data-name-key="item_feed_1" data-price="350"
+              data-img="https://image.pollinations.ai/premium%20animal%20feed%20sack%20farm?width=400&height=300&nologo=true&seed=101">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/corn%20feed%20mix%20grains%20yellow?width=400&height=300&nologo=true&seed=102"
+              alt="Corn Mix">
+            <h3 data-i18n="item_feed_2">Corn Feed Mix</h3>
+            <p class="product-category" data-i18n="cat_feed">Feed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">280</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p2" data-name-key="item_feed_2" data-price="280"
+              data-img="https://image.pollinations.ai/corn%20feed%20mix%20grains%20yellow?width=400&height=300&nologo=true&seed=102">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/dry%20hay%20bales%20field%20agriculture?width=400&height=300&nologo=true&seed=103"
+              alt="Dry Hay">
+            <h3 data-i18n="item_feed_3">Dry Hay Bales</h3>
+            <p class="product-category" data-i18n="cat_feed">Feed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">190</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p3" data-name-key="item_feed_3" data-price="190"
+              data-img="https://image.pollinations.ai/dry%20hay%20bales%20field%20agriculture?width=400&height=300&nologo=true&seed=103">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/barley%20feed%20grains%20sack?width=400&height=300&nologo=true&seed=104"
+              alt="Barley">
+            <h3 data-i18n="item_feed_4">Barley Feed</h3>
+            <p class="product-category" data-i18n="cat_feed">Feed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">300</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p4" data-name-key="item_feed_4" data-price="300"
+              data-img="https://image.pollinations.ai/barley%20feed%20grains%20sack?width=400&height=300&nologo=true&seed=104">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. VETERINARY & HEALTH -->
+    <section class="products-section bg-vet">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_vet">Veterinary & Health</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/veterinary%20medicine%20bottles%20and%20syringe?width=400&height=300&nologo=true&seed=201"
+              alt="Vet Meds">
+            <h3 data-i18n="item_vet_1">Vet Medicine</h3>
+            <p class="product-category" data-i18n="cat_health">Health</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">220</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p5" data-name-key="item_vet_1" data-price="220"
+              data-img="https://image.pollinations.ai/veterinary%20medicine%20bottles%20and%20syringe?width=400&height=300&nologo=true&seed=201">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/animal%20vitamins%20pills%20bottle?width=400&height=300&nologo=true&seed=202"
+              alt="Animal Vitamins">
+            <h3 data-i18n="item_vet_2">Animal Vitamins</h3>
+            <p class="product-category" data-i18n="cat_supp">Supplements</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">180</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p6" data-name-key="item_vet_2" data-price="180"
+              data-img="https://image.pollinations.ai/animal%20vitamins%20pills%20bottle?width=400&height=300&nologo=true&seed=202">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/livestock%20antibiotic%20injection%20vial?width=400&height=300&nologo=true&seed=203"
+              alt="Antibiotic">
+            <h3 data-i18n="item_vet_3">Livestock Antibiotic</h3>
+            <p class="product-category" data-i18n="cat_med">Medicine</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">260</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p7" data-name-key="item_vet_3" data-price="260"
+              data-img="https://image.pollinations.ai/livestock%20antibiotic%20injection%20vial?width=400&height=300&nologo=true&seed=203">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/animal%20vaccine%20vial%20and%20syringe?width=400&height=300&nologo=true&seed=204"
+              alt="Vaccine">
+            <h3 data-i18n="item_vet_4">Animal Vaccine</h3>
+            <p class="product-category" data-i18n="cat_prev">Prevention</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">310</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p8" data-name-key="item_vet_4" data-price="310"
+              data-img="https://image.pollinations.ai/animal%20vaccine%20vial%20and%20syringe?width=400&height=300&nologo=true&seed=204">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ANIMAL VITAMINS -->
+    <section class="products-section bg-vits">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_vits">Animal Vitamins</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/vitamin%20A%20supplement%20capsules?width=400&height=300&nologo=true&seed=301"
+              alt="Vitamin A">
+            <h3 data-i18n="item_vit_1">Vitamin A Boost</h3>
+            <p class="product-category" data-i18n="cat_immune">Immunity</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">120</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p9" data-name-key="item_vit_1" data-price="120"
+              data-img="https://image.pollinations.ai/vitamin%20A%20supplement%20capsules?width=400&height=300&nologo=true&seed=301">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/vitamin%20D%20complex%20drops%20bottle?width=400&height=300&nologo=true&seed=302"
+              alt="Vitamin D">
+            <h3 data-i18n="item_vit_2">Vitamin D Complex</h3>
+            <p class="product-category" data-i18n="cat_bone">Bone Health</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">140</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p10" data-name-key="item_vit_2" data-price="140"
+              data-img="https://image.pollinations.ai/vitamin%20D%20complex%20drops%20bottle?width=400&height=300&nologo=true&seed=302">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/vitamin%20E%20oil%20capsules%20bottle?width=400&height=300&nologo=true&seed=303"
+              alt="Vitamin E">
+            <h3 data-i18n="item_vit_3">Vitamin E Capsules</h3>
+            <p class="product-category" data-i18n="cat_skin">Skin & Coat</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">150</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p11" data-name-key="item_vit_3" data-price="150"
+              data-img="https://image.pollinations.ai/vitamin%20E%20oil%20capsules%20bottle?width=400&height=300&nologo=true&seed=303">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/multivitamin%20mix%20colorful%20pills?width=400&height=300&nologo=true&seed=304"
+              alt="Multi Vitamins">
+            <h3 data-i18n="item_vit_4">Multivitamin Mix</h3>
+            <p class="product-category" data-i18n="cat_general">Overall Health</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">200</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p12" data-name-key="item_vit_4" data-price="200"
+              data-img="https://image.pollinations.ai/multivitamin%20mix%20colorful%20pills?width=400&height=300&nologo=true&seed=304">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FARMING EQUIPMENT -->
+    <section class="products-section bg-equip">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_equip">Farming Equipment</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/deworming%20solution%20bottle%20for%20animals?width=400&height=300&nologo=true&seed=401"
+              alt="Dewormer">
+            <h3 data-i18n="item_equip_1">Deworming Solution</h3>
+            <p class="product-category" data-i18n="cat_treat">Treatment</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">150</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p13" data-name-key="item_equip_1"
+              data-price="150"
+              data-img="https://image.pollinations.ai/deworming%20solution%20bottle%20for%20animals?width=400&height=300&nologo=true&seed=401">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/farm%20disinfectant%20spray%20bottle?width=400&height=300&nologo=true&seed=402"
+              alt="Disinfectant">
+            <h3 data-i18n="item_equip_2">Farm Disinfectant</h3>
+            <p class="product-category" data-i18n="cat_hygiene">Hygiene</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">130</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p14" data-name-key="item_equip_2"
+              data-price="130"
+              data-img="https://image.pollinations.ai/farm%20disinfectant%20spray%20bottle?width=400&height=300&nologo=true&seed=402">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/animal%20thermometer%20vet%20tool?width=400&height=300&nologo=true&seed=403"
+              alt="Thermometer">
+            <h3 data-i18n="item_equip_3">Animal Thermometer</h3>
+            <p class="product-category" data-i18n="cat_monitor">Monitoring</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">95</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p15" data-name-key="item_equip_3" data-price="95"
+              data-img="https://image.pollinations.ai/animal%20thermometer%20vet%20tool?width=400&height=300&nologo=true&seed=403">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/first%20aid%20kit%20for%20farm%20animals?width=400&height=300&nologo=true&seed=404"
+              alt="First Aid">
+            <h3 data-i18n="item_equip_4">First Aid Kit</h3>
+            <p class="product-category" data-i18n="cat_urgent">Emergency</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">420</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p16" data-name-key="item_equip_4"
+              data-price="420"
+              data-img="https://image.pollinations.ai/first%20aid%20kit%20for%20farm%20animals?width=400&height=300&nologo=true&seed=404">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. MILK & DAIRY -->
+    <section class="products-section bg-milk">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_milk">Milk & Dairy</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/fresh%20milk%20glass%20bottle%20farm?width=400&height=300&nologo=true&seed=501"
+              alt="Fresh Milk">
+            <h3 data-i18n="item_milk_1">Fresh Milk</h3>
+            <p class="product-category" data-i18n="cat_dairy">Dairy</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">40</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p17" data-name-key="item_milk_1" data-price="40"
+              data-img="https://image.pollinations.ai/fresh%20milk%20glass%20bottle%20farm?width=400&height=300&nologo=true&seed=501">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/farm%20cheese%20wheel%20delicious?width=400&height=300&nologo=true&seed=502"
+              alt="Cheese">
+            <h3 data-i18n="item_milk_2">Farm Cheese</h3>
+            <p class="product-category" data-i18n="cat_dairy">Dairy</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">120</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p18" data-name-key="item_milk_2" data-price="120"
+              data-img="https://image.pollinations.ai/farm%20cheese%20wheel%20delicious?width=400&height=300&nologo=true&seed=502">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/pure%20butter%20block%20yellow?width=400&height=300&nologo=true&seed=503"
+              alt="Butter">
+            <h3 data-i18n="item_milk_3">Pure Butter</h3>
+            <p class="product-category" data-i18n="cat_dairy">Dairy</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">150</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p19" data-name-key="item_milk_3" data-price="150"
+              data-img="https://image.pollinations.ai/pure%20butter%20block%20yellow?width=400&height=300&nologo=true&seed=503">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/natural%20yogurt%20bowl%20fruit?width=400&height=300&nologo=true&seed=504"
+              alt="Yogurt">
+            <h3 data-i18n="item_milk_4">Natural Yogurt</h3>
+            <p class="product-category" data-i18n="cat_dairy">Dairy</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">30</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p20" data-name-key="item_milk_4" data-price="30"
+              data-img="https://image.pollinations.ai/natural%20yogurt%20bowl%20fruit?width=400&height=300&nologo=true&seed=504">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. EGGS -->
+    <section class="products-section bg-eggs">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_eggs">Farm Fresh Eggs</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/white%20table%20eggs%20carton?width=400&height=300&nologo=true&seed=601"
+              alt="White Eggs">
+            <h3 data-i18n="item_eggs_1">White Table Eggs</h3>
+            <p class="product-category" data-i18n="cat_eggs">Eggs</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">90</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p21" data-name-key="item_eggs_1" data-price="90"
+              data-img="https://image.pollinations.ai/white%20table%20eggs%20carton?width=400&height=300&nologo=true&seed=601">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/brown%20eggs%20basket%20farm?width=400&height=300&nologo=true&seed=602"
+              alt="Brown Eggs">
+            <h3 data-i18n="item_eggs_2">Brown Eggs</h3>
+            <p class="product-category" data-i18n="cat_eggs">Eggs</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">95</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p22" data-name-key="item_eggs_2" data-price="95"
+              data-img="https://image.pollinations.ai/brown%20eggs%20basket%20farm?width=400&height=300&nologo=true&seed=602">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/duck%20eggs%20white%20large?width=400&height=300&nologo=true&seed=603"
+              alt="Duck Eggs">
+            <h3 data-i18n="item_eggs_3">Duck Eggs</h3>
+            <p class="product-category" data-i18n="cat_eggs_meat">Eggs/Meat</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">120</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p23" data-name-key="item_eggs_3" data-price="120"
+              data-img="https://image.pollinations.ai/duck%20eggs%20white%20large?width=400&height=300&nologo=true&seed=603">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/quail%20eggs%20small%20bowl?width=400&height=300&nologo=true&seed=604"
+              alt="Quail Eggs">
+            <h3 data-i18n="item_eggs_4">Quail Eggs</h3>
+            <p class="product-category" data-i18n="cat_eggs">Eggs</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">60</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p24" data-name-key="item_eggs_4" data-price="60"
+              data-img="https://image.pollinations.ai/quail%20eggs%20small%20bowl?width=400&height=300&nologo=true&seed=604">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. MEAT -->
+    <section class="products-section bg-meat">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_meat">Fresh Meat</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/premium%20beef%20steak%20raw%20fresh?width=400&height=300&nologo=true&seed=701"
+              alt="Beef">
+            <h3 data-i18n="item_meat_1">Premium Beef</h3>
+            <p class="product-category" data-i18n="cat_redmeat">Red Meat</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">350</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p25" data-name-key="item_meat_1" data-price="350"
+              data-img="https://image.pollinations.ai/premium%20beef%20steak%20raw%20fresh?width=400&height=300&nologo=true&seed=701">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/whole%20chicken%20raw%20farm?width=400&height=300&nologo=true&seed=702"
+              alt="Chicken">
+            <h3 data-i18n="item_meat_2">Whole Chicken</h3>
+            <p class="product-category" data-i18n="cat_poultry">Poultry</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">180</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p26" data-name-key="item_meat_2" data-price="180"
+              data-img="https://image.pollinations.ai/whole%20chicken%20raw%20farm?width=400&height=300&nologo=true&seed=702">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/fresh%20lamb%20meat%20raw%20leg?width=400&height=300&nologo=true&seed=703"
+              alt="Lamb">
+            <h3 data-i18n="item_meat_3">Fresh Lamb</h3>
+            <p class="product-category" data-i18n="cat_redmeat">Red Meat</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">400</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p27" data-name-key="item_meat_3" data-price="400"
+              data-img="https://image.pollinations.ai/fresh%20lamb%20meat%20raw%20leg?width=400&height=300&nologo=true&seed=703">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/meat%20mince%20ground%20beef%20bowl?width=400&height=300&nologo=true&seed=704"
+              alt="Mince">
+            <h3 data-i18n="item_meat_4">Meat Mince</h3>
+            <p class="product-category" data-i18n="cat_mixed">Mixed Meat</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">200</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p28" data-name-key="item_meat_4" data-price="200"
+              data-img="https://image.pollinations.ai/meat%20mince%20ground%20beef%20bowl?width=400&height=300&nologo=true&seed=704">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. BY-PRODUCTS -->
+    <section class="products-section bg-byprod">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_byprod">By-Products</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/raw%20wool%20yarn%20texture?width=400&height=300&nologo=true&seed=801"
+              alt="Wool">
+            <h3 data-i18n="item_byprod_1">Raw Wool</h3>
+            <p class="product-category" data-i18n="cat_fiber">Fiber</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">150</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p29" data-name-key="item_byprod_1"
+              data-price="150"
+              data-img="https://image.pollinations.ai/raw%20wool%20yarn%20texture?width=400&height=300&nologo=true&seed=801">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/animal%20leather%20hide%20brown?width=400&height=300&nologo=true&seed=802"
+              alt="Leather">
+            <h3 data-i18n="item_byprod_2">Animal Leather</h3>
+            <p class="product-category" data-i18n="cat_hides">Hides</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">500</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p30" data-name-key="item_byprod_2"
+              data-price="500"
+              data-img="https://image.pollinations.ai/animal%20leather%20hide%20brown?width=400&height=300&nologo=true&seed=802">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/organic%20manure%20pile%20compost?width=400&height=300&nologo=true&seed=803"
+              alt="Manure">
+            <h3 data-i18n="item_byprod_3">Organic Manure</h3>
+            <p class="product-category" data-i18n="cat_fert">Fertilizer</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">50</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p31" data-name-key="item_byprod_3"
+              data-price="50"
+              data-img="https://image.pollinations.ai/organic%20manure%20pile%20compost?width=400&height=300&nologo=true&seed=803">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/pure%20honey%20jar%20golden?width=400&height=300&nologo=true&seed=804"
+              alt="Honey">
+            <h3 data-i18n="item_byprod_4">Pure Honey</h3>
+            <p class="product-category" data-i18n="cat_food">Food</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">300</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p32" data-name-key="item_byprod_4"
+              data-price="300"
+              data-img="https://image.pollinations.ai/pure%20honey%20jar%20golden?width=400&height=300&nologo=true&seed=804">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. CATTLE -->
+    <section class="products-section bg-cattle">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_cattle">Cattle (Cows & Bulls)</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/holstein%20cow%20dairy%20farm?width=400&height=300&nologo=true&seed=901"
+              alt="Holstein">
+            <h3 data-i18n="item_cattle_1">Holstein Cow</h3>
+            <p class="product-category" data-i18n="cat_dairybreed">Dairy Breed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">35000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p33" data-name-key="item_cattle_1"
+              data-price="35000"
+              data-img="https://image.pollinations.ai/holstein%20cow%20dairy%20farm?width=400&height=300&nologo=true&seed=901">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/angus%20bull%20meat%20breed?width=400&height=300&nologo=true&seed=902"
+              alt="Angus">
+            <h3 data-i18n="item_cattle_2">Angus Bull</h3>
+            <p class="product-category" data-i18n="cat_meatbreed">Meat Breed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">45000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p34" data-name-key="item_cattle_2"
+              data-price="45000"
+              data-img="https://image.pollinations.ai/angus%20bull%20meat%20breed?width=400&height=300&nologo=true&seed=902">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/young%20heifer%20calf%20grass?width=400&height=300&nologo=true&seed=903"
+              alt="Heifer">
+            <h3 data-i18n="item_cattle_3">Young Heifer</h3>
+            <p class="product-category" data-i18n="cat_breed">Breeding</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">25000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p35" data-name-key="item_cattle_3"
+              data-price="25000"
+              data-img="https://image.pollinations.ai/young%20heifer%20calf%20grass?width=400&height=300&nologo=true&seed=903">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/dairy%20calf%20young%20cute?width=400&height=300&nologo=true&seed=904"
+              alt="Calf">
+            <h3 data-i18n="item_cattle_4">Dairy Calf</h3>
+            <p class="product-category" data-i18n="cat_young">Young</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">15000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p36" data-name-key="item_cattle_4"
+              data-price="15000"
+              data-img="https://image.pollinations.ai/dairy%20calf%20young%20cute?width=400&height=300&nologo=true&seed=904">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. POULTRY -->
+    <section class="products-section bg-poultry">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_poultry">Poultry (Birds)</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/broiler%20chicken%20farm%20white?width=400&height=300&nologo=true&seed=1001"
+              alt="Broiler">
+            <h3 data-i18n="item_poultry_1">Broiler Chicken</h3>
+            <p class="product-category" data-i18n="cat_meattype">Meat Type</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">65</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p37" data-name-key="item_poultry_1"
+              data-price="65"
+              data-img="https://image.pollinations.ai/broiler%20chicken%20farm%20white?width=400&height=300&nologo=true&seed=1001">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/layer%20hen%20brown%20farm?width=400&height=300&nologo=true&seed=1002"
+              alt="Layer">
+            <h3 data-i18n="item_poultry_2">Layer Hen</h3>
+            <p class="product-category" data-i18n="cat_eggtype">Eggs Type</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">120</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p38" data-name-key="item_poultry_2"
+              data-price="120"
+              data-img="https://image.pollinations.ai/layer%20hen%20brown%20farm?width=400&height=300&nologo=true&seed=1002">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/farm%20duck%20white%20water?width=400&height=300&nologo=true&seed=1003"
+              alt="Duck">
+            <h3 data-i18n="item_poultry_3">Farm Duck</h3>
+            <p class="product-category" data-i18n="cat_eggs_meat">Eggs/Meat</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">150</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p39" data-name-key="item_poultry_3"
+              data-price="150"
+              data-img="https://image.pollinations.ai/farm%20duck%20white%20water?width=400&height=300&nologo=true&seed=1003">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/white%20turkey%20farm%20bird?width=400&height=300&nologo=true&seed=1004"
+              alt="Turkey">
+            <h3 data-i18n="item_poultry_4">White Turkey</h3>
+            <p class="product-category" data-i18n="cat_meattype">Meat Type</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">850</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p40" data-name-key="item_poultry_4"
+              data-price="850"
+              data-img="https://image.pollinations.ai/white%20turkey%20farm%20bird?width=400&height=300&nologo=true&seed=1004">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. SHEEP & GOATS -->
+    <section class="products-section bg-sheep">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_sheep">Sheep & Goats</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/breeding%20ram%20sheep%20horns?width=400&height=300&nologo=true&seed=1101"
+              alt="Ram">
+            <h3 data-i18n="item_sheep_1">Breeding Ram</h3>
+            <p class="product-category" data-i18n="cat_meatbreed">Meat Breed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">12000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p41" data-name-key="item_sheep_1"
+              data-price="12000"
+              data-img="https://image.pollinations.ai/breeding%20ram%20sheep%20horns?width=400&height=300&nologo=true&seed=1101">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/dairy%20ewe%20sheep%20farm?width=400&height=300&nologo=true&seed=1102"
+              alt="Ewe">
+            <h3 data-i18n="item_sheep_2">Dairy Ewe</h3>
+            <p class="product-category" data-i18n="cat_milkbreed">Milk Breed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">9000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p42" data-name-key="item_sheep_2"
+              data-price="9000"
+              data-img="https://image.pollinations.ai/dairy%20ewe%20sheep%20farm?width=400&height=300&nologo=true&seed=1102">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img src="https://image.pollinations.ai/billy%20goat%20farm?width=400&height=300&nologo=true&seed=1103"
+              alt="Billy">
+            <h3 data-i18n="item_sheep_3">Billy Goat</h3>
+            <p class="product-category" data-i18n="cat_breed">Breeding</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">5000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p43" data-name-key="item_sheep_3"
+              data-price="5000"
+              data-img="https://image.pollinations.ai/billy%20goat%20farm?width=400&height=300&nologo=true&seed=1103">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img src="https://image.pollinations.ai/nanny%20goat%20farm?width=400&height=300&nologo=true&seed=1104"
+              alt="Nanny">
+            <h3 data-i18n="item_sheep_4">Nanny Goat</h3>
+            <p class="product-category" data-i18n="cat_milkbreed">Milk Breed</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">7000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p44" data-name-key="item_sheep_4"
+              data-price="7000"
+              data-img="https://image.pollinations.ai/nanny%20goat%20farm?width=400&height=300&nologo=true&seed=1104">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. OTHER LIVESTOCK -->
+    <section class="products-section bg-other">
+      <div class="container">
+        <h2 class="section-title" data-i18n="sec_other">Other Livestock</h2>
+        <div class="products-grid">
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/domestic%20rabbit%20pet%20cute?width=400&height=300&nologo=true&seed=1201"
+              alt="Rabbit">
+            <h3 data-i18n="item_other_1">Domestic Rabbit</h3>
+            <p class="product-category" data-i18n="cat_small">Small Pet</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">150</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p45" data-name-key="item_other_1"
+              data-price="150"
+              data-img="https://image.pollinations.ai/domestic%20rabbit%20pet%20cute?width=400&height=300&nologo=true&seed=1201">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img src="https://image.pollinations.ai/bee%20hive%20box%20farm?width=400&height=300&nologo=true&seed=1202"
+              alt="Bees">
+            <h3 data-i18n="item_other_2">Bee Hive (Box)</h3>
+            <p class="product-category" data-i18n="cat_honeyprod">Honey</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">2500</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p46" data-name-key="item_other_2"
+              data-price="2500"
+              data-img="https://image.pollinations.ai/bee%20hive%20box%20farm?width=400&height=300&nologo=true&seed=1202">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img
+              src="https://image.pollinations.ai/japanese%20quail%20bird%20small?width=400&height=300&nologo=true&seed=1203"
+              alt="Quail">
+            <h3 data-i18n="item_other_3">Japanese Quail</h3>
+            <p class="product-category" data-i18n="cat_eggs_meat">Eggs/Meat</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">80</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p47" data-name-key="item_other_3" data-price="80"
+              data-img="https://image.pollinations.ai/japanese%20quail%20bird%20small?width=400&height=300&nologo=true&seed=1203">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-card reveal">
+            <img src="https://image.pollinations.ai/racing%20camel%20desert?width=400&height=300&nologo=true&seed=1204"
+              alt="Camel">
+            <h3 data-i18n="item_other_4">Racing Camel</h3>
+            <p class="product-category" data-i18n="cat_large">Large</p>
+            <div class="product-price"><span class="currency" data-i18n="currency">EGP</span><span
+                class="price-value">150000</span></div>
+            <button class="btn-buy" onclick="addToCart(this)" data-id="p48" data-name-key="item_other_4"
+              data-price="150000"
+              data-img="https://image.pollinations.ai/racing%20camel%20desert?width=400&height=300&nologo=true&seed=1204">
+              <span data-i18n="btn_buy">Buy Now</span> <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div> <!-- End All Products Wrapper -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2 data-i18n="cart_title">Your Cart</h2>
+      <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="cart-items" id="cartItemsContainer">
+      <!-- Dynamic Items -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span data-i18n="cart_total">Total:</span>
+        <span id="cartTotalValue">EGP 0</span>
+      </div>
+      <button class="btn-checkout" onclick="checkout()">
+        <i class="fa-solid fa-credit-card"></i> <span data-i18n="cart_checkout">Checkout</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // ================= TRANSLATIONS (Full & Complete) =================
+    const translations = {
+      en: {
+        btn_back: "Back Home",
+        btn_lang: "عربي",
+        hero_title: "Farm Marketplace",
+        search_placeholder: "Search products...",
+
+        // Cart
+        cart_title: "Your Cart",
+        cart_empty: "Your cart is empty.",
+        cart_total: "Total:",
+        cart_checkout: "Checkout",
+
+        // Sections
+        sec_feed: "Feed & Nutrition",
+        sec_vet: "Veterinary & Health",
+        sec_vits: "Animal Vitamins",
+        sec_equip: "Farming Equipment",
+        sec_milk: "Milk & Dairy",
+        sec_eggs: "Farm Fresh Eggs",
+        sec_meat: "Fresh Meat",
+        sec_byprod: "By-Products",
+        sec_cattle: "Cattle (Cows & Bulls)",
+        sec_poultry: "Poultry (Birds)",
+        sec_sheep: "Sheep & Goats",
+        sec_other: "Other Livestock",
+
+        // Categories
+        cat_feed: "Feed",
+        cat_health: "Health",
+        cat_supp: "Supplements",
+        cat_med: "Medicine",
+        cat_prev: "Prevention",
+        cat_immune: "Immunity",
+        cat_bone: "Bone Health",
+        cat_skin: "Skin & Coat",
+        cat_general: "Overall Health",
+        cat_treat: "Treatment",
+        cat_hygiene: "Hygiene",
+        cat_monitor: "Monitoring",
+        cat_urgent: "Emergency",
+        cat_dairy: "Dairy",
+        cat_eggs: "Eggs",
+        cat_eggs_meat: "Eggs/Meat",
+        cat_redmeat: "Red Meat",
+        cat_poultry: "Poultry",
+        cat_mixed: "Mixed Meat",
+        cat_fiber: "Fiber",
+        cat_hides: "Hides",
+        cat_fert: "Fertilizer",
+        cat_food: "Food",
+        cat_dairybreed: "Dairy Breed",
+        cat_meatbreed: "Meat Breed",
+        cat_breed: "Breeding",
+        cat_young: "Young",
+        cat_meattype: "Meat Type",
+        cat_eggtype: "Eggs Type",
+        cat_milkbreed: "Milk Breed",
+        cat_small: "Small Pet",
+        cat_honeyprod: "Honey",
+        cat_large: "Large",
+
+        // Product Names
+        item_feed_1: "Premium Animal Feed",
+        item_feed_2: "Corn Feed Mix",
+        item_feed_3: "Dry Hay Bales",
+        item_feed_4: "Barley Feed",
+        item_vet_1: "Vet Medicine",
+        item_vet_2: "Animal Vitamins",
+        item_vet_3: "Livestock Antibiotic",
+        item_vet_4: "Animal Vaccine",
+        item_vit_1: "Vitamin A Boost",
+        item_vit_2: "Vitamin D Complex",
+        item_vit_3: "Vitamin E Capsules",
+        item_vit_4: "Multivitamin Mix",
+        item_equip_1: "Deworming Solution",
+        item_equip_2: "Farm Disinfectant",
+        item_equip_3: "Animal Thermometer",
+        item_equip_4: "First Aid Kit",
+        item_milk_1: "Fresh Milk",
+        item_milk_2: "Farm Cheese",
+        item_milk_3: "Pure Butter",
+        item_milk_4: "Natural Yogurt",
+        item_eggs_1: "White Table Eggs",
+        item_eggs_2: "Brown Eggs",
+        item_eggs_3: "Duck Eggs",
+        item_eggs_4: "Quail Eggs",
+        item_meat_1: "Premium Beef",
+        item_meat_2: "Whole Chicken",
+        item_meat_3: "Fresh Lamb",
+        item_meat_4: "Meat Mince",
+        item_byprod_1: "Raw Wool",
+        item_byprod_2: "Animal Leather",
+        item_byprod_3: "Organic Manure",
+        item_byprod_4: "Pure Honey",
+        item_cattle_1: "Holstein Cow",
+        item_cattle_2: "Angus Bull",
+        item_cattle_3: "Young Heifer",
+        item_cattle_4: "Dairy Calf",
+        item_poultry_1: "Broiler Chicken",
+        item_poultry_2: "Layer Hen",
+        item_poultry_3: "Farm Duck",
+        item_poultry_4: "White Turkey",
+        item_sheep_1: "Breeding Ram",
+        item_sheep_2: "Dairy Ewe",
+        item_sheep_3: "Billy Goat",
+        item_sheep_4: "Nanny Goat",
+        item_other_1: "Domestic Rabbit",
+        item_other_2: "Bee Hive (Box)",
+        item_other_3: "Japanese Quail",
+        item_other_4: "Racing Camel",
+
+        btn_buy: "Buy Now",
+        currency: "EGP",
+        footer_text: "© 2026 Zera3a-Tech. All rights reserved."
+      },
+      ar: {
+        btn_back: "العودة الرئيسية",
+        btn_lang: "English",
+        hero_title: "سوق المزرعة",
+        search_placeholder: "بحث منتجات...",
+
+        // Cart
+        cart_title: "سلة المشتريات",
+        cart_empty: "سلة المشتريات فارغة حالياً.",
+        cart_total: "المجموع الكلي:",
+        cart_checkout: "إتمام الشراء",
+
+        // Sections
+        sec_feed: "العلف والتغذية",
+        sec_vet: "الطب البيطري والصحة",
+        sec_vits: "فيتامينات الحيوانات",
+        sec_equip: "معدات الزراعة",
+        sec_milk: "الحليب ومنتجات الألبان",
+        sec_eggs: "بيض المزرعة الطازج",
+        sec_meat: "لحوم طازجة",
+        sec_byprod: "المنتجات الثانوية",
+        sec_cattle: "الأبقار (أبقار وثيران)",
+        sec_poultry: "الدواجن (الطيور)",
+        sec_sheep: "الأغنام والماعز",
+        sec_other: "حيوانات أخرى",
+
+        // Categories
+        cat_feed: "علف",
+        cat_health: "صحة",
+        cat_supp: "مكملات",
+        cat_med: "دواء",
+        cat_prev: "وقاية",
+        cat_immune: "مناعة",
+        cat_bone: "صحة العظام",
+        cat_skin: "الجلد والفراء",
+        cat_general: "صحة عامة",
+        cat_treat: "علاج",
+        cat_hygiene: "نظافة",
+        cat_monitor: "مراقبة",
+        cat_urgent: "طوارئ",
+        cat_dairy: "ألبان",
+        cat_eggs: "بيض",
+        cat_eggs_meat: "بيض/لحوم",
+        cat_redmeat: "لحوم حمراء",
+        cat_poultry: "دواجن",
+        cat_mixed: "لحوم مختلطة",
+        cat_fiber: "ألياف",
+        cat_hides: "جلود",
+        cat_fert: "سماد",
+        cat_food: "طعام",
+        cat_dairybreed: "سلالة حلوب",
+        cat_meatbreed: "سلالة لحم",
+        cat_breed: "تربية",
+        cat_young: "صغار",
+        cat_meattype: "نوع لحم",
+        cat_eggtype: "نوع بيض",
+        cat_milkbreed: "سلالة حلوب",
+        cat_small: "حيوان أليف صغير",
+        cat_honeyprod: "عسل",
+        cat_large: "كبير",
+
+        // Product Names
+        item_feed_1: "علف حيواني ممتاز",
+        item_feed_2: "خلطة ذرة علفية",
+        item_feed_3: "باليات قش جاف",
+        item_feed_4: "شعير علف",
+        item_vet_1: "دواء بيطري",
+        item_vet_2: "فيتامينات حيوانية",
+        item_vet_3: "مضاد حيوي للماشية",
+        item_vet_4: "لقاح حيواني",
+        item_vit_1: "فيتامين أ مقوي",
+        item_vit_2: "فيتامين د معقد",
+        item_vit_3: "كبسولات فيتامين هـ",
+        item_vit_4: "خلطة فيتامينات متعددة",
+        item_equip_1: "معلق مكافحة الديدان",
+        item_equip_2: "مطهر زراعي",
+        item_equip_3: "ميزان حرارة حيواني",
+        item_equip_4: "حقيبة إسعافات أولية",
+        item_milk_1: "حليب طازج",
+        item_milk_2: "جبن مزرعة",
+        item_milk_3: "زبدة صافية",
+        item_milk_4: "زبادي طبيعي",
+        item_eggs_1: "بيض مائدة أبيض",
+        item_eggs_2: "بيض بني",
+        item_eggs_3: "بيض بط",
+        item_eggs_4: "بيض سمان",
+        item_meat_1: "لحم بقري فاخر",
+        item_meat_2: "دجاجة كاملة",
+        item_meat_3: "لحم ضأن طازج",
+        item_meat_4: "لحم مفروم",
+        item_byprod_1: "صوف خام",
+        item_byprod_2: "جلد حيواني",
+        item_byprod_3: "سماد عضوي",
+        item_byprod_4: "عسل نقي",
+        item_cattle_1: "بقرة هولشتاين",
+        item_cattle_2: "ثور أنجوس",
+        item_cattle_3: "عجلة صغيرة",
+        item_cattle_4: "عجل حلوب",
+        item_poultry_1: "دجاج تسمين",
+        item_poultry_2: "دجاجة بياضة",
+        item_poultry_3: "بط مزرعة",
+        item_poultry_4: "رومي أبيض",
+        item_sheep_1: "كبش تسمين",
+        item_sheep_2: "نعجة حلوب",
+        item_sheep_3: "تيس عزيق",
+        item_sheep_4: "عنزة حلوب",
+        item_other_1: "أرنب أليف",
+        item_other_2: "خلية نحل (صندوق)",
+        item_other_3: "سماندي ياباني",
+        item_other_4: "جمل سباقات",
+
+        btn_buy: "شراء الآن",
+        currency: "ج.م",
+        footer_text: "©2026 زراعة تك. جميع الحقوق محفوظة."
+      }
+    };
+
+    // ================= CART LOGIC =================
+    let cart = JSON.parse(localStorage.getItem('zera3a_cart')) || [];
+
+    function addToCart(btn) {
+      btn.classList.add('clicked');
+      setTimeout(() => btn.classList.remove('clicked'), 200);
+
+      const nameKey = btn.dataset.nameKey;
+      const productName = translations[currentLang][nameKey] || nameKey;
+
+      const product = {
+        id: btn.dataset.id,
+        name: productName,
+        price: parseFloat(btn.dataset.price),
+        image: btn.dataset.img,
+        nameKey: nameKey
+      };
+
+      const existingItem = cart.find(item => item.id === product.id);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      saveCart();
+      updateCartUI();
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      saveCart();
+      updateCartUI();
+    }
+
+    function changeQuantity(id, change) {
+      const item = cart.find(item => item.id === id);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+          removeFromCart(id);
+        } else {
+          saveCart();
+          updateCartUI();
+        }
+      }
+    }
+
+    function saveCart() {
+      localStorage.setItem('zera3a_cart', JSON.stringify(cart));
+    }
+
+    function updateCartUI() {
+      const container = document.getElementById('cartItemsContainer');
+      const totalValueEl = document.getElementById('cartTotalValue');
+      const countBadge = document.getElementById('cartCount');
+      const currencyText = translations[currentLang].currency;
+
+      // Update Badge
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      countBadge.innerText = totalCount;
+      if (totalCount > 0) countBadge.classList.add('active');
+      else countBadge.classList.remove('active');
+
+      // Render Items
+      container.innerHTML = '';
+      let totalPrice = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="empty-cart-msg">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <p>${translations[currentLang].cart_empty}</p>
+          </div>
+        `;
+      } else {
+        cart.forEach(item => {
+          const displayName = translations[currentLang][item.nameKey] || item.name;
+          const itemTotal = item.price * item.quantity;
+          totalPrice += itemTotal;
+
+          const itemEl = document.createElement('div');
+          itemEl.className = 'cart-item';
+          itemEl.innerHTML = `
+            <img src="${item.image}" class="cart-item-img" alt="${displayName}">
+            <div class="cart-item-details">
+              <div class="cart-item-title">${displayName}</div>
+              <div class="cart-item-price">${currencyText} ${item.price}</div>
+              <div class="cart-controls">
+                <div class="qty-controls">
+                  <button class="qty-btn" onclick="changeQuantity('${item.id}', -1)">-</button>
+                  <span class="qty-value">${item.quantity}</span>
+                  <button class="qty-btn" onclick="changeQuantity('${item.id}', 1)">+</button>
+                </div>
+                <button class="remove-item" onclick="removeFromCart('${item.id}')">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+          container.appendChild(itemEl);
+        });
+      }
+
+      // Update Total
+      totalValueEl.innerText = `${currencyText} ${totalPrice.toLocaleString()}`;
+    }
+
+    function toggleCart() {
+      const sidebar = document.getElementById('cartSidebar');
+      const overlay = document.getElementById('cartOverlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+
+    document.getElementById('cartToggle').addEventListener('click', toggleCart);
+
+    function checkout() {
+      if (cart.length === 0) return;
+      alert(translations[currentLang].cart_checkout + " functionality coming soon!");
+    }
+
+    // ================= LANGUAGE & THEME =================
+    let currentLang = localStorage.getItem("lang") || "en";
+    let currentTheme = localStorage.getItem("theme") || "light";
+
+    function updateLanguage() {
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      document.documentElement.lang = currentLang;
+
+      const langBtnText = document.querySelector('#langToggle span');
+      if (langBtnText) langBtnText.textContent = currentLang === "en" ? "عربي" : "English";
+
+      // Static Elements
+      const elements = document.querySelectorAll("[data-i18n]");
+      elements.forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
+      });
+
+      // Placeholders
+      const inputs = document.querySelectorAll("[data-i18n-placeholder]");
+      inputs.forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (translations[currentLang][key]) el.placeholder = translations[currentLang][key];
+      });
+
+      // Update Cart for Translations (names, currency, empty msg)
+      updateCartUI();
+      localStorage.setItem("lang", currentLang);
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const modeBtn = document.getElementById("modeToggle");
+
+      if (currentTheme === "dark") {
+        body.classList.add("dark-mode");
+        modeBtn.textContent = "☀️";
+      } else {
+        body.classList.remove("dark-mode");
+        modeBtn.textContent = "🌙";
+      }
+      localStorage.setItem("theme", currentTheme);
+    }
+
+    function searchProducts() {
+      const input = document.getElementById("searchInput");
+      const text = input.value.toLowerCase().trim();
+      const sections = document.querySelectorAll(".products-section");
+
+      if (text === "") {
+        sections.forEach(sec => sec.style.display = "block");
+        return;
+      }
+
+      sections.forEach(section => {
+        const cards = section.querySelectorAll(".product-card");
+        let sectionHasMatch = false;
+
+        cards.forEach(card => {
+          const title = card.querySelector("h3").innerText.toLowerCase();
+          const category = card.querySelector(".product-category").innerText.toLowerCase();
+
+          if (title.includes(text) || category.includes(text)) {
+            card.style.display = "";
+            sectionHasMatch = true;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        if (!sectionHasMatch) {
+          section.style.display = "none";
+        }
+      });
+    }
+
+    // ================= INITIALIZATION =================
+    document.addEventListener("DOMContentLoaded", () => {
+      updateLanguage();
+      if (localStorage.getItem("theme") === "dark") {
+        currentTheme = "dark";
+        toggleTheme();
+      }
+      updateCartUI();
+
+      // Scroll Animation
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('revealed');
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.product-card').forEach(el => observer.observe(el));
+    });
+
+    document.getElementById("langToggle").addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      updateLanguage();
+    });
+
+    document.getElementById("modeToggle").addEventListener("click", () => {
+      currentTheme = currentTheme === "light" ? "dark" : "light";
+      toggleTheme();
+    });
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animal Supplies | Zera3a-Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./marketplace.css">
+<style>
+  
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+</style>
+  
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="topbar">
+    <div class="topbar-left">
+      <a href="./animals.html" class="topbar-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span data-i18n="btn_back">Back Home</span>
+      </a>
+    </div>
+    <div class="topbar-right">
+      <button id="langToggle" class="topbar-btn">
+        <span data-i18n="btn_lang" style="font-weight:700; margin-inline-start:5px;">عربي</span>
+        <i class="fa-solid fa-language"></i>
+      </button>
+      <button id="modeToggle" class="topbar-btn">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 data-i18n="hero_title">Animal Supplies</h1>
+        <p data-i18n="hero_desc">Everything your farm needs — nutrition, care, and productivity.</p>
+      </div>
+    </div>
+  </section> 
+
+  <!-- PRODUCTS GRID -->
+  <section class="users-section">
+    <div class="container">
+      <div class="users-grid">
+
+        <!-- Card 1: Feed -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <span class="card-badge">Nutrition</span>
+            <img src="animalfeed.png" onerror="this.src='https://picsum.photos/seed/feed/400/300'" alt="Feed">
+          </div>
+          <div class="card-content">
+            <h3 data-i18n="card_feed_title"><i class="fa-solid fa-wheat-awn"></i> Animal Feed</h3>
+            <p data-i18n="card_feed_desc">Premium nutrition for cattle, poultry, goats, and sheep.</p>
+            <a href="./4️⃣markets.html" class="btn-primary" data-i18n="btn_explore">Explore</a>
+          </div>
+        </div>
+
+        <!-- Card 2: Medicine -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <span class="card-badge">Health</span>
+            <img src="animalmedicine.png" onerror="this.src='https://picsum.photos/seed/med/400/300'" alt="Medicine">
+          </div>
+          <div class="card-content">
+            <h3 data-i18n="card_meds_title"><i class="fa-solid fa-staff-snake"></i> Veterinary Medicine</h3>
+            <p data-i18n="card_meds_desc">Reliable preventive and treatment solutions.</p>
+            <a href="./4️⃣markets.html" class="btn-primary" data-i18n="btn_explore">Explore</a>
+          </div>
+        </div>
+
+        <!-- Card 3: Tools -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <span class="card-badge">Equipment</span>
+            <img src="animaltools.png" onerror="this.src='https://picsum.photos/seed/tools/400/300'" alt="Equipment">
+          </div>
+          <div class="card-content">
+            <h3 data-i18n="card_tools_title"><i class="fa-solid fa-screwdriver-wrench"></i> Farming Equipment</h3>
+            <p data-i18n="card_tools_desc">Feeders, waterers, cages & milking tools.</p>
+            <a href="./4️⃣markets.html" class="btn-primary" data-i18n="btn_explore">Explore</a>
+          </div>
+        </div>
+
+        <!-- Card 4: Vitamins -->
+        <div class="user-card">
+          <div class="image-wrapper">
+            <span class="card-badge">Supplements</span>
+            <img src="animalsvitamin.png" onerror="this.src='https://picsum.photos/seed/vits/400/300'" alt="Vitamins">
+          </div>
+          <div class="card-content">
+            <h3 data-i18n="card_vits_title"><i class="fa-solid fa-capsules"></i> Animal Vitamins</h3>
+            <p data-i18n="card_vits_desc">Boost immunity and daily performance.</p>
+            <a href="./4️⃣markets.html" class="btn-primary" data-i18n="btn_explore">Explore</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // ================= TRANSLATIONS =================
+    const translations = {
+      en: {
+        btn_back: "Back Home",
+        nav_title: "Supplies",
+        btn_lang: "عربي",
+        hero_title: "Animal Supplies",
+        hero_desc: "Everything your farm needs — nutrition, care, and productivity.",
+        card_feed_title: "Animal Feed",
+        card_feed_desc: "Premium nutrition for cattle, poultry, goats, and sheep.",
+        card_meds_title: "Veterinary Medicine",
+        card_meds_desc: "Reliable preventive and treatment solutions.",
+        card_tools_title: "Farming Equipment",
+        card_tools_desc: "Feeders, waterers, cages & milking tools.",
+        card_vits_title: "Animal Vitamins",
+        card_vits_desc: "Boost immunity and daily performance.",
+        btn_explore: "Explore"
+      },
+      ar: {
+        btn_back: "العودة الرئيسية",
+        nav_title: "المستلزمات",
+        btn_lang: "English",
+        hero_title: "مستلزمات الحيوانات",
+        hero_desc: "كل ما تحتاجه مزرعتك — تغذية، عناية، وإنتاجية.",
+        card_feed_title: "علف الحيوانات",
+        card_feed_desc: "تغذية ممتازة للأبقار، الدواجن، الماعز، والأغنام.",
+        card_meds_title: "الطب البيطري",
+        card_meds_desc: "حلول موثوقة للوقاية والعلاج.",
+        card_tools_title: "معدات الزراعة",
+        card_tools_desc: "معالف، مساقي، أقفاص وأدوات الحلب.",
+        card_vits_title: "فيتامينات الحيوانات",
+        card_vits_desc: "تعزيز المناعة والأداء اليومي.",
+        btn_explore: "تصفح"
+      }
+    };
+
+    // ================= STATE MANAGEMENT =================
+    let currentLang = localStorage.getItem("lang") || "en";
+    let currentTheme = localStorage.getItem("theme") || "light";
+
+    // ================= FUNCTIONS =================
+    function updateLanguage() {
+      const isArabic = currentLang === "ar";
+      document.documentElement.dir = isArabic ? "rtl" : "ltr";
+      document.documentElement.lang = currentLang;
+      
+      // Update Button Text
+      const langText = document.querySelector('#langToggle span');
+      if(langText) langText.textContent = isArabic ? "English" : "عربي";
+
+      // Fix Arrow Direction
+      const backIcon = document.querySelector('.topbar-left .fa-solid');
+      if(backIcon) {
+        if(isArabic) {
+          backIcon.classList.remove('fa-arrow-left');
+          backIcon.classList.add('fa-arrow-right');
+        } else {
+          backIcon.classList.remove('fa-arrow-right');
+          backIcon.classList.add('fa-arrow-left');
+        }
+      }
+
+      // Update Content (Simple text replacement)
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[currentLang][key]) {
+          // If it's the title with icon, we only want to update the text node, not the icon
+          if(el.querySelector('i')) {
+             // Keep the icon, replace text content after it? 
+             // Simplified: Just replace whole content for robustness in this structure
+             // But to keep icons: 
+             const icon = el.querySelector('i').outerHTML;
+             const text = translations[currentLang][key];
+             // This is tricky, let's check if the element has children
+             // For this specific design, titles have icons. Buttons are simple text.
+             if(el.classList.contains('topbar-btn') || el.tagName === 'A' || el.tagName === 'SPAN') {
+                 el.innerHTML = text; // Simple
+             } else {
+                 // It's the H3
+                 el.innerHTML = icon + ' ' + text;
+             }
+          } else {
+             el.textContent = translations[currentLang][key];
+          }
+        }
+      });
+
+      localStorage.setItem("lang", currentLang);
+    }
+
+    function updateTheme() {
+      const body = document.body;
+      const modeBtnIcon = document.querySelector('#modeToggle i');
+      
+      if (currentTheme === "dark") {
+        body.classList.add("dark-mode");
+        if(modeBtnIcon) {
+          modeBtnIcon.classList.remove('fa-moon');
+          modeBtnIcon.classList.add('fa-sun');
+        }
+      } else {
+        body.classList.remove("dark-mode");
+        if(modeBtnIcon) {
+          modeBtnIcon.classList.remove('fa-sun');
+          modeBtnIcon.classList.add('fa-moon');
+        }
+      }
+      localStorage.setItem("theme", currentTheme);
+    }
+
+    // ================= EVENT LISTENERS =================
+    document.getElementById("langToggle").addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      updateLanguage();
+    });
+
+    document.getElementById("modeToggle").addEventListener("click", () => {
+      currentTheme = currentTheme === "light" ? "dark" : "light";
+      updateTheme();
+    });
+
+    // ================= INITIALIZATION =================
+    document.addEventListener("DOMContentLoaded", () => {
+      updateLanguage();
+      updateTheme();
+    });
+
+  </script>
+</body>
+</html>

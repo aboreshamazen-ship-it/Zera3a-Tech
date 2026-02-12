@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Livestock Advisor | Zera3a-Tech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+        /* ===== VARIABLES (User Palette) ===== */
+        :root {
+            --primary: #1e5959;
+            /* Teal */
+            --primary-dark: #164545;
+            --secondary: #e67e3a;
+            /* Orange */
+            --secondary-dark: #d46b25;
+            --accent: #c9b896;
+            /* Beige */
+
+            --background: #f7f7f5;
+            /* Main BG */
+            --surface: rgba(255, 255, 255, 0.85);
+            /* Glass Card BG */
+            --surface-card: #ffffff;
+            --text: #2e2e2e;
+            /* Main Text */
+            --muted: #6b6b6b;
+            /* Muted Text */
+            --border: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(30, 89, 89, 0.15);
+
+            --font-en: 'Poppins', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        /* ===== DARK MODE OVERRIDES ===== */
+        body.dark-mode {
+            --primary: #4fd1c5;
+            /* Lighter Teal for contrast */
+            --primary-dark: #0f292e;
+            --secondary: #fb923c;
+            --secondary-dark: #c2410c;
+            --accent: #e2e8f0;
+
+            --background: #1a2525;
+            /* Dark Teal/Grey BG */
+            --surface: rgba(30, 41, 59, 0.7);
+            /* Dark Glass */
+            --surface-card: #243434;
+
+            --text: #f1f5f9;
+            /* White Text */
+            --muted: #cbd5e1;
+            /* Light Grey Text */
+            --border: #334155;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --shadow-hover: rgba(79, 209, 197, 0.15);
+        }
+
+        /* ===== GLOBAL RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+        }
+
+        body {
+            font-family: var(--font-en);
+            background-color: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        html[lang="ar"] body {
+            font-family: var(--font-ar);
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* ===== TOP BAR (NAVBAR) ===== */
+        .topbar {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1200px, 94%);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-radius: 16px;
+
+        }
+
+        /* Topbar Buttons */
+        .topbar-btn {
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .topbar-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-hover);
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        /* ===== MAIN PLANNER SECTION ===== */
+        .planner-section {
+            padding-top: 40px;
+            padding-bottom: 4rem;
+            flex-grow: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 92%;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* ===== PLANNER BOX (Inputs) ===== */
+        .planner-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .planner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .planner-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--surface-card);
+            color: var(--text);
+            font-family: inherit;
+            resize: vertical;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 89, 89, 0.15);
+        }
+
+        /* Analyze Button */
+        .analyze-btn {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 16px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analyze-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--shadow-hover);
+        }
+
+        /* ===== RESULT BOX ===== */
+        .planner-result {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 0;
+            margin-top: 2rem;
+            overflow: hidden;
+            display: none;
+            /* Hidden by default */
+            animation: slideUp 0.5s ease;
+        }
+
+        .result-header {
+            background: var(--primary);
+            color: #fff;
+            padding: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-body {
+            padding: 1.5rem;
+        }
+
+        .result-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .result-item strong {
+            display: block;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== VET CARDS ===== */
+        .vets-section-title {
+            margin: 3rem 0 1.5rem;
+            font-size: 1.5rem;
+            color: var(--text);
+            border-right: 4px solid var(--secondary);
+            padding-right: 15px;
+            /* LTR default */
+        }
+
+        html[lang="ar"] .vets-section-title {
+            border-right: none;
+            border-left: 4px solid var(--secondary);
+            padding-right: 0;
+            padding-left: 15px;
+        }
+
+        .vets-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .vet-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .vet-card h4 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .vet-specialty {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: rgba(230, 126, 58, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .vet-details {
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        .vet-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .whatsapp-btn {
+            flex: 1;
+            padding: 10px;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .whatsapp-btn:hover {
+            background: #20b036;
+        }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text);
+            color: var(--background);
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .topbar {
+                width: 94%;
+                padding: 0 10px;
+            }
+
+            .page-title {
+                display: none;
+            }
+
+            /* Hide title on mobile to make space for buttons */
+            .planner-box {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="topbar">
+        <!-- Left: Back Button -->
+        <a href="./animals.html"  class="topbar-btn back-btn">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span data-i18n="btn_back">Back Home</span>
+        </a>
+
+
+        <!-- Right: Controls -->
+        <div style="display:flex; align-items:center; gap:8px;">
+            <button id="langToggle" class="topbar-btn">
+                <span data-i18n="btn_lang_text">AR</span>
+                <i class="fa-solid fa-globe"></i>
+            </button>
+            <button id="modeToggle" class="topbar-btn">
+                🌙
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <section class="planner-section">
+        <div class="container">
+            <h2 data-i18n="advisor_title">Smart Livestock Advisor</h2>
+            <p class="subtitle" data-i18n="advisor_desc">Enter detailed information about your animal to get instant
+                AI-powered recommendations and care plans.</p>
+
+            <div class="planner-box">
+                <div class="planner-grid">
+                    <!-- Animal Category -->
+                    <div class="planner-input-group">
+                        <label data-i18n="label_category">Animal Category</label>
+                        <select id="animalCategory">
+                            <option value="" disabled selected>-- Select Animal --</option>
+                            <option value="cow">Cow / Cattle</option>
+                            <option value="chicken">Chicken / Poultry</option>
+                            <option value="sheep">Sheep & Goat</option>
+                            <option value="rabbit">Rabbit</option>
+                        </select>
+                    </div>
+
+                    <!-- Animal Age -->
+                    <div class="planner-input-group">
+                        <label data-i18n="label_age">Animal Age</label>
+                        <select id="animalAge">
+                            <option value="" disabled selected>-- Select Age --</option>
+                            <option value="0-3">0 – 3 months</option>
+                            <option value="3-6">3 – 6 months</option>
+                            <option value="6-12">6 – 12 months</option>
+                            <option value="12+">More than 1 year</option>
+                        </select>
+                    </div>
+
+                    <!-- Feeding Type -->
+                    <div class="planner-input-group">
+                        <label data-i18n="label_feed">Current Feeding</label>
+                        <select id="animalFeed">
+                            <option value="" disabled selected>-- Select Feeding --</option>
+                            <option value="natural">Natural Grass / Forage</option>
+                            <option value="commercial">Commercial Feed</option>
+                            <option value="mixed">Mixed Diet</option>
+                            <option value="poor">Low Quality / Scraps</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="planner-grid">
+                    <!-- Health Condition -->
+                    <div class="planner-input-group">
+                        <label data-i18n="label_health">Health Condition</label>
+                        <select id="animalHealth">
+                            <option value="" disabled selected>-- Condition --</option>
+                            <option value="good">Good / Stable</option>
+                            <option value="weak">Weak / Underweight</option>
+                            <option value="digestive">Digestive Issues</option>
+                            <option value="respiratory">Respiratory Issues</option>
+                        </select>
+                    </div>
+
+                    <!-- Main Problem -->
+                    <div class="planner-input-group" style="grid-column: 1 / -1;">
+                        <label data-i18n="label_problem">Describe Symptoms / Problems</label>
+                        <textarea id="animalProblem" rows="3"
+                            :placeholder="translations[currentLang].ph_problem"></textarea>
+                    </div>
+                </div>
+
+                <!-- Farming Goal -->
+                <div class="planner-input-group">
+                    <label data-i18n="label_goal">Farming Goal</label>
+                    <select id="animalGoal">
+                        <option value="" disabled selected>-- Goal --</option>
+                        <option value="meat">Meat Production</option>
+                        <option value="milk">Milk Production</option>
+                        <option value="eggs">Egg Production</option>
+                        <option value="breeding">Breeding & Selling</option>
+                    </select>
+                </div>
+
+                <!-- Action Button -->
+                <button class="analyze-btn" onclick="analyzeAnimal()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span data-i18n="btn_analyze">Analyze Now</span>
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <div class="planner-result" id="advisorResult">
+                <div class="result-header">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span data-i18n="result_title">Analysis Results</span>
+                </div>
+                <div class="result-body" id="resultContent">
+                    <!-- Dynamic Content Here -->
+                </div>
+            </div>
+
+            <!-- Vets Section -->
+            <h3 class="vets-section-title" data-i18n="vets_title">Recommended Specialists</h3>
+            <div class="vets-container" id="vets-container">
+                <!-- Dynamic Vet Cards -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-msg">Message here</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // ================= TRANSLATIONS DATABASE =================
+        const translations = {
+            en: {
+                btn_back: "Back Home",
+                nav_title: "Zera3a Advisor",
+                advisor_title: "Smart Livestock Advisor",
+                advisor_desc: "Enter detailed information about your animal to get instant AI-powered recommendations and care plans.",
+
+                label_category: "Animal Category",
+                label_age: "Animal Age",
+                label_feed: "Current Feeding",
+                label_health: "Health Condition",
+                label_problem: "Describe Symptoms / Problems",
+                label_goal: "Farming Goal",
+
+                btn_analyze: "Analyze Now",
+                vets_title: "Recommended Specialists",
+
+                // Options
+                opt_sel: "-- Select --",
+                sel_cow: "Cow / Cattle",
+                sel_chicken: "Chicken / Poultry",
+                sel_sheep: "Sheep / Goat",
+                sel_rabbit: "Rabbit",
+
+                age_0_3: "0 – 3 months",
+                age_3_6: "3 – 6 months",
+                age_6_12: "6 – 12 months",
+                age_12_plus: "More than 1 year",
+
+                feed_natural: "Natural Grass / Forage",
+                feed_commercial: "Commercial Feed",
+                feed_mixed: "Mixed Diet",
+                feed_poor: "Low Quality / Scraps",
+
+                health_good: "Good / Stable",
+                health_weak: "Weak / Underweight",
+                health_digestive: "Digestive Issues",
+                health_respiratory: "Respiratory Issues",
+
+                goal_meat: "Meat Production",
+                goal_milk: "Milk Production",
+                goal_eggs: "Egg Production",
+                goal_breeding: "Breeding & Selling",
+
+                // Results
+                result_title: "Analysis Results",
+                res_diagnosis: "Diagnosis",
+                res_nutrition: "Nutrition Plan",
+                res_care: "Care & Environment",
+                res_profit: "Profit Strategy",
+
+                btn_lang_text: "AR",
+                toast_back: "Navigating to Home...",
+
+                // Result Text Logic
+                diag_cow_weak: "Potential parasitic infection or nutritional deficiency.",
+                diag_chicken_egg: "Calcium deficiency or lighting stress.",
+                diag_gen_good: "Animal is in stable condition.",
+
+                nut_cow_milk: "Increase Alfalfa and ensure 14% protein in feed. Add Calcium supplement.",
+                nut_chicken_meat: "High protein starter feed (22-24%). Clean water 24/7.",
+                nut_general: "Balanced mix of Carbs, Proteins, and Minerals.",
+
+                care_general: "Clean living area, good ventilation, and regular deworming.",
+                profit_milk: "Focus on bulk milk selling and cheese production.",
+                profit_meat: "Optimize feed conversion ratio for faster weight gain."
+            },
+            ar: {
+                btn_back: "العودة الرئيسية",
+                nav_title: "مستشار زراعة تك",
+                advisor_title: "مستشار الثروة الحيوانية الذكي",
+                advisor_desc: "أدخل معلومات مفصلة عن حيوانك للحصول على توصيات فورية وخطط عناية مدعومة بالذكاء الاصطناعي.",
+
+                label_category: "فئة الحيوان",
+                label_age: "عمر الحيوان",
+                label_feed: "نوع التغذية الحالي",
+                label_health: "الحالة الصحية",
+                label_problem: "صف الأعراض / المشاكل",
+                label_goal: "الهدف الزراعي",
+
+                btn_analyze: "حلل الآن",
+                vets_title: "الأطباء الموصى بهم",
+
+                // Options
+                opt_sel: "-- اختر --",
+                sel_cow: "أبقار",
+                sel_chicken: "دواجن",
+                sel_sheep: "أغنام / ماعز",
+                sel_rabbit: "أرانب",
+
+                age_0_3: "0 – 3 أشهر",
+                age_3_6: "3 – 6 أشهر",
+                age_6_12: "6 – 12 شهر",
+                age_12_plus: "أكثر من سنة",
+
+                feed_natural: "عشب طبيعي / مراعي",
+                feed_commercial: "علف تجاري",
+                feed_mixed: "تغذية مختلطة",
+                feed_poor: "جودة منخفضة / بقايا",
+
+                health_good: "جيد / مستقر",
+                health_weak: "ضعيف / نحيف",
+                health_digestive: "مشاكل هضمية",
+                health_respiratory: "مشاكل تنفسية",
+
+                goal_meat: "إنتاج اللحوم",
+                goal_milk: "إنتاج الألبان",
+                goal_eggs: "إنتاج البيض",
+                goal_breeding: "تربية وبيع",
+
+                // Results
+                result_title: "نتائج التحليل",
+                res_diagnosis: "التشخيص",
+                res_nutrition: "خطة التغذية",
+                res_care: "العناية والبيئة",
+                res_profit: "استراتيجية الربح",
+
+                btn_lang_text: "EN",
+                toast_back: "جاري العودة للرئيسية...",
+
+                // Result Text Logic
+                diag_cow_weak: "عدوى طفيلية محتملة أو نقص غذائي.",
+                diag_chicken_egg: "نقص في الكالسيوم أو إجهاد إضائي.",
+                diag_gen_good: "الحيوان في حالة مستقرة.",
+
+                nut_cow_milk: "زيادة البرسيم والتأكد من 14% بروتين في العلف. إضافة مكملات كالسيوم.",
+                nut_chicken_meat: "علف بادئ عالي البروتين (22-24%). مياه نظيفة 24/7.",
+                nut_general: "خلط متوازن من الكربوهيدرات والبروتينات والمعادن.",
+
+                care_general: "منطقة معيشة نظيفة، تهوية جيدة، and ديدان منتظمة.",
+                profit_milk: "التركيز على بيع الحليب بالجملة وإنتاج الجبن.",
+                profit_meat: "تحسين معامل تحويل الغذاء لزيادة الوزن بسرعة."
+            }
+        };
+
+        // ================= STATE MANAGEMENT =================
+        let currentLang = localStorage.getItem("zera3a_lang") || "en";
+        let currentTheme = localStorage.getItem("zera3a_theme") || "light";
+
+        // ================= APP INITIALIZATION =================
+        document.addEventListener("DOMContentLoaded", () => {
+            applyLanguage();
+            applyTheme();
+            populatePlaceholders();
+        });
+
+        function populatePlaceholders() {
+            const problemInput = document.getElementById('animalProblem');
+            if (currentLang === 'ar') {
+                problemInput.placeholder = "مثال: الحيوان لا يأكل بشكل جيد، يبدو عليه الخمول...";
+            } else {
+                problemInput.placeholder = "Ex: Animal is not eating well, seems lethargic...";
+            }
+        }
+
+        // ================= THEME LOGIC =================
+        function applyTheme() {
+            const body = document.body;
+            const modeBtn = document.getElementById("modeToggle");
+
+            if (currentTheme === "dark") {
+                body.classList.add("dark-mode");
+                modeBtn.textContent = "☀️";
+            } else {
+                body.classList.remove("dark-mode");
+                modeBtn.textContent = "🌙";
+            }
+        }
+
+        document.getElementById("modeToggle").addEventListener("click", () => {
+            currentTheme = currentTheme === "light" ? "dark" : "light";
+            localStorage.setItem("zera3a_theme", currentTheme);
+            applyTheme();
+        });
+
+        // ================= LANGUAGE LOGIC =================
+        function applyLanguage() {
+            const html = document.documentElement;
+            const langBtnText = document.querySelector('#langToggle span');
+
+            html.lang = currentLang;
+            html.dir = currentLang === "ar" ? "rtl" : "ltr";
+
+            if (langBtnText) langBtnText.textContent = translations[currentLang].btn_lang_text;
+
+            const elements = document.querySelectorAll("[data-i18n]");
+            elements.forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            populatePlaceholders();
+        }
+
+        document.getElementById("langToggle").addEventListener("click", () => {
+            currentLang = currentLang === "en" ? "ar" : "en";
+            localStorage.setItem("zera3a_lang", currentLang);
+            applyLanguage();
+        });
+
+        // ================= NAVIGATION LOGIC (MOCK) =================
+        function goBack(e) {
+            e.preventDefault();
+            showToast(translations[currentLang].toast_back);
+            // In a real app, this would be: window.location.href = "/markets.html";
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            const toastMsg = document.getElementById("toast-msg");
+            toastMsg.textContent = msg;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
+        }
+
+        // ================= ADVISOR LOGIC ENGINE =================
+
+        // Mock Database
+        const vetsDatabase = [
+            { name: "Dr. Ahmed Ali", specialty: "Dairy Cows Specialist", phone: "+20 100 000 0001", whatsapp: "201000000001", tags: ["cow", "milk"] },
+            { name: "Dr. Sarah Mohamed", specialty: "Poultry Health Expert", phone: "+20 111 000 0002", whatsapp: "201110000002", tags: ["chicken", "eggs"] },
+            { name: "Dr. Omar Hassan", specialty: "Large Animals & Surgery", phone: "+20 122 000 0003", whatsapp: "201220000003", tags: ["cow", "sheep", "general"] },
+            { name: "Dr. Layla Khaled", specialty: "Small Ruminants (Sheep/Goats)", phone: "+20 109 000 0004", whatsapp: "201090000004", tags: ["sheep", "goat"] }
+        ];
+
+        function analyzeAnimal() {
+            const type = document.getElementById("animalCategory").value;
+            const age = document.getElementById("animalAge").value;
+            const feed = document.getElementById("animalFeed").value;
+            const health = document.getElementById("animalHealth").value;
+            const problem = document.getElementById("animalProblem").value;
+            const goal = document.getElementById("animalGoal").value;
+
+            // Validation
+            if (!type || !age || !feed || !health || !goal) {
+                showToast(currentLang === 'en' ? "Please fill all fields!" : "يرجى ملء جميع الحقول!");
+                return;
+            }
+
+            // Logic Engine (Simplified for Demo)
+            const t = translations[currentLang];
+            let diagnosis = t.diag_gen_good;
+            let nutrition = t.nut_general;
+            let care = t.care_general;
+            let profit = "";
+
+            // --- Cow Logic ---
+            if (type === "cow") {
+                if (health === "weak" || feed === "poor") diagnosis = t.diag_cow_weak;
+
+                if (goal === "milk") {
+                    nutrition = t.nut_cow_milk;
+                    profit = t.profit_milk;
+                } else if (goal === "meat") {
+                    nutrition = "High energy grains (corn/barley) + hay.";
+                    profit = t.profit_meat;
+                }
+            }
+            // --- Chicken Logic ---
+            else if (type === "chicken") {
+                if (goal === "eggs") {
+                    diagnosis = t.diag_chicken_egg;
+                    nutrition = "Layer mash with Oyster shell calcium.";
+                    profit = "Sell fertile eggs or consumption eggs daily.";
+                } else {
+                    nutrition = t.nut_chicken_meat;
+                    profit = "Fast turnover (35-45 days) cycle.";
+                }
+            }
+            // --- Sheep Logic ---
+            else if (type === "sheep") {
+                nutrition = "Good quality hay + Concentrate mix.";
+                care = "Watch for Foot Rot. Ensure shade in summer.";
+                profit = "Sell during Eid seasons for higher prices.";
+            }
+
+            // Generate Result HTML
+            const resultHTML = `
+        <div class="result-item">
+          <strong>${t.res_diagnosis}</strong>
+          <p>${diagnosis}</p>
+        </div>
+        <div class="result-item">
+          <strong>${t.res_nutrition}</strong>
+          <p>${nutrition}</p>
+        </div>
+        <div class="result-item">
+          <strong>${t.res_care}</strong>
+          <p>${care}</p>
+        </div>
+        ${profit ? `
+        <div class="result-item">
+          <strong>${t.res_profit}</strong>
+          <p>${profit}</p>
+        </div>` : ''}
+      `;
+
+            // Render Results
+            const resultBox = document.getElementById('advisorResult');
+            const resultBody = document.getElementById('resultContent');
+
+            resultBody.innerHTML = resultHTML;
+            resultBox.style.display = "block";
+
+            // Scroll to results
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Render Vets
+            renderVets(type, goal);
+        }
+
+        function renderVets(type, goal) {
+            const container = document.getElementById('vets-container');
+            const t = translations[currentLang];
+
+            // Filter vets
+            const matchedVets = vetsDatabase.filter(v =>
+                v.tags.includes(type) ||
+                v.tags.includes(goal) ||
+                v.tags.includes("general")
+            );
+
+            let html = "";
+            matchedVets.forEach(v => {
+                html += `
+          <div class="vet-card">
+            <h4>${v.name}</h4>
+            <span class="vet-specialty">${v.specialty}</span>
+            <div class="vet-details">
+               <i class="fa-solid fa-phone" style="margin-left:5px"></i> ${v.phone}
+            </div>
+            <a href="https://wa.me/${v.whatsapp}" target="_blank" class="whatsapp-btn">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span data-i18n="btn_whatsapp">Chat</span>
+            </a>
+          </div>
+        `;
+            });
+
+            if (matchedVets.length === 0) {
+                html = `<div style="grid-column: 1/-1; text-align:center; color:var(--muted); padding:20px;">
+          ${currentLang === 'en' ? "No specialists found for this category." : "لا يوجد أخصائيين لهذا التصنيف حالياً."}
+        </div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+    </script>
+    <footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+</body>
+
+</html>

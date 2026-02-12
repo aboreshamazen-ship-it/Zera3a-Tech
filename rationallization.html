@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">منصة الرعاية الزراعية والحيوانية المتكاملة</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <link rel="preconnect" href="https://fonts.googleapis.com ">
+    <link rel="preconnect" href="https://fonts.gstatic.com " crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400 ;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400 ;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --teal-deep: #0F4C5C;       
+            --sand-warm: #E6D5B8;       
+            --orange-sunset: #E07A5F;   
+            --off-white: #FAF9F6;      
+            --text-main: #2c3e50;
+            --card-border: rgba(15, 76, 92, 0.1);
+            --animal-accent: #d4856a;
+            --bg-color: #FAF9F6;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-color: #E6D5B8;
+            --success-color: #27ae60;
+        }
+
+        [data-theme="dark"] {
+            --teal-deep: #1a7a8d;
+            --sand-warm: #D6C6A5; 
+            --off-white: #1a1a1a;
+            --text-main: #ecf0f1;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ecf0f1;
+            --border-color: #444;
+            --animal-accent: #e07a5f;
+        }
+
+        i, .fas, .far, .fab, .fa-solid, .fa-regular { font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; scroll-behavior: smooth; }
+        [dir="ltr"] body, [dir="ltr"] div, [dir="ltr"] span, [dir="ltr"] p, [dir="ltr"] h1, [dir="ltr"] h2, [dir="ltr"] h3, [dir="ltr"] h4, [dir="ltr"] h5, [dir="ltr"] h6, [dir="ltr"] input, [dir="ltr"] select, [dir="ltr"] textarea, [dir="ltr"] button, [dir="ltr"] a { font-family: 'Inter', sans-serif; }
+
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.8; overflow-x: hidden; padding-bottom: 80px; transition: background-color 0.3s ease, color 0.3s ease; }
+
+        .controls-bar { position: fixed; top: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; pointer-events: none; }
+        .controls-bar > div { display: flex; gap: 10px; pointer-events: auto; }
+        .control-btn { background: var(--card-bg); border: 2px solid var(--teal-deep); color: var(--teal-deep); width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        [data-theme="dark"] .control-btn { background: var(--card-bg); border-color: var(--sand-warm); color: var(--sand-warm); }
+        .control-btn:hover { transform: scale(1.1); background: var(--teal-deep); color: white; }
+        [data-theme="dark"] .control-btn:hover { background: var(--teal-deep); color: white; }
+        .home-btn { width: auto; padding: 0 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; gap: 8px; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--sand-warm); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--teal-deep); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--orange-sunset); }
+
+        .program-wrapper { max-width: 1500px; margin: 0 auto 60px; padding: 0 20px; }
+        .program-box { background: var(--card-bg); padding: 40px; border-radius: 30px; box-shadow: 0 20px 60px rgba(15, 76, 92, 0.1); border: 2px solid var(--border-color); transition: background-color 0.3s; }
+        .program-header { text-align: center; margin-bottom: 40px; }
+        .program-header h2 { font-size: 2.2rem; color: var(--teal-deep); margin-bottom: 10px; }
+        .program-header p { color: #777; font-size: 1.1rem; }
+
+        .controls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .control-group label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--teal-deep); font-size: 1rem; }
+        .control-group input, .control-group select { width: 100%; padding: 14px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 1rem; font-family: inherit; outline: none; transition: 0.3s; background: var(--card-bg); color: var(--text-color); }
+        .control-group input:focus, .control-group select:focus { border-color: var(--teal-deep); box-shadow: 0 0 0 4px rgba(15, 76, 92, 0.1); }
+
+        .calc-btn { background: var(--teal-deep); color: var(--off-white); border: none; padding: 16px 50px; border-radius: 50px; font-size: 1.2rem; font-weight: 700; cursor: pointer; display: block; margin: 0 auto 40px; transition: 0.3s; box-shadow: 0 10px 25px rgba(15, 76, 92, 0.3); }
+        .calc-btn.animal-btn { background: var(--animal-accent); box-shadow: 0 10px 25px rgba(224, 122, 95, 0.3); }
+        .calc-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
+        .results-area { display: none; border-top: 2px dashed var(--border-color); padding-top: 30px; }
+        .results-area.active { display: block; animation: slideUp 0.6s ease; }
+
+        .results-header { background: var(--sand-warm); color: var(--teal-deep); padding: 20px 30px; border-radius: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 700; flex-wrap: wrap; gap: 10px; }
+        .animal-results-header { background: linear-gradient(135deg, rgba(224, 122, 95, 0.2) 0%, rgba(212, 133, 106, 0.3) 100%); color: var(--teal-deep); border: 2px solid var(--animal-accent); }
+
+        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 15px; margin-bottom: 30px; }
+        .schedule-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card-bg); min-width: 600px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
+        .schedule-table th { background: var(--teal-deep); color: var(--off-white); font-weight: 700; font-size: 1.1rem; padding: 18px; text-align: right; border-bottom: 4px solid var(--orange-sunset); white-space: nowrap; position: sticky; top: 0; z-index: 10; }
+        [dir="ltr"] .schedule-table th { text-align: left; }
+        .animal-table th { background: var(--animal-accent); border-bottom-color: var(--orange-sunset); }
+        .schedule-table td { padding: 18px; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); color: var(--text-color); vertical-align: top; line-height: 1.7; min-width: 150px; }
+        .schedule-table tr:nth-child(even) { background-color: rgba(15, 76, 92, 0.03); }
+        .schedule-table tr:hover { background-color: rgba(224, 122, 95, 0.08); }
+        .solution-cell { background-color: rgba(39, 174, 96, 0.1) !important; border-right: 5px solid var(--success-color) !important; color: #156d32 !important; font-weight: 700; }
+        [dir="ltr"] .solution-cell { border-right: none; border-left: 5px solid var(--success-color); }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hero-section { background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920 ') center/cover no-repeat; color: var(--off-white); padding: 100px 5% 60px; display: flex; justify-content: center; align-items: center; min-height: 280px; position: relative; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: 40px; box-shadow: 0 15px 35px rgba(15, 76, 92, 0.25); text-align: center; margin-top: 0; }
+        .hero-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 76, 92, 0.7); border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; z-index: 1; }
+        .hero-content-right { flex: 0 1 auto; text-align: center; max-width: 800px; position: relative; z-index: 2; }
+        .hero-content-right h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 15px; text-shadow: 0 3px 6px rgba(0,0,0,0.3); letter-spacing: -1px; color: var(--sand-warm); }
+        .hero-content-right p { font-size: 1.3rem; margin-bottom: 30px; opacity: 0.95; font-weight: 500; }
+        .search-container { width: 100%; max-width: 500px; position: relative; text-align: center; margin: 0 auto; }
+        .search-container input { width: 100%; padding: 16px 30px; border-radius: 50px; border: 3px solid var(--sand-warm); font-size: 1.1rem; box-shadow: 0 6px 20px rgba(0,0,0,0.2); background: rgba(255, 255, 255, 0.98); outline: none; transition: 0.3s; color: var(--teal-deep); text-align: center; }
+        .search-container input:focus { border-color: var(--orange-sunset); background: white; box-shadow: 0 6px 25px rgba(224, 122, 95, 0.4); transform: translateY(-2px); }
+
+        .container { max-width: 1400px; margin: 0 auto 60px; padding: 0 20px; position: relative; z-index: 10; }
+        .grid-section-title { text-align: center; margin-bottom: 40px; }
+        .grid-section-title h2 { font-size: 2rem; color: var(--teal-deep); background: linear-gradient(135deg, var(--sand-warm) 0%, var(--off-white) 100%); display: inline-block; padding: 12px 35px; border-radius: 50px; box-shadow: 0 8px 25px rgba(15, 76, 92, 0.15); border: 3px solid var(--sand-warm); font-weight: 700; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 60px; }
+        @media (max-width: 1200px) { .grid-container { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 900px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .grid-container { grid-template-columns: 1fr; } }
+
+        .crop-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(15, 76, 92, 0.08); transition: all 0.3s ease; border: 2px solid var(--border-color); cursor: pointer; display: flex; flex-direction: column; text-align: center; min-height: 380px; }
+        .crop-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(15, 76, 92, 0.15); border-color: var(--orange-sunset); }
+        .card-img-wrapper { width: 100%; height: 180px; overflow: hidden; position: relative; background: linear-gradient(135deg, var(--sand-warm) 0%, var(--off-white) 100%); }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .crop-card:hover .card-img { transform: scale(1.1); }
+        .animal-card-header { width: 100%; height: 160px; background: linear-gradient(135deg, var(--animal-accent), #a05040); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; padding: 15px; text-align: center; }
+        .animal-icon-large { font-size: 3rem; margin-bottom: 10px; opacity: 0.9; }
+        .animal-details-list { list-style: none; text-align: right; padding: 0 10px; margin-top: 10px; font-size: 0.8rem; color: #555; }
+        .animal-details-list li { margin-bottom: 6px; display: flex; align-items: flex-start; }
+        .animal-details-list li i { color: var(--animal-accent); margin-left: 8px; margin-top: 3px; }
+        [dir="ltr"] .animal-details-list { text-align: left; }
+        [dir="ltr"] .animal-details-list li i { margin-left: 0; margin-right: 8px; }
+        .card-body { padding: 20px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; width: 100%; flex-grow: 1; text-align: center; }
+        .card-title { font-size: 1.2rem; font-weight: 700; color: var(--teal-deep); margin: 0 0 10px 0; position: relative; line-height: 1.3; }
+        .card-title::after { content: ''; display: block; width: 40px; height: 3px; background: var(--orange-sunset); margin: 8px auto 0; transition: width 0.3s; border-radius: 2px; }
+        .crop-card:hover .card-title::after { width: 50px; }
+        .card-desc-short { font-size: 0.9rem; color: #555; line-height: 1.5; margin: 0 0 15px 0; padding: 0 5px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex-grow: 0; }
+        .card-btn { margin-top: auto; background-color: var(--teal-deep); color: var(--off-white); border: none; padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(15, 76, 92, 0.2); width: 100%; justify-content: center; }
+        .card-btn:hover { background-color: var(--orange-sunset); color: white; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(224, 122, 95, 0.4); }
+
+        .conservation-section { max-width: 1400px; margin: 0 auto 80px; padding: 0 20px; }
+        .conservation-box { background: linear-gradient(135deg, var(--sand-warm) 0%, var(--off-white) 100%); padding: 50px; border-radius: 30px; border: 3px solid var(--teal-deep); box-shadow: 0 15px 40px rgba(15, 76, 92, 0.12); }
+        .conservation-header { text-align: center; margin-bottom: 40px; }
+        .conservation-header h2 { font-size: 2.2rem; color: var(--teal-deep); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 15px; font-weight: 700; flex-wrap: wrap; }
+        .conservation-header p { color: #555; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+        .conservation-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 30px; }
+        .conservation-card { background: var(--card-bg); padding: 25px; border-radius: 20px; box-shadow: 0 8px 25px rgba(15, 76, 92, 0.08); border-top: 5px solid var(--orange-sunset); transition: all 0.3s ease; }
+        .conservation-card:hover { transform: translateY(-8px); }
+        .conservation-card h3 { color: var(--teal-deep); font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        .conservation-card h3 i { color: var(--orange-sunset); font-size: 1.4rem; }
+        .conservation-card ul { list-style: none; padding: 0; }
+        .conservation-card li { margin-bottom: 12px; padding-right: 25px; position: relative; color: #444; font-size: 0.95rem; line-height: 1.7; }
+        [dir="ltr"] .conservation-card li { padding-right: 0; padding-left: 25px; }
+        .conservation-card li::before { content: '\f00c'; color: var(--orange-sunset); font-weight: 900; position: absolute; right: 0; font-size: 1rem; font-family: "Font Awesome 6 Free"; }
+        [dir="ltr"] .conservation-card li::before { right: auto; left: 0; }
+
+        .calculator-section { max-width: 1400px; margin: 0 auto 80px; padding: 0 20px; }
+        .calculator-box { background: var(--card-bg); padding: 50px; border-radius: 30px; box-shadow: 0 20px 50px rgba(15, 76, 92, 0.1); border: 3px solid var(--border-color); }
+        .care-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .care-tab { padding: 12px 30px; border: 2px solid var(--border-color); background: var(--off-white); border-radius: 50px; cursor: pointer; transition: all 0.3s; font-weight: 700; color: var(--teal-deep); font-size: 1rem; }
+        .care-tab:hover { border-color: var(--orange-sunset); color: var(--orange-sunset); }
+        .care-tab.active { background: var(--teal-deep); color: var(--off-white); border-color: var(--teal-deep); }
+        .care-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .care-card { background: var(--off-white); border: 2px solid var(--border-color); border-radius: 20px; padding: 25px; transition: all 0.3s; cursor: pointer; }
+        .care-card:hover { transform: translateY(-5px); border-color: var(--orange-sunset); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .care-card h4 { color: var(--teal-deep); font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        .care-card p { color: #666; font-size: 0.95rem; line-height: 1.7; }
+        .care-details-display { background: linear-gradient(135deg, rgba(230, 213, 184, 0.3) 0%, rgba(255,255,255,0.9) 100%); padding: 40px; border-radius: 20px; min-height: 300px; border: 2px solid transparent; transition: 0.3s; }
+        .care-details-display.has-content { border-color: var(--orange-sunset); background: var(--card-bg); }
+        .care-content-detail h3 { color: var(--teal-deep); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 3px solid var(--orange-sunset); padding-bottom: 10px; display: inline-block; }
+        .care-content-detail p { margin-bottom: 15px; line-height: 1.9; color: var(--text-color); }
+        .care-content-detail ul { margin-right: 20px; margin-bottom: 20px; }
+        [dir="ltr"] .care-content-detail ul { margin-right: 0; margin-left: 20px; }
+        .care-content-detail li { margin-bottom: 10px; color: var(--text-color); }
+        .care-content-detail strong { color: var(--teal-deep); }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 76, 92, 0.92); backdrop-filter: blur(10px); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.4s ease; }
+        .modal-content { background: var(--card-bg); width: 100%; max-width: 900px; max-height: 85vh; border-radius: 25px; overflow: hidden; position: relative; display: flex; flex-direction: column; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 4px solid var(--sand-warm); }
+        .modal-header { background: var(--teal-deep); color: var(--off-white); padding: 25px 40px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; border-bottom: 4px solid var(--orange-sunset); }
+        .modal-header h2 { font-size: 1.8rem; display: flex; align-items: center; gap: 15px; font-weight: 700; }
+        .modal-close { background: rgba(255,255,255,0.2); border: none; width: 45px; height: 45px; border-radius: 50%; color: white; font-size: 1.3rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: var(--orange-sunset); transform: rotate(90deg); }
+        .modal-body { padding: 40px; overflow-y: auto; flex-grow: 1; background-color: var(--card-bg); line-height: 1.9; font-size: 1.05rem; color: var(--text-color); }
+
+        .chat-widget { position: fixed; bottom: 20px; left: 20px; z-index: 9999; }
+        .chat-toggle-btn { background: var(--orange-sunset); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 6px 20px rgba(224, 122, 95, 0.5); transition: all 0.3s ease; }
+        .chat-toggle-btn:hover { transform: scale(1.1) rotate(10deg); }
+        .chat-box { position: absolute; bottom: 70px; left: 0; width: 350px; height: 450px; background: var(--card-bg); border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.25); display: none; flex-direction: column; overflow: hidden; border: 3px solid var(--border-color); }
+        .chat-box.active { display: flex; animation: slideUp 0.3s ease; }
+        .chat-header { background: var(--teal-deep); color: white; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; font-size: 1rem; border-bottom: 3px solid var(--orange-sunset); }
+        .chat-messages { flex-grow: 1; padding: 20px; overflow-y: auto; background: var(--off-white); display: flex; flex-direction: column; gap: 12px; }
+        .message { max-width: 85%; padding: 12px 18px; border-radius: 18px; line-height: 1.6; font-size: 0.95rem; }
+        .bot-msg { background: var(--sand-warm); color: var(--teal-deep); align-self: flex-start; border-bottom-right-radius: 5px; }
+        .user-msg { background: var(--teal-deep); color: white; align-self: flex-end; border-bottom-left-radius: 5px; }
+        .chat-input-area { padding: 15px; background: var(--card-bg); border-top: 2px solid var(--border-color); display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; padding: 12px 15px; border: 2px solid var(--border-color); border-radius: 25px; outline: none; font-family: inherit; background: var(--off-white); color: var(--text-color); }
+        .chat-send-btn { background: var(--teal-deep); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .chat-send-btn:hover { background: var(--orange-sunset); transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .controls-bar { top: 10px; left: 10px; right: 10px; }
+            .control-btn { width: 40px; height: 40px; font-size: 1rem; }
+            .hero-section { padding: 80px 20px 40px; min-height: 250px; }
+            .hero-content-right h1 { font-size: 2.5rem; }
+            .hero-content-right p { font-size: 1.1rem; }
+            .program-box, .conservation-box, .calculator-box { padding: 25px; }
+            .program-header h2 { font-size: 1.8rem; }
+            .controls-grid { grid-template-columns: 1fr; }
+            .chat-box { width: 90vw; left: 5vw; }
+        }
+        .final-summary-box { background: linear-gradient(135deg, var(--teal-deep), #1a6b7f); color: white; padding: 30px; border-radius: 20px; margin-top: 30px; box-shadow: 0 10px 30px rgba(15, 76, 92, 0.3); }
+        .final-summary-box h3 { text-align: center; font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 15px; }
+        .final-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .final-summary-item { background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; text-align: center; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
+        .final-summary-item .label { font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px; display: block; }
+        .final-summary-item .value { font-size: 1.6rem; font-weight: 900; color: var(--sand-warm); }
+        .section-divider { height: 3px; background: linear-gradient(90deg, transparent, var(--sand-warm), transparent); margin: 60px auto; max-width: 200px; border: none; }
+        .highlight-box { background: rgba(230, 213, 184, 0.3); border-right: 4px solid var(--orange-sunset); padding: 15px; margin: 15px 0; border-radius: 8px; }
+        .crop-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .crop-info-item { background: rgba(15, 76, 92, 0.05); padding: 15px; border-radius: 10px; text-align: center; }
+        .crop-info-label { font-size: 0.85rem; color: #777; margin-bottom: 5px; }
+        .crop-info-value { font-size: 1.2rem; font-weight: 700; color: var(--teal-deep); }
+        .summary-box { margin-top: 30px; background: rgba(15, 76, 92, 0.05); border: 2px solid var(--teal-deep); padding: 25px; border-radius: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .animal-summary-box { background: rgba(224, 122, 95, 0.08); border-color: var(--animal-accent); }
+        .summary-item { text-align: center; background: var(--card-bg); padding: 15px; border-radius: 10px; }
+        .summary-item div { font-size: 0.9rem; color: #777; margin-bottom: 5px; }
+        .summary-item span { font-size: 1.3rem; font-weight: 700; color: var(--teal-deep); }
+        .animal-vaccine-row td { background-color: rgba(212, 133, 106, 0.15) !important; border-right: 5px solid var(--animal-accent); }
+        [dir="ltr"] .animal-vaccine-row td { border-right: none; border-left: 5px solid var(--animal-accent); }
+   /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+   </style>
+</head>
+<body>
+
+    <div class="controls-bar">
+        <div>
+           <button class="control-btn home-btn" id="homeBtn" disabled style="opacity: 0.6; cursor: not-allowed;">
+    <i class="fas fa-home"></i>
+    <span data-key="home">الرئيسية</span>
+</button>
+
+        </div>
+        <div>
+            <button class="control-btn" onclick="toggleLanguage()" title="تغيير اللغة / Change Language">
+                <span id="langBtn">EN</span>
+            </button>
+            <button class="control-btn" onclick="toggleTheme()" title="تغيير الوضع">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </div>
+    </div>
+
+    <header class="hero-section">
+        <div class="hero-content-right">
+            <h1 id="mainTitle" data-key="mainTitle">ترشيد الاستهلاك و الرعايه</h1>
+            <p id="mainSubtitle" data-key="mainSubtitle">منصة متكاملة للرعاية الشاملة للمحاصيل والحيوانات</p>
+            <div class="search-container">
+                <input type="text" id="globalSearch" placeholder="ابحث عن محصول، حيوان، أو نصيحة رعاية...">
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- CROPS SECTION -->
+        <div class="grid-section-title">
+            <h2><i class="fas fa-seedling"></i> <span data-key="cropsTitle">أهم المحاصيل الزراعية</span></h2>
+        </div>
+        <div class="grid-container" id="cropsGrid"></div>
+
+        <!-- FULL PROGRAM GENERATOR -->
+        <section class="calculator-section" id="fullProgramSection">
+            <div class="calculator-box">
+                <div class="program-header">
+                    <h2><i class="fas fa-clipboard-list"></i> <span data-key="fullProgramTitle">منشئ البرنامج الزراعي المتكامل (كل 15 يوم)</span></h2>
+                    <p data-key="fullProgramDesc">أدخل بيانات محصولك واحصل على خطة متابعة كاملة مع حلول المشاكل</p>
+                </div>
+
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label><i class="fas fa-seedling"></i> <span data-key="selectCropFull">اختيار المحصول</span></label>
+                        <select id="fullProgramCrop"></select>
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-mountain"></i> <span data-key="soilType">نوع التربة</span></label>
+                        <select id="fullProgramSoil">
+                            <option value="clay" data-key="soilClay">طينية ثقيلة</option>
+                            <option value="sandy" data-key="soilSandy">رملية خفيفة</option>
+                            <option value="loamy" data-key="soilLoamy">خليطية (متوسطة)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-exclamation-triangle"></i> <span data-key="soilProblems">مشاكل التربة</span></label>
+                        <select id="fullProgramSoilProblems">
+                            <option value="none" data-key="problemNone">لا توجد مشاكل</option>
+                            <option value="salty" data-key="problemSalty">تربة مالحة</option>
+                            <option value="acidic" data-key="problemAcidic">تربة حمضية</option>
+                            <option value="alkaline" data-key="problemAlkaline">تربة قلوية</option>
+                            <option value="poorDrainage" data-key="problemDrainage">صرف ضعيف</option>
+                            <option value="compaction" data-key="problemCompaction">تربة مدمكة</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-tractor"></i> <span data-key="plantingMethodLabel">طريقة الزراعة</span></label>
+                        <select id="fullProgramMethod">
+                            <option value="seeds" data-key="methodSeeds">بذور مباشرة</option>
+                            <option value="seedlings" data-key="methodSeedlings">شتلات</option>
+                            <option value="tubers" data-key="methodTubers">درنات</option>
+                            <option value="transplanting" data-key="methodTransplanting">نقل شتلات</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-bug"></i> <span data-key="plantProblems">مشاكل أخرى للنبات</span></label>
+                        <select id="fullProgramPlantProblems">
+                            <option value="none" data-key="problemNone">لا توجد مشاكل</option>
+                            <option value="fungal" data-key="problemFungal">أمراض فطرية</option>
+                            <option value="pests" data-key="problemPests">حشرات آفة</option>
+                            <option value="nutrientDeficiency" data-key="problemNutrient">نقص عناصر غذائية</option>
+                            <option value="viral" data-key="problemViral">أمراض فيروسية</option>
+                            <option value="waterStress" data-key="problemWater">إجهاد مائي</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-ruler-combined"></i> <span data-key="areaLabel">المساحة (فدان)</span></label>
+                        <input type="number" id="fullProgramArea" value="1" min="0.1" step="0.1">
+                    </div>
+                </div>
+
+                <button class="calc-btn" onclick="generateFullProgram()">
+                    <i class="fas fa-calendar-alt"></i> <span data-key="btnGenerateProgram">إنشاء البرنامج الزراعي الشامل</span>
+                </button>
+
+                <div id="fullProgramResults" class="results-area">
+                    <h3 style="color: var(--teal-deep); font-size: 1.8rem; margin-bottom: 25px; text-align: center; font-weight: 700;">
+                        <span data-key="programResultTitle">البرنامج الزراعي المتكامل (متابعة كل 15 يوم)</span>
+                    </h3>
+                    <div class="table-responsive">
+                        <table class="schedule-table" id="fullProgramTable">
+                            <thead>
+                                <tr>
+                                    <th data-key="colPeriod">الفترة</th>
+                                    <th data-key="colStage">مرحلة النمو</th>
+                                    <th data-key="colActions">الإجراءات المطلوبة</th>
+                                    <th data-key="colProblems">المشاكل المتوقعة</th>
+                                    <th data-key="colSolution">حل المشكلة / العلاج</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fullProgramTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="final-summary-box">
+                        <h3><i class="fas fa-chart-pie"></i> <span data-key="finalSummaryTitle">الملخص النهائي للموسم</span></h3>
+                        <div class="final-summary-grid">
+                            <div class="final-summary-item">
+                                <span class="label" data-key="labelSeeds">البذور/التقاوي المستخدمة</span>
+                                <span class="value" id="summarySeeds">--</span>
+                            </div>
+                            <div class="final-summary-item">
+                                <span class="label" data-key="labelQuantity">الكمية</span>
+                                <span class="value" id="summaryQuantity">--</span>
+                            </div>
+                            <div class="final-summary-item">
+                                <span class="label" data-key="labelHarvest">يوم الحصاد المتوقع</span>
+                                <span class="value" id="summaryHarvest">--</span>
+                            </div>
+                            <div class="final-summary-item">
+                                <span class="label" data-key="labelArea">إجمالي المساحة</span>
+                                <span class="value" id="summaryArea">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <div class="program-wrapper">
+            <div class="program-box">
+                <div class="program-header">
+                    <h2><i class="fas fa-clipboard-list"></i> <span data-key="planBuilder">منشئ خطط الرعاية المتكاملة</span></h2>
+                    <p data-key="planDesc">أنشئ خطة رعاية مخصصة للمحاصيل أو الحيوانات بناءً على احتياجاتك</p>
+                </div>
+
+                <div class="care-tabs">
+                    <button class="care-tab active" onclick="switchProgramType('crop', this)">
+                        <i class="fas fa-leaf"></i> <span data-key="cropPlan">خطة محصول زراعي</span>
+                    </button>
+                    <button class="care-tab" onclick="switchProgramType('animal', this)">
+                        <i class="fas fa-paw"></i> <span data-key="animalPlan">خطة رعاية حيوانية</span>
+                    </button>
+                </div>
+
+                <div id="cropProgramControls">
+                    <div class="controls-grid">
+                        <div class="control-group">
+                            <label data-key="selectCrop">اختيار المحصول</label>
+                            <select id="progCropSelect">
+                                <option value="" data-key="chooseCrop">اختر المحصول...</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label data-key="area">المساحة (فدان)</label>
+                            <input type="number" id="progArea" value="1" min="0.5" step="0.5">
+                        </div>
+                        <div class="control-group">
+                            <label data-key="soilTexture">نسيج التربة</label>
+                            <select id="progSoilTexture">
+                                <option value="clay" data-key="clay">طينية ثقيلة</option>
+                                <option value="sandy" data-key="sandy">رملية خفيفة</option>
+                                <option value="loamy" data-key="loamy">خلطية (متوسطة)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label data-key="irrigationSystem">نظام الري</label>
+                            <select id="progIrrigation">
+                                <option value="flood" data-key="flood">الري بالغمر</option>
+                                <option value="drip" data-key="drip">الري بالتنقيط</option>
+                                <option value="sprinkler" data-key="sprinkler">الري بالرشاش</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="calc-btn" onclick="generateCropProgram()">
+                        <span data-key="createCropPlan">إنشاء خطة الرعاية الزراعية</span>
+                    </button>
+                </div>
+
+                <div id="animalProgramControls" style="display: none;">
+                    <div class="controls-grid">
+                        <div class="control-group">
+                            <label style="color: var(--animal-accent);" data-key="animalType">نوع الحيوان</label>
+                            <select id="progAnimalSelect">
+                                <option value="" data-key="chooseAnimal">اختر الحيوان...</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label style="color: var(--animal-accent);" data-key="animalCount">العدد (رأس)</label>
+                            <input type="number" id="progAnimalCount" value="50" min="1">
+                        </div>
+                        <div class="control-group">
+                            <label style="color: var(--animal-accent);" data-key="housingSystem">نظام التربية</label>
+                            <select id="progHousing">
+                                <option value="intensive" data-key="intensive">تربية مكثفة (عنابر)</option>
+                                <option value="semi" data-key="semi">تربية نصف مكثفة</option>
+                                <option value="extensive" data-key="extensive">رعي حر</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="calc-btn animal-btn" onclick="generateAnimalProgram()">
+                        <span data-key="createAnimalPlan">إنشاء خطة الرعاية الحيوانية</span>
+                    </button>
+                </div>
+
+                <div id="cropResultsArea" class="results-area">
+                    <div class="results-header">
+                        <span id="resCropName">المحصول: --</span>
+                        <span id="resArea">المساحة: -- فدان</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th data-key="timeStage">المرحلة الزمنية</th>
+                                    <th data-key="activity">نشاط الرعاية</th>
+                                    <th data-key="instructions">الإرشادات التفصيلية</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cropScheduleBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="animalResultsArea" class="results-area">
+                    <div class="results-header animal-results-header">
+                        <span id="resAnimalName">الحيوان: --</span>
+                        <span id="resAnimalCount">العدد: -- رأس</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="schedule-table animal-table">
+                            <thead>
+                                <tr>
+                                    <th data-key="period">الفترة</th>
+                                    <th data-key="careType">نوع الرعاية</th>
+                                    <th data-key="details">التفاصيل والإرشادات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="animalScheduleBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <section class="conservation-section" id="conservationSection">
+            <div class="conservation-box">
+                <div class="conservation-header">
+                    <h2><i class="fas fa-leaf"></i> <span data-key="conservationTitle">ترشيد الاستهلاك في الزراعة</span></h2>
+                    <p data-key="conservationDesc">تعرّف على أفضل الطرق والممارسات لترشيد استهلاك المياه والبذور والتقاوي وتحسين إنتاجيتك مع الحفاظ على الموارد الطبيعية للأجيال القادمة.</p>
+                </div>
+
+                <div class="conservation-content">
+                    <div class="conservation-card">
+                        <h3><i class="fas fa-droplet"></i> <span data-key="waterSaving">ترشيد استهلاك المياه</span></h3>
+                        <ul>
+                            <li data-key="water1">استخدام الري بالتنقيط بدلاً من الري بالغمر يوفر 40-50% من المياه</li>
+                            <li data-key="water2">تركيب أنظمة الري الآلي والمستشعرات الرطوبية لتقليل الإسراف</li>
+                            <li data-key="water3">الري في الصباح الباكر أو المساء لتقليل التبخر</li>
+                            <li data-key="water4">تجميع مياه الأمطار في خزانات خاصة واستخدام المياه المعاد تدويرها</li>
+                        </ul>
+                    </div>
+
+                    <div class="conservation-card">
+                        <h3><i class="fas fa-seedling"></i> <span data-key="seedSaving">ترشيد البذور والتقاوي</span></h3>
+                        <ul>
+                            <li data-key="seed1">استخدام الكميات المناسبة من البذور حسب طريقة الزراعة</li>
+                            <li data-key="seed2">اختيار البذور المعتمدة عالية الجودة والمقاومة للأمراض</li>
+                            <li data-key="seed3">زراعة الشتلات في المشاتل بدلاً من البذور المباشرة</li>
+                            <li data-key="seed4">معالجة البذور بالمطهرات قبل الزراعة لحمايتها من العفن</li>
+                        </ul>
+                    </div>
+
+                    <div class="conservation-card">
+                        <h3><i class="fas fa-flask"></i> <span data-key="soilFertility">تحسين خصوبة التربة</span></h3>
+                        <ul>
+                            <li data-key="soil1">استخدام الأسمدة العضوية مثل السماد البلدي</li>
+                            <li data-key="soil2">تطبيق الدورة الزراعية المتنوعة لتحسين خصوبة التربة</li>
+                            <li data-key="soil3">إجراء تحليل دوري للتربة كل ثلاث سنوات</li>
+                            <li data-key="soil4">التسميد المتوازن حسب مراحل نمو النبات المختلفة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid-section-title">
+            <h2><i class="fas fa-paw"></i> <span data-key="animalsTitle">الثروة الحيوانية والداجنة</span></h2>
+        </div>
+        <div class="grid-container" id="animalsGrid"></div>
+
+        <!-- CALCULATOR -->
+        <section class="calculator-section">
+            <div class="calculator-box">
+                <div class="program-header">
+                    <h2><i class="fas fa-calculator"></i> <span data-key="calcTitle">حاسبة ترشيد الاستهلاك (100 يوم)</span></h2>
+                    <p data-key="calcDesc">أدخل بيانات مزرعتك واحصل على خطة تفصيلية لترشيد الاستهلاك كل 10 أيام</p>
+                </div>
+
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label><i class="fas fa-water"></i> <span data-key="irrigationMethod">طريقة الري</span></label>
+                        <select id="irrigationMethod">
+                            <option value="flood" data-key="flood">الري بالغمر</option>
+                            <option value="drip" data-key="drip">الري بالتنقيط</option>
+                            <option value="sprinkler" data-key="sprinkler">الري بالرشاش</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-leaf"></i> <span data-key="plantingMethod">طريقة زراعة البذور</span></label>
+                        <select id="plantingMethod">
+                            <option value="direct" data-key="direct">زراعة بذور مباشرة</option>
+                            <option value="seedlings" data-key="seedlings">زراعة شتلات</option>
+                            <option value="tubers" data-key="tubers">زراعة الدرنات</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-ruler"></i> <span data-key="landArea">مساحة الأرض (فدان)</span></label>
+                        <input type="number" id="landArea" value="1" min="0.5" step="0.5">
+                    </div>
+                    <div class="control-group">
+                        <label><i class="fas fa-flask"></i> <span data-key="soilProblem">مشاكل التربة</span></label>
+                        <select id="soilProblem">
+                            <option value="healthy" data-key="healthy">سليمة</option>
+                            <option value="salty" data-key="salty">مالحة</option>
+                            <option value="acidic" data-key="acidic">حمضية</option>
+                            <option value="alkaline" data-key="alkaline">قلوية</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="calc-btn" onclick="generateConservationPlan()">
+                    <i class="fas fa-chart-line"></i> <span data-key="generatePlan">إنشاء خطة الترشيد</span>
+                </button>
+
+                <div id="conservationResults" class="results-area" style="display: none;">
+                    <h3 style="color: var(--teal-deep); font-size: 1.8rem; margin-bottom: 25px; text-align: center; font-weight: 700;">
+                        <span data-key="conservationPlanTitle">خطة ترشيد الاستهلاك لمدة 100 يوم</span>
+                    </h3>
+                    <div class="table-responsive">
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th data-key="days">الأيام</th>
+                                    <th data-key="growthStage">مرحلة النمو</th>
+                                    <th data-key="waterSaving">ترشيد المياه</th>
+                                    <th data-key="seeds">البذور/التقاوي</th>
+                                    <th data-key="notes">ملاحظات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="conservationTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="summary-box" id="conservationSummary"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPREHENSIVE CARE CENTER (FIXED) -->
+        <div class="program-wrapper">
+            <div class="program-box">
+                <div class="program-header">
+                    <h2><i class="fas fa-heart-pulse"></i> <span data-key="careCenter">مركز الرعاية الشاملة</span></h2>
+                    <p data-key="careDesc">نصائح وإرشادات الرعاية المتكاملة للنباتات والحيوانات</p>
+                </div>
+
+                <div class="care-tabs">
+                    <button class="care-tab active" onclick="switchCareTab('plants', this)">
+                        <i class="fas fa-seedling"></i> <span data-key="plantCare">رعاية النباتات</span>
+                    </button>
+                    <button class="care-tab" onclick="switchCareTab('animals', this)">
+                        <i class="fas fa-paw"></i> <span data-key="animalCare">رعاية الحيوانات</span>
+                    </button>
+                    <button class="care-tab" onclick="switchCareTab('general', this)">
+                        <i class="fas fa-tractor"></i> <span data-key="farmCare">رعاية المزرعة</span>
+                    </button>
+                </div>
+
+                <div class="care-list" id="careList"></div>
+
+                <div class="care-details-display" id="careDetailsBox">
+                    <div id="carePlaceholder" style="text-align: center; color: #999; padding: 40px; font-size: 1.1rem;">
+                        <i class="fas fa-hand-pointer" style="font-size: 3rem; margin-bottom: 20px; display: block; color: var(--sand-warm);"></i>
+                        <span data-key="selectCare">اختر نوع الرعاية من الأعلى ثم اختر موضوع الرعاية لعرض التفاصيل</span>
+                    </div>
+                    <div class="care-details-content care-content-detail" id="careContent" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">العنوان</h2>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="chat-widget">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <h3><i class="fas fa-robot"></i> <span data-key="chatTitle">المستشار الزراعي الذكي</span></h3>
+                <span class="close-chat" onclick="toggleChat()" style="cursor: pointer;"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-msg" data-key="chatWelcome">أهلاً بك في زراعه-Tech! كيف يمكنني مساعدتك اليوم؟</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." data-key="chatPlaceholder">
+                <button class="chat-send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div class="chat-toggle-btn" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            ar: {
+                home: "الرئيسية", mainTitle: "ترشيد الاستهلاك و الرعايه", mainSubtitle: "منصة متكاملة للرعاية الشاملة للمحاصيل والحيوانات",
+                fullProgramTitle: "منشئ البرنامج الزراعي المتكامل (كل 15 يوم)", fullProgramDesc: "أدخل بيانات محصولك واحصل على خطة متابعة كاملة مع حلول المشاكل",
+                selectCropFull: "اختيار المحصول", chooseCropFull: "اختر المحصول...", soilType: "نوع التربة", soilClay: "طينية ثقيلة", soilSandy: "رملية خفيفة", soilLoamy: "خليطية (متوسطة)",
+                soilProblems: "مشاكل التربة", problemNone: "لا توجد مشاكل", problemSalty: "تربة مالحة", problemAcidic: "تربة حمضية", problemAlkaline: "تربة قلوية", problemDrainage: "صرف ضعيف", problemCompaction: "تربة مدمكة",
+                plantingMethodLabel: "طريقة الزراعة", methodSeeds: "بذور مباشرة", methodSeedlings: "شتلات", methodTubers: "درنات", methodTransplanting: "نقل شتلات",
+                plantProblems: "مشاكل أخرى للنبات", problemFungal: "أمراض فطرية", problemPests: "حشرات آفة", problemNutrient: "نقص عناصر غذائية", problemViral: "أمراض فيروسية", problemWater: "إجهاد مائي",
+                areaLabel: "المساحة (فدان)", btnGenerateProgram: "إنشاء البرنامج الزراعي الشامل", colPeriod: "الفترة", colStage: "مرحلة النمو", colActions: "الإجراءات المطلوبة", colProblems: "المشاكل المتوقعة", colSolution: "حل المشكلة / العلاج",
+                programResultTitle: "البرنامج الزراعي المتكامل (متابعة كل 15 يوم)", finalSummaryTitle: "الملخص النهائي للموسم", labelSeeds: "البذور/التقاوي المستخدمة", labelQuantity: "الكمية", labelHarvest: "يوم الحصاد المتوقع", labelArea: "إجمالي المساحة",
+                conservationTitle: "ترشيد الاستهلاك في الزراعة", conservationDesc: "تعرّف على أفضل الطرق والممارسات لترشيد استهلاك المياه والبذور والتقاوي وتحسين إنتاجيتك مع الحفاظ على الموارد الطبيعية للأجيال القادمة.",
+                waterSaving: "ترشيد استهلاك المياه", water1: "استخدام الري بالتنقيط بدلاً من الري بالغمر يوفر 40-50% من المياه", water2: "تركيب أنظمة الري الآلي والمستشعرات الرطوبية لتقليل الإسراف", water3: "الري في الصباح الباكر أو المساء لتقليل التبخر", water4: "تجميع مياه الأمطار في خزانات خاصة واستخدام المياه المعاد تدويرها",
+                seedSaving: "ترشيد البذور والتقاوي", seed1: "استخدام الكميات المناسبة من البذور حسب طريقة الزراعة", seed2: "اختيار البذور المعتمدة عالية الجودة والمقاومة للأمراض", seed3: "زراعة الشتلات في المشاتل بدلاً من البذور المباشرة", seed4: "معالجة البذور بالمطهرات قبل الزراعة لحمايتها من العفن",
+                soilFertility: "تحسين خصوبة التربة", soil1: "استخدام الأسمدة العضوية مثل السماد البلدي", soil2: "تطبيق الدورة الزراعية المتنوعة لتحسين خصوبة التربة", soil3: "إجراء تحليل دوري للتربة كل ثلاث سنوات", soil4: "التسميد المتوازن حسب مراحل نمو النبات المختلفة",
+                calcTitle: "حاسبة ترشيد الاستهلاك (100 يوم)", calcDesc: "أدخل بيانات مزرعتك واحصل على خطة تفصيلية لترشيد الاستهلاك كل 10 أيام", irrigationMethod: "طريقة الري", flood: "الري بالغمر", drip: "الري بالتنقيط", sprinkler: "الري بالرشاش", plantingMethod: "طريقة زراعة البذور", direct: "زراعة بذور مباشرة", seedlings: "زراعة شتلات", tubers: "زراعة الدرنات", landArea: "مساحة الأرض (فدان)", soilProblem: "مشاكل التربة", healthy: "سليمة", salty: "مالحة", acidic: "حمضية", alkaline: "قلوية", generatePlan: "إنشاء خطة الترشيد", conservationPlanTitle: "خطة ترشيد الاستهلاك لمدة 100 يوم", days: "الأيام", growthStage: "مرحلة النمو", seeds: "البذور/التقاوي", notes: "ملاحظات", cropsTitle: "أهم المحاصيل الزراعية", animalsTitle: "الثروة الحيوانية والداجنة", careCenter: "مركز الرعاية الشاملة", careDesc: "نصائح وإرشادات الرعاية المتكاملة للنباتات والحيوانات", plantCare: "رعاية النباتات", animalCare: "رعاية الحيوانات", farmCare: "رعاية المزرعة", selectCare: "اختر نوع الرعاية من الأعلى ثم اختر موضوع الرعاية لعرض التفاصيل", irrigation: "ري المحاصيل", fertilization: "التسميد العلمي", pruning: "التقليم والتربية", protection: "الوقاية من الآفات", harvest: "الحصاد والتخزين", feeding: "التغذية السليمة", vaccination: "التحصينات", hygiene: "النظافة والتطهير", breeding: "التربية والتكاثر", environment: "البيئة المناخية", soil: "صحة التربة", water: "إدارة المياه", tools: "صيانة المعدات", records: "التسجيلات الزراعية", chatTitle: "المستشار الزراعي الذكي", chatWelcome: "أهلاً بك في زراعه-Tech! كيف يمكنني مساعدتك اليوم؟", chatPlaceholder: "اكتب سؤالك هنا...", planBuilder: "منشئ خطط الرعاية المتكاملة", planDesc: "أنشئ خطة رعاية مخصصة للمحاصيل أو الحيوانات بناءً على احتياجاتك", cropPlan: "خطة محصول زراعي", animalPlan: "خطة رعاية حيوانية", selectCrop: "اختيار المحصول", chooseCrop: "اختر المحصول...", area: "المساحة (فدان)", soilTexture: "نسيج التربة", clay: "طينية ثقيلة", sandy: "رملية خفيفة", loamy: "خلطية (متوسطة)", irrigationSystem: "نظام الري", createCropPlan: "إنشاء خطة الرعاية الزراعية", animalType: "نوع الحيوان", chooseAnimal: "اختر الحيوان...", animalCount: "العدد (رأس)", housingSystem: "نظام التربية", intensive: "تربية مكثفة (عنابر)", semi: "تربية نصف مكثفة", extensive: "رعي حر", createAnimalPlan: "إنشاء خطة الرعاية الحيوانية", timeStage: "المرحلة الزمنية", activity: "نشاط الرعاية", instructions: "الإرشادات التفصيلية", period: "الفترة", careType: "نوع الرعاية", details: "التفاصيل والإرشادات", feddan: "فدان", daysLabel: "يوم", labelDuration: "مدة النمو", labelSeedsType: "نوع البذور/التقاوي", labelWaterNeeds: "احتياج المياه", labelFertilizers: "الأسمدة الموصى بها", overviewTitle: "نبذة عن المحصول", completeGuide: "دليل الرعاية الكامل", housingLabel: "نظام السكن", feedLabel: "نوع العلف", tempLabel: "درجة الحرارة"
+            },
+            en: {
+                home: "Home", mainTitle: "Rationalizing Consumption and Care", mainSubtitle: "Integrated Platform for Comprehensive Crop and Animal Care",
+                fullProgramTitle: "Integrated Agricultural Program Builder (Every 15 Days)", fullProgramDesc: "Enter your crop data and get a complete follow-up plan with problem solutions",
+                selectCropFull: "Select Crop", chooseCropFull: "Choose crop...", soilType: "Soil Type", soilClay: "Heavy Clay", soilSandy: "Light Sandy", soilLoamy: "Loamy (Medium)",
+                soilProblems: "Soil Problems", problemNone: "No Problems", problemSalty: "Salty Soil", problemAcidic: "Acidic Soil", problemAlkaline: "Alkaline Soil", problemDrainage: "Poor Drainage", problemCompaction: "Compacted Soil",
+                plantingMethodLabel: "Planting Method", methodSeeds: "Direct Seeds", methodSeedlings: "Seedlings", methodTubers: "Tubers", methodTransplanting: "Transplanting",
+                plantProblems: "Other Plant Problems", problemFungal: "Fungal Diseases", problemPests: "Pest Insects", problemNutrient: "Nutrient Deficiency", problemViral: "Viral Diseases", problemWater: "Water Stress",
+                areaLabel: "Area (Feddan)", btnGenerateProgram: "Generate Integrated Program", colPeriod: "Period", colStage: "Growth Stage", colActions: "Required Actions", colProblems: "Expected Problems", colSolution: "Problem Solution / Treatment",
+                programResultTitle: "Integrated Agricultural Program (Follow-up every 15 days)", finalSummaryTitle: "End of Season Summary", labelSeeds: "Seeds/Seedlings Used", labelQuantity: "Quantity", labelHarvest: "Expected Harvest Day", labelArea: "Total Area",
+                conservationTitle: "Resource Conservation in Agriculture", conservationDesc: "Learn best practices for conserving water, seeds, and improving productivity while preserving natural resources.",
+                waterSaving: "Water Conservation", water1: "Drip irrigation saves 40-50% water compared to flood irrigation", water2: "Install automated irrigation and moisture sensors", water3: "Water early morning or evening to reduce evaporation", water4: "Collect rainwater in special tanks and use recycled water",
+                seedSaving: "Seed Conservation", seed1: "Use appropriate seed amounts per planting method", seed2: "Choose certified high-quality disease-resistant seeds", seed3: "Use nursery seedlings instead of direct seeding", seed4: "Treat seeds with disinfectants before planting",
+                soilFertility: "Soil Fertility", soil1: "Use organic fertilizers like compost", soil2: "Apply diverse crop rotation to improve soil fertility", soil3: "Conduct soil analysis every three years", soil4: "Balanced fertilization according to plant growth stages",
+                calcTitle: "Consumption Calculator (100 Days)", calcDesc: "Enter your farm data and get a detailed conservation plan every 10 days", irrigationMethod: "Irrigation Method", flood: "Flood Irrigation", drip: "Drip Irrigation", sprinkler: "Sprinkler Irrigation", plantingMethod: "Planting Method", direct: "Direct Seeding", seedlings: "Seedlings", tubers: "Tubers", landArea: "Land Area (Feddan)", soilProblem: "Soil Problems", healthy: "Healthy", salty: "Salty", acidic: "Acidic", alkaline: "Alkaline", generatePlan: "Generate Conservation Plan", conservationPlanTitle: "100-Day Conservation Plan", days: "Days", growthStage: "Growth Stage", seeds: "Seeds/Seedlings", notes: "Notes", cropsTitle: "Major Agricultural Crops", animalsTitle: "Livestock & Poultry", careCenter: "Comprehensive Care Center", careDesc: "Integrated care guidelines for plants and animals", plantCare: "Plant Care", animalCare: "Animal Care", farmCare: "Farm Care", selectCare: "Select a care type above to view details", irrigation: "Crop Irrigation", fertilization: "Scientific Fertilization", pruning: "Pruning & Training", protection: "Pest Protection", harvest: "Harvest & Storage", feeding: "Proper Feeding", vaccination: "Vaccination", hygiene: "Hygiene & Disinfection", breeding: "Breeding & Reproduction", environment: "Environmental Control", soil: "Soil Health", water: "Water Management", tools: "Equipment Maintenance", records: "Agricultural Records", chatTitle: "Smart Agricultural Advisor", chatWelcome: "Welcome to Zira'a-Tech! How can I help you today?", chatPlaceholder: "Type your question here...", planBuilder: "Integrated Care Plan Builder", planDesc: "Create customized care plans for crops or animals", cropPlan: "Crop Plan", animalPlan: "Animal Care Plan", selectCrop: "Select Crop", chooseCrop: "Choose crop...", area: "Area (Feddan)", soilTexture: "Soil Texture", clay: "Heavy Clay", sandy: "Light Sandy", loamy: "Loamy (Medium)", irrigationSystem: "Irrigation System", createCropPlan: "Create Agricultural Plan", animalType: "Animal Type", chooseAnimal: "Choose animal...", animalCount: "Count (Heads)", housingSystem: "Housing System", intensive: "Intensive (Houses)", semi: "Semi-intensive", extensive: "Free Grazing", createAnimalPlan: "Create Animal Care Plan", timeStage: "Time Stage", activity: "Care Activity", instructions: "Detailed Instructions", period: "Period", careType: "Care Type", details: "Details & Guidelines", feddan: "Feddan", daysLabel: "Days", labelDuration: "Growth Duration", labelSeedsType: "Seeds/Seedlings Type", labelWaterNeeds: "Water Needs", labelFertilizers: "Recommended Fertilizers", overviewTitle: "Crop Overview", completeGuide: "Complete Care Guide", housingLabel: "Housing System", feedLabel: "Feed Type", tempLabel: "Temperature"
+            }
+        };
+
+        // COMPLETE CONTENT LIBRARY FOR CARE CENTER
+        const careContentLibrary = {
+            ar: {
+                irrigation: "<h3><i class='fas fa-tint' style='color:var(--teal-deep)'></i> أساسيات ري المحاصيل</h3><p>المياه هي عنصر الحياة الأساسي للنبات. لضمان نمو مثالي، يجب اتباع ممارسات الري الحديثة.</p><ul><li><strong>الوقت المناسب:</strong> يفضل الري في الصباح الباكر قبل شروق الشمس أو في المساء بعد الغروب.</li><li><strong>الكمية:</strong> يجب ري النبات بعمق ليشجع الجذور على النمو لأسفل.</li><li><strong>نظام الري:</strong> يُنصح باستخدام الري بالتنقيط للخضروات والأشجار المثمرة.</li><li><strong>رطوبة التربة:</strong> استخدم جهاز قياس الرطوبة للتأكد من أن التربة جفت قليلاً قبل الري مرة أخرى.</li></ul>",
+                fertilization: "<h3><i class='fas fa-flask' style='color:var(--teal-deep)'></i> دليل التسميد العلمي</h3><p>التسميد ليس مجرد إضافة كيماويات، بل هو علم يهدف إلى توفير العناصر الغذائية اللازمة للنبات في الوقت المناسب.</p><ul><li><strong>تحليل التربة:</strong> الخطوة الأولى دائماً هي إجراء تحليل للتربة.</li><li><strong>النيتروجين (N):</strong> مسؤول عن النمو الخضري والورق.</li><li><strong>الفوسفور (P):</strong> ضروري لنمو الجذور وتكوين الأزهار والثمار.</li><li><strong>البوتاسيوم (K):</strong> يزيد من جودة الثمار ومقاومة النبات للأمراض.</li></ul>",
+                pruning: "<h3><i class='fas fa-cut' style='color:var(--teal-deep)'></i> فن التقليم والتربية</h3><p>التقليم هو عملية إزالة أجزاء معينة من النبات لتحسين شكله وإنتاجيته وصحته.</p><ul><li><strong>التقليم الشتوي:</strong> يتم أثناء سكون النبات لإزالة الأفرع الجافة والمريضة.</li><li><strong>الأدوات:</strong> استخدم مقصات حادة ومعقمة لتجنب نقل العدوى.</li></ul>",
+                protection: "<h3><i class='fas fa-shield-alt' style='color:var(--teal-deep)'></i> المكافحة المتكاملة للآفات</h3><p>حماية المحصول تتطلب استراتيجية متوازنة تجمع بين الوقاية والعلاج.</p><ul><li><strong>المكافحة الحيوية:</strong> استخدام الأعداء الطبيعية.</li><li><strong>المراقبة الدورية:</strong> افحص النباتات أسبوعياً لاكتشاف الإصابة مبكراً.</li></ul>",
+                harvest: "<h3><i class='fas fa-basket-shopping' style='color:var(--teal-deep)'></i> عمليات الحصاد وما بعد الحصاد</h3><p>الحصاد في اللحظ المناسبة يضمن جودة عالية.</p><ul><li><strong>التوقيت:</strong> احصد في الصباح الباكر.</li><li><strong>التخزين:</strong> قم بتصنيف المحصول قبل التخزين.</li></ul>",
+                feeding: "<h3><i class='fas fa-utensils' style='color:var(--animal-accent)'></i> التغذية السليمة للحيوانات</h3><p>تغذية الحيوان هي حجر الزاوية في الإنتاج الحيواني.</p><ul><li><strong>المياه النظيفة:</strong> الماء هو العنصر الأهم.</li><li><strong>الأعلاف المركزة:</strong> توفر الطاقة والبروتين.</li><li><strong>الأعلاف الخشنة:</strong> ضرورية لصحة الجهاز الهضمي.</li></ul>",
+                vaccination: "<h3><i class='fas fa-syringe' style='color:var(--animal-accent)'></i> جدول التحصينات والوقاية</h3><p>الوقاية خير من العلاج.</p><ul><li><strong>التحصين الأساسي:</strong> يجب البدء بجرعات التحصين في سن مبكرة.</li><li><strong>عزل الحيوانات الجديدة:</strong> قم بعزل الحيوانات المشتراة حديثاً.</li></ul>",
+                hygiene: "<h3><i class='fas fa-soap' style='color:var(--animal-accent)'></i> النظافة والتطهير</h3><p>البيئة النظيفة تعني حيوانات صحية.</p><ul><li><strong>تنظيف المربعات:</strong> أزل الروث والفرشة المتسخة يومياً.</li><li><strong>الدورات:</strong> اتبع نظام 'الكل في، الكل خارج'.</li></ul>",
+                breeding: "<h3><i class='fas fa-heart' style='color:var(--animal-accent)'></i> استراتيجيات التربية والتكاثر</h3><p>تحسين السلالة والإدارة الصحيحة للتكاثر تضمن استمرارية المزرعة.</p><ul><li><strong>اختيار الذكور:</strong> اختر ذكوراً عالية الجودة.</li><li><strong>رعاية الأمهات:</strong> تطلب الأمهات الحوامل عناية خاصة.</li></ul>",
+                environment: "<h3><i class='fas fa-wind' style='color:var(--teal-deep)'></i> التحكم في البيئة المناخية</h3><p>توفير الظروف المناخية المناسبة يقلل من الإجهاد.</p><ul><li><strong>التهوية:</strong> التهوية الجيدة تزيل الغازات الضارة.</li><li><strong>درجة الحرارة:</strong> كل حيوان له 'منطقة حرارة مريحة'.</li></ul>",
+                soil: "<h3><i class='fas fa-layer-group' style='color:var(--teal-deep)'></i> صحة التربة وإدارتها</h3><p>التربة الصحية هي الأساس لمحصول صحي.</p><ul><li><strong>تحليل التربة:</strong> الطريقة الوحيدة لمعرفة مستوى الحموضة.</li><li><strong>المادة العضوية:</strong> إضافة السماد العضوي يحسن بنية التربة.</li></ul>",
+                water: "<h3><i class='fas fa-water' style='color:var(--teal-deep)'></i> إدارة موارد المياه</h3><p>في ظل شح المياه، يجب إدارة مصادر المياه بكفاءة.</p><ul><li><strong>مياه الأمطار:</strong> قم بحفر خنادق لجمع السيول.</li><li><strong>إعادة استخدام:</strong> مياه الصرف المعالجة لري أشجار الأخشاب.</li></ul>",
+                tools: "<h3><i class='fas fa-wrench' style='color:var(--teal-deep)'></i> صيانة المعدات والآلات</h3><p>المعدات الجاهزة تضمن عدم تعطل العمل.</p><ul><li><strong>التنظيف:</strong> نظف المعدات بعد كل استخدام.</li><li><strong>التزييت:</strong> تأكد من تزييت الأجزاء المتحركة.</li></ul>",
+                records: "<h3><i class='fas fa-book' style='color:var(--teal-deep)'></i> التسجيلات الزراعية</h3><p>ما لا يتم قياسه لا يمكن إدارته.</p><ul><li><strong>سجل الإنتاج:</strong> سجل كمية الإنتاج يومياً.</li><li><strong>سجل الصحة:</strong> دوّن أي حالات مرضية.</li></ul>"
+            },
+            en: {
+                irrigation: "<h3><i class='fas fa-tint' style='color:var(--teal-deep)'></i> Crop Irrigation Basics</h3><p>Water is essential. Use modern irrigation practices.</p><ul><li><strong>Right Time:</strong> Early morning or evening.</li><li><strong>Quantity:</strong> Water deeply to encourage root growth.</li><li><strong>System:</strong> Drip irrigation is recommended.</li></ul>",
+                fertilization: "<h3><i class='fas fa-flask' style='color:var(--teal-deep)'></i> Scientific Fertilization</h3><p>Aim to provide nutrients at the right time.</p><ul><li><strong>Soil Analysis:</strong> Always analyze soil first.</li><li><strong>Nitrogen:</strong> For vegetative growth.</li><li><strong>Phosphorus:</strong> For roots and fruits.</li></ul>",
+                pruning: "<h3><i class='fas fa-cut' style='color:var(--teal-deep)'></i> Pruning & Training</h3><p>Removing parts to improve shape and health.</p><ul><li><strong>Winter Pruning:</strong> Remove dead/diseased branches.</li><li><strong>Tools:</strong> Use sharp, sanitized shears.</li></ul>",
+                protection: "<h3><i class='fas fa-shield-alt' style='color:var(--teal-deep)'></i> Pest Management</h3><p>Balanced strategy of prevention and treatment.</p><ul><li><strong>Biological Control:</strong> Use natural enemies.</li><li><strong>Monitoring:</strong> Inspect plants weekly.</li></ul>",
+                harvest: "<h3><i class='fas fa-basket-shopping' style='color:var(--teal-deep)'></i> Harvest & Storage</h3><p>Harvesting at the right moment ensures quality.</p><ul><li><strong>Timing:</strong> Harvest in early morning.</li><li><strong>Storage:</strong> Grade crops before storage.</li></ul>",
+                feeding: "<h3><i class='fas fa-utensils' style='color:var(--animal-accent)'></i> Proper Animal Nutrition</h3><p>Nutrition determines health and productivity.</p><ul><li><strong>Clean Water:</strong> Available 24/7.</li><li><strong>Concentrates:</strong> Provide energy and protein.</li></ul>",
+                vaccination: "<h3><i class='fas fa-syringe' style='color:var(--animal-accent)'></i> Vaccination</h3><p>Prevention is better than cure.</p><ul><li><strong>Basic Vaccination:</strong> Start at early age.</li><li><strong>Quarantine:</strong> Isolate new animals.</li></ul>",
+                hygiene: "<h3><i class='fas fa-soap' style='color:var(--animal-accent)'></i> Hygiene</h3><p>Clean environment means healthy animals.</p><ul><li><strong>Cleaning:</strong> Remove manure daily.</li><li><strong>Cycles:</strong> Use All-in, All-out system.</li></ul>",
+                breeding: "<h3><i class='fas fa-heart' style='color:var(--animal-accent)'></i> Breeding</h3><p>Improving breed ensures continuity.</p><ul><li><strong>Selecting Males:</strong> Choose high quality males.</li><li><strong>Dam Care:</strong> Special care for pregnant females.</li></ul>",
+                environment: "<h3><i class='fas fa-wind' style='color:var(--teal-deep)'></i> Environmental Control</h3><p>Reducing stress increases efficiency.</p><ul><li><strong>Ventilation:</strong> Removes harmful gases.</li><li><strong>Temperature:</strong> Maintain comfort zone.</li></ul>",
+                soil: "<h3><i class='fas fa-layer-group' style='color:var(--teal-deep)'></i> Soil Health</h3><p>Healthy soil is the foundation.</p><ul><li><strong>Testing:</strong> Know pH and nutrients.</li><li><strong>Organic Matter:</strong> Improves structure.</li></ul>",
+                water: "<h3><i class='fas fa-water' style='color:var(--teal-deep)'></i> Water Management</h3><p>Manage resources efficiently.</p><ul><li><strong>Rainwater:</strong> Collect runoff.</li><li><strong>Reuse:</strong> Treated wastewater for timber.</li></ul>",
+                tools: "<h3><i class='fas fa-wrench' style='color:var(--teal-deep)'></i> Equipment Maintenance</h3><p>Ready equipment ensures no stoppages.</p><ul><li><strong>Cleaning:</strong> Clean after use.</li><li><strong>Lubrication:</strong> Lubricate moving parts.</li></ul>",
+                records: "<h3><i class='fas fa-book' style='color:var(--teal-deep)'></i> Records</h3><p>What is not measured cannot be managed.</p><ul><li><strong>Production Log:</strong> Record daily output.</li><li><strong>Health Log:</strong> Note diseases.</li></ul>"
+            }
+        };
+
+        let currentLang = 'ar';
+        let currentTheme = 'light';
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            document.getElementById('themeIcon').className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.getElementById('langBtn').textContent = currentLang === 'ar' ? 'EN' : 'AR';
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = currentLang;
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
+            });
+            document.getElementById('globalSearch').placeholder = currentLang === 'ar' ? "ابحث عن محصول، حيوان، أو نصيحة رعاية..." : "Search for crops, animals, or care tips...";
+            renderCrops(); renderAnimals(); renderCareList(currentCareTab); updateSelectOptions();
+            document.getElementById('carePlaceholder').style.display = 'block';
+            document.getElementById('careContent').style.display = 'none';
+            document.getElementById('careDetailsBox').classList.remove('has-content');
+            
+            // FIX: Pass false to prevent scrolling when switching language
+            if(document.getElementById('fullProgramResults').style.display === 'block') generateFullProgram(false);
+            if(document.getElementById('cropResultsArea').style.display === 'block') generateCropProgram(false);
+            if(document.getElementById('animalResultsArea').style.display === 'block') generateAnimalProgram(false);
+            if(document.getElementById('conservationResults').style.display === 'block') generateConservationPlan(false);
+        }
+
+        function updateSelectOptions() {
+            const cropSelect = document.getElementById('progCropSelect');
+            const animalSelect = document.getElementById('progAnimalSelect');
+            const fullCropSelect = document.getElementById('fullProgramCrop');
+            const updateSel = (sel, data, type) => {
+                if (!sel) return; const currentVal = sel.value;
+                sel.innerHTML = `<option value="">${type === 'crop' ? translations[currentLang].chooseCrop : translations[currentLang].chooseAnimal}</option>`;
+                data.forEach(item => {
+                    const opt = document.createElement('option'); opt.value = item.key;
+                    const titleEn = item.en ? (item.en.title || item.title) : item.title;
+                    opt.textContent = currentLang === 'ar' ? item.title : titleEn; sel.appendChild(opt);
+                });
+                if (data.find(d => d.key === currentVal)) sel.value = currentVal;
+            };
+            updateSel(cropSelect, cropsData, 'crop');
+            updateSel(animalSelect, animalsData, 'animal');
+            if(fullCropSelect) {
+                const currentValFull = fullCropSelect.value;
+                fullCropSelect.innerHTML = `<option value="">${translations[currentLang].chooseCropFull}</option>`;
+                Object.keys(cropProgramsData).sort().forEach(key => {
+                    const opt = document.createElement('option'); opt.value = key;
+                    const prog = cropProgramsData[key];
+                    const nameEn = prog.en ? (prog.en.name || prog.name) : prog.name;
+                    opt.textContent = currentLang === 'ar' ? prog.name : nameEn;
+                    fullCropSelect.appendChild(opt);
+                });
+                if (cropProgramsData[currentValFull]) fullCropSelect.value = currentValFull;
+            }
+        }
+
+        const cropsData = [
+            { key: "wheat", title: "القمح", shortDesc: "محصول استراتيجي عالمي يحتاج تربة خصبة.", desc: "القمح هو محصول غذائي استراتيجي عالمي.", en: { title: "Wheat", shortDesc: "Global strategic crop needing fertile soil.", desc: "Wheat is a global strategic food crop." }, img: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600", days: 150, seedsPerFeddan: 60 },
+            { key: "corn", title: "الذرة الشامية", shortDesc: "محصول صيفي عالي الإنتاجية يحتاج سماد نيتروجيني.", desc: "تعتبر الذرة الشامية من أهم محاصيل الحبوب.", en: { title: "Corn", shortDesc: "High yield summer crop needing high nitrogen.", desc: "Corn is considered one of the most important grain crops." }, img: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=600", days: 120, seedsPerFeddan: 20 },
+            { key: "rice", title: "الأرز", shortDesc: "نبات مائي يستهلك كميات كبيرة من المياه.", desc: "الأرز هو نبات محب للمياه.", en: { title: "Rice", shortDesc: "Aquatic plant, highly water consuming.", desc: "Rice is a water-loving plant." }, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600", days: 145, seedsPerFeddan: 80 },
+            { key: "tomato", title: "الطماطم", shortDesc: "خضار شعوي غني بفيتامين C يحتاج دعماً.", desc: "الطماطم من أشهر الخضروات حول العالم.", en: { title: "Tomato", shortDesc: "Popular vegetable rich in Vitamin C, needs support.", desc: "Tomatoes are one of the most famous vegetables globally." }, img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600", days: 120, seedsPerFeddan: 0.2 },
+            { key: "potato", title: "البطاطس", shortDesc: "درنات نشوية تفضل التربة الرملية الخفيفة.", desc: "البطاطس محصول جذري ذو أهمية اقتصادية.", en: { title: "Potato", shortDesc: "Starchy tubers preferring light sandy soil.", desc: "Potatoes are a root crop of great economic importance." }, img: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600", days: 110, seedsPerFeddan: 800 },
+            { key: "cucumber", title: "الخيار", shortDesc: "خضار صيفي سريع النمو يحتاج حصاداً مستمراً.", desc: "الخيار من محاصيل الخضار الصيفية.", en: { title: "Cucumber", shortDesc: "Very fast growing summer vegetable.", desc: "Cucumber is a very fast-growing summer vegetable." }, img: "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?w=600", days: 60, seedsPerFeddan: 2 },
+            { key: "citrus", title: "الحمضيات", shortDesc: "أشجار البرتقال تحتاج شمس دافئة.", desc: "أشجار الحمضيات هي أشجار معمرة.", en: { title: "Citrus", shortDesc: "Evergreen orange trees need warm sun.", desc: "Citrus trees are perennial evergreen trees." }, img: "https://cdn.arabsstock.com/uploads/images/196939/close-up-of-fresh-oranges-thumbnail-196939.webp", days: 240, seedsPerFeddan: 100 },
+            { key: "onion", title: "البصل", shortDesc: "محصول درني يحتاج تربة جيدة الصرف.", desc: "البصل من أهم المحاصيل البستانية.", en: { title: "Onion", shortDesc: "Important bulb crop, needs well drained soil.", desc: "Onions are one of the most important horticultural crops." }, img: "https://plantix.net/ar/library/assets/custom/crop-images/onion.jpeg", days: 160, seedsPerFeddan: 5 },
+            { key: "watermelon", title: "البطيخ", shortDesc: "فاكهة صيفية عطشة جداً تحتاج مساحة واسعة.", desc: "البطيخ فاكهة صيفية عطشة.", en: { title: "Watermelon", shortDesc: "Very thirsty summer fruit, needs wide space.", desc: "Watermelon is a very thirsty summer fruit." }, img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600", days: 90, seedsPerFeddan: 0.5 },
+            { key: "pepper", title: "الفلفل", shortDesc: "فلفل حلو أو حار يحتاج حرارة معتدلة.", desc: "نبات الفلفل يحتاج إلى درجات حرارة معتدلة.", en: { title: "Pepper", shortDesc: "Sweet or hot pepper needs moderate heat.", desc: "Pepper plants need moderate to warm temperatures." }, img: "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=600", days: 120, seedsPerFeddan: 0.3 },
+            { key: "eggplant", title: "الباذنجان", shortDesc: "نبات صيفي يحتاج دعماً للحمل.", desc: "الباذنجان نبات صيفي يحتاج إلى دعم ميكانيكي.", en: { title: "Eggplant", shortDesc: "Summer plant needing support, sensitive to cold.", desc: "Eggplant is a summer plant that needs mechanical support." }, img: "https://img.youm7.com/large/201807300837263726.jpg", days: 130, seedsPerFeddan: 0.2 },
+            { key: "zucchini", title: "الكوسة", shortDesc: "سريع النمو جداً يحتاج تربة غنية.", desc: "الكوسة من الخضروات الورقية السريعة.", en: { title: "Zucchini", shortDesc: "Very fast growing, needs rich soil.", desc: "Zucchini is a leafy vegetable that grows very quickly." }, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtlcDOhvZhpz7NUFaXKB_XOK3ExA3HybGfJg&s", days: 55, seedsPerFeddan: 0.5 },
+            { key: "cabbage", title: "الكرنب", shortDesc: "محصول شتوي يحتاج برودة لتكوين الرأس.", desc: "الكرنب محصول شتوي يحتاج إلى برودة.", en: { title: "Cabbage", shortDesc: "Winter crop needing cold to form head.", desc: "Cabbage is a winter crop that requires cold." }, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOjDpI8mFhYcTj66NNDk7jjRTubgFA-lNJXA&s", days: 100, seedsPerFeddan: 0.2 },
+            { key: "lettuce", title: "الخس", shortDesc: "ورقي سريع النمو يناسب المناخ المعتدل.", desc: "الخس نبات ورقي سريع النمو.", en: { title: "Lettuce", shortDesc: "Fast growing leafy, suits moderate climate.", desc: "Lettuce is a fast-growing leafy plant." }, img: "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=600", days: 60, seedsPerFeddan: 0.1 },
+            { key: "carrot", title: "الجزر", shortDesc: "جذري يحتاج تربة رملية عميقة وناعمة.", desc: "الجزر نبات جذري يتطلب تربة رملية.", en: { title: "Carrot", shortDesc: "Root crop needing deep, fine sandy soil.", desc: "Carrots are a root plant requiring sandy soil." }, img: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=600", days: 90, seedsPerFeddan: 2 },
+            { key: "grapes", title: "العنب", shortDesc: "شجرة كرمية دائمة الخضرة تحتاج دعماً.", desc: "شجرة العنب هي كرمة متسلقة.", en: { title: "Grapes", shortDesc: "Evergreen vine plant needing support.", desc: "The grape tree is an evergreen climbing vine." }, img: "https://i.pinimg.com/736x/32/37/ac/3237ac8be4caf4d69b898f266fc153dc.jpg", days: 180, seedsPerFeddan: 0 },
+            { key: "apple", title: "التفاح", shortDesc: "شجرة فاكهة تحتاج ساعات برودة للتزهير.", desc: "شجرة التفاح تحتاج إلى ساعات برودة.", en: { title: "Apple", shortDesc: "Fruit tree needing winter chill hours.", desc: "The apple tree needs chill hours." }, img: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600", days: 200, seedsPerFeddan: 0 },
+            { key: "banana", title: "الموز", shortDesc: "نبات استوائي ضخم يحتاج رطوبة عالية.", desc: "الموز نبات استوائي ضخم.", en: { title: "Banana", shortDesc: "Large tropical plant needing high humidity.", desc: "Banana is a huge tropical plant." }, img: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=600", days: 365, seedsPerFeddan: 0 }
+        ];
+
+        const animalsData = [
+            { key: "chicken_broilers", title: "دجاج التسمين", desc: "دجاج سريع النمو (من 35 إلى 45 يوماً)، يتم تربيته لإنتاج اللحم.", en: { title: "Broiler Chickens", desc: "Fast-growing chickens (35 to 45 days), raised for meat production." }, img: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=600", days: 45, feed: 0.1, icon: "fa-drumstick-bite", housing: "Intensive", feedType: "High Protein", temp: "33-21°C" },
+            { key: "chicken_layers", title: "دجاج البياض", desc: "دجاج يتم تربيته لإنتاج البيض، يمتد عمره الإنتاجي لأكثر من عام.", en: { title: "Layer Chickens", desc: "Chickens raised for egg production, their productive life extends over a year." }, img: "https://images.unsplash.com/photo-1449296403336-1a0b5de85082?w=600", days: 365, feed: 0.12, icon: "fa-egg", housing: "Cage/Free", feedType: "Calcium Rich", temp: "20-25°C" },
+            { key: "cows_milk", title: "الأبقار الحلوب", desc: "حيوانات مجترة كبيرة الحجم تنتج الحليب.", en: { title: "Dairy Cows", desc: "Large ruminant animals that produce milk." }, img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=600", days: 305, feed: 15, icon: "fa-cow", housing: "Barn/Pasture", feedType: "Silage & Grain", temp: "10-25°C" },
+            { key: "sheep", title: "الأغنام", desc: "حيوانات اقتصادية تقاوم الظروف القاسية، تنتج اللحم والصوف واللبن.", en: { title: "Sheep", desc: "Economic animals that resist harsh conditions, producing meat, wool, and milk." }, img: "https://images.unsplash.com/photo-1524862595458-c92bd7775f1e?w=600", days: 180, feed: 1.5, icon: "fa-cloud", housing: "Shed", feedType: "Forage", temp: "10-20°C" },
+            { key: "goat", title: "الماعز", desc: "حيوانات مرنة جداً يمكنها أكل أنواع مختلفة من الأعشاب حتى الجافة.", en: { title: "Goats", desc: "Very flexible animals that can eat various types of herbs, even dry ones." }, img: "https://images.unsplash.com/photo-1516512833765-7e815948ea46?w=600", days: 150, feed: 1.2, icon: "fa-shield-cat", housing: "Pen", feedType: "Browser", temp: "10-25°C" },
+            { key: "camel", title: "الإبل", desc: "سفينة الصحراء، تقاوم العطش الشديد والحرارة العالية.", en: { title: "Camels", desc: "Ships of the desert, resisting extreme thirst and high heat." }, img: "https://images.unsplash.com/photo-1534773728080-33d31da27ae5?w=600", days: 365, feed: 5, icon: "fa-horse-head", housing: "Open", feedType: "Desert Plants", temp: "High" },
+            { key: "horse", title: "الخيول", desc: "حيوانات قوية وذكية تحتاج مساحة واسعة للحركة والتدريب.", en: { title: "Horses", desc: "Strong and intelligent animals needing wide space for movement and training." }, img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600", days: 365, feed: 8, icon: "fa-horse", housing: "Stable", feedType: "Hay & Oats", temp: "10-20°C" },
+            { key: "duck_rabbit", title: "البط والأرانب", desc: "طيور مائية وحيوانات صغيرة سريعة التكاثر.", en: { title: "Ducks & Rabbits", desc: "Water birds and small fast-reproducing animals." }, img: "https://images.unsplash.com/photo-1459682687441-7761439a637f?w=600", days: 60, feed: 0.2, icon: "fa-feather", housing: "Cages", feedType: "Mixed", temp: "18-25°C" }
+        ];
+
+        const cropProgramsData = {
+            wheat: { name: "القمح", duration: 150, desc: "يُزرع القمح في تربة طينية خصبة.", en: { name: "Wheat", desc: "Wheat is grown in fertile clay soil.", seedsType: "Certified Wheat Seeds", unit: "kg", waterNeeds: "3000 m³/Feddan", fertilizers: "100 kg Urea", stages: [{ period: "Day 1-15", stage: "Germination", actions: "Light irrigation", problem: "Seed rot", solution: "Fungicide" }, { period: "Day 16-45", stage: "Tillering", actions: "Nitrogen fertilization", problem: "Nitrogen deficiency", solution: "Urea" }, { period: "Day 46-90", stage: "Booting", actions: "Second irrigation", problem: "Wheat rust", solution: "Fungicide" }, { period: "Day 91-120", stage: "Grain Filling", actions: "Potassium spray", problem: "Aphids", solution: "Insecticide" }, { period: "Day 121-150", stage: "Harvest", actions: "Stop irrigation", problem: "Birds", solution: "Scaring" }] }, seedsType: "بذور القمح", unit: "كجم", waterNeeds: "3000 م³", fertilizers: "100 كجم يوريا", stages: [{ period: "1-15", stage: "الإنبات", actions: "ري خفيف", problem: "تعفن", solution: "مطهر" }, { period: "16-45", stage: "التفرع", actions: "نيتروجين", problem: "نقص نيتروجين", solution: "يوريا" }, { period: "46-90", stage: "البطان", actions: "ري ثاني", problem: "صدأ", solution: "مبيد" }, { period: "91-120", stage: "امتلاء", actions: "بوتاسيوم", problem: "من", solution: "حشري" }, { period: "121-150", stage: "حصاد", actions: "وقف ري", problem: "طيور", solution: "طردها" }] },
+            corn: { name: "الذرة", duration: 120, desc: "محصول الصيف الأول.", en: { name: "Corn", desc: "The number one summer crop.", seedsType: "Hybrid Seeds", unit: "kg", waterNeeds: "4000 m³", fertilizers: "150 kg Nitrate", stages: [{ period: "1-20", stage: "Establishment", actions: "Planting", problem: "Cutworms", solution: "Insecticide" }, { period: "21-50", stage: "Vegetative", actions: "High Nitrogen", problem: "Borer", solution: "Trichogramma" }, { period: "51-80", stage: "Flowering", actions: "Stop Nitrogen", problem: "Blight", solution: "Fungicide" }, { period: "81-110", stage: "Filling", actions: "Irrigation", problem: "Armyworm", solution: "Insecticide" }, { period: "111-120", stage: "Maturity", actions: "Dry down", problem: "Ear rot", solution: "Harvest dry" }] }, seedsType: "بذور هجينة", unit: "كجم", waterNeeds: "4000 م³", fertilizers: "150 كجم نشادر", stages: [{ period: "1-20", stage: "تأسيس", actions: "زراعة", problem: "دودة قطع", solution: "مبيد" }, { period: "21-50", stage: "خضري", actions: "نيتروجين عالي", problem: "سوسة", solution: "ترايكوجراما" }, { period: "51-80", stage: "تزهير", actions: "وقف نيتروجين", problem: "لفحة", solution: "مبيد" }, { period: "81-110", stage: "امتلاء", actions: "ري", problem: "جيش خريفي", solution: "مبيد" }, { period: "111-120", stage: "نضج", actions: "تجفيف", problem: "عفن", solution: "حصاد جاف" }] },
+            rice: { name: "الأرز", duration: 145, desc: "محصول مائي.", en: { name: "Rice", desc: "An aquatic crop.", seedsType: "Paddy Seeds", unit: "kg", waterNeeds: "10000+ m³", fertilizers: "100 kg Urea", stages: [{ period: "Nursery", stage: "Seedling Prep", actions: "Sow in nursery", problem: "Damping off", solution: "Treat seeds" }, { period: "20-30", stage: "Transplanting", actions: "Move to field", problem: "Snail", solution: "Hand pick" }, { period: "31-60", stage: "Tillering", actions: "Maintain water", problem: "Blast", solution: "Tricyclazole" }, { period: "61-100", stage: "Booting", actions: "Fertilize Potash", problem: "Stem borer", solution: "Cartap" }, { period: "101-145", stage: "Maturation", actions: "Drain water", problem: "Rats", solution: "Bait" }] }, seedsType: "بذور", unit: "كجم", waterNeeds: "10000+ م³", fertilizers: "100 كجم", stages: [{ period: "المشتل", stage: "إعداد", actions: "زراعة", problem: "ذبول", solution: "تعقيم" }, { period: "20-30", stage: "شتل", actions: "نقل", problem: "قوقع", solution: "التقاط" }, { period: "31-60", stage: "تفرع", actions: "مياه", problem: "لفحة", solution: "ترايكلوزول" }, { period: "61-100", stage: "بطان", actions: "بوتاسيوم", problem: "سوسة", solution: "كارتاب" }, { period: "101-145", stage: "نضج", actions: "صرف", problem: "قوارض", solution: "طعوم" }] },
+            tomato: { name: "الطماطم", duration: 120, desc: "خضار.", en: { name: "Tomato", desc: "Vegetable.", seedsType: "Seedlings", unit: "Thousand", waterNeeds: "5000 m³", fertilizers: "NPK", stages: [{ period: "1-15", stage: "Nursery", actions: "Sow in trays", problem: "Damping off", solution: "Fungicide" }, { period: "16-30", stage: "Transplanting", actions: "Move to field", problem: "Transplant shock", solution: "Water & Root stimulator" }, { period: "31-45", stage: "Vegetative", actions: "Staking/Pruning", problem: "Aphids", solution: "Neem oil" }, { period: "46-60", stage: "Flowering", actions: "Stop N, Add K", problem: "Blossom end rot", solution: "Calcium spray" }, { period: "61-90", stage: "Fruiting", actions: "Regular watering", problem: "Fruit borer", solution: "Bacillus thuringiensis" }, { period: "91-120", stage: "Harvest", actions: "Pick ripe fruits", problem: "Cracking", solution: "Consistent watering" }] }, seedsType: "شتلات", unit: "ألف", waterNeeds: "5000 م³", fertilizers: "NPK", stages: [{ period: "1-15", stage: "المشتل", actions: "زراعة في بيوت", problem: "ذبول", solution: "مطهر" }, { period: "16-30", stage: "الشتل", actions: "نقل للأرض", problem: "صدمة الشتل", solution: "منشط جذر" }, { period: "31-45", stage: "خضري", actions: "تسليك / تقليم", problem: "من", solution: "زيت نيم" }, { period: "46-60", stage: "تزهير", actions: "وقف نيتروجين، إضافة كالسيوم", problem: "تعفن الطرف الزهري", solution: "رش كالسيوم" }, { period: "61-90", stage: "عقد", actions: "ري منتظم", solution: "دودة ثمار", solution: "بكتيريا" }, { period: "91-120", stage: "حصاد", actions: "جمع الثمار", problem: "تشقق", solution: "ري منتظم" }] },
+            potato: { name: "البطاطس", duration: 110, desc: "درنات.", en: { name: "Potato", desc: "Tubers.", seedsType: "Seed Tubers", unit: "kg", waterNeeds: "4000 m³", fertilizers: "Nitrate", stages: [{ period: "1-15", stage: "Planting", actions: "Plant tubers", problem: "Wireworms", solution: "Soil treatment" }, { period: "16-30", stage: "Emergence", actions: "Hilling", problem: "Colorado beetle", solution: "Hand pick/Insecticide" }, { period: "31-60", stage: "Tuber Initiation", actions: "Stop irrigation briefly", problem: "Early blight", solution: "Fungicide" }, { period: "61-90", stage: "Bulking", actions: "High K fertilization", problem: "Late blight", solution: "Systemic fungicide" }, { period: "91-110", stage: "Maturation", actions: "Kill vines", problem: "Tuber rot", solution: "Cure properly" }] }, seedsType: "درنات", unit: "كجم", waterNeeds: "4000 م³", fertilizers: "نشادر", stages: [{ period: "1-15", stage: "زراعة", actions: "زراعة درنات", problem: "دودة سلكية", solution: "تعقيم تربة" }, { period: "16-30", stage: "بزوغ", actions: "ترديم", problem: "خنفساء كولورادو", solution: "التقاط اليدوي" }, { period: "31-60", stage: "تكوين درنات", actions: "توقف ري مؤقت", problem: "لفحة مبكرة", solution: "مبيد فطري" }, { period: "61-90", stage: "نمو الدرنات", actions: "تسميد بوتاسيومي", problem: "لفحة متأخرة", solution: "مبيد جهازي" }, { period: "91-110", stage: "نضج", actions: "تجفيف العروش", problem: "عفن درنات", solution: "حصاد جاف" }] },
+            cucumber: { name: "الخيار", duration: 60, desc: "صيفي.", en: { name: "Cucumber", desc: "Summer.", seedsType: "Seeds", unit: "kg", waterNeeds: "3000 m³", fertilizers: "Potassium", stages: [{ period: "1-15", stage: "Sowing", actions: "Direct sow", problem: "Damping off", solution: "Fungicide" }, { period: "16-30", stage: "Vining", actions: "Trellis setup", problem: "Aphids", solution: "Insecticide" }, { period: "31-45", stage: "Flowering", actions: "Bees pollination", problem: "Powdery mildew", solution: "Sulfur" }, { period: "46-60", stage: "Harvest", actions: "Pick frequently", problem: "Bitterness", solution: "Stress management" }] }, seedsType: "بذور", unit: "كجم", waterNeeds: "3000 م³", fertilizers: "بوتاسيوم", stages: [{ period: "1-15", stage: "زراعة", actions: "بذر مباشر", problem: "ذبول", solution: "مطهر" }, { period: "16-30", stage: "تسلق", actions: "تربيط", problem: "من", solution: "مبيد" }, { period: "31-45", stage: "تزهير", actions: "تأكيد التلقيح", problem: "بياض دقيقي", solution: "كبريت" }, { period: "46-60", stage: "حصاد", actions: "قطف مستمر", problem: "مرارة", solution: "إزالة الإجهاد" }] },
+            onion: { name: "البصل", duration: 160, desc: "بصل.", en: { name: "Onion", desc: "Onion.", seedsType: "Seeds/Seedlings", unit: "kg", waterNeeds: "4000 m³", fertilizers: "NPK", stages: [{ period: "1-30", stage: "Seedling", actions: "Nursery care", problem: "Thrips", solution: "Insecticide" }, { period: "31-60", stage: "Transplanting", actions: "Field planting", problem: "Transplant shock", solution: "Root stimulant" }, { period: "61-100", stage: "Bulbing", actions: "Nitrogen stop", problem: "Downy mildew", solution: "Fungicide" }, { period: "101-130", stage: "Swelling", actions: "High Potassium", problem: "Purple blotch", solution: "Copper fungicide" }, { period: "131-160", stage: "Curing", actions: "Stop watering", problem: "Neck rot", solution: "Proper drying" }] }, seedsType: "بذور/شتلات", unit: "كجم", waterNeeds: "4000 م³", fertilizers: "NPK", stages: [{ period: "1-30", stage: "شتلات", actions: "رعاية المشتل", problem: "تربس", solution: "مبيد" }, { period: "31-60", stage: "الشتل", actions: "نقل للأرض", problem: "صدمة الشتل", solution: "منشط" }, { period: "61-100", stage: "تكوين بصلة", actions: "وقف نيتروجين", problem: "البياض الزغبي", solution: "مبيد فطري" }, { period: "101-130", stage: "انتفاخ", actions: "بوتاسيوم عالي", problem: "بقع بنفسجية", solution: "مبيد نحاسي" }, { period: "131-160", stage: "تجفيف", actions: "وقف ري", problem: "عفن الرقبة", solution: "تجفيف جيد" }] },
+            pepper: { name: "الفلفل", duration: 120, desc: "فلفل.", en: { name: "Pepper", desc: "Pepper.", seedsType: "Seedlings", unit: "Thousand", waterNeeds: "4000 m³", fertilizers: "NPK", stages: [{ period: "1-15", stage: "Nursery", actions: "Sow seeds", problem: "Damping off", solution: "Fungicide" }, { period: "16-30", stage: "Transplanting", actions: "Plant out", problem: "Cutworms", solution: "Soil protectant" }, { period: "31-60", stage: "Vegetative", actions: "Side dressing", problem: "Aphids", solution: "Soap spray" }, { period: "61-90", stage: "Flowering", actions: "Shake plants", problem: "Blossom end rot", solution: "Calcium" }, { period: "91-120", stage: "Harvest", actions: "Pick carefully", problem: "Sunscald", solution: "Leaf cover" }] }, seedsType: "شتلات", unit: "ألف", waterNeeds: "4000 م³", fertilizers: "NPK" },
+            eggplant: { name: "الباذنجان", duration: 130, desc: "باذنجان.", en: { name: "Eggplant", desc: "Eggplant.", seedsType: "Seedlings", unit: "Thousand", waterNeeds: "4500 m³", fertilizers: "NPK", stages: [{ period: "1-15", stage: "Nursery", actions: "Sow seeds", problem: "Damping off", solution: "Fungicide" }, { period: "16-30", stage: "Transplanting", actions: "Plant out", problem: "Flea beetle", solution: "Neem oil" }, { period: "31-75", stage: "Growth", actions: "Staking", problem: "Spider mites", solution: "Miticides" }, { period: "76-130", stage: "Fruiting", actions: "Harvest mature", problem: "Fruit borer", solution: "Insecticide" }] }, seedsType: "شتلات", unit: "ألف", waterNeeds: "4500 م³", fertilizers: "NPK" },
+            watermelon: { name: "البطيخ", duration: 90, desc: "بطيخ.", en: { name: "Watermelon", desc: "Watermelon.", seedsType: "Seeds", unit: "kg", waterNeeds: "3500 m³", fertilizers: "NPK", stages: [{ period: "1-15", stage: "Sowing", actions: "Direct sow", problem: "Soil borne diseases", solution: "Treated seeds" }, { period: "16-30", stage: "Vining", actions: "Fertilizer side dress", problem: "Aphids", solution: "Insecticide" }, { period: "31-60", stage: "Flowering", actions: "Bee attraction", problem: "Cucumber beetles", solution: "Traps" }, { period: "61-90", stage: "Fruiting", actions: "Reduce water", problem: "Anthracnose", solution: "Fungicide" }] }, seedsType: "بذور", unit: "كجم", waterNeeds: "3500 م³", fertilizers: "NPK" },
+            zucchini: { name: "الكوسة", duration: 55, desc: "كوسة.", en: { name: "Zucchini", desc: "Zucchini.", seedsType: "Seeds", unit: "kg", waterNeeds: "2500 m³", fertilizers: "NPK", stages: [{ period: "1-15", stage: "Sowing", actions: "Hills", problem: "Squash bugs", solution: "Hand pick" }, { period: "16-30", stage: "Flowering", actions: "Pollination check", problem: "Powdery mildew", solution: "Sulfur" }, { period: "31-55", stage: "Harvest", actions: "Daily harvest", problem: "Blossom end rot", solution: "Calcium" }] }, seedsType: "بذور", unit: "كجم", waterNeeds: "2500 م³", fertilizers: "NPK" },
+            cabbage: { name: "الكرنب", duration: 100, desc: "كرنب.", en: { name: "Cabbage", desc: "Cabbage.", seedsType: "Seedlings", unit: "Thousand", waterNeeds: "4000 m³", fertilizers: "NPK", stages: [{ period: "1-20", stage: "Seedling", actions: "Nursery", problem: "Cabbage looper", solution: "Bt" }, { period: "21-40", stage: "Transplanting", actions: "Hardening off", problem: "Cutworms", solution: "Collars" }, { period: "41-70", stage: "Head formation", actions: "Nitrogen feed", problem: "Aphids", solution: "Insecticide" }, { period: "71-100", stage: "Maturation", actions: "Tie leaves", problem: "Splitting", solution: "Root prune" }] }, seedsType: "شتلات", unit: "ألف", waterNeeds: "4000 م³", fertilizers: "NPK" },
+            lettuce: { name: "الخس", duration: 60, desc: "خس.", en: { name: "Lettuce", desc: "Lettuce.", seedsType: "Seeds", unit: "kg", waterNeeds: "2500 m³", fertilizers: "Nitrogen", stages: [{ period: "1-15", stage: "Sowing", actions: "Shallow planting", problem: "Damping off", solution: "Fungicide" }, { period: "16-30", stage: "Thinning", actions: "Space plants", problem: "Slugs", solution: "Beer traps" }, { period: "31-60", stage: "Harvest", actions: "Cut whole", problem: "Tip burn", solution: "Calcium" }] }, seedsType: "بذور", unit: "كجم", waterNeeds: "2500 م³", fertilizers: "نيتروجين" },
+            carrot: { name: "الجزر", duration: 90, desc: "جزر.", en: { name: "Carrot", desc: "Carrot.", seedsType: "Seeds", unit: "kg", waterNeeds: "3000 m³", fertilizers: "Potassium", stages: [{ period: "1-15", stage: "Germination", actions: "Keep moist", problem: "Rust fly", solution: "Row cover" }, { period: "16-45", stage: "Root growth", actions: "Thinning", problem: "Alternaria", solution: "Fungicide" }, { period: "46-90", stage: "Maturation", actions: "Less water", problem: "Forking", solution: "Stone free soil" }] }, seedsType: "بذور", unit: "كجم", waterNeeds: "3000 م³", fertilizers: "بوتاسيوم" }
+        };
+
+        // Adding perennials (generic schedules for fruits/trees as they are year-round)
+        const perennials = ["citrus", "grapes", "apple", "banana"];
+        perennials.forEach(key => {
+            const crop = cropsData.find(c => c.key === key);
+            const titleEn = crop.en ? crop.en.title : key;
+            cropProgramsData[key] = { 
+                name: crop ? crop.title : key, 
+                en: { name: titleEn, desc: "Perennial crop requiring seasonal care.", seedsType: "Saplings", unit: "Trees", waterNeeds: "Variable", fertilizers: "NPK Seasonal" }, 
+                duration: 365, // Representing a full year cycle
+                seedsType: "شتلات أشجار", 
+                unit: "شجرة", 
+                waterNeeds: "حسب الموسم", 
+                fertilizers: "NPK موسمي",
+                stages: [
+                    { period: "Jan-Feb", stage: "Winter Pruning", actions: "Remove dead wood", problem: "Frost damage", solution: "Cover plants" },
+                    { period: "Mar-Apr", stage: "Spring Fertilization", actions: "Nitrogen boost", problem: "Aphids", solution: "Insecticide" },
+                    { period: "May-Jun", stage: "Flowering/Fruiting", actions: "Irrigation increase", problem: "Fruit drop", solution: "Boron spray" },
+                    { period: "Jul-Aug", stage: "Summer Care", actions: "Mulching & Water", problem: "Heat stress", solution: "Extra water" },
+                    { period: "Sep-Oct", stage: "Harvest Prep", actions: "Stop N, Increase K", problem: "Birds", solution: "Nets" },
+                    { period: "Nov-Dec", stage: "Post Harvest", actions: "Soil amendment", problem: "Winter prep", solution: "Organic matter" }
+                ]
+            };
+        });
+
+        function renderCrops() {
+            const grid = document.getElementById('cropsGrid'); if (!grid) return; grid.innerHTML = '';
+            cropsData.forEach((item) => {
+                const title = currentLang === 'ar' ? item.title : (item.en ? item.en.title : item.title);
+                const card = document.createElement('div'); card.className = 'crop-card'; card.dataset.type = 'crop';
+                card.innerHTML = `<div class="card-img-wrapper"><img src="${item.img}" class="card-img" alt="${title}" onerror="this.src='https://via.placeholder.com/600x400/0F4C5C/FFFFFF?text=${encodeURIComponent(title)}'"></div><div class="card-body"><h3 class="card-title">${title}</h3><p class="card-desc-short">${currentLang === 'ar' ? item.shortDesc : (item.en ? item.en.shortDesc : item.shortDesc)}</p><button class="card-btn" onclick="openModal('${item.key}')"><i class="fas fa-book-open"></i> ${currentLang === 'ar' ? 'دليل الرعاية الكامل' : 'Full Care Guide'}</button></div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderAnimals() {
+            const grid = document.getElementById('animalsGrid'); if (!grid) return; grid.innerHTML = '';
+            animalsData.forEach(item => {
+                const title = currentLang === 'ar' ? item.title : (item.en ? item.en.title : item.title);
+                const card = document.createElement('div'); card.className = 'crop-card'; card.dataset.type = 'animal';
+                card.innerHTML = `<div class="animal-card-header"><i class="fas ${item.icon} animal-icon-large"></i><h3 style="color:white;margin:0;font-size:1.4rem;">${title}</h3></div><div class="card-body"><p class="card-desc-short">${currentLang === 'ar' ? item.desc : (item.en ? item.en.desc : item.desc)}</p><ul class="animal-details-list"><li><i class="fas fa-home"></i> <strong>${translations[currentLang].housingLabel}:</strong> ${item.housing}</li><li><i class="fas fa-utensils"></i> <strong>${translations[currentLang].feedLabel}:</strong> ${item.feedType}</li><li><i class="fas fa-thermometer-half"></i> <strong>${translations[currentLang].tempLabel}:</strong> ${item.temp}</li></ul><button class="card-btn" style="background: var(--animal-accent); margin-top:15px;" onclick="openModal('${item.key}')"><i class="fas fa-book-open"></i> ${currentLang === 'ar' ? 'دليل الرعاية الكامل' : 'Full Care Guide'}</button></div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        const careDetailsData = {
+            plants: { irrigation: { titleKey: "irrigation", contentKey: "irrigation" }, fertilization: { titleKey: "fertilization", contentKey: "fertilization" }, pruning: { titleKey: "pruning", contentKey: "pruning" }, protection: { titleKey: "protection", contentKey: "protection" }, harvest: { titleKey: "harvest", contentKey: "harvest" } },
+            animals: { feeding: { titleKey: "feeding", contentKey: "feeding" }, vaccination: { titleKey: "vaccination", contentKey: "vaccination" }, hygiene: { titleKey: "hygiene", contentKey: "hygiene" }, breeding: { titleKey: "breeding", contentKey: "breeding" }, environment: { titleKey: "environment", contentKey: "environment" } },
+            general: { soil: { titleKey: "soil", contentKey: "soil" }, water: { titleKey: "water", contentKey: "water" }, tools: { titleKey: "tools", contentKey: "tools" }, records: { titleKey: "records", contentKey: "records" } }
+        };
+
+        let currentCareTab = 'plants';
+
+        function renderCareList(type) {
+            currentCareTab = type;
+            const list = document.getElementById('careList'); if (!list) return; list.innerHTML = '';
+            const items = careDetailsData[type];
+            for (const key in items) {
+                const item = items[key]; const titleKey = item.titleKey; const card = document.createElement('div'); card.className = 'care-card';
+                let iconClass = "fa-info-circle";
+                if(type === 'plants') { if(key === 'irrigation') iconClass = "fa-tint"; if(key === 'fertilization') iconClass = "fa-flask"; if(key === 'pruning') iconClass = "fa-cut"; if(key === 'protection') iconClass = "fa-shield-alt"; if(key === 'harvest') iconClass = "fa-basket-shopping"; }
+                else if(type === 'animals') { if(key === 'feeding') iconClass = "fa-utensils"; if(key === 'vaccination') iconClass = "fa-syringe"; if(key === 'hygiene') iconClass = "fa-soap"; if(key === 'breeding') iconClass = "fa-heart"; if(key === 'environment') iconClass = "fa-wind"; }
+                else { if(key === 'soil') iconClass = "fa-layer-group"; if(key === 'water') iconClass = "fa-water"; if(key === 'tools') iconClass = "fa-wrench"; if(key === 'records') iconClass = "fa-book"; }
+                card.innerHTML = `<h4><i class="fas ${iconClass}"></i> ${translations[currentLang][titleKey]}</h4><p>${currentLang === 'ar' ? 'اضغط لعرض التفاصيل...' : 'Click for details...'}</p>`;
+                card.onclick = () => showCareDetails(type, key); list.appendChild(card);
+            }
+        }
+
+        function showCareDetails(type, key) {
+            const placeholder = document.getElementById('carePlaceholder');
+            const content = document.getElementById('careContent');
+            const box = document.getElementById('careDetailsBox');
+            const data = careDetailsData[type][key];
+            const contentKey = data.contentKey;
+            const htmlContent = careContentLibrary[currentLang][contentKey] || (currentLang === 'ar' ? "المحتوى غير متاح" : "Content not available");
+            if (placeholder) placeholder.style.display = 'none';
+            if (content) { content.style.display = 'block'; content.innerHTML = htmlContent; }
+            if (box) box.classList.add('has-content');
+        }
+
+        function switchCareTab(type, btn) {
+            document.querySelectorAll('.care-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            renderCareList(type);
+            const placeholder = document.getElementById('carePlaceholder');
+            const content = document.getElementById('careContent');
+            if (placeholder) placeholder.style.display = 'block';
+            if (content) content.style.display = 'none';
+            const box = document.getElementById('careDetailsBox');
+            if (box) box.classList.remove('has-content');
+        }
+
+        function generateFullProgram(shouldScroll = true) {
+            const cropKey = document.getElementById('fullProgramCrop').value;
+            if (!cropKey) { alert(currentLang === 'ar' ? 'الرجاء اختيار المحصول أولاً' : 'Please select a crop first'); return; }
+            
+            // Get crop data and base info from cropsData first (for duration fallback)
+            const baseCropInfo = cropsData.find(c => c.key === cropKey);
+            const cropData = cropProgramsData[cropKey] || {};
+            const isEn = currentLang === 'en';
+            
+            // Helper to get property safely
+            const getProp = (obj, prop, fallback) => { 
+                if (isEn && obj.en && obj.en[prop] !== undefined) return obj.en[prop]; 
+                return obj[prop] !== undefined ? obj[prop] : fallback; 
+            };
+            
+            const name = getProp(cropData, 'name', baseCropInfo ? baseCropInfo.title : cropKey);
+            const duration = cropData.duration || baseCropInfo.days || 120; // Use specific duration, then base info, then default 120
+            let stages = getProp(cropData, 'stages', []);
+
+            // --- SMART AUTO-FILL LOGIC (THE FIX) ---
+            // If stages are empty OR if stages don't cover the full duration, generate generic stages
+            const daysCovered = stages.reduce((acc, stage) => {
+                const match = stage.period.match(/(\d+)/g);
+                if (match) acc += parseInt(match[match.length-1] || 0);
+                return acc;
+            }, 0);
+
+            if (stages.length === 0 || daysCovered < duration) {
+                const totalIntervals = Math.ceil(duration / 15);
+                // Only generate if we are missing data or coverage is incomplete
+                if (stages.length === 0) {
+                    // Completely missing data: Generate full generic table
+                    for (let i = 1; i <= totalIntervals; i++) {
+                        const start = (i - 1) * 15 + 1;
+                        const end = Math.min(i * 15, duration);
+                        const period = isEn ? `Day ${start}-${end}` : `${start}-${end}`;
+                        stages.push({
+                            period: period,
+                            stage: isEn ? `Growth Phase ${i}` : `مرحلة نمو ${i}`,
+                            actions: isEn ? "Monitor growth, water, weed control" : "متابعة النمو، ري، مكافحة أعشاب",
+                            problem: isEn ? "General Pests" : "آفات عامة",
+                            solution: isEn ? "Inspect & Treat if found" : "فحص وعلاج عند الضرورة"
+                        });
+                    }
+                } else {
+                    // We have some stages but they are short (e.g. only first 2 stages defined).
+                    // Calculate how many more we need
+                    const existingCount = stages.length;
+                    const needed = totalIntervals - existingCount;
+                    for(let i=0; i<needed; i++) {
+                         const index = existingCount + i + 1;
+                         const start = (index - 1) * 15 + 1;
+                         const end = Math.min(index * 15, duration);
+                         const period = isEn ? `Day ${start}-${end}` : `${start}-${end}`;
+                         stages.push({
+                            period: period,
+                            stage: isEn ? "Maintenance" : "صيانة",
+                            actions: isEn ? "Routine irrigation and fertilization" : "ري وتسميد روتيني",
+                            problem: isEn ? "Nutrient deficiency" : "نقص عناصر",
+                            solution: isEn ? "Apply foliar spray" : "رش ورقي"
+                         });
+                    }
+                }
+            }
+            // -----------------------------------------
+
+            const tbody = document.getElementById('fullProgramTableBody'); const results = document.getElementById('fullProgramResults'); tbody.innerHTML = '';
+            stages.forEach((stage) => { const row = document.createElement('tr'); row.innerHTML = `<td><strong>${stage.period}</strong></td><td>${stage.stage}</td><td>${stage.actions}</td><td>${stage.problem}</td><td>${stage.solution}</td>`; tbody.appendChild(row); });
+            if (document.getElementById('fullProgramSoilProblems').value !== 'none') {
+                const solutionRow = document.createElement('tr'); solutionRow.className = 'solution-cell';
+                solutionRow.innerHTML = `<td colspan="5" style="text-align: center; font-size: 1.1rem;"><i class="fas fa-exclamation-triangle"></i> <strong>${isEn ? 'Special Note' : 'ملاحظة خاصة'}:</strong> ${isEn ? 'Consult agronomist for soil issues.' : 'استشر مهندس زراعي لمشاكل التربة.'}</td>`;
+                tbody.appendChild(solutionRow);
+            }
+            const area = parseFloat(document.getElementById('fullProgramArea').value) || 1;
+            document.getElementById('summarySeeds').textContent = getProp(cropData, 'seedsType', '--');
+            // Calculate quantity roughly based on seedsPerFeddan in baseCropInfo if amountPerFeddan not set
+            const rate = cropData.amountPerFeddan || baseCropInfo.seedsPerFeddan || 0;
+            document.getElementById('summaryQuantity').textContent = Math.round(rate * area) + ' ' + getProp(cropData, 'unit', '');
+            document.getElementById('summaryHarvest').textContent = (isEn ? 'Day ' : 'اليوم ') + duration;
+            document.getElementById('summaryArea').textContent = area + ' ' + (isEn ? 'Feddan' : 'فدان');
+            results.style.display = 'block'; 
+            if(shouldScroll) results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let currentProgramType = 'crop';
+
+        function switchProgramType(type, btn) {
+            currentProgramType = type;
+            document.querySelectorAll('.care-tab').forEach((t, index) => { if (index < 2) t.classList.remove('active'); });
+            btn.classList.add('active');
+            const cropControls = document.getElementById('cropProgramControls'); const animalControls = document.getElementById('animalProgramControls');
+            const cropResults = document.getElementById('cropResultsArea'); const animalResults = document.getElementById('animalResultsArea');
+            if (cropControls) cropControls.style.display = type === 'crop' ? 'block' : 'none';
+            if (animalControls) animalControls.style.display = type === 'animal' ? 'block' : 'none';
+            if (cropResults) cropResults.classList.remove('active');
+            if (animalResults) animalResults.classList.remove('active');
+        }
+
+        function generateCropProgram(shouldScroll = true) {
+            const crop = document.getElementById('progCropSelect').value; const area = document.getElementById('progArea').value;
+            if (!crop) { alert(currentLang === 'ar' ? 'الرجاء اختيار المحصول' : 'Please select a crop'); return; }
+            const isEn = currentLang === 'en'; const cropObj = cropsData.find(c => c.key === crop);
+            document.getElementById('resCropName').textContent = (isEn ? 'Crop: ' : 'المحصول: ') + (isEn ? (cropObj.en ? cropObj.en.title : cropObj.title) : cropObj.title);
+            document.getElementById('resArea').textContent = (isEn ? 'Area: ' : 'المساحة: ') + area + (isEn ? ' Feddan' : ' فدان');
+            const tbody = document.getElementById('cropScheduleBody');
+            
+            // EXPANDED TABLE (7 Rows)
+            const rows = isEn ? [
+                {t:"Week -1 to 0", s:"Preparation", d:"• Soil analysis<br>• Plowing & leveling<br>• Adding organic manure"},
+                {t:"Week 1-2", s:"Sowing/Planting", d:"• Sowing seeds/Transplanting<br>• Light irrigation<br>• Pre-emergence herbicide"},
+                {t:"Week 3-4", s:"Establishment", d:"• Monitor germination<br>• First Nitrogen dose<br>• Thinning (if needed)"},
+                {t:"Week 5-8", s:"Vegetative Growth", d:"• Regular irrigation<br>• Balanced NPK Fertilizer<br>• Weed control"},
+                {t:"Week 9-12", s:"Flowering", d:"• Stop Nitrogen<br>• Add Potassium<br>• Micronutrients spray"},
+                {t:"Week 13-16", s:"Fruiting/Ripening", d:"• Maintain soil moisture<br>• Monitor pests<br>• Stop watering if ripe"},
+                {t:"Week 17+", s:"Harvest", d:"• Check maturity<br>• Harvest in morning<br>• Proper storage"}
+            ] : [
+                {t:"الأسبوع -1 إلى 0", s:"التحضير", d:"• تحليل التربة<br>• حرث وتسوية الأرض<br>• إضافة السماد العضوي"},
+                {t:"الأسبوع 1-2", s:"الزراعة", d:"• بذر البذور / زراعة الشتلات<br>• ري خفيف<br>• مبيدات عشبية قبل الإنبات"},
+                {t:"الأسبوع 3-4", s:"التأسيس", d:"• متابعة الإنبات<br>• جرعة نيتروجين أولية<br>• خف النباتات (إذا لزم)"},
+                {t:"الأسبوع 5-8", s:"النمو الخضري", d:"• ري منتظم<br>• تسميد NPK متوازن<br>• مكافحة الحشائش"},
+                {t:"الأسبوع 9-12", s:"التزهير", d:"• وقف النيتروجين<br>• إضافة البوتاسيوم<br>• رش عناصر صغرى"},
+                {t:"الأسبوع 13-16", s:"العقد والنضج", d:"• الحفاظ على رطوبة التربة<br>• مراقبة الآفات<br>• وقف الري عند النضج"},
+                {t:"الأسبوع 17+", s:"الحصاد", d:"• فحص النضج<br>• حصاد صباحاً<br>• تخزين جيد"}
+            ];
+
+            tbody.innerHTML = rows.map(r => `<tr><td>${r.t}</td><td><i class="fas fa-leaf" style="color: var(--teal-deep);"></i> ${r.s}</td><td>${r.d}</td></tr>`).join('');
+            const results = document.getElementById('cropResultsArea'); results.classList.add('active'); 
+            if(shouldScroll) results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateAnimalProgram(shouldScroll = true) {
+            const animal = document.getElementById('progAnimalSelect').value; const count = document.getElementById('progAnimalCount').value;
+            if (!animal) { alert(currentLang === 'ar' ? 'الرجاء اختيار الحيوان' : 'Please select an animal'); return; }
+            const isEn = currentLang === 'en'; const animalObj = animalsData.find(a => a.key === animal);
+            document.getElementById('resAnimalName').textContent = (isEn ? 'Animal: ' : 'الحيوان: ') + (isEn ? (animalObj.en ? animalObj.en.title : animalObj.title) : animalObj.title);
+            document.getElementById('resAnimalCount').textContent = (isEn ? 'Count: ' : 'العدد: ') + count + (isEn ? ' Heads' : ' رأس');
+            const tbody = document.getElementById('animalScheduleBody');
+            const rows = isEn ? [{t:"Day 1", s:"Vaccination", d:"• Health check<br>• First vaccine"}, {t:"Week 1-2", s:"Acclimatization", d:"• Set environment<br>• Starter feed"}, {t:"Week 3-4", s:"Second Vaccination", d:"• Booster<br>• Cleaning"}, {t:"Month 2-3", s:"Growth", d:"• Increase feed<br>• Vitamins"}, {t:"Ongoing", s:"Monitoring", d:"• Clean water<br>• Record growth"}] : [{t:"يوم 1", s:"تحصين", d:"• فحص<br>• لقاح أول"}, {t:"الأسبوع 1-2", s:"تأقلم", d:"• بيئة<br>• علف بادئ"}, {t:"الأسبوع 3-4", s:"تحصين ثاني", d:"• منشط<br>• تنظيف"}, {t:"الشهر 2-3", s:"نمو", d:"• زيادة علف<br>• فيتامينات"}, {t:"مستمر", s:"متابعة", d:"• ماء نظيف<br>• تسجيل"}];
+            tbody.innerHTML = rows.map((r, i) => `<tr class="${i%2!==0 ? 'animal-vaccine-row' : ''}"><td>${r.t}</td><td><i class="fas ${i%2!==0 ? 'fa-syringe' : 'fa-heart-pulse'}" style="color: var(--animal-accent);"></i> ${r.s}</td><td>${r.d}</td></tr>`).join('');
+            const results = document.getElementById('animalResultsArea'); results.classList.add('active'); 
+            if(shouldScroll) results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateConservationPlan(shouldScroll = true) {
+            const tbody = document.getElementById('conservationTableBody'); const results = document.getElementById('conservationResults');
+            if (!tbody || !results) return; tbody.innerHTML = ''; const isEn = currentLang === 'en';
+            for (let i = 1; i <= 10; i++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td class="day-interval">${(i-1)*10 + 1}-${i*10}</td><td class="duration-stage">${isEn ? `Stage ${i}` : `مرحلة ${i}`}</td><td>${Math.floor(Math.random() * 1000 + 500)} L</td><td>${i === 1 ? '50 kg' : '-'}</td><td>${isEn ? 'Notes' : 'ملاحظات'}</td>`;
+                tbody.appendChild(row);
+            }
+            results.style.display = 'block'; 
+            if(shouldScroll) results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openModal(key) {
+            const cropData = cropProgramsData[key]; const animalData = animalsData.find(a => a.key === key);
+            const modalTitle = document.getElementById('modalTitle'); const modalBody = document.getElementById('modalBody');
+            if (!modalTitle || !modalBody) return; const isEn = currentLang === 'en';
+            const getProp = (obj, prop, fallback) => { if (isEn && obj.en && obj.en[prop] !== undefined) return obj.en[prop]; return obj[prop] !== undefined ? obj[prop] : fallback; };
+            if (cropData) {
+                const name = getProp(cropData, 'name', key); let desc = getProp(cropData, 'desc', '');
+                if(!desc) { const c = cropsData.find(x => x.key === key); desc = c ? (isEn ? c.en.desc : c.desc) : ""; }
+                modalTitle.innerHTML = `<i class="fas fa-seedling"></i> ${name} - ${translations[currentLang].completeGuide}`;
+                modalBody.innerHTML = `<div class="crop-info-grid"><div class="crop-info-item"><div class="crop-info-label">${translations[currentLang].labelDuration}</div><div class="crop-info-value">${getProp(cropData, 'duration', 0)} ${translations[currentLang].daysLabel}</div></div><div class="crop-info-item"><div class="crop-info-label">${translations[currentLang].labelSeedsType}</div><div class="crop-info-value">${getProp(cropData, 'seedsType', '--')}</div></div><div class="crop-info-item"><div class="crop-info-label">${translations[currentLang].labelWaterNeeds}</div><div class="crop-info-value">${getProp(cropData, 'waterNeeds', '--')}</div></div><div class="crop-info-item"><div class="crop-info-label">${translations[currentLang].labelFertilizers}</div><div class="crop-info-value">${getProp(cropData, 'fertilizers', '--')}</div></div></div><div style="margin: 20px 0; padding: 15px; background: rgba(230, 213, 184, 0.3); border-radius: 10px;"><h4 style="color: var(--teal-deep); margin-bottom: 10px;">${translations[currentLang].overviewTitle}</h4><p>${desc}</p></div>`;
+            } else if (animalData) {
+                const title = isEn ? (animalData.en ? animalData.en.title : animalData.title) : animalData.title;
+                const desc = isEn ? (animalData.en ? animalData.en.desc : animalData.desc) : animalData.desc;
+                modalTitle.innerHTML = `<i class="fas ${animalData.icon}"></i> ${title}`;
+                modalBody.innerHTML = `<div style="text-align:center; margin-bottom:20px; padding: 20px; background: var(--sand-warm); border-radius: 15px; color: var(--teal-deep);"><i class="fas ${animalData.icon}" style="font-size: 3rem; margin-bottom: 15px;"></i><h3 style="margin:0;">${isEn ? 'General Care' : 'إرشادات عامة'}</h3></div><p style="font-size: 1.1rem; line-height: 1.9; margin-bottom: 20px;">${desc}</p><div class="crop-info-grid"><div class="crop-info-item"><div class="crop-info-label">${translations[currentLang].housingLabel}</div><div class="crop-info-value">${animalData.housing}</div></div><div class="crop-info-item"><div class="crop-info-label">${translations[currentLang].feedLabel}</div><div class="crop-info-value">${animalData.feedType}</div></div><div class="crop-info-item"><div class="crop-info-label">${translations[currentLang].tempLabel}</div><div class="crop-info-value">${animalData.temp}</div></div></div>`;
+            } else { modalTitle.textContent = key; modalBody.innerHTML = `<p>${isEn ? 'Details not available.' : 'لا توجد تفاصيل.'}</p>`; }
+            const modal = document.getElementById('infoModal'); if (modal) modal.classList.add('active');
+        }
+
+        function closeModal() { const modal = document.getElementById('infoModal'); if (modal) modal.classList.remove('active'); }
+
+        function toggleChat() { const chatBox = document.getElementById('chatBox'); if (chatBox) chatBox.classList.toggle('active'); }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput'); const messages = document.getElementById('chatMessages');
+            if (!input || !messages || !input.value.trim()) return;
+            const userMsg = document.createElement('div'); userMsg.className = 'message user-msg'; userMsg.textContent = input.value; messages.appendChild(userMsg);
+            input.value = ''; messages.scrollTop = messages.scrollHeight;
+            setTimeout(() => { const botMsg = document.createElement('div'); botMsg.className = 'message bot-msg'; botMsg.textContent = currentLang === 'ar' ? 'شكراً لسؤالك! سأساعدك.' : 'Thank you! I will help you.'; messages.appendChild(botMsg); messages.scrollTop = messages.scrollHeight; }, 800);
+        }
+
+        function goHome() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+        window.onload = function() {
+            renderCrops(); renderAnimals(); renderCareList('plants'); updateSelectOptions();
+            const searchInput = document.getElementById('globalSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const val = this.value.toLowerCase();
+                    document.querySelectorAll('.crop-card').forEach(card => {
+                        const title = card.querySelector('.card-title').textContent.toLowerCase();
+                        const desc = card.querySelector('.card-desc-short').textContent.toLowerCase();
+                        card.style.display = title.includes(val) || desc.includes(val) ? 'flex' : 'none';
+                    });
+                });
+            }
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) { chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); }); }
+            const modal = document.getElementById('infoModal');
+            if (modal) { modal.addEventListener('click', e => { if (e.target.id === 'infoModal') closeModal(); }); }
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+            document.getElementById('homeBtn').disabled = false; document.getElementById('homeBtn').style.opacity = '1'; document.getElementById('homeBtn').style.cursor = 'pointer';
+        };
+    </script>
+    <script type="module">
+  // ================= Firebase =================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+    authDomain: "smart-farm-8d3f5.firebaseapp.com",
+    projectId: "smart-farm-8d3f5",
+    storageBucket: "smart-farm-8d3f5.appspot.com",
+    messagingSenderId: "317371842198",
+    appId: "1:317371842198:web:4765ea8c0036ae64b10cb7",
+  };
+
+  // Init Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const homeBtn = document.getElementById("homeBtn");
+
+  // ================= Page Guard (Smart Redirect) =================
+  onAuthStateChanged(auth, async (user) => {
+    // مش مسجل دخول
+    if (!user) {
+      window.location.href = "./signinsignup/signin.html";
+      return;
+    }
+
+    try {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+
+      if (!userDoc.exists()) {
+        window.location.href = "./signinsignup/signin.html";
+        return;
+      }
+
+      const { role } = userDoc.data();
+
+      // ✅ الصفحة دي للفلاح فقط
+      if (role !== "farmer") {
+        // تحويل ذكي حسب الدور
+        switch (role) {
+          case "investor":
+            window.location.href = "investor.html";
+            break;
+
+          case "worker":
+            window.location.href = "worker.html";
+            break;
+
+          case "farmer":
+            window.location.href = "farmer.html";
+            break;
+
+          default:
+            window.location.href = "index.html"; // fallback
+        }
+        return;
+      }
+
+      // ================= Farmer Only =================
+      // تفعيل زر الرئيسية
+      homeBtn.disabled = false;
+      homeBtn.style.opacity = "1";
+      homeBtn.style.cursor = "pointer";
+
+      homeBtn.addEventListener("click", () => {
+        window.location.href = "farmer-ar.html";
+      });
+
+    } catch (error) {
+      console.error(error);
+      alert("حدث خطأ أثناء التحقق من الحساب");
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

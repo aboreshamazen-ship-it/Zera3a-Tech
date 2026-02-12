@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroRisk Guard - Agricultural Risk Awareness</title>
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon_atoms.ico" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        deepTeal: "#0F4C5C",
+                        warmSand: "#E6D5B8",
+                        sunsetOrange: "#E07A5F",
+                        offWhite: "#FAF9F6"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Noto Sans Arabic', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Animations */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.8s ease-out forwards;
+        }
+
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-bounce-slow {
+            animation: bounce-slow 4s infinite ease-in-out;
+        }
+
+        @keyframes scale-in {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-scale-in {
+            animation: scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* RTL Specific Font Override */
+        [dir="rtl"] body { font-family: 'Noto Sans Arabic', sans-serif; }
+        [dir="ltr"] body { font-family: 'Inter', sans-serif; }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+
+<!-- تم تحديث الـ Body ليدعم الوضع المظلم للصفحة بالكامل -->
+<body class="bg-[#FAF9F6] dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-500">
+
+    <!-- Background Elements -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] opacity-20 bg-green-100 dark:bg-blue-900"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] opacity-20 bg-orange-50 dark:bg-orange-900"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="main-header" class="sticky top-0 z-50 w-full px-4 py-3 border-b transition-colors shadow-sm bg-white border-gray-200 dark:bg-slate-900 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center bg-[#0F4C5C]">
+                    <span class="text-white font-bold text-xl italic"><img src="./smart_farm_no_bg-removebg-preview.png" alt=""></span>
+                </div>
+                <h1 class="text-xl font-bold text-slate-800 dark:text-white" data-i18n="title">Zera3a Tech</h1>
+            </div>
+
+            <div class="flex items-center space-x-2 md:space-x-4 rtl:space-x-reverse">
+                <button id="lang-btn" class="p-2 rounded-full transition-colors flex items-center space-x-1 hover:bg-slate-100 text-slate-600 dark:hover:bg-slate-800 dark:text-slate-300">
+                    <i data-lucide="languages" width="20" height="20"></i>
+                    <span class="hidden sm:inline text-sm font-medium">العربية</span>
+                </button>
+
+                <button id="theme-btn" class="p-2 rounded-full transition-colors hover:bg-slate-100 text-slate-600 dark:hover:bg-slate-800 dark:text-yellow-400">
+                    <!-- Icon will be set by JS -->
+                    <i data-lucide="moon" width="20" height="20"></i>
+                </button>
+
+                <button class="hidden md:flex items-center space-x-2 px-4 py-2 rounded-lg text-white font-medium transition-all hover:scale-105 active:scale-95 shadow-md bg-[#E07A5F]">
+                    <i data-lucide="phone-call" width="18" height="18"></i>
+                    <span data-i18n="expertBtn">Contact an Expert</span>
+                </button>
+
+                <button id="home-btn" class="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium border transition-all hover:bg-red-50 hover:text-red-600 hover:border-red-200 border-gray-200 text-slate-600 dark:border-slate-700 dark:text-slate-300">
+                    <i data-lucide="log-out" width="18" height="18"></i>
+                    <span class="hidden sm:inline" data-i18n="exitBtn">Back to Home</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1 text-center lg:text-left rtl:lg:text-right">
+                    <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 animate-fade-in bg-[#E6D5B8] text-[#0F4C5C]" data-i18n="heroBadge">Smart Agricultural Awareness</div>
+                    <h1 class="text-4xl md:text-7xl font-extrabold mb-6 leading-tight text-slate-900 dark:text-white" data-i18n="heroTitle">Protecting Your Harvest & Heritage</h1>
+                    <p class="text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-10 text-slate-600 dark:text-slate-400" data-i18n="heroSubtitle">
+                        Advanced risk awareness for modern farmers. Stay informed about climate, pests, and biological threats to your livelihood with real-time AI assistance.
+                    </p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <button onclick="document.getElementById('diagnosis-section').scrollIntoView({ behavior: 'smooth' })" class="px-8 py-4 rounded-full text-white font-bold text-lg shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 active:translate-y-0 flex items-center gap-2 bg-[#0F4C5C]">
+                            <span data-i18n="tryDiagnosisBtn">Try AI Diagnosis</span>
+                            <i data-lucide="arrow-right" class="rtl:rotate-180" width="20" height="20"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-1 relative w-full max-w-xl mx-auto lg:max-w-none">
+                    <div class="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800 rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=1000" alt="Agricultural landscape" class="w-full h-[400px] md:h-[500px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-teal-900/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 z-20 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce-slow rtl:left-auto rtl:-right-6">
+                        <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-full text-green-600">
+                            <i data-lucide="shield-check" width="32" height="32"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold dark:text-white">98%</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400" data-i18n="riskRate">Risk Mitigation Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-16 bg-white dark:bg-slate-900/50">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8" id="stats-container"></div>
+        </section>
+
+        <!-- Smart Diagnosis Section -->
+        <section id="diagnosis-section" class="py-20 px-4">
+            <div class="max-w-6xl mx-auto rounded-[3rem] p-8 md:p-12 shadow-2xl transition-all bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <div class="text-center mb-12">
+                    <div class="w-16 h-16 rounded-2xl bg-teal-100 dark:bg-teal-900/30 text-teal-600 flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="stethoscope" width="32" height="32"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white" data-i18n="diagnosisTitle">Smart Diagnosis Lab</h2>
+                    <p class="text-slate-600 dark:text-slate-400" data-i18n="diagnosisSubtitle">Identify agricultural problems instantly using AI analysis.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Form -->
+                    <div class="space-y-6">
+                        <!-- Toggle -->
+                        <div class="flex gap-4 p-1 bg-gray-100 dark:bg-slate-800 rounded-2xl">
+                            <button id="btn-diag-plant" class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all bg-white dark:bg-slate-700 shadow-sm text-teal-600">
+                                <i data-lucide="leaf" width="20"></i>
+                                <span data-i18n="plantsLabel">Plants</span>
+                            </button>
+                            <button id="btn-diag-animal" class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+                                <i data-lucide="dog" width="20"></i>
+                                <span data-i18n="animalsLabel">Animals</span>
+                            </button>
+                        </div>
+
+                        <form id="diagnosis-form" class="space-y-4">
+                            <!-- Subject Buttons Grid -->
+                            <div>
+                                <label class="block text-sm font-bold mb-2 text-slate-500 uppercase tracking-wider" data-i18n="selectSubject">Select Subject</label>
+                                <div id="subject-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-2"></div>
+                                <input type="text" id="subject-other" class="hidden w-full mt-2 px-5 py-3 rounded-2xl outline-none border transition-all bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:border-teal-500 dark:focus:border-teal-500 dark:text-white" placeholder="Enter subject name...">
+                            </div>
+
+                            <!-- Season -->
+                            <div>
+                                <label class="block text-sm font-bold mb-2 text-slate-500 uppercase tracking-wider" data-i18n="currentSeason">Current Season</label>
+                                <div id="season-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+                            </div>
+
+                            <!-- Problem -->
+                            <div>
+                                <label class="block text-sm font-bold mb-2 text-slate-500 uppercase tracking-wider" data-i18n="symptomsLabel">Symptoms / Problem</label>
+                                <textarea id="problem-desc" rows="4" class="w-full px-5 py-4 rounded-2xl outline-none focus:ring-2 border transition-all resize-none bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-teal-200 dark:focus:ring-teal-500" data-i18n-placeholder="diagnosisPlaceholder"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-5 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl bg-[#0F4C5C]">
+                                <i data-lucide="search" width="22" height="22"></i>
+                                <span data-i18n="diagnoseBtn">Analyze Issue</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Result Area -->
+                    <div id="diagnosis-result" class="relative min-h-[400px] rounded-[2rem] p-8 flex flex-col items-center justify-center border-2 border-dashed bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700">
+                        <div class="text-center text-slate-400 space-y-4">
+                            <i data-lucide="sparkles" width="48" height="48" class="mx-auto opacity-20"></i>
+                            <p data-i18n="resultPlaceholder">Your AI Diagnosis Report will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Sections Container -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pb-12">
+            <!-- Plants Risk -->
+            <div class="risk-section">
+                <div class="flex items-center justify-between mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold relative inline-block text-slate-800 dark:text-white" data-i18n="plantRisksTitle">
+                        Plant Risks & Crop Health
+                        <div class="absolute -bottom-2 left-0 w-24 h-1.5 rounded-full bg-[#E07A5F]"></div>
+                    </h2>
+                </div>
+                <div id="plant-risks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+            </div>
+
+            <!-- Info Banner -->
+            <section class="py-20 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <img src="https://images.unsplash.com/photo-1547496502-affa22d38842?auto=format&fit=crop&q=80&w=1000" class="rounded-[2.5rem] shadow-xl h-[400px] w-full object-cover" alt="Livestock">
+                </div>
+                <div class="flex-1 space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-bold leading-tight text-slate-900 dark:text-white" data-i18n="whyTrustTitle">Why Professionals Trust Us?</h2>
+                    <p class="text-slate-600 dark:text-slate-400" data-i18n="whyTrustDesc">We combine decades of agricultural data with cutting-edge AI to provide risk assessments that are not only accurate but also actionable.</p>
+                    <ul class="space-y-4" id="trust-list"></ul>
+                </div>
+            </section>
+
+            <!-- Animal Risks -->
+            <div class="risk-section">
+                <div class="flex items-center justify-between mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold relative inline-block text-slate-800 dark:text-white" data-i18n="animalRisksTitle">
+                        Livestock & Animal Welfare
+                        <div class="absolute -bottom-2 left-0 w-24 h-1.5 rounded-full bg-[#E07A5F]"></div>
+                    </h2>
+                </div>
+                <div id="animal-risks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+            </div>
+
+            <!-- Seasonal Risks -->
+            <div class="risk-section">
+                <div class="flex items-center justify-between mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold relative inline-block text-slate-800 dark:text-white" data-i18n="seasonalRisksTitle">
+                        Seasonal Farming Hazards
+                        <div class="absolute -bottom-2 left-0 w-24 h-1.5 rounded-full bg-[#E07A5F]"></div>
+                    </h2>
+                </div>
+                <div id="seasonal-risks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+            </div>
+
+            <!-- FAQ Section -->
+            <section class="py-24 max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white" data-i18n="faqTitle">Frequently Asked Questions</h2>
+                    <p class="text-slate-600 dark:text-slate-400" data-i18n="faqSubtitle">Find quick answers to common agricultural challenges.</p>
+                </div>
+                <div id="faq-container" class="space-y-4"></div>
+            </section>
+        </div>
+
+        <!-- Expert Callout -->
+        <section id="expert" class="mt-12 p-8 md:p-20 rounded-[4rem] text-center relative overflow-hidden shadow-2xl group bg-[#0F4C5C]">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform duration-1000 group-hover:scale-125"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
+            <div class="relative z-10">
+                <h3 class="text-4xl md:text-6xl font-bold text-white mb-6" data-i18n="readyTitle">Ready to secure your future?</h3>
+                <p class="text-blue-100 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed" data-i18n="readyDesc">Join over 12,000 farmers who use AgroRisk Guard to protect their families livelihood.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="px-10 py-4 bg-white rounded-full font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95 text-[#0F4C5C]" data-i18n="expertBtn">Contact an Expert</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-24 py-20 border-t border-gray-200 bg-gray-50 text-slate-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left rtl:md:text-right">
+            <div>
+                <div class="flex items-center justify-center md:justify-start space-x-2 rtl:space-x-reverse mb-6">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-[#0F4C5C]">
+                        <span class="text-white font-bold text-md italic">A</span>
+                    </div>
+                    <span class="font-bold text-xl text-slate-900 dark:text-white" data-i18n="title">AgroRisk Guard</span>
+                </div>
+                <p class="text-sm leading-relaxed mb-6">Empowering farmers with smart tools to identify, evaluate, and mitigate agricultural risks effectively across globe.</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-slate-900 dark:text-white">Quick Links</h4>
+                <ul class="space-y-4 text-sm">
+                    <li><a href="#" class="hover:text-teal-500 transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-teal-500 transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-teal-500 transition-colors">Risk Assessment Tools</a></li>
+                    <li><a href="#" class="hover:text-teal-500 transition-colors">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-slate-900 dark:text-white">Newsletter</h4>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Enter email" class="flex-1 px-4 py-2 rounded-lg text-sm outline-none bg-white border-gray-200 border dark:bg-slate-800 dark:border-slate-700 dark:text-white">
+                    <button class="p-2 rounded-lg text-white bg-[#0F4C5C]">
+                        <i data-lucide="zap" width="18" height="18" class="text-white"></i>
+                    </button>
+                </div>
+                <p class="mt-4 text-xs italic">Get weekly agricultural safety alerts.</p>
+            </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-gray-200 dark:border-slate-800 text-center text-xs">
+            <p data-i18n="footerText">© 2024 AgroRisk Guard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="fixed bottom-6 right-6 z-[100] transition-all duration-300 rtl:right-auto rtl:left-6">
+        <!-- Chat Window -->
+        <div id="chat-window" class="absolute bottom-24 right-0 rtl:right-auto rtl:left-0 w-[calc(100vw-3rem)] sm:w-[380px] max-h-[calc(100vh-120px)] h-[600px] rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right rtl:origin-bottom-left border border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-900 scale-0 opacity-0 translate-y-10 pointer-events-none">
+            <div class="p-5 flex-shrink-0 flex items-center justify-between text-white bg-[#0F4C5C]">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                        <i data-lucide="bot" width="24" height="24" class="text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-base leading-tight">AgroBot Expert</h4>
+                        <p class="text-xs text-green-300 flex items-center"><span class="w-2 h-2 rounded-full bg-green-400 mr-1.5 rtl:ml-1.5 rtl:mr-0 animate-pulse"></span>Online</p>
+                    </div>
+                </div>
+                <button id="close-chat" class="p-2 hover:bg-white/10 rounded-xl transition-colors">
+                    <i data-lucide="x" width="20" height="20" class="text-white"></i>
+                </button>
+            </div>
+
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-5 space-y-6 bg-opacity-5 scroll-smooth bg-black/5 dark:bg-black/22 scrollbar-hide">
+                <!-- Welcome Message -->
+                <div class="flex justify-start">
+                    <div class="flex max-w-[90%] items-start gap-2">
+                        <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center shadow-sm bg-[#E6D5B8]">
+                            <i data-lucide="bot" width="16" height="16" class="text-[#0F4C5C]"></i>
+                        </div>
+                        <div class="p-4 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-line bg-white border border-gray-100 text-slate-700 rounded-tl-none dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200" data-i18n="chatWelcome">Hello! I am your AI Agricultural Assistant. How can I help you today?</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chat-suggestions" class="px-4 py-3 border-t flex-shrink-0 overflow-x-auto whitespace-nowrap scrollbar-hide flex gap-2 border-gray-100 bg-gray-50 dark:border-slate-800 dark:bg-slate-900"></div>
+
+            <div class="p-4 flex-shrink-0 border-t border-gray-100 dark:border-slate-800">
+                <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                    <input type="text" id="chat-input" class="flex-1 px-5 py-3 rounded-full text-sm outline-none focus:ring-2 transition-all shadow-inner bg-gray-100 border-transparent focus:ring-gray-200 dark:bg-slate-800 dark:text-white dark:focus:ring-slate-600" placeholder="Ask about plant diseases...">
+                    <button id="chat-send" class="p-3.5 rounded-full transition-all hover:scale-110 active:scale-90 disabled:opacity-50 shadow-lg bg-[#0F4C5C] text-white">
+                        <i data-lucide="send" width="20" height="20" class="text-white"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <button id="chat-toggle" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 text-white group relative bg-[#0F4C5C]">
+            <div class="absolute inset-0 rounded-full bg-white/10 animate-ping opacity-20 group-hover:hidden pointer-events-none"></div>
+            <i data-lucide="message-circle" width="32" height="32" class="text-white group-hover:rotate-12 transition-transform"></i>
+        </button>
+    </div>
+
+    <!-- Modal for Risk Details -->
+    <div id="risk-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-[2.5rem] shadow-2xl animate-scale-in bg-white text-slate-800 dark:bg-slate-900 dark:text-white">
+            <div id="modal-content-area"></div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA & TRANSLATIONS ---
+        const TRANSLATIONS = {
+            en: {
+                title: "AgroRisk Guard",
+                expertBtn: "Contact an Expert",
+                exitBtn: "Back to Home",
+                heroTitle: "Protecting Your Harvest & Heritage",
+                heroSubtitle: "Advanced risk awareness for modern farmers. Stay informed about climate, pests, and biological threats to your livelihood with real-time AI assistance.",
+                heroBadge: "Smart Agricultural Awareness",
+                tryDiagnosisBtn: "Try AI Diagnosis",
+                riskRate: "Risk Mitigation Rate",
+                diagnosisTitle: "Smart Diagnosis Lab",
+                diagnosisSubtitle: "Identify agricultural problems instantly using AI analysis.",
+                plantsLabel: "Plants",
+                animalsLabel: "Animals",
+                selectSubject: "Select Subject",
+                currentSeason: "Current Season",
+                symptomsLabel: "Symptoms / Problem",
+                diagnosisPlaceholder: "Describe symptoms (e.g., yellow spots on leaves, animal is lethargic)...",
+                diagnoseBtn: "Analyze Issue",
+                resultPlaceholder: "Your AI Diagnosis Report will appear here.",
+                plantRisksTitle: "Plant Risks & Crop Health",
+                animalRisksTitle: "Livestock & Animal Welfare",
+                seasonalRisksTitle: "Seasonal Farming Hazards",
+                faqTitle: "Frequently Asked Questions",
+                faqSubtitle: "Find quick answers to common agricultural challenges.",
+                readyTitle: "Ready to secure your future?",
+                readyDesc: "Join over 12,000 farmers who use AgroRisk Guard to protect their families livelihood.",
+                footerText: "© 2024 AgroRisk Guard. All rights reserved.",
+                chatWelcome: "Hello! I am your AI Agricultural Assistant. How can I help you today?",
+                close: "Close",
+                details: "Risk Details",
+                learnMore: "Learn More",
+                diagnosisResultTitle: "AI Diagnosis Report",
+                diagnosisBtnLoading: "Analyzing...",
+                other: "Other",
+                whyTrustTitle: "Why Professionals Trust Us?",
+                whyTrustDesc: "We combine decades of agricultural data with cutting-edge AI to provide risk assessments that are not only accurate but also actionable.",
+                chatPlaceholder: "Ask about plant diseases, animal care...",
+                send: "Send",
+                stats: [
+                    { label: "Protected Farms", value: "12k+" },
+                    { label: "Risks Monitored", value: "150+" },
+                    { label: "Global Coverage", value: "25" },
+                    { label: "Success Rate", value: "94%" }
+                ],
+                trustList: [
+                    "Real-time biological threat monitoring",
+                    "Expert-validated remediation steps",
+                    "Localized weather impact forecasting"
+                ],
+                chatSuggestions: [
+                    "How to prevent frost?",
+                    "Signs of heat stress in cows",
+                    "Organic pest control tips",
+                    "Best time for wheat planting"
+                ],
+                seasons: ["Spring", "Summer", "Autumn", "Winter"],
+                plantOptions: ["Wheat", "Corn", "Tomato", "Potato", "Olive", "Palm", "Grape", "Citrus", "Strawberry", "Cotton"],
+                animalOptions: ["Cattle", "Sheep", "Goat", "Poultry", "Fish", "Camel", "Bee", "Horse", "Rabbit"],
+                riskCategories: {
+                    plants: [
+                        { title: "Climate Volatility", description: "Extreme heat waves, unexpected frosts, and erratic rainfall patterns affecting growth cycles.", longDescription: "Climate volatility is one of greatest threats to modern agriculture. Extreme heat causes pollen sterility in grains like wheat and corn, while unexpected late-spring frosts can destroy entire fruit blossoms in a single night.", icon: 'thermometer', image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Pest Infestations", description: "Invasive species and local pests like locusts or aphids that can devastate entire fields.", longDescription: "Pests consume nearly 20-40% of global crop yields annually. Integrated Pest Management (IPM) is the gold standard for control, combining biological controls and targeted low-toxicity applications.", icon: 'bug', image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Soil Degradation", description: "Loss of vital nutrients, increasing salinization, and erosion impacting long-term sustainability.", longDescription: "Soil is a living ecosystem that can take centuries to form but only years to destroy. Cover cropping and regular organic amendments are essential to maintain soil structure.", icon: 'droplets', image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Fungal Diseases", description: "Blight, mildew, and rust that spread rapidly in high humidity and damp soil conditions.", longDescription: "Fungal pathogens like Downy Mildew thrive in warm, moist environments. Proper plant spacing and preventative organic fungicides are best defenses.", icon: 'shield-alert', image: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=800' }
+                    ],
+                    animals: [
+                        { title: "Livestock Biosecurity", description: "Preventing cross-contamination and managing viral outbreaks in cattle and sheep populations.", longDescription: "Biosecurity is the set of practical measures used to protect a farm from the entry and spread of infectious diseases. Regular vaccination is key.", icon: 'shield-alert', image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Poultry Viral Risks", description: "Avian flu monitoring and precise environmental control systems for large-scale operations.", longDescription: "Poultry are highly sensitive to respiratory viruses. Modern sensors now track humidity and temperature to keep the birds healthy.", icon: 'wind', image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Aquaculture Hazards", description: "Water quality management, oxygen levels, and parasitic control for healthy fish farming.", longDescription: "Fish live in a delicate balance with their environment. Maintaining optimal water temperature and pH balance is critical.", icon: 'waves', image: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Zoonotic Risk Control", description: "Mitigating diseases that can transfer from animals to humans, ensuring public health safety.", longDescription: "Zoonotic diseases like Brucellosis or Rift Valley Fever pose a dual threat to animals and humans. Control involves vaccination, hygiene, and controlled access.", icon: 'activity', image: 'https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&q=80&w=800' }
+                    ],
+                    seasons: [
+                        { title: "Summer Heat Stress", description: "Intense solar radiation requiring shading and enhanced precision irrigation strategies.", longDescription: "During peak summer, plants enter a state of survival. Providing shaded areas and misting systems can mitigate these effects.", icon: 'sun', image: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Winter Frost Protection", description: "Advanced methods to protect delicate saplings and winter crops from freezing temperatures.", longDescription: "Frost occurs when water vapor turns directly into ice on plant surfaces. Heavy mulching and plastic tunnels are effective protections.", icon: 'snowflake', image: 'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Spring Pathogens", description: "Early growth vulnerability to soil-borne pathogens and sudden moisture spikes.", longDescription: "Spring damp warming soils are perfect breeding ground for fungal diseases. Proper drainage is essential.", icon: 'flower-2', image: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&q=80&w=800' },
+                        { title: "Autumn Transition Hazards", description: "Managing post-harvest residue and preparing soil for winter dormancy while monitoring pest migration.", longDescription: "Autumn represents a critical transition. Improper management of crop residue can lead to pest overwintering.", icon: 'cloud-rain', image: 'https://images.unsplash.com/photo-1509803874385-db7c23652552?auto=format&fit=crop&q=80&w=800' }
+                    ]
+                },
+                faqs: [
+                    { question: "How can I prevent early frost damage?", answer: "Use row covers, mulch heavily to retain soil heat, and keep air moving with fans. Monitor weather forecasts closely." },
+                    { question: "What are the signs of Foot-and-Mouth disease?", answer: "High fever, blisters on the mouth and feet, excessive salivation, and lameness. Immediate veterinary attention is essential." },
+                    { question: "How often should I test my soil nutrients?", answer: "Every 2-3 years for general farming, or annually for high-yield intensive farming operations." },
+                    { question: "What is the best way to manage aphids organically?", answer: "Introduce natural predators like ladybugs, use neem oil sprays, or apply insecticidal soap." }
+                ]
+            },
+            ar: {
+                title: "حارس المخاطر الزراعية",
+                expertBtn: "تواصل مع خبير",
+                exitBtn: "العودة للرئيسية",
+                heroTitle: "حماية حصادك وتراثك الزراعي",
+                heroSubtitle: "توعية متقدمة بالمخاطر للمزارعين المعاصرين. ابق على اطلاع دائم بتقلبات المناخ والآفات والتهديدات البيولوجية بمساعدة الذكاء الاصطناعي.",
+                heroBadge: "التوعية الزراعية الذكية",
+                tryDiagnosisBtn: "جرب التشخيص الذكي",
+                riskRate: "نسبة التخفيف من المخاطر",
+                diagnosisTitle: "معمل التشخيص الذكي",
+                diagnosisSubtitle: "حدد المشاكل الزراعية فوراً باستخدام تحليل الذكاء الاصطناعي.",
+                plantsLabel: "النباتات",
+                animalsLabel: "الحيوانات",
+                selectSubject: "اختر الموضوع",
+                currentSeason: "الموسم الحالي",
+                symptomsLabel: "الأعراض / المشكلة",
+                diagnosisPlaceholder: "صف الأعراض (مثلاً: بقع صفراء على الأوراق، الحيوان خامل)...",
+                diagnoseBtn: "تحليل المشكلة",
+                resultPlaceholder: "سيظهر تقرير تشخيص الذكاء الاصطناعي هنا.",
+                plantRisksTitle: "مخاطر النباتات وصحة المحاصيل",
+                animalRisksTitle: "الثروة الحيوانية والرفق بالحيوان",
+                seasonalRisksTitle: "المخاطر والآفات الموسمية",
+                faqTitle: "الأسئلة الشائعة",
+                faqSubtitle: "اعثر على إجابات سريعة للتحديات الزراعية.",
+                readyTitle: "هل أنت مستعد لتأمين مستقبلك؟",
+                readyDesc: "انضم إلى أكثر من 12,000 مزارع يستخدمون AgroRisk Guard لحماية سبل عيش عائلاتهم.",
+                footerText: "© 2024 حارس المخاطر الزراعية. جميع الحقوق محفوظة.",
+                chatWelcome: "مرحباً! أنا مساعدك الزراعي الذكي. كيف يمكنني مساعدتك اليوم؟",
+                close: "إغلاق",
+                details: "تفاصيل المخاطر",
+                learnMore: "اقرأ المزيد",
+                diagnosisResultTitle: "تقرير التشخيص الذكي",
+                diagnosisBtnLoading: "جاري التحليل...",
+                other: "آخر",
+                whyTrustTitle: "لماذا يثق بنا المحترفون؟",
+                whyTrustDesc: "نحن نجمع بين عقود من البيانات الزراعية والذكاء الاصطناعي لتقديم تقييمات دقيقة.",
+                chatPlaceholder: "اسأل عن أمراض النبات، رعاية الحيوان...",
+                send: "إرسال",
+                stats: [
+                    { label: "مزرعة محمية", value: "12k+" },
+                    { label: "خطر مراقب", value: "150+" },
+                    { label: "تغطية عالمية", value: "25" },
+                    { label: "نسبة النجاح", value: "94%" }
+                ],
+                trustList: [
+                    "مراقبة التهديدات البيولوجية الفورية",
+                    "خطوات معالجة معتمدة من الخبراء",
+                    "توقعات تأثير الطقس المحلي"
+                ],
+                chatSuggestions: [
+                    "كيف أمنع الصقيع؟",
+                    "علامات الإجهاد الحراري للأبقار",
+                    "نصائح مكافحة الآفات عضوياً",
+                    "أفضل موعد لزراعة القمح"
+                ],
+                seasons: ["الربيع", "الصيف", "الخريف", "الشتاء"],
+                plantOptions: ["قمح", "ذرة", "طماطم", "بطاطس", "زيتون", "نخيل", "عنب", "حمضيات", "فراولة", "قطن"],
+                animalOptions: ["أبقار", "أغنام", "ماعز", "دواجن", "أسماك", "إبل", "نحل", "خيول", "أرانب"],
+                riskCategories: {
+                    plants: [
+                        { title: "تقلبات المناخ", description: "موجات الحر الشديدة والصقيع المفاجئ.", longDescription: "تعتبر تقلبات المناخ من أكبر التهديدات. الحرارة الشديدة تسبب عقم حبوب اللقاح.", icon: 'thermometer', image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=800' },
+                        { title: "انتشار الآفات", description: "الأنواع الغازية والآفات المحلية مثل الجراد.", longDescription: "تستهلك الآفات ما يقرب من 20-40% من الغلات العالمية.", icon: 'bug', image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=800' },
+                        { title: "تدهور التربة", description: "فقدان المغذيات الحيوية وزيادة التملح.", longDescription: "التربة نظام بيئي حي. زراعة المحاصيل الغطائية ضرورية.", icon: 'droplets', image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=800' },
+                        { title: "الأمراض الفطرية", description: "اللفحة والبياض والصدأ.", longDescription: "المسببات الفطرية تزدهر في البيئات الدافئة والرطبة.", icon: 'shield-alert', image: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=800' }
+                    ],
+                    animals: [
+                        { title: "الأمن الحيوي", description: "منع التلوث المتبادل وإدارة الفيروسات.", longDescription: "الأمن الحيوي حماية المزرعة من دخول الأمراض المعدية.", icon: 'shield-alert', image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&q=80&w=800' },
+                        { title: "مخاطر الدواجن", description: "إنفلونزا الطيور وأنظمة التحكم البيئي.", longDescription: "الدواجن حساسة للفيروسات التنفسية.", icon: 'wind', image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&q=80&w=800' },
+                        { title: "الاستزراع السمكي", description: "جودة المياه ومستويات الأكسجين.", longDescription: "الأسماك تعيش في توازن دقيق مع بيئتها.", icon: 'waves', image: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&q=80&w=800' },
+                        { title: "الأمراض المشتركة", description: "الحد من الأمراض التي تنتقل للبشر.", longDescription: "الأمراض المشتركة تشكل تهديداً مزدوجاً.", icon: 'activity', image: 'https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&q=80&w=800' }
+                    ],
+                    seasons: [
+                        { title: "إجهاد حرارة الصيف", description: "الإشعاع الشمسي المكثف.", longDescription: "خلال ذروة الصيف، توفر المظلات يخفف الآثار.", icon: 'sun', image: 'https://images.unsplash.com/photo-1601134467661-3d775b999c8b?auto=format&fit=crop&q=80&w=800' },
+                        { title: "حماية صقيع الشتاء", description: "طرق حماية الشتلات من التجمد.", longDescription: "التغطية الكثيفة والأنفاق البلاستيكية فعالة.", icon: 'snowflake', image: 'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&q=80&w=800' },
+                        { title: "أمراض الربيع", description: "ضعف النمو تجاه مسببات الأمراض.", longDescription: "الربيع وقت استيقاظ الآفات أيضاً.", icon: 'flower-2', image: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&q=80&w=800' },
+                        { title: "مخاطر الخريف", description: "إدارة بقايا الحصاد.", longDescription: "الخريف فترة انتقالية حرجة.", icon: 'cloud-rain', image: 'https://images.unsplash.com/photo-1509803874385-db7c23652552?auto=format&fit=crop&q=80&w=800' }
+                    ]
+                },
+                faqs: [
+                    { question: "كيف أمنع أضرار الصقيع؟", answer: "استخدم أغطية الصفوف والتغطية الكثيلة وراقب الطقس." },
+                    { question: "ما هي علامات مرض الحمى القلاعية؟", answer: "حمى عالية، بثور في الفم والقدمين، وعرج." },
+                    { question: "كم مرة أختبر التربة؟", answer: "مرة كل 2-3 سنوات للزراعة العامة." },
+                    { question: "كيف أتحكم في المن؟", answer: "أدخل المفترسات الطبيعية واستخدم زيت النيم." }
+                ]
+            }
+        };
+
+        // --- STATE ---
+        let currentLang = 'en';
+        let isDarkMode = false;
+        let diagnosisCategory = 'plant';
+
+        // --- DOM ELEMENTS ---
+        const htmlEl = document.documentElement;
+        const themeBtn = document.getElementById('theme-btn');
+        const langBtn = document.getElementById('lang-btn');
+
+        // --- THEME LOGIC ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                htmlEl.classList.add('dark');
+                isDarkMode = true;
+            } else {
+                htmlEl.classList.remove('dark');
+                isDarkMode = false;
+            }
+            updateThemeIcon();
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                htmlEl.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlEl.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const icon = themeBtn.querySelector('i');
+            if (isDarkMode) {
+                icon.setAttribute('data-lucide', 'sun');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        }
+
+        // --- INITIALIZATION ---
+        function init() {
+            initTheme();
+            renderStats();
+            renderTrustList();
+            renderRiskCards();
+            renderFAQs();
+            renderDiagnosisForm();
+            renderChatSuggestions();
+            lucide.createIcons();
+
+            themeBtn.addEventListener('click', toggleTheme);
+            langBtn.addEventListener('click', toggleLanguage);
+
+            document.getElementById('chat-toggle').addEventListener('click', toggleChat);
+            document.getElementById('close-chat').addEventListener('click', toggleChat);
+            document.getElementById('chat-send').addEventListener('click', handleChatSend);
+            document.getElementById('chat-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChatSend(); });
+
+            document.getElementById('btn-diag-plant').addEventListener('click', () => setDiagnosisCategory('plant'));
+            document.getElementById('btn-diag-animal').addEventListener('click', () => setDiagnosisCategory('animal'));
+            document.getElementById('diagnosis-form').addEventListener('submit', handleDiagnosisSubmit);
+            document.getElementById('risk-modal').addEventListener('click', (e) => { if (e.target.id === 'risk-modal') closeModal(); });
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderStats() {
+            const container = document.getElementById('stats-container');
+            const stats = TRANSLATIONS[currentLang].stats;
+            const icons = ['users', 'zap', 'globe', 'shield-check'];
+            container.innerHTML = stats.map((stat, i) => `
+                <div class="text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-2xl bg-teal-50 dark:bg-teal-900/20 text-teal-600 transition-transform group-hover:scale-110">
+                        <i data-lucide="${icons[i]}"></i>
+                    </div>
+                    <div class="text-3xl font-bold mb-1 text-slate-900 dark:text-white">${stat.value}</div>
+                    <div class="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wide font-medium">${stat.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTrustList() {
+            const list = document.getElementById('trust-list');
+            const items = TRANSLATIONS[currentLang].trustList;
+            list.innerHTML = items.map(item => `
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check-circle-2" width="20" class="text-green-500"></i>
+                    <span class="font-medium text-slate-700 dark:text-slate-300">${item}</span>
+                </li>
+            `).join('');
+        }
+
+        function renderRiskCards() {
+            const categories = ['plants', 'animals', 'seasons'];
+            const containerIds = { 'plants': 'plant-risks-grid', 'animals': 'animal-risks-grid', 'seasons': 'seasonal-risks-grid' };
+            const t = TRANSLATIONS[currentLang];
+
+            categories.forEach(cat => {
+                const container = document.getElementById(containerIds[cat]);
+                const items = t.riskCategories[cat];
+                container.innerHTML = items.map(item => `
+                    <div class="group flex flex-col rounded-3xl overflow-hidden transition-all duration-500 hover:translate-y-[-8px] shadow-lg hover:shadow-2xl cursor-pointer bg-white dark:bg-slate-800" onclick="openModal('${cat}', '${item.title}')">
+                        ${item.image ? `
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 rtl:left-auto rtl:right-4">
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center backdrop-blur-md bg-white/20 border border-white/30">
+                                    <i data-lucide="${item.icon}" class="text-white"></i>
+                                </div>
+                            </div>
+                        </div>` : ''}
+                        <div class="p-6 flex-1 flex flex-col">
+                            ${!item.image ? `<div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 bg-[#E6D5B844]"><i data-lucide="${item.icon}" style="color:#0F4C5C"></i></div>` : ''}
+                            <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-white">${item.title}</h3>
+                            <p class="text-sm leading-relaxed mb-6 text-slate-600 dark:text-slate-400">${item.description}</p>
+                            <div class="mt-auto">
+                                <button class="text-xs font-bold uppercase tracking-wider flex items-center space-x-2 rtl:space-x-reverse transition-colors text-teal-700 hover:text-teal-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                    <span>${t.learnMore}</span>
+                                    <i data-lucide="arrow-right" class="rtl:rotate-180" width="14"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            });
+            lucide.createIcons();
+        }
+
+        function renderFAQs() {
+            const container = document.getElementById('faq-container');
+            const faqs = TRANSLATIONS[currentLang].faqs;
+            container.innerHTML = faqs.map((item) => `
+                <details class="group border rounded-xl overflow-hidden transition-all border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-800">
+                    <summary class="flex items-center justify-between p-4 text-left rtl:text-right cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-slate-700/50">
+                        <span class="font-semibold md:text-lg text-slate-700 dark:text-slate-200">${item.question}</span>
+                        <span class="transition group-open:rotate-180"><i data-lucide="chevron-down" width="20" class="text-slate-500"></i></span>
+                    </summary>
+                    <div class="text-slate-600 dark:text-slate-400 px-4 pb-4 pt-0 border-t border-inherit">
+                        <p class="mt-4">${item.answer}</p>
+                    </div>
+                </details>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderDiagnosisForm() {
+            const t = TRANSLATIONS[currentLang];
+            const seasons = t.seasons;
+            const options = diagnosisCategory === 'plant' ? t.plantOptions : t.animalOptions;
+
+            // Seasons
+            document.getElementById('season-grid').innerHTML = seasons.map(s => `
+                <button type="button" class="py-3 rounded-xl border text-sm font-medium transition-all bg-white border-slate-200 text-slate-600 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 diag-season-btn" onclick="selectSeason(this)">${s}</button>
+            `).join('');
+
+            // Subjects
+            document.getElementById('subject-grid').innerHTML = options.map(opt => `
+                <button type="button" class="py-3 px-2 rounded-xl border text-sm font-medium transition-all bg-white border-slate-200 text-slate-600 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 diag-subject-btn" onclick="selectSubject(this, '${opt}')">${opt}</button>
+            `).join(` 
+                <button type="button" class="py-3 px-2 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-1 bg-white border-slate-200 text-slate-600 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700" onclick="toggleOtherSubject(this)">
+                    <i data-lucide="plus" width="14"></i>
+                    ${t.other}
+                </button>
+            `);
+            lucide.createIcons();
+        }
+
+        function renderChatSuggestions() {
+            const container = document.getElementById('chat-suggestions');
+            const suggestions = TRANSLATIONS[currentLang].chatSuggestions;
+            container.innerHTML = suggestions.map(s => `
+                <button onclick="sendSuggestion('${s}')" class="px-4 py-2 rounded-full text-xs font-medium border transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 flex-shrink-0 bg-white border-gray-200 text-slate-600 hover:border-teal-400 hover:text-teal-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-white">
+                    <i data-lucide="help-circle" width="12" class="opacity-70"></i>
+                    ${s}
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // --- LOGIC FUNCTIONS ---
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            htmlEl.setAttribute('dir', currentLang === 'en' ? 'ltr' : 'rtl');
+            htmlEl.setAttribute('lang', currentLang);
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (TRANSLATIONS[currentLang][key]) {
+                    el.innerText = TRANSLATIONS[currentLang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (TRANSLATIONS[currentLang][key]) {
+                    el.placeholder = TRANSLATIONS[currentLang][key];
+                }
+            });
+
+            langBtn.querySelector('span').innerText = currentLang === 'en' ? 'العربية' : 'English';
+            renderStats(); renderTrustList(); renderRiskCards(); renderFAQs(); renderDiagnosisForm(); renderChatSuggestions();
+        }
+
+        function setDiagnosisCategory(cat) {
+            diagnosisCategory = cat;
+            const t = TRANSLATIONS[currentLang];
+            const btnPlant = document.getElementById('btn-diag-plant');
+            const btnAnimal = document.getElementById('btn-diag-animal');
+
+            if (cat === 'plant') {
+                btnPlant.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-sm', 'text-teal-600');
+                btnPlant.classList.remove('text-slate-500', 'hover:text-slate-700');
+                btnAnimal.classList.remove('bg-white', 'dark:bg-slate-700', 'shadow-sm', 'text-teal-600');
+                btnAnimal.classList.add('text-slate-500', 'hover:text-slate-700');
+            } else {
+                btnAnimal.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-sm', 'text-teal-600');
+                btnAnimal.classList.remove('text-slate-500', 'hover:text-slate-700');
+                btnPlant.classList.remove('bg-white', 'dark:bg-slate-700', 'shadow-sm', 'text-teal-600');
+                btnPlant.classList.add('text-slate-500', 'hover:text-slate-700');
+            }
+            renderDiagnosisForm();
+        }
+
+        function selectSubject(btn, value) {
+            document.querySelectorAll('.diag-subject-btn').forEach(b => {
+                b.classList.remove('bg-teal-600', 'border-teal-600', 'text-white', 'shadow-md');
+                b.classList.add('bg-white', 'border-slate-200', 'text-slate-600');
+                if (isDarkMode) b.classList.add('dark:bg-slate-800', 'dark:border-slate-700', 'dark:text-slate-400');
+            });
+            document.getElementById('subject-other').classList.add('hidden');
+            btn.classList.remove('bg-white', 'border-slate-200', 'text-slate-600', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:text-slate-400');
+            btn.classList.add('bg-teal-600', 'border-teal-600', 'text-white', 'shadow-md');
+            btn.dataset.value = value;
+        }
+
+        function toggleOtherSubject(btn) {
+            document.querySelectorAll('.diag-subject-btn').forEach(b => {
+                b.classList.remove('bg-teal-600', 'border-teal-600', 'text-white', 'shadow-md');
+                b.classList.add('bg-white', 'border-slate-200', 'text-slate-600');
+                if (isDarkMode) b.classList.add('dark:bg-slate-800', 'dark:border-slate-700', 'dark:text-slate-400');
+            });
+            const otherInput = document.getElementById('subject-other');
+            otherInput.classList.remove('hidden');
+            otherInput.focus();
+            btn.classList.add('bg-teal-600', 'border-teal-600', 'text-white', 'shadow-md');
+            btn.classList.remove('bg-white', 'border-slate-200', 'text-slate-600');
+        }
+
+        function selectSeason(btn) {
+            document.querySelectorAll('.diag-season-btn').forEach(b => {
+                b.classList.remove('bg-teal-600', 'border-teal-600', 'text-white', 'shadow-lg');
+                b.classList.add('bg-white', 'border-slate-200', 'text-slate-600');
+                if (isDarkMode) b.classList.add('dark:bg-slate-800', 'dark:border-slate-700', 'dark:text-slate-400');
+            });
+            btn.classList.remove('bg-white', 'border-slate-200', 'text-slate-600', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:text-slate-400');
+            btn.classList.add('bg-teal-600', 'border-teal-600', 'text-white', 'shadow-lg');
+            btn.dataset.selected = "true";
+        }
+
+        function handleDiagnosisSubmit(e) {
+            e.preventDefault();
+            const resultArea = document.getElementById('diagnosis-result');
+            const problemDesc = document.getElementById('problem-desc').value;
+            const otherSubject = document.getElementById('subject-other').value;
+            let selectedSubject = null;
+            document.querySelectorAll('.diag-subject-btn').forEach(b => {
+                if (b.classList.contains('bg-teal-600') && !b.innerText.includes(TRANSLATIONS[currentLang].other)) {
+                    selectedSubject = b.dataset.value;
+                }
+            });
+            const subject = otherSubject || selectedSubject;
+            let selectedSeason = null;
+            document.querySelectorAll('.diag-season-btn').forEach(b => {
+                if (b.classList.contains('bg-teal-600')) selectedSeason = b.innerText;
+            });
+
+            if (!subject || !problemDesc || !selectedSeason) {
+                alert(currentLang === 'en' ? "Please fill in all fields." : "يرجى ملء جميع الحقول.");
+                return;
+            }
+
+            const t = TRANSLATIONS[currentLang];
+            resultArea.innerHTML = `
+                <div class="text-center space-y-4">
+                    <i data-lucide="loader-2" class="mx-auto text-teal-600 animate-spin" width="48"></i>
+                    <p class="font-medium animate-pulse">${t.diagnosisBtnLoading}</p>
+                </div>
+            `;
+            lucide.createIcons();
+
+            setTimeout(() => {
+                resultArea.innerHTML = `
+                    <div class="w-full animate-fade-in text-left rtl:text-right">
+                        <div class="flex items-center gap-3 mb-6 pb-4 border-b dark:border-slate-700">
+                            <i data-lucide="clipboard-check" class="text-green-500" width="28"></i>
+                            <h3 class="text-2xl font-bold dark:text-white">${t.diagnosisResultTitle}</h3>
+                        </div>
+                        <div class="prose prose-sm md:prose-base max-w-none text-slate-700 dark:text-slate-300">
+                            <p><strong>1. ${currentLang === 'en' ? 'Likely Diagnosis' : 'التشخيص المحتمل'}:</strong> ${currentLang === 'en' ? 'Issue with' : 'مشكلة في'} ${subject} ${currentLang === 'en' ? 'during' : 'خلال'} ${selectedSeason}.</p>
+                            <p><strong>2. ${currentLang === 'en' ? 'Analysis' : 'التحليل'}:</strong> ${problemDesc.substring(0, 50)}...</p>
+                            <p><strong>3. ${currentLang === 'en' ? 'Recommendations' : 'التوصيات'}:</strong></p>
+                            <ul>
+                                <li>${currentLang === 'en' ? 'Isolate the affected area immediately.' : 'عزل المنطقة المصابة فوراً.'}</li>
+                                <li>${currentLang === 'en' ? 'Check environmental factors (humidity/temperature).' : 'تحقق من العوامل البيئية (الرطوبة/درجة الحرارة).'}</li>
+                                <li>${currentLang === 'en' ? 'Consult a local expert if symptoms persist.' : 'استشر خبيراً محلياً إذا استمرت الأعراض.'}</li>
+                            </ul>
+                        </div>
+                        <div class="mt-8 pt-6 border-t dark:border-slate-700 flex justify-end">
+                            <button onclick="document.getElementById('diagnosis-form').reset();document.getElementById('diagnosis-result').innerHTML='<div class=\\'text-center text-slate-400 space-y-4\\'><i data-lucide=\\'sparkles\\' width=\\'48\\' class=\\'mx-auto opacity-20\\'></i><p>${t.resultPlaceholder}</p></div>';lucide.createIcons();" class="text-slate-500 text-sm font-medium hover:text-teal-600">
+                                ${currentLang === 'en' ? 'Reset' : 'إعادة تعيين'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+            }, 1500);
+        }
+
+        function toggleChat() {
+            const chatWin = document.getElementById('chat-window');
+            const toggleBtn = document.getElementById('chat-toggle');
+            const isHidden = chatWin.classList.contains('scale-0');
+            if (isHidden) {
+                chatWin.classList.remove('scale-0', 'opacity-0', 'translate-y-10', 'pointer-events-none');
+                toggleBtn.querySelector('i').setAttribute('data-lucide', 'x');
+            } else {
+                chatWin.classList.add('scale-0', 'opacity-0', 'translate-y-10', 'pointer-events-none');
+                toggleBtn.querySelector('i').setAttribute('data-lucide', 'message-circle');
+            }
+            lucide.createIcons();
+        }
+
+        function handleChatSend() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+            addMessage(text, 'user');
+            input.value = '';
+
+            const chatMsgs = document.getElementById('chat-messages');
+            const loadingId = 'loading-' + Date.now();
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'flex justify-start';
+            loadingDiv.id = loadingId;
+            loadingDiv.innerHTML = `
+                <div class="flex max-w-[90%] items-start gap-2">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center shadow-sm bg-[#E6D5B8]">
+                        <i data-lucide="bot" width="16" style="color:#0F4C5C"></i>
+                    </div>
+                    <div class="p-3.5 rounded-2xl text-sm italic shadow-sm flex items-center gap-2 bg-gray-100 text-slate-500 border border-gray-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400">
+                        <i data-lucide="loader-2" width="14" class="animate-spin"></i>
+                        ${currentLang === 'ar' ? 'جاري التفكير...' : 'Thinking...'}
+                    </div>
+                </div>
+            `;
+            chatMsgs.appendChild(loadingDiv);
+            lucide.createIcons();
+            chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+            setTimeout(() => {
+                document.getElementById(loadingId).remove();
+                let response = "";
+                const lowerText = text.toLowerCase();
+                if (lowerText.includes('frost') || text.includes('صقيع')) {
+                    response = currentLang === 'en' ? "To prevent frost: Use row covers, mulch heavily, and keep air moving with fans." : "للوقاية من الصقيع: استخدم أغطية الصفوف، والتغطية الثقيلة، وحرك الهواء بالمراوح.";
+                } else if (lowerText.includes('heat') || text.includes('حرار')) {
+                    response = currentLang === 'en' ? "For heat stress: Provide shade, cool water, and ensure good ventilation." : "للإجهاد الحراري: وفر الظل والماء البارد وتأكد من التهوية الجيدة.";
+                } else {
+                    response = currentLang === 'en' ? "I can help with plant diseases, animal care, and seasonal risks. Could you be more specific?" : "يمكنني المساعدة في أمراض النباتات ورعاية الحيوانات والمخاطر الموسمية. هل يمكنك أن تكون أكثر تحديداً؟";
+                }
+                addMessage(response, 'model');
+            }, 1000);
+        }
+
+        function sendSuggestion(text) {
+            document.getElementById('chat-input').value = text;
+            handleChatSend();
+        }
+
+        function addMessage(text, role) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+            div.innerHTML = `
+                <div class="flex max-w-[90%] items-start gap-2 ${role === 'user' ? 'flex-row-reverse' : ''}">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center shadow-sm ${role === 'user' ? 'bg-slate-200' : ''}" style="${role === 'model' ? 'background-color:#E6D5B8' : ''}">
+                        <i data-lucide="${role === 'user' ? 'user' : 'bot'}" width="16" style="${role === 'model' ? 'color:#0F4C5C' : ''}"></i>
+                    </div>
+                    <div class="p-4 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-line ${role === 'user'
+                    ? 'bg-slate-700 text-white rounded-tr-none'
+                    : 'bg-white text-slate-700 border border-gray-100 rounded-tl-none dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200'
+                }">${text}</div>
+                </div>
+            `;
+            container.appendChild(div);
+            lucide.createIcons();
+            container.scrollTop = container.scrollHeight;
+        }
+
+        window.openModal = function (category, title) {
+            const modal = document.getElementById('risk-modal');
+            const content = document.getElementById('modal-content-area');
+            const t = TRANSLATIONS[currentLang];
+            const item = t.riskCategories[category].find(i => i.title === title);
+
+            content.innerHTML = `
+                ${item.image ? `
+                <div class="h-64 relative">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <button onclick="closeModal()" class="absolute top-6 right-6 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors">
+                        <i data-lucide="x" class="text-white" width="24"></i>
+                    </button>
+                    <div class="absolute bottom-6 left-8 rtl:left-auto rtl:right-8">
+                        <h3 class="text-3xl font-bold text-white">${item.title}</h3>
+                    </div>
+                </div>` : `
+                <div class="flex items-center justify-between mb-8 p-8">
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white">${item.title}</h3>
+                    <button onclick="closeModal()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <i data-lucide="x" width="24"></i>
+                    </button>
+                </div>`}
+                <div class="p-8 md:p-10">
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 p-5 rounded-2xl bg-teal-50 dark:bg-teal-900/20 border border-teal-100 dark:border-teal-800">
+                            <div class="p-3 rounded-xl bg-teal-600 text-white">
+                                <i data-lucide="shield-check" class="text-white" width="24"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1 text-slate-900 dark:text-white">${t.details}</h4>
+                                <p class="text-sm opacity-80 text-slate-600 dark:text-slate-300">${item.description}</p>
+                            </div>
+                        </div>
+                        <div class="leading-relaxed space-y-4 text-lg text-slate-600 dark:text-slate-300">
+                            ${item.longDescription.split('\n').map(p => `<p>${p}</p>`).join('')}
+                        </div>
+                    </div>
+                    <div class="mt-10 pt-8 border-t dark:border-slate-800 flex justify-end">
+                        <button onclick="closeModal()" class="px-8 py-3 rounded-full font-bold text-white transition-transform active:scale-95 bg-[#0F4C5C]">
+                            ${t.close}
+                        </button>
+                    </div>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        };
+
+        window.closeModal = function () {
+            const modal = document.getElementById('risk-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+    <script type="module">
+        // ================= Firebase =================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+            authDomain: "smart-farm-8d3f5.firebaseapp.com",
+            projectId: "smart-farm-8d3f5",
+            storageBucket: "smart-farm-8d3f5.appspot.com",
+            messagingSenderId: "317371842198",
+            appId: "1:317371842198:web:4765ea8c0036ae64b10cb7",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) { window.location.href = "signin.html"; return; }
+            try {
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (!userDoc.exists()) { window.location.href = "signin.html"; return; }
+                const { role } = userDoc.data();
+                if (role !== "farmer") {
+                    alert("هذه الصفحة مخصصة للفلاحين فقط");
+                    if (role === "investor") window.location.href = "investor.html";
+                    else if (role === "worker") window.location.href = "worker.html";
+                    else if (role === "consumer") window.location.href = "consumer.html";
+                    else window.location.href = "signin.html";
+                }
+            } catch (error) { console.error(error); window.location.href = "signin.html"; }
+        });
+
+        const homeBtn = document.getElementById("home-btn");
+        if (homeBtn) {
+            homeBtn.addEventListener("click", async () => {
+                const user = auth.currentUser;
+                if (!user) { window.location.href = "signin.html"; return; }
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    const { role } = userDoc.data();
+                    if (role === "farmer") window.location.href = "farmer-ar.html";
+                    else if (role === "investor") window.location.href = "investor.html";
+                    else if (role === "worker") window.location.href = "worker.html";
+                    else if (role === "consumer") window.location.href = "consumer.html";
+                } catch (error) { console.error(error); alert("حدث خطأ"); }
+            });
+        }
+    </script>
+</body>
+</html>

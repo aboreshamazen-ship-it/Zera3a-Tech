@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Wallet | AgriWallet</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ======== CSS VARIABLES (Zera3a-tech Theme) ======== */
+        :root {
+            /* Light Theme Variables */
+            --primary: #1e5959;
+            --primary-dark: #164545;
+            --primary-light: #e0f2f1;
+            --secondary: #e67e3a;
+            --secondary-dark: #d46b25;
+            --accent: #c9b896;
+            
+            --background: #fafaf9;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e5e5e5;
+            --shadow: rgba(0, 0, 0, 0.1);
+            
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --nav-height: 80px;
+        }
+
+        /* Dark Theme Variables */
+        body.dark-mode {
+            --primary: #4db6ac;
+            --primary-dark: #1e5959;
+            --primary-light: #263238;
+            --secondary: #ffab91;
+            --secondary-dark: #e67e3a;
+            
+            --background: #121212;
+            --surface: #1e1e1e;
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border: #333333;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Force Wallet Card to keep gradient in dark mode */
+        body.dark-mode .wallet-card {
+            background: linear-gradient(135deg, #004d40, #00251a);
+            color: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+            padding-top: var(--nav-height); /* Space for fixed navbar */
+            overflow-x: hidden;
+        }
+
+        /* ======== NEW NAVBAR (Zera3a-tech System) ======== */
+        
+        /* ======== MAIN CONTENT STYLES ======== */
+        main {
+            flex: 1;
+            padding: 20px 5% 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .wallet-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--surface);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        /* تمت إزالة الدائرة ::after بناء على طلبك */
+
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .chip {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #d4af37, #f9e29a);
+            border-radius: 6px;
+        }
+
+        .balance-label {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .balance-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+        .wallet-actions {
+            display: flex;
+            gap: 15px;
+            z-index: 1;
+        }
+
+        .btn-action {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--surface);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-action:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 107, 37, 0.3);
+        }
+
+        .stats-panel {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid var(--border);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-link {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .transaction-list {
+            list-style: none;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .transaction-item:hover {
+            background-color: rgba(201, 184, 150, 0.1);
+            padding: 15px 10px;
+            border-radius: 10px;
+            border-bottom-color: transparent;
+        }
+
+        .payment-section {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+
+        .payment-header {
+            padding: 30px;
+            background-color: var(--background);
+            border-bottom: 1px solid var(--border);
+            border-left: 6px solid var(--secondary);
+            transition: background 0.3s;
+        }
+
+        .payment-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .payment-body {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+        }
+
+        @media(max-width:900px) {
+            .payment-body { grid-template-columns: 1fr; padding: 25px; }
+            .brand-name span { display: none; }
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .method-option {
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            transition: var(--transition);
+            background: var(--background);
+        }
+
+        .method-option.active {
+            border-color: var(--primary);
+            background: var(--surface);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .method-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .method-icon {
+            font-size: 1.4rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .payment-form-container {
+            background-color: var(--background);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px dashed var(--accent);
+            transition: background 0.3s;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(212, 107, 37, 0.1);
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--secondary);
+            color: var(--surface);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(212, 107, 37, 0.3);
+        }
+
+        .btn-pay:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 107, 37, 0.4);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 89, 89, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(50px);
+            transition: var(--transition);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--primary);
+            color: var(--surface);
+            padding: 16px 32px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 3000;
+            border: 2px solid var(--accent);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            background-image: radial-gradient(var(--accent) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+         .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+           
+        }
+
+        .topbar-left, .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--nav-text);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .topbar-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+        }
+
+        .topbar-btn i {
+            font-size: 1.1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+       <div class="topbar">
+        <!-- Left: Back Button -->
+        <div class="topbar-left" style="display:flex; align-items:center; gap:10px;">
+<a href="#" class="topbar-btn" id="backBtn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-i18n="btn_back">Back Home</span>
+          </a>
+        </div>
+
+        <!-- Right: Controls -->
+        <div class="topbar-right" style="display:flex; align-items:center; gap:10px;">
+          <button id="langToggle" class="topbar-btn">
+            <span data-i18n="btn_lang" style="font-weight:bold;">عربي</span>
+            <!-- <i class="fa-solid fa-language"></i> -->
+          </button>
+          <button id="themeToggle" class="topbar-btn">
+                <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+    </div>
+   
+
+<main>
+    <div class="dashboard-grid">
+        <div class="wallet-card">
+            <div class="wallet-header">
+                <div class="chip"></div>
+                <i class="fa-solid fa-wifi" ></i>
+            </div>
+            <div>
+                <div class="balance-label">
+                    <span id="username">username's</span> 
+                    <span data-i18n="Current Balance">Current Balance</span>
+                </div>
+                <div class="balance-amount" id="balanceDisplay">0.00 EGP</div>
+            </div>
+            <div class="wallet-actions">
+                <button class="btn-action" onclick="scrollToPayment()">
+                    <i class="fa-solid fa-plus"></i> 
+                    <span data-i18n="Add Balance">Add Balance</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="section-title">
+                <span data-i18n="Recent Transactions">Recent Transactions</span> 
+                <span class="btn-link" onclick="openModal()" data-i18n="View All">View All</span>
+            </div>
+            <ul class="transaction-list" id="transactionList">
+                <li class="transaction-item" style="justify-content:center;color:#999;" data-i18n="No recent transactions">
+                    No recent transactions
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Payment Section -->
+    <section class="payment-section" id="paymentArea">
+        <div class="payment-header">
+            <h3 data-i18n="Recharge Wallet">Recharge Wallet</h3>
+            <p style="color:var(--text-muted);" data-i18n="Choose your preferred payment method to add balance.">
+                Choose your preferred payment method to add balance.
+            </p>
+        </div>
+        <div class="payment-body">
+            <div class="payment-methods">
+                <div class="method-option" onclick="selectMethod(this,'instapay')">
+                    <div class="method-label"><i class="fa-brands fa-apple method-icon"></i> <span data-i18n="InstaPay">InstaPay</span></div>
+                </div>
+                <div class="method-option" onclick="selectMethod(this,'fawry')">
+                    <div class="method-label"><i class="fa-solid fa-shop method-icon" style="color:var(--secondary)"></i> <span data-i18n="Fawry">Fawry</span></div>
+                </div>
+                <div class="method-option" onclick="selectMethod(this,'vodafone')">
+                    <div class="method-label"><i class="fa-solid fa-sim-card method-icon" style="color:#e60000"></i> <span data-i18n="Vodafone Cash">Vodafone Cash</span></div>
+                </div>
+            </div>
+
+            <div class="payment-form-container">
+                <form id="paymentForm" onsubmit="handlePayment(event)">
+                    <input type="hidden" id="selectedMethod" value="card">
+
+                    <!-- InstaPay Fields -->
+                    <div id="instaFields" style="display:none;">
+                        <div class="form-group">
+                            <label data-i18n="Mobile Number or ID">Mobile Number or ID</label>
+                            <input type="text" class="form-control" placeholder="user_insta" required>
+                        </div>
+                    </div>
+
+                    <!-- Fawry Fields -->
+                    <div id="fawryFields" style="display:none; background:var(--secondary); color:#fff; padding:10px; border-radius:10px; font-size:0.9rem; border-right:4px solid #fff; margin-bottom:15px;">
+                        <i class="fa-solid fa-circle-info"></i> 
+                        <span data-i18n="A reference code will be generated after payment.">
+                            A reference code will be generated after payment.
+                        </span>
+                    </div>
+
+                    <!-- Vodafone Fields -->
+                    <div id="vodafoneFields" style="display:none; background:#e60000; color:#fff; padding:10px; border-radius:10px; font-size:0.9rem; border-right:4px solid #fff; margin-bottom:15px;">
+                        <i class="fa-solid fa-circle-info"></i> 
+                        <span data-i18n="Vodafone Cash payment will be verified manually.">
+                            Vodafone Cash payment will be verified manually.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="Recharge Amount (EGP)">Recharge Amount (EGP)</label>
+                        <input type="number" id="amountInput" class="form-control" placeholder="Example: 500" min="10" step="0.5" required>
+                    </div>
+
+                    <button type="submit" class="btn-pay">
+                        <span data-i18n="Complete Recharge">Complete Recharge</span> 
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="transactionsModal">
+    <div class="modal-content">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="color:var(--primary)" data-i18n="Full Transaction History">Full Transaction History</h3>
+            <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="fullTransactionList" style="max-height:60vh; overflow-y:auto; padding-right:5px;"></div>
+    </div>
+</div>
+
+<div id="toast" class="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMessage">Operation completed successfully</span></div>
+
+<div class="bg-pattern"></div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+    /* ================= Firebase Imports ================= */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import {
+        getFirestore,
+        doc,
+        getDoc,
+        updateDoc,
+        collection,
+        addDoc,
+        query,
+        orderBy,
+        limit,
+        getDocs
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    /* ================= Firebase Config ================= */
+    const firebaseConfig = {
+        apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+        authDomain: "smart-farm-8d3f5.firebaseapp.com",
+        projectId: "smart-farm-8d3f5",
+        storageBucket: "smart-farm-8d3f5.appspot.com",
+        messagingSenderId: "317371842198",
+        appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+    };
+
+    /* ================= Init Firebase ================= */
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    /* ================= Elements ================= */
+    const balanceDisplay = document.getElementById("balanceDisplay");
+    const transactionList = document.getElementById("transactionList");
+    const fullTransactionList = document.getElementById("fullTransactionList");
+    const amountInput = document.getElementById("amountInput");
+    const backBtn = document.getElementById("backBtn");
+
+    let currentUser = null;
+    let selectedMethod = "card";
+
+    /* ================= Select Payment Method ================= */
+    window.selectMethod = function (el, method) {
+        selectedMethod = method;
+        document.getElementById("selectedMethod").value = method;
+
+        ["instaFields", "fawryFields", "vodafoneFields"].forEach(id => {
+            document.getElementById(id).style.display = "none";
+        });
+
+        if (method === "instapay") document.getElementById("instaFields").style.display = "block";
+        if (method === "fawry") document.getElementById("fawryFields").style.display = "block";
+        if (method === "vodafone") document.getElementById("vodafoneFields").style.display = "block";
+
+        document.querySelectorAll(".method-option").forEach(m => m.classList.remove("active"));
+        el.classList.add("active");
+    };
+
+    /* ================= Auth State ================= */
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            window.location.href = "./signinsignup/signin.html";
+            return;
+        }
+
+        currentUser = user;
+
+        const usernameSpan = document.getElementById("username");
+        if (usernameSpan) {
+            usernameSpan.textContent = user.displayName
+                ? user.displayName + "'s"
+                : user.email.split("@")[0] + "'s";
+        }
+
+        await loadWallet();
+    });
+
+    /* ================= Wallet ================= */
+    async function loadWallet() {
+        const userRef = doc(db, "users", currentUser.uid);
+        const snap = await getDoc(userRef);
+
+        const balance = snap.exists() ? snap.data().walletBalance || 0 : 0;
+        balanceDisplay.textContent = balance.toFixed(2) + " EGP";
+
+        await loadTransactions();
+    }
+
+    async function loadTransactions() {
+        const txRef = collection(db, "users", currentUser.uid, "transactions");
+        const q = query(txRef, orderBy("timestamp", "desc"), limit(5));
+        const qs = await getDocs(q);
+
+        transactionList.innerHTML = "";
+        fullTransactionList.innerHTML = "";
+
+        if (qs.empty) {
+            transactionList.innerHTML = `<li style="text-align:center;color:#999;">No recent transactions</li>`;
+            fullTransactionList.innerHTML = `<p style="text-align:center;color:#999;">No transactions yet</p>`;
+            return;
+        }
+
+        qs.forEach(docSnap => {
+            const d = docSnap.data();
+            const date = d.timestamp?.toDate?.() || new Date();
+
+            transactionList.innerHTML += `
+                <li class="transaction-item">
+                    <span>${d.method}</span>
+                    <span>${d.amount.toFixed(2)} EGP</span>
+                </li>`;
+
+            fullTransactionList.innerHTML += `
+                <li class="transaction-item">
+                    <span>${date.toLocaleString()}</span>
+                    <span>${d.method}</span>
+                    <span>${d.amount.toFixed(2)} EGP</span>
+                </li>`;
+        });
+    }
+
+    /* ================= Payment ================= */
+    window.handlePayment = async (e) => {
+        e.preventDefault();
+        const amount = parseFloat(amountInput.value);
+        if (!amount || amount <= 0) return showToast("Invalid amount");
+
+        const userRef = doc(db, "users", currentUser.uid);
+        const snap = await getDoc(userRef);
+
+        let balance = snap.exists() ? snap.data().walletBalance || 0 : 0;
+        balance += amount;
+
+        await updateDoc(userRef, { walletBalance: balance });
+
+        await addDoc(collection(db, "users", currentUser.uid, "transactions"), {
+            method: selectedMethod,
+            amount,
+            timestamp: new Date()
+        });
+
+        showToast(`Recharge of ${amount.toFixed(2)} EGP successful`);
+        amountInput.value = "";
+        await loadWallet();
+    };
+
+    /* ================= Toast ================= */
+    window.showToast = msg => {
+        const toast = document.getElementById("toast");
+        document.getElementById("toastMessage").textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    };
+
+    /* ================= Modal ================= */
+    window.openModal = () => document.getElementById("transactionsModal").classList.add("active");
+    window.closeModal = () => document.getElementById("transactionsModal").classList.remove("active");
+    window.scrollToPayment = () =>
+        document.getElementById("paymentArea").scrollIntoView({ behavior: "smooth" });
+
+    /* ================= Back Button (By Role) ================= */
+    if (backBtn) {
+        backBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            const user = auth.currentUser;
+            if (!user) {
+                window.location.href = "./signinsignup/signin.html";
+                return;
+            }
+
+            const snap = await getDoc(doc(db, "users", user.uid));
+            if (!snap.exists()) return;
+
+            const { role } = snap.data();
+
+            if (role === "farmer") window.location.href = "farmer-ar.html";
+            else if (role === "investor") window.location.href = "investor.html";
+            else if (role === "worker") window.location.href = "worker.html";
+            else if (role === "consumer") window.location.href = "consumer.html";
+        });
+    }
+</script>
+
+    
+    <!-- UI Logic Script (Theme + Lang) -->
+    <script>
+        /* ===== DARK MODE TOGGLE ===== */
+        const themeBtn = document.getElementById("themeToggle");
+        const body = document.body;
+        
+        // Check Local Storage
+        if(localStorage.getItem("theme") === "dark") {
+            body.classList.add("dark-mode");
+            themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        }
+
+        themeBtn.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const isDark = body.classList.contains("dark-mode");
+            
+            // Update Icon
+            themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            
+            // Save Preference
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+        });
+
+        /* ===== LANGUAGE TOGGLE + TRANSLATION ===== */
+        const langBtn = document.getElementById("langToggle");
+        const backBtnIcon = document.querySelector('#backBtn i');
+
+        // ترجمة النصوص
+        const translations = {
+            ar: {
+                btn_back: "العودة للرئيسية",
+                "Recent Transactions": "المعاملات الأخيرة",
+                "View All": "عرض الكل",
+                "Current Balance": "الرصيد الحالي",
+                "Add Balance": "إضافة رصيد",
+                "Recharge Wallet": "شحن المحفظة",
+                "Choose your preferred payment method to add balance.": "اختر طريقة الدفع المفضلة لإضافة الرصيد.",
+                "Complete Recharge": "إتمام الشحن",
+                "Mobile Number or ID": "رقم الهاتف أو المعرف",
+                "Recharge Amount (EGP)": "مبلغ الشحن (جنيه مصري)",
+                "Full Transaction History": "سجل المعاملات الكامل",
+                "No recent transactions": "لا توجد معاملات حديثة",
+                "No transactions yet": "لا توجد معاملات بعد",
+                "InstaPay": "إنستا باي",
+                "Fawry": "فوري",
+                "Vodafone Cash": "فودافون كاش"
+            },
+            en: {
+                btn_back: "Back Home",
+                "المعاملات الأخيرة": "Recent Transactions",
+                "عرض الكل": "View All",
+                "الرصيد الحالي": "Current Balance",
+                "إضافة رصيد": "Add Balance",
+                "شحن المحفظة": "Recharge Wallet",
+                "اختر طريقة الدفع المفضلة لإضافة الرصيد.": "Choose your preferred payment method to add balance.",
+                "إتمام الشحن": "Complete Recharge",
+                "رقم الهاتف أو المعرف": "Mobile Number or ID",
+                "مبلغ الشحن (جنيه مصري)": "Recharge Amount (EGP)",
+                "سجل المعاملات الكامل": "Full Transaction History",
+                "لا توجد معاملات حديثة": "No recent transactions",
+                "لا توجد معاملات بعد": "No transactions yet",
+                "إنستا باي": "InstaPay",
+                "فوري": "Fawry",
+                "فودافون كاش": "Vodafone Cash"
+            }
+        };
+
+        let currentLang = localStorage.getItem("lang") || "en";
+        langBtn.textContent = currentLang === "en" ? "AR" : "EN";
+
+        function translatePage() {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                el.textContent = translations[currentLang][key] || key;
+            });
+        }
+
+        langBtn.addEventListener("click", () => {
+            currentLang = currentLang === "en" ? "ar" : "en";
+            localStorage.setItem("lang", currentLang);
+
+            langBtn.textContent = currentLang === "en" ? "AR" : "EN";
+
+            document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+            document.documentElement.lang = currentLang;
+
+            // Update Back Button Icon Direction
+            if(currentLang === 'ar') {
+                backBtnIcon.className = 'fa-solid fa-arrow-right';
+            } else {
+                backBtnIcon.className = 'fa-solid fa-arrow-left';
+            }
+
+            translatePage();
+        });
+
+        // init direction + ترجمة عند التحميل
+        document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+        translatePage();
+    </script>
+       
+
+</body>
+
+</html>

@@ -1,0 +1,2561 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlElement">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Farm - Intelligent Agricultural Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./English/u2.css">
+<style>
+        /* ===== NAVBAR ===== */
+        /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+        .navbar-main {
+            background: #0f4c5c;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            height: 75px;
+            border-radius: 30px;
+            box-shadow: 0 6px 6px rgba(31, 38, 135, .37);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .btn-signin {
+            background: #fff;
+            border: 2px solid #0f4c5c;
+            border-radius: 12px;
+            padding: 5px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* الرابط جوه الزرار */
+        .btn-signin a {
+            color: black;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* Hover */
+        .btn-signin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            /* background: linear-gradient(135deg, #0d6efd, #1fb6a6); */
+        }
+
+        /* Active */
+        .btn-signin:active {
+            transform: scale(0.96);
+        }
+
+        /* body.light .navbar-main { box-shadow: 0 6px 6px rgba(0,0,0,0.1); } */
+
+        /* LOGO */
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .navbar-logo img {
+            height: 55px;
+            object-fit: contain;
+        }
+
+        .navbar-logo span {
+            color: #fff;
+        }
+
+        body.light .navbar-logo {
+            color: #0f4c5c;
+        }
+
+        body.dark .navbar-logo {
+            color: #fff;
+        }
+
+        /* CENTER LINKS */
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        body.dark .navbar-links a {
+            color: #fff;
+        }
+
+        .navbar-links a:hover {
+            background: #e07a5f;
+            color: #fff;
+        }
+
+        /* BUTTONS */
+        .navbar-main .btn {
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .navbar-main .btn {
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+
+        body.light .btn {
+            border-color: #0f4c5c;
+            color: #0f4c5c;
+        }
+
+        .btn:hover {
+            background: #e07a5f;
+            border-color: #e07a5f;
+            color: #fff;
+        }
+
+        /* RIGHT SIDE */
+        .navbar-right {
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* USER MENU */
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .user-name:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        body.light .user-name:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 110%;
+            right: 0;
+            background: white;
+            min-width: 160px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .user-dropdown a {
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .user-dropdown a:hover {
+            background: #f1f1f1;
+        }
+
+        /* DARK MODE */
+        body.dark {
+            background: #1f1f1f;
+            color: #fff;
+        }
+
+        /* body.dark .navbar-main { background: #0a2e3a; } */
+        body.dark .btn {
+            border-color: #fff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar-main">
+
+        <!-- LOGO -->
+        <div class="navbar-logo" id="navbarLogo">
+            <img src="smart_farm_no_bg-removebg-preview.png" alt="Logo">
+            <span id="siteName" data-key="siteName"> Zera3a-Tech</span>
+        </div>
+
+        <!-- LOGGED IN LINKS -->
+        <ul class="navbar-links navbar-center" id="authLinks" style="display:none">
+            <li><a href="tasks.html" data-key="nav_community">community</a></li>
+            <li><a href="contact-about.html" data-key="nav_contact">contact us</a></li>
+            <li><a href="banks.html" data-key="nav_banks">agricultural banks</a></li>
+            <li><a href="./offer/ddd.html" data-key="nav_packages">packages</a></li>
+
+
+
+        </ul>
+
+        <!-- GUEST LINKS -->
+        <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
+            <li><a href="about.html" data-key="nav_about">About Us</a></li>
+        </ul>
+
+        <!-- RIGHT -->
+        <div class="navbar-right">
+
+        <button id="langToggle" class="btn lang-btn" title="تبديل اللغة"><a style="text-decoration: none; color: white;" href="./farmer-ar.html">AR</a></button>
+            <button id="themeToggle" class="btn">☀️</button>
+
+            <!-- USER MENU -->
+            <div class="user-menu" id="userMenu" style="display:none">
+                <div class="user-name" >
+                    <i class="fas fa-user-circle"></i>
+                    <span data-key="nav_username" id="userName">username</span>
+                    <i class="fas fa-caret-down"></i>
+                </div>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="./Profile/profile.html" data-key="profileLink">
+                        <i class="fas fa-id-badge"></i> Profile
+                    </a>
+                    <a href="#" id="logoutBtn" data-key="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- SIGN IN -->
+            <button id="signInBtn" class="btn-signin">
+                <a href="./signinsignup/signin.html" data-key="signin_btn">sign in </a>
+            </button>
+
+        </div>
+    </div>
+
+<section class="hero" id="home">
+    <div class="hero-text">
+        <div class="badge" data-key="hero_badge">🌱 Integrated Agricultural Platform</div>
+        <h1 data-key="hero_title" class="text-to-speech">Agricultural Platform<br><span>Designed for Egyptian Farmers</span></h1>
+        <p data-key="hero_desc" class="text-to-speech">Smart and advanced solutions for modern agriculture, electronic market, and sustainable agricultural investment. Join the smart agriculture revolution!</p>
+        
+        <div class="hero-stats-mini">
+            <div><strong>5000+</strong> <span data-key="hero_stat1">Farmers</span></div>
+            <div><strong>200+</strong> <span data-key="hero_stat2">Investors</span></div>
+            <div><strong>15000+</strong> <span data-key="hero_stat3">Ton Yield</span></div>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="floating-card card-1">
+            <div class="icon">📊</div>
+            <div data-key="hero_card1" class="text-to-speech">Crop Tracking</div>
+        </div>
+        <div class="floating-card card-2">
+            <div class="icon">💰</div>
+            <div data-key="hero_card2" class="text-to-speech">Increase Profits</div>
+        </div>
+        <div class="floating-card card-3">
+            <div class="icon">🌡️</div>
+            <div data-key="hero_card3" class="text-to-speech">Weather Monitoring</div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="irrigation-section">
+    <div class="section-header">
+        <div class="section-badge" data-key="irrigation_badge">
+            💧 Smart Irrigation System
+        </div>
+        <h1 class="section-title" data-key="irrigation_title">Smart Automatic Irrigation</h1>
+        <p class="section-subtitle" data-key="irrigation_subtitle" class="text-to-speech">
+            Smart irrigation system that adapts to soil and weather conditions to save water and increase productivity
+        </p>
+    </div>
+    
+    <div class="irrigation-dashboard">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div>
+                    <h3 class="card-title" data-key="moisture_title">Soil Moisture</h3>
+                    <p class="card-subtitle" data-key="moisture_subtitle">Current soil moisture measurement</p>
+                </div>
+            </div>
+            <div class="moisture-indicator">
+                <div class="moisture-circle">
+                    <svg width="180" height="180" viewBox="0 0 180 180">
+                        <circle cx="90" cy="90" r="80" class="moisture-bg"></circle>
+                        <circle cx="90" cy="90" r="80" class="moisture-fill" id="moistureFill"></circle>
+                    </svg>
+                    <div class="moisture-value">
+                        <div class="moisture-percent" id="moisturePercent">65%</div>
+                        <div class="moisture-label" data-key="moisture_label">Soil Moisture</div>
+                        <div class="moisture-status status-optimal" id="moistureStatus" data-key="moisture_status_optimal">Optimal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <div>
+                    <h3 class="card-title" data-key="consumption_title">Water Consumption</h3>
+                    <p class="card-subtitle" data-key="consumption_subtitle">Water consumption statistics</p>
+                </div>
+            </div>
+            <div class="water-consumption">
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-calendar-day"></i>
+                        <span data-key="consumption_today">Today</span>
+                    </div>
+                    <div class="consumption-value" id="todayWater">120 Liters</div>
+                </div>
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-calendar-week"></i>
+                        <span data-key="consumption_week">This Week</span>
+                    </div>
+                    <div class="consumption-value" id="weekWater">850 Liters</div>
+                </div>
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span data-key="consumption_month">This Month</span>
+                    </div>
+                    <div class="consumption-value" id="monthWater">3,200 Liters</div>
+                </div>
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-leaf"></i>
+                        <span data-key="consumption_saving">Saving</span>
+                    </div>
+                    <div class="consumption-value" id="waterSaved">40%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <div>
+                    <h3 class="card-title" data-key="weather_title">Weather Conditions</h3>
+                    <p class="card-subtitle" data-key="weather_subtitle">Weather impact on irrigation</p>
+                </div>
+            </div>
+            <div class="water-consumption">
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-thermometer-half"></i>
+                        <span data-key="weather_temp">Temperature</span>
+                    </div>
+                    <div class="consumption-value" id="temperature">28°C</div>
+                </div>
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-wind"></i>
+                        <span data-key="weather_humidity">Humidity</span>
+                    </div>
+                    <div class="consumption-value" id="humidity">45%</div>
+                </div>
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-cloud-rain"></i>
+                        <span data-key="weather_rain">Rain Forecast</span>
+                    </div>
+                    <div class="consumption-value" id="rainChance">10%</div>
+                </div>
+                <div class="consumption-item">
+                    <div class="consumption-label">
+                        <i class="fas fa-sun"></i>
+                        <span data-key="weather_advice">Recommendation</span>
+                    </div>
+                    <div class="consumption-value" id="weatherAdvice" data-key="weather_advice_normal">Normal Irrigation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="crop-selector-section">
+    <div class="section-header">
+        <div class="section-badge" data-key="crop_badge">
+            🌾 Choose the Right Crop
+        </div>
+        <h1 class="section-title" data-key="crop_title">Choose the best crop according to your region's climate</h1>
+        <p class="section-subtitle" data-key="crop_subtitle" class="text-to-speech">
+            Enter your region's climate data to get smart recommendations for the best crops suitable for your conditions
+        </p>
+    </div>
+
+    <div class="climate-selector">
+        <div class="climate-grid">
+            <div class="climate-factor">
+                <div class="factor-header">
+                    <div class="factor-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <h3 class="factor-title" data-key="temp_title">Temperature</h3>
+                </div>
+                <div class="factor-controls">
+                    <div class="range-container">
+                        <input type="range" id="temperatureRange" min="10" max="40" value="25" step="1">
+                        <div class="range-labels">
+                            <span>10°C</span>
+                            <span>25°C</span>
+                            <span>40°C</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <span style="font-weight: 700; color: var(--primary); font-size: 1.2rem;">
+                            <span id="tempValue">25</span>°C
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="climate-factor">
+                <div class="factor-header">
+                    <div class="factor-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h3 class="factor-title" data-key="humidity_title">Relative Humidity</h3>
+                </div>
+                <div class="factor-controls">
+                    <div class="range-container">
+                        <input type="range" id="humidityRange" min="10" max="90" value="50" step="5">
+                        <div class="range-labels">
+                            <span>10%</span>
+                            <span>50%</span>
+                            <span>90%</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <span style="font-weight: 700; color: var(--primary); font-size: 1.2rem;">
+                            <span id="humidityValue">50</span>%
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="climate-factor">
+                <div class="factor-header">
+                    <div class="factor-icon">
+                        <i class="fas fa-cloud-rain"></i>
+                    </div>
+                    <h3 class="factor-title" data-key="rainfall_title">Annual Rainfall Rate</h3>
+                </div>
+                <div class="factor-controls">
+                    <div class="select-wrapper">
+                        <select id="rainfallSelect">
+                            <option value="low" data-key="rainfall_low">Low (Less than 100 mm/year)</option>
+                            <option value="medium" selected data-key="rainfall_medium">Medium (100-300 mm/year)</option>
+                            <option value="high" data-key="rainfall_high">Heavy (More than 300 mm/year)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="climate-factor">
+                <div class="factor-header">
+                    <div class="factor-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3 class="factor-title" data-key="soil_title">Soil Type</h3>
+                </div>
+                <div class="factor-controls">
+                    <div class="select-wrapper">
+                        <select id="soilTypeSelect">
+                            <option value="clay" data-key="soil_clay">Clay</option>
+                            <option value="sandy" data-key="soil_sandy">Sandy</option>
+                            <option value="loamy" selected data-key="soil_loamy">Loamy</option>
+                            <option value="clay_loam" data-key="soil_clay_loam">Clay Loam</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="./risks.html" class="analyze-btn"  id="analyzeBtn" >
+            <i class="fas fa-search"></i>
+            <span data-key="analyze_btn">Analyze Climate and Suggest Crops</span>
+        </a>
+    </div>
+
+    <div class="results-container" id="resultsContainer">
+        <div class="results-header">
+            <div>
+                <h2 class="results-title">
+                    <i class="fas fa-chart-line"></i>
+                    <span data-key="results_title">Crops Suitable for Your Region</span>
+                </h2>
+                <p class="results-subtitle" id="resultsSubtitle" data-key="results_subtitle">Based on entered climate data</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button style="background: var(--gradient-primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer;">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button style="background: var(--bg-light); border: 2px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 10px; cursor: pointer;">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="crops-grid" id="cropsGrid">
+            <!-- Will be filled with results -->
+        </div>
+
+        <div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
+            <button class="small-learn-btn" id="learnMoreBtn" >
+                <i class="fas fa-info-circle"></i>
+                <span data-key="learn_more_btn">Learn More About Crops</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Registration Window -->
+<div class="modal-overlay" id="registrationModal">
+    <div class="registration-modal">
+        <button class="close-modal" id="closeModal">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="modal-header">
+            <div class="modal-logo">
+                <i class="fas fa-user-lock"></i>
+            </div>
+            <h2 class="modal-title" data-key="modal_title">Registration Required</h2>
+            <p class="modal-subtitle" data-key="modal_subtitle">Register now to access premium crop details</p>
+        </div>
+        
+        <form class="registration-form" id="registrationForm">
+            <div class="form-group">
+                <label for="userName">
+                    <i class="fas fa-user"></i>
+                    <span data-key="name_label">Full Name</span>
+                </label>
+                <input type="text" id="userName" class="form-input" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="userEmail">
+                    <i class="fas fa-envelope"></i>
+                    <span data-key="email_label">Email</span>
+                </label>
+                <input type="email" id="userEmail" class="form-input" placeholder="example@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="userPhone">
+                    <i class="fas fa-phone"></i>
+                    <span data-key="phone_label">Phone Number</span>
+                </label>
+                <input type="tel" id="userPhone" class="form-input" placeholder="01XXXXXXXXX" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="userRegion">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span data-key="region_label">Region</span>
+                </label>
+                <select id="userRegion" class="form-input" required>
+                    <option value="">Choose your region</option>
+                    <option value="nile_delta" data-key="region_nile_delta">Nile Delta</option>
+                    <option value="upper_egypt" data-key="region_upper_egypt">Upper Egypt</option>
+                    <option value="sinai" data-key="region_sinai">Sinai</option>
+                    <option value="western_desert" data-key="region_western_desert">Western Desert</option>
+                    <option value="red_sea" data-key="region_red_sea">Red Sea</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="register-btn">
+                <i class="fas fa-user-plus"></i>
+                <span data-key="register_btn">Register and Access Content</span>
+            </button>
+        </form>
+        
+        <div class="form-footer">
+            <p><span data-key="have_account">Already have an account?</span> <a href="#" class="login-link" id="loginLink" data-key="login_link">Login here</a></p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Pre-Harvest Direct Market Section -->
+<section class="" id="preHarvestMarket">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge pulse">
+                <i class="fas fa-shopping-cart"></i>
+                🛒 Pre-Harvest Market
+            </div>
+            <h1 class="section-title gradient-text" data-key="market_title">Sell your crop directly before harvest</h1>
+            <p class="section-desc" data-key="market_desc" class="text-to-speech">
+                Market your future crops to consumers and investors before harvest at guaranteed and profitable prices.
+                Get advance funding and avoid market risks!
+            </p>
+        </div>
+
+        <!-- Market Filters -->
+        <div class="market-filters slide-in">
+            <div class="filter-group">
+                <label for="cropTypeFilter">
+                    <i class="fas fa-seedling"></i>
+                    <span data-key="filter_crop">Crop Type</span>
+                </label>
+                <select id="cropTypeFilter" class="filter-select">
+                    <option value="all" data-key="filter_all">All Crops</option>
+                    <option value="vegetables" data-key="filter_vegetables">Vegetables</option>
+                    <option value="fruits" data-key="filter_fruits">Fruits</option>
+                    <option value="grains" data-key="filter_grains">Grains</option>
+                    <option value="herbs" data-key="filter_herbs">Aromatic Plants</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="regionFilter">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span data-key="filter_region">Region</span>
+                </label>
+                <select id="regionFilter" class="filter-select">
+                    <option value="all" data-key="filter_all">All Regions</option>
+                    <option value="delta" data-key="region_delta">Nile Delta</option>
+                    <option value="upper" data-key="region_upper">Upper Egypt</option>
+                    <option value="sinai" data-key="region_sinai">Sinai</option>
+                    <option value="coastal" data-key="region_coastal">North Coast</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="harvestDateFilter">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span data-key="filter_harvest">Harvest Date</span>
+                </label>
+                <select id="harvestDateFilter" class="filter-select">
+                    <option value="all" data-key="filter_all">All Dates</option>
+                    <option value="week" data-key="harvest_week">Week</option>
+                    <option value="month" data-key="harvest_month">Month</option>
+                    <option value="quarter" data-key="harvest_quarter">3 Months</option>
+                    <option value="six" data-key="harvest_six">6 Months</option>
+                </select>
+            </div>
+           
+        </div>
+
+        <!-- Market Statistics -->
+        <div class="market-stats">
+            <div class="stat-card hover-glow">
+                <div class="stat-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="activeListings" class="stat-number">1,245</h3>
+                    <p data-key="stat_listings">Active Offers</p>
+                </div>
+            </div>
+            
+            <div class="stat-card hover-glow">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="activeBuyers" class="stat-number">3,892</h3>
+                    <p data-key="stat_buyers">Active Buyers</p>
+                </div>
+            </div>
+            
+            <div class="stat-card hover-glow">
+                <div class="stat-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="totalVolume" class="stat-number">5.2M EGP</h3>
+                    <p data-key="stat_volume">Trading Volume</p>
+                </div>
+            </div>
+            
+            <div class="stat-card hover-glow">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="avgPremium" class="stat-number">+25%</h3>
+                    <p data-key="stat_premium">Price Premium</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Products -->
+        <div class="market-products" id="marketProducts">
+            <!-- Will be filled dynamically -->
+        </div>
+
+        <!-- Add New Listing Button -->
+        <div class="add-listing-container hover-glow">
+            <h3>🏆 Premium Seller? Add your crop now!</h3>
+            <p data-key="market_helper" class="text-to-speech">Sell your future crops at guaranteed prices and avoid market risks. Get advance funding up to 30% of crop value!</p>
+                <a class="btn btn-primary btn-lg pulse" id="addListingBtn" href="./farmer-market.html">
+                <i class="fas fa-plus-circle"></i>
+                <span data-key="btn_add_listing">Add Your Crop to Market</span>
+                </a>
+            <p class="helper-text">✅ Symbolic addition fee • ✅ Payment guarantee • ✅ Quality certificate</p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Work Steps Section -->
+<section class="steps-process-section">
+    <div class="container">
+        <!-- Header -->
+        <div class="steps-header">
+            <div class="steps-badge pulse">
+                <i class="fas fa-list-ol"></i>
+                📋 Work Steps
+            </div>
+            <h2 class="steps-title">4 Simple Steps to Sell Your Crops</h2>
+            <p class="steps-subtitle">Smart and secure system to sell your future crops at best prices with payment guarantee</p>
+        </div>
+
+        <!-- Steps Timeline -->
+        <div class="steps-timeline">
+            <!-- Step 1 -->
+            <div class="step-item">
+                <div class="step-visual">
+                    <div class="step-circle">
+                        <div class="step-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="step-number">1</div>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title">Crop Registration</h3>
+                        <span class="step-duration">5 minutes</span>
+                    </div>
+                    <p class="step-description">
+                        Register crop data, expected quantity, and harvest date with uploading high-quality explanatory images
+                    </p>
+                    <div class="step-features">
+                        <div class="feature">
+                            <i class="fas fa-camera"></i>
+                            <span>High-quality images</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clipboard-check"></i>
+                            <span>Accurate data</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Interactive calendar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-item">
+                <div class="step-visual">
+                    <div class="step-circle">
+                        <div class="step-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="step-number">2</div>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title">Price Setting</h3>
+                        <span class="step-duration">2 minutes</span>
+                    </div>
+                    <p class="step-description">
+                        Choose appropriate selling price or leave it to the market based on supply and demand with minimum price guarantee for your protection
+                    </p>
+                    <div class="step-features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Guaranteed price</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Real-time updates</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Market analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-item">
+                <div class="step-visual">
+                    <div class="step-circle">
+                        <div class="step-icon">
+                            <i class="fas fa-money-check-alt"></i>
+                        </div>
+                        <div class="step-number">3</div>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title">Receive Payment</h3>
+                        <span class="step-duration">24 hours</span>
+                    </div>
+                    <p class="step-description">
+                        Get 30% advance of crop value in your account within 24 hours and the rest after crop delivery
+                    </p>
+                    <div class="step-features">
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Instant payment</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-file-contract"></i>
+                            <span>Electronic contract</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-lock"></i>
+                            <span>Financial guarantee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-item">
+                <div class="step-visual">
+                    <div class="step-circle">
+                        <div class="step-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="step-number">4</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title">Crop Delivery</h3>
+                        <span class="step-duration">As agreed</span>
+                    </div>
+                    <p class="step-description">
+                        Deliver the crop at harvest time and receive the remaining amount with quality certificate and buyer evaluation
+                    </p>
+                    <div class="step-features">
+                        <div class="feature">
+                            <i class="fas fa-award"></i>
+                            <span>Quality certificate</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-star"></i>
+                            <span>Buyer evaluation</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shipping-fast"></i>
+                            <span>Delivery service</span>
+                        </div>
+                    </div>
+                    <div class="success-badge">
+                        <i class="fas fa-trophy"></i>
+                        <span>Guaranteed profit and positive reviews!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </div>
+      </section>
+
+
+
+
+
+
+
+
+       
+<!-- Livestock Section -->
+<section class="livestock-section fade-in" id="livestock">
+    <div class="container">
+        <!-- Main Header -->
+        <div class="section-header">
+            <div class="section-badge pulse">
+                <i class="fas fa-paw"></i>
+                🐄 Integrated Livestock Wealth
+            </div>
+            <h1 class="section-title">Smart Livestock Management</h1>
+            <p class="section-desc text-to-speech">
+                Integrated system for animal farm management, breeding, health, and marketing.
+                Track your animals, monitor their health, and increase productivity using latest smart technologies.
+            </p>
+        </div>
+
+        <!-- Comprehensive Management System -->
+        <div class="management-system slide-up" style="animation-delay: 0.2s;">
+            <div class="management-card glow-effect" >
+                <div class="management-icon">
+                    <i class="fas fa-cow"></i>
+                </div>
+                <h3 class="management-title">Smart Tracking</h3>
+                <p class="management-desc text-to-speech">
+                    Integrated tracking system for each animal with smart chip, movement monitoring, feeding, and growth.
+                </p>
+                <div class="management-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="totalAnimals">1,250</span>
+                        <span class="stat-label">Animals</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="trackedToday">98%</span>
+                        <span class="stat-label">Tracking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="management-card glow-effect" >
+                <div class="management-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3 class="management-title">Healthcare</h3>
+                <p class="management-desc text-to-speech">
+                    Continuous health monitoring, automatic vaccinations, early disease alerts.
+                </p>
+                <div class="management-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="healthyAnimals">96%</span>
+                        <span class="stat-label">Health</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="vaccinations">350</span>
+                        <span class="stat-label">Vaccinations</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="management-card glow-effect" >
+                <div class="management-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="management-title">Productivity</h3>
+                <p class="management-desc text-to-speech">
+                    Analysis of milk, meat, wool production, and profitability increase with smart system.
+                </p>
+                <div class="management-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="milkProduction">+25%</span>
+                        <span class="stat-label">Productivity</span>
+                    </div>
+                        <div class="stat">
+                        <span class="stat-value" id="revenueGrowth">18%</span>
+                        <span class="stat-label">Profits</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bio-Monitoring Dashboard -->
+        <div class="bio-dashboard slide-up" style="animation-delay: 0.4s;">
+            <div class="dashboard-header">
+                <h2 class="gradient-text">📊 Bio-Monitoring Dashboard</h2>
+                <div class="animal-selector">
+                    <button class="animal-btn active" data-animal="cattle" >
+                        <i class="fas fa-cow"></i>
+                        Cattle
+                    </button>
+                    <button class="animal-btn" data-animal="sheep" >
+                        <i class="fas fa-sheep"></i>
+                        Sheep
+                    </button>
+                    <button class="animal-btn" data-animal="goats" >
+                        <i class="fas fa-goat"></i>
+                        Goats
+                    </button>
+                    <button class="animal-btn" data-animal="poultry" >
+                        <i class="fas fa-kiwi-bird"></i>
+                        Poultry
+                    </button>
+                </div>
+            </div>
+
+            <div class="bio-metrics">
+                <div class="metric-card" >
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="metric-value" id="bodyTemp">38.5°</div>
+                    </div>
+                    <h4 class="metric-title">Body Temperature</h4>
+                    <p>Normal (Range: 38-39°C)</p>
+                    <div class="metric-progress">
+                        <div class="progress-bar" style="width: 85%; background: var(--success);"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card" >
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <i class="fas fa-weight"></i>
+                        </div>
+                        <div class="metric-value" id="animalWeight">450</div>
+                    </div>
+                    <h4 class="metric-title">Weight (kg)</h4>
+                    <p>15 kg increase this month</p>
+                    <div class="metric-progress">
+                        <div class="progress-bar" style="width: 75%; background: var(--primary);"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card" >
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <i class="fas fa-wine-bottle"></i>
+                        </div>
+                        <div class="metric-value" id="milkYield">28</div>
+                    </div>
+                    <h4 class="metric-title">Milk Production (Liters/Day)</h4>
+                    <p>3 liters above average</p>
+                    <div class="metric-progress">
+                        <div class="progress-bar" style="width: 90%; background: #3498db;"></div>
+                    </div>
+                </div>
+
+               
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                            <a class="btn-primary" id="generateReport" href="./animals.html">
+                    <i class="fas fa-file-pdf"></i>
+                    Generate Complete Health Report
+                            </a>
+            </div>
+        </div>
+
+        <!-- Marketing Platform -->
+        <div class="marketing-platform slide-up" style="animation-delay: 0.6s;">
+            <div class="marketing-header">
+                <h2>🏪 Direct Marketing Platform</h2>
+                <p class="text-to-speech">Buy and sell animal products directly from farm to consumer</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card-animal" >
+                    <div class="product-icon-animal">🥩</div>
+                    <h3 class="product-name">Organic Beef</h3>
+                    <div class="product-price">180 EGP/kg</div>
+                    <p class="text-to-speech">High quality meat, organic breeding, hormone-free</p>
+                    <div class="product-details-animal">
+                        <span>⭐ 4.9</span>
+                        <span>📦 150 kg</span>
+                    </div>
+                </div>
+
+                <div class="product-card-animal" >
+                    <div class="product-icon-animal">🥛</div>
+                    <h3 class="product-name">Fresh Daily Milk</h3>
+                    <div class="product-price">15 EGP/liter</div>
+                    <p class="text-to-speech">Fresh daily milk, automatically packaged, guaranteed quality</p>
+                    <div class="product-details-animal">
+                        <span>⭐ 4.8</span>
+                        <span>📦 500 liters</span>
+                    </div>
+                </div>
+
+                <div class="product-card-animal" >
+                    <div class="product-icon-animal">🧀</div>
+                    <h3 class="product-name">Romy Cheese</h3>
+                    <div class="product-price">250 EGP/kg</div>
+                    <p class="text-to-speech">6-month aged cheese, distinctive flavor, traditional manufacturing</p>
+                    <div class="product-details-animal">
+                        <span>⭐ 5.0</span>
+                        <span>📦 80 kg</span>
+                    </div>
+                </div>
+
+                <div class="product-card-animal" >
+                    <div class="product-icon-animal">🐑</div>
+                    <h3 class="product-name">Live Sheep</h3>
+                    <div class="product-price">6,500 EGP</div>
+                    <p class="text-to-speech">Healthy sheep, weight 40-45 kg, suitable for sacrifice</p>
+                    <div class="product-details-animal">
+                        <span>⭐ 4.7</span>
+                        <span>📦 25 heads</span>
+                    </div>
+                </div>
+                 <div class="product-card-animal" >
+                    <div class="product-icon-animal">🐓</div>
+                    <h3 class="product-name">Chicken</h3>
+                    <div class="product-price">500 EGP</div>
+                    <p class="text-to-speech">Healthy chicken with many varieties available</p>
+                    <div class="product-details-animal">
+                        <span>⭐ 4.8</span>
+                        <span>📦 20 heads</span>
+                    </div>
+                </div>
+                 <div class="product-card-animal" >
+                    <div class="product-icon-animal">🐄</div>
+                    <h3 class="product-name">Cattle</h3>
+                    <div class="product-price">7,500 EGP</div>
+                    <p class="text-to-speech">Healthy cow, weight 40-45 kg, suitable for sacrifice</p>
+                    <div class="product-details-animal">
+                        <span>⭐ 5</span>
+                        <span>📦 30 heads</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="./farmer-market.html" class="btn-primary" style="background: white; color: var(--primary);" >
+                    <i class="fas fa-plus"></i>
+                    Show All Products
+                </a>
+            </div>
+        </div>
+
+        <!-- Healthcare System -->
+        <div class="health-system slide-up" style="animation-delay: 0.8s;">
+            <div class="health-header">
+                <h2>🏥 Healthcare System</h2>
+                <p class="text-to-speech">Continuous health monitoring and periodic vaccinations to ensure herd safety</p>
+            </div>
+
+            <div class="health-grid">
+                <div class="health-card" >
+                    <div class="health-icon">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <h3>Vaccination Schedule</h3>
+                    <p class="text-to-speech">Automatic vaccination system with smart reminders</p>
+                    <div class="vaccine-schedule">
+                        <div class="schedule-header">
+                            <h4>Upcoming Vaccinations</h4>
+                            <span class="badge" style="background: var(--warning); color: white; padding: 5px 15px; border-radius: 15px;">3 upcoming</span>
+                        </div>
+                        <div class="schedule-item" >
+                            <div>
+                                <strong>Foot and Mouth Disease Vaccine</strong>
+                                <p>In 5 days</p>
+                            </div>
+                            <i class="fas fa-bell" style="color: var(--warning);"></i>
+                        </div>
+                        <div class="schedule-item" >
+                            <div>
+                                <strong>Brucellosis Vaccine</strong>
+                                <p>In 12 days</p>
+                            </div>
+                            <i class="fas fa-calendar-alt" style="color: var(--primary);"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="health-card emergency" >
+                    <div class="health-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3>Emergency Cases</h3>
+                    <p class="text-to-speech">Early warning system for diseases and critical cases</p>
+                    <div style="margin-top: 20px;">
+                        <div class="alert" style="background: rgba(255,255,255,0.9); padding: 15px; border-radius: 10px; margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong>🐄 Cow #B-245</strong>
+                                    <p>High temperature</p>
+                                </div>
+                                <span style="background: var(--danger); color: white; padding: 3px 10px; border-radius: 10px;">Urgent</span>
+                            </div>
+                        </div>
+                        <a href="./experts.html" class="btn-primary" style="width: 100%; margin-top: 15px;" >
+                            <i class="fas fa-phone-alt"></i>
+                            Call Veterinarian
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breeding and Production Section -->
+        <div class="breeding-section slide-up" style="animation-delay: 1s;">
+            <h2 style="text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 50px;">
+                🐣 Breeding and Production Programs
+            </h2>
+
+            <div class="breeding-stats">
+                <div class="breeding-stat" >
+                    <div class="breeding-icon">🤰</div>
+                    <div class="breeding-value" id="pregnantAnimals">45</div>
+                    <div class="breeding-label">Pregnant</div>
+                </div>
+
+                <div class="breeding-stat" >
+                    <div class="breeding-icon">👶</div>
+                    <div class="breeding-value" id="newborns">28</div>
+                    <div class="breeding-label">Newborns</div>
+                </div>
+
+                <div class="breeding-stat" >
+                    <div class="breeding-icon">📈</div>
+                    <div class="breeding-value" id="growthRate">+18%</div>
+                    <div class="breeding-label">Growth Rate</div>
+                </div>
+
+                <div class="breeding-stat" >
+                    <div class="breeding-icon">🎯</div>
+                    <div class="breeding-value" id="breedingSuccess">92%</div>
+                    <div class="breeding-label">Breeding Success</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="./rationallization.html" class="btn-primary" id="startBreedingProgram" >
+                    <i class="fas fa-dna"></i>
+                    Start New Breeding Program
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Variables - Updated with new colors */
+        :root {
+            --primary: #0f4c5c;
+            --primary-dark: #083038;
+            --primary-light: #1c7a8d;
+            --secondary: #E07A5F;
+            --accent: #E6D5B8;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --text-dark: #2d3436;
+            --text-light: #ffffff;
+            --bg-light: #F4F7F6;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow: 0 15px 35px rgba(15, 76, 92, 0.15);
+            --shadow-lg: 0 25px 50px rgba(15, 76, 92, 0.25);
+            --gradient-primary: linear-gradient(135deg, #0f4c5c 0%, #1c7a8d 100%);
+            --gradient-accent: linear-gradient(135deg, #E07A5F 0%, #f0a28e 100%);
+            --border-radius: 15px;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Section Styles */
+        .booking-section {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #f4fafc 0%, #e8f2f5 100%);
+            padding: 80px 20px;
+            direction: ltr;
+        }
+
+        .booking-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Benefits List */
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .benefit-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .benefit-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 3px;
+        }
+
+        .benefit-text {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Session Types */
+        .session-types {
+            margin-bottom: 50px;
+        }
+
+        .session-types h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .type-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
+        }
+
+        .type-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .type-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .type-1 .type-icon { color: var(--primary); }
+        .type-2 .type-icon { color: var(--primary-light); }
+        .type-3 .type-icon { color: var(--danger); }
+        .type-4 .type-icon { color: var(--secondary); }
+        .type-5 .type-icon { color: #00acc1; }
+
+        .type-name {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Duration */
+        .duration-section {
+            margin-bottom: 40px;
+        }
+
+        .duration-section h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .duration-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .duration-option {
+            background: var(--card-bg);
+            padding: 25px 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            width: 180px;
+            position: relative;
+            border: 2px solid rgba(15, 76, 92, 0.1);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .duration-option:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .duration-option.popular {
+            border-color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .duration-option.popular::before {
+            content: 'Most Requested';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .duration-time {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .duration-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Target Audience */
+        .target-audience {
+            margin-bottom: 50px;
+        }
+
+        .target-audience h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .audience-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .audience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .audience-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .audience-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Booking Button */
+        .booking-action {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(15, 76, 92, 0.05) 0%, rgba(28, 122, 141, 0.05) 100%);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--primary-light);
+        }
+
+        .booking-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(15, 76, 92, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .booking-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(15, 76, 92, 0.3);
+        }
+
+        .login-note {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .login-note i {
+            color: var(--secondary);
+        }
+
+        /* Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            position: relative;
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(15, 76, 92, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(15, 76, 92, 0.2);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .modal-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .modal-text {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn-login {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(15, 76, 92, 0.2);
+        }
+
+        .btn-signup {
+            background: white;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-signup:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .booking-section {
+                padding: 50px 15px;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .section-header p {
+                font-size: 1.1rem;
+            }
+            
+            .duration-option.popular {
+                transform: none;
+            }
+            
+            .types-grid,
+            .audience-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-header h2 {
+                font-size: 1.7rem;
+            }
+            
+            .types-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .duration-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .duration-option {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .booking-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sessions Booking Section Only -->
+<section class="booking-section">
+    <div class="booking-container">
+        <!-- Main Title -->
+        <div class="section-header">
+            <h2>📅 Book Your Smart Agricultural Session Now</h2>
+            <p>Agricultural guidance sessions with experts to help you improve crop production and solve soil and irrigation problems</p>
+        </div>
+
+        <!-- Benefits -->
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <i class="fas fa-chart-line benefit-icon"></i>
+                <p class="benefit-text">Improve crop production</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-tint benefit-icon"></i>
+                <p class="benefit-text">Solve soil and irrigation problems</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-money-bill-wave benefit-icon"></i>
+                <p class="benefit-text">Reduce costs and increase profits</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-robot benefit-icon"></i>
+                <p class="benefit-text">Use modern agricultural technologies</p>
+            </div>
+        </div>
+
+        <!-- Session Types -->
+        <div class="session-types">
+            <h3>🧑‍🌾 Session Types</h3>
+            <div class="types-grid">
+                <div class="type-item type-1">
+                    <i class="fas fa-seedling type-icon"></i>
+                    <div class="type-name">Agricultural Guidance Session</div>
+                </div>
+                <div class="type-item type-2">
+                    <i class="fas fa-tint type-icon"></i>
+                    <div class="type-name">Irrigation and Fertilization Session</div>
+                </div>
+                <div class="type-item type-3">
+                    <i class="fas fa-bug type-icon"></i>
+                    <div class="type-name">Pest Control Session</div>
+                </div>
+                <div class="type-item type-4">
+                    <i class="fas fa-chart-bar type-icon"></i>
+                    <div class="type-name">Farm Planning Session</div>
+                </div>
+                <div class="type-item type-5">
+                    <i class="fas fa-brain type-icon"></i>
+                    <div class="type-name">Smart Farming Session</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Duration -->
+        <div class="duration-section">
+            <h3>⏰ Session Duration</h3>
+            <div class="duration-options">
+                <div class="duration-option">
+                    <div class="duration-time">⏱️ 30 minutes</div>
+                    <div class="duration-label">Quick Session</div>
+                </div>
+                <div class="duration-option popular">
+                    <div class="duration-time">⏱️ 60 minutes</div>
+                    <div class="duration-label">Complete Session</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Target Audience -->
+        <div class="target-audience">
+            <h3>🎯 Who are these sessions for?</h3>
+            <div class="audience-grid">
+                <div class="audience-item">
+                    <div class="audience-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="audience-title">Farmers</div>
+                </div>
+                <div class="audience-item">
+                    <div class="audience-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="audience-title">Farm Owners</div>
+                </div>
+                <div class="audience-item">
+                    <div class="audience-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="audience-title">Agricultural Investors</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Button -->
+        <div class="booking-action">
+            <a class="booking-btn" href="./experts.html">
+                <i class="fas fa-calendar-check"></i>
+                🔐 Book Session Now
+            </a>
+           
+        </div>
+    </div>
+</section>
+
+<!-- Login Modal -->
+<div class="login-modal" id="loginModal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-icon">
+            <i class="fas fa-user-lock"></i>
+        </div>
+        <h3 class="modal-title">🔒 Login Required</h3>
+        <p class="modal-text">
+            You must login or create a new account to book the session.
+        </p>
+        <div class="modal-buttons">
+            <button class="modal-btn btn-login" onclick="goToLogin()">
+                Login
+            </button>
+            <button class="modal-btn btn-signup" onclick="goToSignup()">
+                Create New Account
+            </button>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Session Benefits -->
+        <div class="benefits-section slide-up" style="animation-delay: 1s;">
+            <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 60px; color: white;">
+                💡 What will you get?
+            </h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h4>Customized Solutions</h4>
+                    <p class="text-to-speech">Solutions designed specifically for your farm and local conditions</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">📋</div>
+                    <h4>Detailed Report</h4>
+                    <p class="text-to-speech">Detailed report with executive steps and follow-up dates</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">📞</div>
+                    <h4>Free Follow-up</h4>
+                    <p class="text-to-speech">Free follow-up for one week after the session</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h4>Results Guarantee</h4>
+                    <p class="text-to-speech">Guaranteed productivity improvement by at least 30%</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎥</div>
+                    <h4>Session Recording</h4>
+                    <p class="text-to-speech">Complete session recording you can watch later</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h4>Technical Support</h4>
+                    <p class="text-to-speech">Technical support during implementation via WhatsApp or call</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Confirmation Window -->
+<div class="booking-modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeBookingModal">×</button>
+        <div id="modalContent">
+            <!-- Will be filled with JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Microphone Message -->
+<div class="mic-message" id="micMessage">
+    <i class="fas fa-microphone"></i>
+    <span>Listening... Speak now</span>
+</div>
+
+<script src="./English/i.js"></script>
+
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-robot"></i>
+                <h3>Smart Farm Assistant</h3>
+            </div>
+            <div class="chatbot-controls">
+                <button class="chatbot-btn close-btn" id="closeChatbot">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-text">
+                        👋 Hello! I'm the Smart Farm intelligent assistant. How can I help you today?
+                    </div>
+                    <div class="message-time">Now</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-suggestions" id="quickSuggestions">
+            <button class="suggestion-btn" data-question="How do I register on the platform?">
+                <i class="fas fa-user-plus"></i> Registration
+            </button>
+            <button class="suggestion-btn" data-question="What are the best crops?">
+                <i class="fas fa-seedling"></i> Crops
+            </button>
+            <button class="suggestion-btn" data-question="How do I sell my crops?">
+                <i class="fas fa-shopping-cart"></i> Selling
+            </button>
+        </div>
+
+        <div class="chatbot-input-area">
+            <div class="input-wrapper">
+                <input type="text" 
+                       id="chatInput" 
+                       placeholder="Type your question here..." 
+                       autocomplete="off">
+                <button class="input-btn send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="input-hint" style="font-size: 12px; color: #666; text-align: center;">
+                Press Enter to send message
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Open Button -->
+    <button class="chatbot-toggle-btn" id="chatbotToggle">
+        <i class="fas fa-comments"></i>
+        <span class="notification-badge" id="notificationBadge">3</span>
+    </button>
+<script>
+   
+setTimeout(() => {
+    const isFirstVisit = !localStorage.getItem('visitedSmartFarm');
+    
+    if (isFirstVisit) {
+        showNotification('🎉 Welcome to Smart Farm! Use microphone for voice control', 'info');
+        localStorage.setItem('visitedSmartFarm', 'true');
+        
+        // Speak welcome message
+        setTimeout(() => {
+            speakText('Welcome to Smart Farm intelligent agricultural platform. You can use microphone for voice control on the website.');
+        }, 1000);
+    }
+}, 2000);
+
+// ===== Session Management =====
+// Check login status on load
+window.addEventListener('load', function() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const userName = localStorage.getItem('smartFarmUser');
+    
+    if (isLoggedIn === 'true' && userName) {
+        console.log(`Welcome back, ${userName}!`);
+    }
+});
+
+// Logout button (can be added later)
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('smartFarmUser');
+    showNotification('Logged out successfully', 'success');
+    setTimeout(() => {
+        window.location.reload();
+    }, 1500);
+}
+
+// ===== Additional interaction code =====
+// Update data in real-time
+setInterval(() => {
+    // Update market statistics
+    updateMarketStatistics();
+    
+    // Update weather data
+    updateWeatherData();
+    
+    // Update soil moisture indicator
+    updateMoistureIndicator();
+}, 30000); // Every 30 seconds
+
+console.log("🚀 Smart Farm System Initialized Successfully!");
+ // Simplified knowledge base
+        const chatbotKnowledge = {
+            'How do I register on the platform?': 'You can register by clicking the "Start as a Farmer" button at the top of the page, then filling in the required data.',
+            'What are the best crops?': 'The best crops in Egypt include: Wheat, Cotton, Rice, Corn, and Sugarcane.',
+            'How do I sell my crops?': 'You can sell your crops through the Smart Farm electronic market after logging in.',
+            'What is the subscription price?': 'We offer a free plan and premium plans starting from 100 EGP monthly.',
+            'How do I contact support?': 'You can contact support at 19090 or via email support@smartfarm.com',
+            'Is there a mobile app?': 'Yes, you can download our app from the app store on your phone.',
+            'How do I choose the right crop?': 'Use the "Choose Crop" tool on the website to know the most suitable crop for your region.',
+            'How do I increase my productivity?': 'Use the smart irrigation system, consult experts, and follow appropriate fertilization schedule.',
+            'What is the smart irrigation service?': 'A service that automatically controls irrigation based on soil moisture and weather, saving up to 40% of water.',
+            'How do I book with an expert?': 'Go to the "Consultations" section in your account and choose the appropriate expert to book an appointment.'
+        };
+
+        // DOM Elements
+        const chatbotContainer = document.getElementById('chatbotContainer');
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const closeChatbot = document.getElementById('closeChatbot');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const notificationBadge = document.getElementById('notificationBadge');
+
+        // Open and close chatbot
+        chatbotToggle.addEventListener('click', function() {
+            chatbotContainer.classList.add('active');
+            notificationBadge.style.display = 'none';
+        });
+
+        closeChatbot.addEventListener('click', function() {
+            chatbotContainer.classList.remove('active');
+        });
+
+        // Add message
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            
+            const time = new Date().toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-text">${text}</div>
+                    <div class="message-time">${time}</div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // Add typing indicator
+        function addTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(typingDiv);
+            scrollToBottom();
+            return typingDiv;
+        }
+
+        // Scroll to bottom
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Find answer
+        function findAnswer(question) {
+            question = question.toLowerCase();
+            
+            // Direct search
+            for (const [key, answer] of Object.entries(chatbotKnowledge)) {
+                if (question.includes(key.toLowerCase()) || key.toLowerCase().includes(question)) {
+                    return answer;
+                }
+            }
+            
+            // If question contains keywords
+            if (question.includes('register') || question.includes('sign up') || question.includes('subscription')) {
+                return chatbotKnowledge['How do I register on the platform?'];
+            }
+            if (question.includes('crop') || question.includes('plant') || question.includes('grow')) {
+                return chatbotKnowledge['What are the best crops?'];
+            }
+            if (question.includes('sell') || question.includes('market') || question.includes('sale')) {
+                return chatbotKnowledge['How do I sell my crops?'];
+            }
+            if (question.includes('price') || question.includes('cost') || question.includes('subscription')) {
+                return chatbotKnowledge['What is the subscription price?'];
+            }
+            if (question.includes('support') || question.includes('contact') || question.includes('help')) {
+                return chatbotKnowledge['How do I contact support?'];
+            }
+            
+            // General answer
+            return 'I apologize, I didn\'t fully understand your question. You can ask something like: "How do I register on the platform?" or "What are the best crops?"';
+        }
+
+        // Process message
+        function processMessage(message) {
+            // Add user message
+            addMessage(message, true);
+            
+            // Add typing indicator
+            const typingIndicator = addTypingIndicator();
+            
+            // Search for answer after short delay
+            setTimeout(() => {
+                // Remove typing indicator
+                if (typingIndicator && typingIndicator.parentNode) {
+                    typingIndicator.remove();
+                }
+                
+                // Find and add answer
+                const answer = findAnswer(message);
+                addMessage(answer, false);
+                
+            }, 1000 + Math.random() * 500);
+        }
+
+        // Send message
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            processMessage(message);
+            chatInput.value = '';
+            chatInput.focus();
+        }
+
+        // Add event handler for sending
+        sendBtn.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Add handler for quick buttons
+        document.querySelectorAll('.suggestion-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.getAttribute('data-question');
+                processMessage(question);
+            });
+        });
+
+        // Hide notification after 3 seconds
+        setTimeout(() => {
+            notificationBadge.style.display = 'none';
+        }, 3000);
+
+</script>
+   
+       
+<script src="./English/u2.js">
+    
+
+</script>
+<script type="module">
+/* =========================
+   🔥 Firebase Imports
+========================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* =========================
+   🔧 Firebase Config
+========================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+  authDomain: "smart-farm-8d3f5.firebaseapp.com",
+  projectId: "smart-farm-8d3f5",
+  storageBucket: "smart-farm-8d3f5.appspot.com",
+  messagingSenderId: "317371842198",
+  appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+};
+
+/* =========================
+   🚀 Initialize
+========================= */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* =========================
+   🎯 DOM Elements
+========================= */
+const authLinks   = document.getElementById("authLinks");
+const guestLinks = document.getElementById("guestLinks");
+const userMenu   = document.getElementById("userMenu");
+const signInBtn  = document.getElementById("signInBtn");
+const userNameSpan = document.getElementById("userName");
+const logoutBtn  = document.getElementById("logoutBtn");
+const userDropdown = document.getElementById("userDropdown");
+const userNameBox  = document.querySelector(".user-name");
+
+/* =========================
+   👤 Auth State
+========================= */
+onAuthStateChanged(auth, async (user) => {
+
+  // ❌ مش مسجل دخول
+  if (!user) {
+    authLinks.style.display = "none";
+    guestLinks.style.display = "flex";
+    userMenu.style.display = "none";
+    signInBtn.style.display = "flex";
+    return;
+  }
+
+  try {
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await signOut(auth);
+      location.href = "./signinsignup/signin.html";
+      return;
+    }
+
+    const data = userSnap.data();
+    const role = data.role;
+
+    /* =========================
+       🚫 مش فلاح
+    ========================= */
+    if (role !== "farmer") {
+      alert("أنت داخل صفحة مش بتاعتك، هيتم تحويلك لصفحتك الآن");
+      redirectByRole(role);
+      return;
+    }
+
+    /* =========================
+       ✅ فلاح – كمّل عادي
+    ========================= */
+
+    // Navbar
+    authLinks.style.display = "flex";
+    guestLinks.style.display = "none";
+    userMenu.style.display = "flex";
+    signInBtn.style.display = "none";
+
+    // اسم المستخدم
+    const nameFromDB = data.name;
+    const nameFromAuth = user.displayName || user.email;
+
+    userNameSpan.textContent =
+      nameFromDB || nameFromAuth || "المستخدم";
+
+  } catch (error) {
+    console.error("Auth Error:", error);
+    await signOut(auth);
+    location.href = "./signinsignup/signin.html";
+  }
+});
+
+/* =========================
+   🔁 Redirect By Role
+========================= */
+function redirectByRole(role) {
+  if (role === "farmer") {
+    location.href = "farmer-ar.html";
+  } else if (role === "worker") {
+    location.href = "worker.html";
+  } else if (role === "investor") {
+    location.href = "investor.html";
+  } else {
+    location.href = "./signinsignup/signin.html";
+  }
+}
+
+/* =========================
+   🔽 Dropdown
+========================= */
+userNameBox?.addEventListener("click", () => {
+  userDropdown.style.display =
+    userDropdown.style.display === "flex" ? "none" : "flex";
+});
+
+/* =========================
+   🔒 Logout
+========================= */
+logoutBtn?.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await signOut(auth);
+  location.href = "./signinsignup/signin.html";
+});
+</script>
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

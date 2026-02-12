@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zera3a-Tech Map</title>
+    
+    <!-- مكتبات خارجية -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* === الباليت الجديدة المطلوبة === */
+            --color-teal: #0F4C5C;      /* Deep Teal - الفلاحين والأساسي */
+            --color-sand: #E6D5B8;      /* Warm Sand - المستهلكين */
+            --color-orange: #E07A5F;    /* Sunset Orange - المستثمرين والأكشن */
+            --bg-off-white: #FAF9F6;   /* Off White - الخلفية */
+            
+            /* تخصيص الألوان العامة بناءً على الباليت */
+            --primary-color: #0F4C5C;   /* Teal */
+            --accent-color: #E07A5F;    /* Orange */
+            --bg-light: #FAF9F6;        /* Off White */
+            --text-dark: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* --- تصحيح مشكلة الأيقونات عند تغيير اللغة --- */
+        html[lang="en"] body, 
+        html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3,
+        html[lang="en"] p, html[lang="en"] span, html[lang="en"] div,
+        html[lang="en"] input, html[lang="en"] textarea, html[lang="en"] button {
+            font-family: 'Roboto', sans-serif !important;
+        }
+
+        .fa-solid, .fa-regular, .fa-brands, .fas, .far, .fab {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        /* --- الخريطة --- */
+        #map {
+            width: 100%;
+            height: 100%;
+            z-index:1;
+            position: relative;
+            background-color: var(--bg-light); /* تغيير لون خلفية الخريطة */
+        }
+
+        /* === تنسيق زر البحث === */
+        .leaflet-control-geocoder {
+            border: 2px solid var(--primary-color) !important; /* Deep Teal Border */
+            border-radius: 30px !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+            margin-top: 10px !important;
+            background: white !important;
+            transform: scale(1.1); 
+            transform-origin: top right; 
+            z-index: 2000 !important;
+        }
+
+        .leaflet-control-geocoder-alternatives {
+            max-height: 250px !important;
+            overflow-y: auto !important;
+            border-radius: 0 0 15px 15px !important;
+            width: 300px !important;
+        }
+
+        .leaflet-control-geocoder-form { margin: 0 !important; }
+        .leaflet-control-geocoder-icon { border-radius: 30px !important; }
+        .leaflet-control-geocoder-input {
+            padding: 8px 15px !important;
+            font-size: 16px !important;
+            border: none !important;
+            outline: none !important;
+            width: 220px !important;
+        }
+
+        /* --- زر الفلترة وزر اللغة --- */
+        .map-controls-wrapper {
+            position: absolute;
+            top: 20px;
+            left: 20px; /* RTL Default */
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-control {
+            padding: 10px 20px;
+            background: white;
+            color: var(--primary-color); /* Teal Text */
+            border: 2px solid var(--primary-color); /* Teal Border */
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 0.95rem;
+        }
+
+        .btn-control:hover { 
+            background: var(--primary-color); /* Teal BG */
+            color: white; 
+        }
+
+        /* زر تغيير اللغة بلون الساند أو البرتقالي */
+        #btn-lang {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        #btn-lang:hover {
+            background-color: var(--accent-color); /* Orange Hover */
+            border-color: var(--accent-color);
+        }
+
+        .filter-dropdown {
+            position: absolute;
+            top: 120%;
+            left: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            width: 180px;
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1100;
+            animation: fadeIn 0.2s;
+        }
+
+        .filter-dropdown.active { display: flex; }
+        .filter-option { padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; color: var(--text-dark); }
+        .filter-option:hover { background-color: var(--bg-light); color: var(--primary-color); }
+        .filter-option.selected { background-color: var(--primary-color); color: white; }
+
+        /* --- أزرار الزووم --- */
+        .custom-zoom-control {
+            position: absolute;
+            bottom: 30px;
+            right: 30px; /* RTL Default */
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-zoom {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            transition: 0.2s;
+        }
+
+        .btn-zoom:hover { background-color: var(--primary-color); color: white; transform: scale(1.1); }
+
+        /* --- العلامات (الصورة فقط) --- */
+        .pin-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .pin-container:hover {
+            transform: translateY(-5px) scale(1.1);
+            z-index: 999 !important;
+        }
+
+        .pin-img-only {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 2px solid transparent; 
+            transition: border-color 0.3s;
+        }
+
+        .pin-container:hover .pin-img-only {
+            border-color: var(--current-role-color);
+        }
+
+        .pin-label {
+            background: white;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            white-space: nowrap;
+        }
+
+        /* --- لوحة البروفايل --- */
+        #profile-panel {
+            position: absolute;
+            top: 80px;
+            left: 30px; /* RTL Default */
+            width: 360px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transform: translateX(-150%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        #profile-panel.active { transform: translateX(0); }
+
+        .close-panel-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px; /* RTL Default */
+            background: var(--bg-light);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #666;
+            transition: 0.2s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-panel-btn:hover { background: #ffcccc; color: #d32f2f; }
+
+        .profile-content-inner {
+            padding: 30px 25px;
+            text-align: center;
+        }
+
+        .profile-header-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color); /* Teal Border */
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(15, 76, 92, 0.2); /* Teal Shadow */
+        }
+
+        .profile-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .profile-role-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* تطبيق الألوان الجديدة على البيدجات */
+        .badge-farmer { 
+            background-color: var(--primary-color); /* Teal */
+            color: white; 
+        }
+        .badge-consumer { 
+            background-color: var(--color-sand); /* Warm Sand */
+            color: var(--primary-color); /* Dark Teal Text for contrast */
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .badge-investor { 
+            background-color: var(--accent-color); /* Sunset Orange */
+            color: white; 
+        }
+
+        .profile-text-detail {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-extra-info {
+            font-weight: 700;
+            color: var(--primary-color); /* Teal Text */
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .btn-action-full {
+            width: 100%; padding: 12px; border: none; border-radius: 12px;
+            color: white; font-weight: 700; font-size: 1rem; cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-action-full:hover { opacity: 0.9; }
+
+        /* --- نافذة العرض --- */
+        .offer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 2000;
+        }
+        .offer-modal {
+            background: white; width: 90%; max-width: 450px; padding: 30px;
+            border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
+        }
+        .offer-textarea {
+            width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 10px;
+            margin: 15px 0; resize: none;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* === تحديثات الاتجاه LTR (English) === */
+        html[dir="ltr"] .map-controls-wrapper {
+            left: auto;
+            right: 20px;
+        }
+        
+        html[dir="ltr"] .custom-zoom-control {
+            right: auto;
+            left: 30px;
+        }
+
+        html[dir="ltr"] #profile-panel {
+            left: auto;
+            right: 30px;
+            transform: translateX(150%);
+        }
+
+        html[dir="ltr"] #profile-panel.active {
+            transform: translateX(0);
+        }
+
+        html[dir="ltr"] .close-panel-btn {
+            left: auto;
+            right: 15px;
+        }
+
+        html[dir="ltr"] .leaflet-control-geocoder {
+            transform-origin: top left;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map">
+        <div class="map-controls-wrapper">
+            <div style="position: relative;">
+                <button class="btn-control" id="btn-filter" onclick="toggleFilter()">
+                    <i class="fa-solid fa-filter"></i> <span id="txt-filter">تصفية</span>
+                </button>
+                <div class="filter-dropdown" id="filterDropdown">
+                    <div class="filter-option selected" onclick="applyFilter('all', this)">
+                        <i class="fa-solid fa-border-all"></i> <span id="txt-all">الكل</span>
+                    </div>
+                    <div class="filter-option" onclick="applyFilter('farmer', this)">
+                        <i class="fa-solid fa-tractor"></i> <span id="txt-farmers">الفلاحين</span>
+                    </div>
+                    <div class="filter-option" onclick="applyFilter('consumer', this)">
+                        <i class="fa-solid fa-cart-shopping"></i> <span id="txt-consumers">المستهلكين</span>
+                    </div>
+                    <div class="filter-option" onclick="applyFilter('investor', this)">
+                        <i class="fa-solid fa-briefcase"></i> <span id="txt-investors">المستثمرين</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- زر تغيير اللغة -->
+            <button class="btn-control" id="btn-lang" onclick="toggleLanguage()">
+                <i class="fa-solid fa-globe"></i> <span id="txt-lang-btn">English</span>
+            </button>
+        </div>
+
+        <div class="custom-zoom-control">
+            <button class="btn-zoom" onclick="zoomIn()" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+            <button class="btn-zoom" onclick="zoomOut()" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+        </div>
+    </div>
+
+    <div id="profile-panel">
+        <button class="close-panel-btn" onclick="closePanel()"><i class="fa-solid fa-xmark"></i></button>
+        <div id="teammate-content-area"></div>
+    </div>
+
+    <div class="offer-overlay" id="offerModal">
+        <div class="offer-modal">
+            <h3 id="modal-title" style="color: var(--primary-color); margin-bottom: 10px;">
+                <i class="fa-solid fa-paper-plane"></i> عرض منتجاتك للمستهلك
+            </h3>
+            <p id="modal-desc" style="color: #666; font-size: 0.9rem;">
+                اكتب التفاصيل والمحاصيل التي تريد عرضها على <strong id="offerToName">...</strong> بالسعر:
+            </p>
+            <textarea id="modal-input" class="offer-textarea" rows="5" placeholder="مثال: عندي 50 طن بطاطس صنف سباوند، السعر 5 ج.م للكجم..."></textarea>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-action-full" style="background: var(--primary-color);" id="btn-send" onclick="sendOffer()">إرسال العرض</button>
+                <button class="btn-action-full" style="background: #ccc;" id="btn-cancel" onclick="closeOfferModal()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+    <script>
+        // === قاموس الترجمة ===
+        const translations = {
+            ar: {
+                search_placeholder: "ابحث هنا...",
+                filter: "تصفية",
+                all: "الكل",
+                farmers: "الفلاحين",
+                consumers: "المستهلكين",
+                investors: "المستثمرين",
+                lang_btn: "English",
+                
+                roles: { farmer: "فلاح", consumer: "مستهلك", investor: "مستثمر" },
+                
+                labels: { area: "المساحة", returnRate: "العائد", price: "السعر", location: "الموقع", crops: "المحاصيل" },
+                
+                modal_title: "عرض منتجاتك للمستهلك",
+                modal_desc: "اكتب التفاصيل والمحاصيل التي تريد عرضها على",
+                modal_ph: "مثال: عندي 50 طن بطاطس صنف سباوند، السعر 5 ج.م للكجم...",
+                btn_send: "إرسال العرض",
+                btn_cancel: "إلغاء",
+                alert_sent: "تم إرسال عرضك بنجاح",
+                
+                btn_contact: "تواصل للشراء",
+                btn_invest: "استثمر الآن",
+                btn_offer: "اعرض منتجاتك"
+            },
+            en: {
+                search_placeholder: "Search here...",
+                filter: "Filter",
+                all: "All",
+                farmers: "Farmers",
+                consumers: "Consumers",
+                investors: "Investors",
+                lang_btn: "عربي",
+                
+                roles: { farmer: "Farmer", consumer: "Consumer", investor: "Investor" },
+                
+                labels: { area: "Area", returnRate: "Return", price: "Price", location: "Location", crops: "Crops" },
+                
+                modal_title: "Offer Your Products",
+                modal_desc: "Write details and crops you want to offer to",
+                modal_ph: "Ex: I have 50 tons of potatoes, price is 5 EGP/kg...",
+                btn_send: "Send Offer",
+                btn_cancel: "Cancel",
+                alert_sent: "Your offer has been sent successfully",
+                
+                btn_contact: "Contact to Buy",
+                btn_invest: "Invest Now",
+                btn_offer: "Offer Products"
+            }
+        };
+
+        let currentLang = 'ar';
+
+        // Toggle Language Function
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const doc = document.documentElement;
+            doc.lang = currentLang;
+            doc.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update Static Text
+            document.getElementById('txt-filter').innerText = translations[currentLang].filter;
+            document.getElementById('txt-all').innerText = translations[currentLang].all;
+            document.getElementById('txt-farmers').innerText = translations[currentLang].farmers;
+            document.getElementById('txt-consumers').innerText = translations[currentLang].consumers;
+            document.getElementById('txt-investors').innerText = translations[currentLang].investors;
+            document.getElementById('txt-lang-btn').innerText = translations[currentLang].lang_btn;
+
+            // Update Search Placeholder
+            const searchInput = document.querySelector('.leaflet-control-geocoder-input');
+            if(searchInput) searchInput.placeholder = translations[currentLang].search_placeholder;
+
+            // Update Modal Text
+            document.getElementById('modal-title').innerHTML = `<i class="fa-solid fa-paper-plane"></i> ${translations[currentLang].modal_title}`;
+            document.getElementById('modal-desc').innerHTML = `${translations[currentLang].modal_desc} <strong id="offerToName">${document.getElementById('offerToName').innerText}</strong> ${currentLang==='ar'?'بالسعر:':''}`;
+            document.getElementById('modal-input').placeholder = translations[currentLang].modal_ph;
+            document.getElementById('btn-send').innerText = translations[currentLang].btn_send;
+            document.getElementById('btn-cancel').innerText = translations[currentLang].btn_cancel;
+
+            // Re-render Profile Panel if open
+            if(document.getElementById('profile-panel').classList.contains('active') && window.currentUser) {
+                openProfile(window.currentUser);
+            }
+        }
+
+        // === Map Initialization ===
+        var map = L.map('map', { zoomControl: false, attributionControl: false, minZoom: 6, maxZoom: 18 }).setView([26.8, 30.8], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+        var egyptBounds = L.latLngBounds(L.latLng(22.0, 24.0), L.latLng(32.0, 37.0));
+        map.setMaxBounds(egyptBounds);
+        map.on('drag', function() { map.panInsideBounds(egyptBounds, { animate: false }); });
+        map.fitBounds(egyptBounds);
+
+        var geocoder = L.Control.geocoder({
+            defaultMarkGeocode: false, 
+            errorMessage: 'Not found',
+            showResultIcons: false, 
+            collapsed: false, 
+            expand: 'touch', 
+            position: 'topright',
+            geocoder: L.Control.Geocoder.nominatim({ geocodingQueryParams: { countrycodes: 'eg', limit:5 } })
+        }).addTo(map);
+
+        geocoder.on('markgeocode', function(e) {
+            var result = e.geocode;
+            var cityName = result.name || result.properties.display_name.split(',')[0];
+            var cleanCityName = cityName.trim().toLowerCase();
+            var bbox = result.bbox;
+            var poly = L.polygon([
+                [bbox.getSouthEast().lat, bbox.getSouthEast().lng],
+                [bbox.getNorthEast().lat, bbox.getNorthEast().lng],
+                [bbox.getNorthWest().lat, bbox.getNorthWest().lng],
+                [bbox.getSouthWest().lat, bbox.getSouthWest().lng]
+            ]);
+            map.fitBounds(poly.getBounds());
+            markers.forEach(m => {
+                var userCity = m.userData.city || '';
+                if (userCity && userCity.toLowerCase() === cleanCityName) {
+                    if(!map.hasLayer(m)) m.addTo(map); m.setOpacity(1);
+                } else { m.remove(); }
+            });
+        });
+
+        // === Data ===
+        var users = [
+            // Cairo
+            { id: 1, name: "Holding Co.", role: "investor", lat: 30.0450, lng: 31.2350, city: "Cairo", img: "https://picsum.photos/seed/c1/150/150", description: "Investment in residential complexes and malls.", area: "200 Feddan", returnRate: "10%", price: "500,000" },
+            { id: 2, name: "Ahmed Trader", role: "consumer", lat: 30.0600, lng: 31.2200, city: "Cairo", img: "https://picsum.photos/seed/c2/150/150", description: "Need fresh vegetables daily for supermarket.", location: "Nasr City" },
+            { id: 3, name: "Mohamed Attia", role: "consumer", lat: 30.0400, lng: 31.2100, city: "Cairo", img: "https://picsum.photos/seed/c3/150/150", description: "Restaurant owner, need meat & veg supply.", location: "Heliopolis" },
+            { id: 4, name: "El-Noor Group", role: "investor", lat: 30.0800, lng: 31.2500, city: "Cairo", img: "https://picsum.photos/seed/c4/150/150", description: "Financing youth SMEs.", area: "10 Million", returnRate: "12%", price: "50,000" },
+            { id: 5, name: "El-Omda Supermarket", role: "consumer", lat: 30.0900, lng: 31.2600, city: "Cairo", img: "https://picsum.photos/seed/c5/150/150", description: "Need large quantities of seasonal fruits.", location: "Abbaseya" },
+
+            // Giza
+            { id: 6, name: "Sayed El-Katatni", role: "farmer", lat: 30.0100, lng: 31.1900, city: "Giza", img: "https://picsum.photos/seed/g1/150/150", description: "Poultry farm and green crops.", crops: "Poultry, Lettuce", price: "6 EGP" },
+            { id: 7, name: "Mahmoud El-Fallah", role: "farmer", lat: 30.0200, lng: 31.1800, city: "Giza", img: "https://picsum.photos/seed/g2/150/150", description: "Specialist in potatoes and tomatoes.", crops: "Potatoes, Tomatoes", price: "5 EGP" },
+            { id: 8, name: "Hassan Khalil", role: "farmer", lat: 30.0000, lng: 31.2000, city: "Giza", img: "https://picsum.photos/seed/g3/150/150", description: "Fattening white calves.", crops: "Calves", price: "Market Price" },
+            { id: 9, name: "El-Shimy Family", role: "consumer", lat: 30.0300, lng: 31.2100, city: "Giza", img: "https://picsum.photos/seed/g4/150/150", description: "Looking for Bellevue milk supply.", location: "Giza Pyramids" },
+            { id: 10, name: "Pyramids Restaurant", role: "consumer", lat: 30.0150, lng: 31.1300, city: "Giza", img: "https://picsum.photos/seed/g5/150/150", description: "Tourist restaurant requesting luxury products.", location: "Pyramids" },
+
+            // Alexandria
+            { id: 11, name: "El-Kheir Co.", role: "investor", lat: 31.2001, lng: 29.9187, city: "Alexandria", img: "https://picsum.photos/seed/a1/150/150", description: "Golden investment opportunity in Western Desert.", area: "50 Feddan", returnRate: "15%", price: "100,000" },
+            { id: 12, name: "Cecil Hotel", role: "consumer", lat: 31.2100, lng: 29.9100, city: "Alexandria", img: "https://picsum.photos/seed/a2/150/150", description: "We need fresh sea fish daily.", location: "Smouha" },
+            { id: 13, name: "Yahia El-Samak", role: "consumer", lat: 31.1900, lng: 29.9000, city: "Alexandria", img: "https://picsum.photos/seed/a3/150/150", description: "Fish trader, need fishing supply.", location: "Port" },
+            { id: 14, name: "El-Noor Co.", role: "investor", lat: 31.2200, lng: 29.9300, city: "Alexandria", img: "https://picsum.photos/seed/a4/150/150", description: "Import and export of food products.", area: "Port Warehouses", returnRate: "8%", price: "250,000" },
+            { id: 15, name: "Amira Khaled", role: "consumer", lat: 31.2050, lng: 29.8950, city: "Alexandria", img: "https://picsum.photos/seed/a5/150/150", description: "Looking for fresh dairy products.", location: "Raml Station" },
+
+            // Beheira (Kafr El Sheikh)
+            { id: 26, name: "El-Sayed El-Fallah", role: "farmer", lat: 31.1108, lng: 30.9388, city: "Kafr El Sheikh", img: "https://picsum.photos/seed/b1/150/150", description: "Fertile land for potatoes and rice.", crops: "Rice, Potatoes", price: "3 EGP" },
+            { id: 27, name: "El-Reef Restaurant", role: "consumer", lat: 31.1200, lng: 30.9400, city: "Kafr El Sheikh", img: "https://picsum.photos/seed/b2/150/150", description: "Restaurant serving authentic Egyptian food.", location: "Downtown" },
+            { id: 28, name: "Hassan El-Razzaz", role: "farmer", lat: 31.1000, lng: 30.9500, city: "Kafr El Sheikh", img: "https://picsum.photos/seed/b3/150/150", description: "Egyptian export rice production.", crops: "Rice", price: "4 EGP" },
+            { id: 29, name: "Ahmed El-Sayed", role: "consumer", lat: 31.1300, lng: 30.9200, city: "Kafr El Sheikh", img: "https://picsum.photos/seed/b4/150/150", description: "Fish merchant and fish farms.", location: "Sea" },
+            { id: 30, name: "Sahel Group", role: "consumer", lat: 31.1150, lng: 30.9300, city: "Kafr El Sheikh", img: "https://picsum.photos/seed/b5/150/150", description: "Needs of restaurants and tourist resorts.", location: "Burg El-Burullus" },
+
+            // Dakahlia (Mansoura)
+            { id: 16, name: "Khaled Ali", role: "consumer", lat: 30.5965, lng: 31.3785, city: "Mansoura", img: "https://picsum.photos/seed/d1/150/150", description: "Restaurant chain owner, need quantities.", location: "Mansoura" },
+            { id: 17, name: "Mahmoud El-Mansouri", role: "farmer", lat: 30.5800, lng: 31.3900, city: "Mansoura", img: "https://picsum.photos/seed/d2/150/150", description: "Rice and potatoes cultivation.", crops: "Rice, Potatoes", price: "4 EGP" },
+            { id: 18, name: "Abdelrahman Hassan", role: "farmer", lat: 30.6100, lng: 31.3600, city: "Mansoura", img: "https://picsum.photos/seed/d3/150/150", description: "Belvedere milk and mango production.", crops: "Dairy, Mango", price: "Market Price" },
+            { id: 19, name: "Delta Supermarket", role: "consumer", lat: 30.5850, lng: 31.4000, city: "Mansoura", img: "https://picsum.photos/seed/d4/150/150", description: "Vegetable supply for local market.", location: "University District" },
+            { id: 20, name: "Osman Abdullah", role: "farmer", lat: 30.5950, lng: 31.3500, city: "Mansoura", img: "https://picsum.photos/seed/d5/150/150", description: "Poultry and eggs.", crops: "Poultry, Eggs", price: "30 EGP" },
+
+            // Sharqia (Zagazig)
+            { id: 21, name: "Fawzy El-Zagazigi", role: "farmer", lat: 30.5800, lng: 31.5000, city: "Zagazig", img: "https://picsum.photos/seed/sh1/150/150", description: "Best types of onions and garlic.", crops: "Onions, Garlic", price: "3.5 EGP" },
+            { id: 22, name: "Ezz El-Din", role: "farmer", lat: 30.5900, lng: 31.4900, city: "Zagazig", img: "https://picsum.photos/seed/sh2/150/150", description: "Cotton and textile crops.", crops: "Cotton, Wheat", price: "Supply Price" },
+            { id: 23, name: "Amo Amro Stores", role: "consumer", lat: 30.5700, lng: 31.5100, city: "Zagazig", img: "https://picsum.photos/seed/sh3/150/150", description: "I need daily vegetable supply.", location: "Downtown" },
+            { id: 24, name: "El-Salam Farm", role: "farmer", lat: 30.6000, lng: 31.4800, city: "Zagazig", img: "https://picsum.photos/seed/sh4/150/150", description: "Livestock breeding and fattening.", crops: "Cows, Calves", price: "Meat Price" },
+            { id: 25, name: "El-Sadaka Co.", role: "consumer", lat: 30.5850, lng: 31.5200, city: "Zagazig", img: "https://picsum.photos/seed/sh5/150/150", description: "Exporting vegetables abroad.", location: "Industrial Zone" },
+
+            // Gharbia (Tanta)
+            { id: 31, name: "Samia Mohamed", role: "consumer", lat: 31.0379, lng: 30.9635, city: "Tanta", img: "https://picsum.photos/seed/gw1/150/150", description: "Looking for daily supplies for my restaurant.", location: "2nd District" },
+            { id: 32, name: "El-Wafa Farm", role: "farmer", lat: 30.7961, lng: 31.0015, city: "Tanta", img: "https://picsum.photos/seed/gw2/150/150", description: "Exporting fruits and vegetables to Europe.", crops: "Strawberries, Bananas", price: "International Price" },
+            { id: 33, name: "Mahmoud Tantawi", role: "farmer", lat: 30.7850, lng: 30.9900, city: "Tanta", img: "https://picsum.photos/seed/gw3/150/150", description: "Seasonal cultivation and export.", crops: "Oranges, Lemons", price: "Market Price" },
+            { id: 34, name: "El-Tawfic Exhibition", role: "consumer", lat: 31.0500, lng: 30.9700, city: "Tanta", img: "https://picsum.photos/seed/gw4/150/150", description: "Local supermarket.", location: "Market" },
+            { id: 35, name: "Abdel Rahim", role: "farmer", lat: 30.7900, lng: 31.0200, city: "Tanta", img: "https://picsum.photos/seed/gw5/150/150", description: "Bird breeding and feed.", crops: "Feed, Birds", price: "Feed Price" },
+
+            // Matrouh
+            { id: 45, name: "El-Waha Co.", role: "investor", lat: 31.3500, lng: 27.2500, city: "Matrouh", img: "https://picsum.photos/seed/m1/150/150", description: "Tourist and agricultural investment.", area: "1000 Feddan", returnRate: "18%", price: "500,000" },
+            { id: 46, name: "Zeinat El-Bahr", role: "consumer", lat: 31.3600, lng: 27.2600, city: "Matrouh", img: "https://picsum.photos/seed/m2/150/150", description: "Seafood restaurant.", location: "Kilo 35" },
+            { id: 47, name: "Mahmoud Matrouhi", role: "farmer", lat: 31.3400, lng: 27.2400, city: "Matrouh", img: "https://picsum.photos/seed/m3/150/150", description: "Olives and figs cultivation.", crops: "Olives, Figs", price: "Excellent Price" },
+            { id: 48, name: "Western Desert Center", role: "investor", lat: 31.3550, lng: 27.2550, city: "Matrouh", img: "https://picsum.photos/seed/m4/150/150", description: "Developing new lands.", area: "2000 Feddan", returnRate: "25%", price: "800,000" },
+            { id: 49, name: "El-Baladi Market", role: "consumer", lat: 31.3450, lng: 27.2650, city: "Matrouh", img: "https://picsum.photos/seed/m5/150/150", description: "Local vegetable market.", location: "City" },
+            
+            // Siwa
+            { id: 100, name: "Siwa Investment Co.", role: "investor", lat: 29.2000, lng: 25.5000, city: "Siwa", img: "https://picsum.photos/seed/siwa1/150/150", description: "Siwan dates and tourism projects.", area: "500 Feddan", returnRate: "20%", price: "400,000" },
+            { id: 101, name: "Ali Siwi", role: "farmer", lat: 29.2100, lng: 25.5100, city: "Siwa", img: "https://picsum.photos/seed/siwa2/150/150", description: "Best dates and olives.", crops: "Dates, Olives", price: "High Price" },
+            { id: 102, name: "Ahawat Shali", role: "consumer", lat: 29.1900, lng: 25.4900, city: "Siwa", img: "https://picsum.photos/seed/siwa3/150/150", description: "Need Siwan products supply.", location: "Downtown" },
+
+            // New Valley (Dakhla)
+            { id: 103, name: "Free Zone", role: "investor", lat: 25.4500, lng: 30.5500, city: "Dakhla", img: "https://picsum.photos/seed/dakhla1/150/150", description: "Rock investment and trade.", area: "1000 Feddan", returnRate: "22%", price: "600,000" },
+            { id: 104, name: "Karem El-Dakhly", role: "farmer", lat: 25.4600, lng: 30.5600, city: "Dakhla", img: "https://picsum.photos/seed/dakhla2/150/150", description: "Palms and dates cultivation.", crops: "Dates", price: "Wholesale Price" },
+            { id: 105, name: "Dakhla Market", role: "consumer", lat: 25.4400, lng: 30.5400, city: "Dakhla", img: "https://picsum.photos/seed/dakhla3/150/150", description: "Large commercial market.", location: "City" },
+
+            // Upper Egypt (Minya, Sohag, Luxor, Aswan)
+            { id: 36, name: "Monther El-Ali", role: "farmer", lat: 28.1000, lng: 30.7500, city: "Minya", img: "https://picsum.photos/seed/u1/150/150", description: "Wheat and sugar beet cultivation.", crops: "Wheat, Beet", price: "Gov Price" },
+            { id: 37, name: "Saed Investment Co.", role: "investor", lat: 28.1100, lng: 30.7600, city: "Minya", img: "https://picsum.photos/seed/u2/150/150", description: "Reclaiming desert lands.", area: "500 Feddan", returnRate: "20%", price: "1,000,000" },
+            { id: 38, name: "Mahmoud Sohagi", role: "farmer", lat: 26.5500, lng: 31.6900, city: "Sohag", img: "https://picsum.photos/seed/u3/150/150", description: "Petroleum dates and dates.", crops: "Dates, Citrus", price: "Wholesale Price" },
+            { id: 39, name: "Munira Ahmed", role: "consumer", lat: 26.5600, lng: 31.6800, city: "Sohag", img: "https://picsum.photos/seed/u4/150/150", description: "Food products trader.", location: "Smouha Market" },
+            { id: 40, name: "El-Wadi Project", role: "investor", lat: 25.6894, lng: 32.6396, city: "Luxor", img: "https://picsum.photos/seed/u5/150/150", description: "Investment in royal palm dates.", area: "100 Feddan", returnRate: "20%", price: "200,000" },
+            { id: 41, name: "Abdullah Luxor", role: "farmer", lat: 25.6800, lng: 32.6500, city: "Luxor", img: "https://picsum.photos/seed/u6/150/150", description: "Sugar cane and palms cultivation.", crops: "Cane, Dates", price: "Market Price" },
+            { id: 42, name: "Nour El-Din", role: "consumer", lat: 24.0900, lng: 32.9000, city: "Aswan", img: "https://picsum.photos/seed/u7/150/150", description: "Hotels and resorts needs.", location: "Corniche" },
+            { id: 43, name: "High Dam Investment", role: "investor", lat: 24.0800, lng: 32.8800, city: "Aswan", img: "https://picsum.photos/seed/u8/150/150", description: "Fishery projects and lakes.", area: "10 Feddan", returnRate: "15%", price: "300,000" },
+            { id: 44, name: "Mahmoud Nubi", role: "farmer", lat: 24.1000, lng: 32.9100, city: "Aswan", img: "https://picsum.photos/seed/u9/150/150", description: "Dates and medicinal herbs.", crops: "Dates, Hibiscus", price: "High Price" },
+
+            // Qena
+            { id: 106, name: "Ahmed Qenawy", role: "farmer", lat: 26.1500, lng: 32.7000, city: "Qena", img: "https://picsum.photos/seed/qena1/150/150", description: "Sugar cane cultivation.", crops: "Sugar Cane", price: "Supply Price" },
+            { id: 107, name: "Nile Supermarket", role: "consumer", lat: 26.1600, lng: 32.6900, city: "Qena", img: "https://picsum.photos/seed/qena2/150/150", description: "Retail trader.", location: "Downtown" },
+
+            // Assiut
+            { id: 108, name: "Saed Industrial Co.", role: "investor", lat: 27.1800, lng: 31.1800, city: "Assiut", img: "https://picsum.photos/seed/assiut1/150/150", description: "Dairy and food factories.", area: "20k m2", returnRate: "12%", price: "150,000" },
+            { id: 109, name: "Assiut Farmer", role: "farmer", lat: 27.1900, lng: 31.1700, city: "Assiut", img: "https://picsum.photos/seed/assiut2/150/150", description: "Nile crops cultivation.", crops: "Wheat, Clover", price: "Wholesale Price" },
+
+            // Beni Suef
+            { id: 110, name: "Agricultural Co.", role: "investor", lat: 29.0700, lng: 31.1000, city: "Beni Suef", img: "https://picsum.photos/seed/benis1/150/150", description: "Farmers financing.", area: "5 Million", returnRate: "14%", price: "10,000" },
+            { id: 111, name: "Khair Allah", role: "farmer", lat: 29.0600, lng: 31.0900, city: "Beni Suef", img: "https://picsum.photos/seed/benis2/150/150", description: "Seasonal cultivation.", crops: "Cucumber, Okra", price: "Market Price" },
+
+            // Fayoum
+            { id: 112, name: "Mahmoud Fayoumi", role: "farmer", lat: 29.3000, lng: 30.8400, city: "Fayoum", img: "https://picsum.photos/seed/fay1/150/150", description: "Grapes and olives cultivation.", crops: "Grapes, Olives", price: "Excellent Price" },
+            { id: 113, name: "Fayoum Market", role: "consumer", lat: 29.3100, lng: 30.8500, city: "Fayoum", img: "https://picsum.photos/seed/fay2/150/150", description: "Livestock traders.", location: "General Market" },
+
+            // Canal & Sinai
+            // Port Said
+            { id: 50, name: "Sea Port", role: "investor", lat: 31.2600, lng: 32.3000, city: "Port Said", img: "https://picsum.photos/seed/port1/150/150", description: "Logistics and storage investment.", area: "10k m2", returnRate: "15%", price: "1,500,000" },
+            { id: 51, name: "Port Said Fisherman", role: "consumer", lat: 31.2500, lng: 32.2900, city: "Port Said", img: "https://picsum.photos/seed/port2/150/150", description: "Shrimp and fish trader.", location: "Fishing Port" },
+            { id: 52, name: "Storage Warehouses", role: "consumer", lat: 31.2700, lng: 32.3100, city: "Port Said", img: "https://picsum.photos/seed/port3/150/150", description: "Need rice for import.", location: "Free Zone" },
+
+            // Ismailia
+            { id: 53, name: "Suez Canal", role: "investor", lat: 30.6000, lng: 32.2700, city: "Ismailia", img: "https://picsum.photos/seed/ism1/150/150", description: "Tourism projects on the canal.", area: "100 Feddan", returnRate: "18%", price: "2,000,000" },
+            { id: 54, name: "El-Khalij Farm", role: "farmer", lat: 30.6100, lng: 32.2600, city: "Ismailia", img: "https://picsum.photos/seed/ism2/150/150", description: "Protected cultivation.", crops: "Various Vegetables", price: "Luxury Price" },
+
+            // Suez
+            { id: 55, name: "Transport Group", role: "investor", lat: 29.9700, lng: 32.5400, city: "Suez", img: "https://picsum.photos/seed/suez1/150/150", description: "Transport and international trade.", area: "Transport Fleet", returnRate: "20%", price: "5,000,000" },
+
+            // N. Sinai (Arish)
+            { id: 60, name: "Arish Investor", role: "investor", lat: 31.2000, lng: 33.8000, city: "Arish", img: "https://picsum.photos/seed/ari1/150/150", description: "Tourism development and real estate.", area: "200 Feddan", returnRate: "25%", price: "300,000" },
+            { id: 61, name: "Mahmoud Sinawi", role: "farmer", lat: 31.2100, lng: 33.8100, city: "Arish", img: "https://picsum.photos/seed/ari2/150/150", description: "Olives and figs cultivation.", crops: "Olives, Figs", price: "Excellent Price" },
+            { id: 62, name: "Border Traders", role: "consumer", lat: 31.1900, lng: 33.7900, city: "Arish", img: "https://picsum.photos/seed/ari3/150/150", description: "Import and export.", location: "Border" },
+            { id: 63, name: "Sinai Co.", role: "investor", lat: 31.2200, lng: 33.8200, city: "Arish", img: "https://picsum.photos/seed/ari4/150/150", description: "Reclaiming Sinai lands.", area: "1000 Feddan", returnRate: "30%", price: "600,000" },
+
+            // S. Sinai (Sharm, Dahab)
+            { id: 70, name: "Arab Restaurant", role: "consumer", lat: 27.9200, lng: 34.3800, city: "Sharm El Sheikh", img: "https://picsum.photos/seed/sharm1/150/150", description: "Need meat and fruits supply.", location: "Naama Bay" },
+            { id: 71, name: "El-Khalij Hotel", role: "consumer", lat: 27.9300, lng: 34.3700, city: "Sharm El Sheikh", img: "https://picsum.photos/seed/sharm2/150/150", description: "Daily hotel supplies.", location: "El-Khalij" },
+            { id: 72, name: "Dahab Tourist", role: "consumer", lat: 28.4900, lng: 34.5100, city: "Dahab", img: "https://picsum.photos/seed/dahab1/150/150", description: "Seafood and supplies.", location: "Laguna" },
+            { id: 73, name: "El-Tor", role: "consumer", lat: 28.2300, lng: 33.6300, city: "El-Tor", img: "https://picsum.photos/seed/tur1/150/150", description: "Fish trader.", location: "Port" },
+
+            // Damietta
+            { id: 80, name: "Amir El-Reef", role: "consumer", lat: 31.2500, lng: 31.8000, city: "Damietta", img: "https://picsum.photos/seed/dam1/150/150", description: "Need rice and furniture.", location: "El-Mahalla" },
+            { id: 81, name: "Home Furniture", role: "consumer", lat: 31.2600, lng: 31.7900, city: "Damietta", img: "https://picsum.photos/seed/dam2/150/150", description: "Furniture trader.", location: "Industrial Zone" },
+
+            // Kafr El Sheikh More
+            { id: 90, name: "El-Reef El-Gedid", role: "consumer", lat: 31.3000, lng: 30.8000, city: "Kafr El Sheikh", img: "https://picsum.photos/seed/kf2/150/150", description: "Retail market.", location: "Metobas" },
+            { id: 91, name: "El-Fallah El-Nagah", role: "farmer", lat: 31.3100, lng: 30.8100, city: "Kafr El Sheikh", img: "https://picsum.photos/seed/kf3/150/150", description: "Potatoes for export.", crops: "Potatoes", price: "International Price" }
+        ];
+
+        var markers = [];
+
+        function getRoleArabic(role) {
+            return translations[currentLang].roles[role];
+        }
+
+        function getRoleClass(role) {
+            if (role === 'farmer') return 'badge-farmer';
+            if (role === 'consumer') return 'badge-consumer';
+            if (role === 'investor') return 'badge-investor';
+            return '';
+        }
+
+        function getRoleColor(role) {
+            if (role === 'farmer') return '#0F4C5C'; // Teal
+            if (role === 'investor') return '#E07A5F'; // Orange
+            if (role === 'consumer') return '#E07A5F'; // Orange for border visibility (Sand is too light)
+            return '#333';
+        }
+
+        function createCustomIcon(user) {
+            var color = getRoleColor(user.role);
+            return L.divIcon({
+                html: `<div class="pin-container" style="--current-role-color: ${color}"><img src="${user.img}" class="pin-img-only"><div class="pin-label">${user.name}</div></div>`,
+                iconSize: [60,75],
+                iconAnchor: [30,75]
+            });
+        }
+
+        function initMarkers() {
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+            users.forEach(user => {
+                var marker = L.marker([user.lat, user.lng], { icon: createCustomIcon(user) }).addTo(map);
+                marker.roleType = user.role;
+                marker.userData = user;
+                marker.on('click', function() { openProfile(this.userData); });
+                markers.push(marker);
+            });
+        }
+
+        initMarkers();
+
+        function toggleFilter() { document.getElementById('filterDropdown').classList.toggle('active'); }
+
+        function applyFilter(role, el) {
+            if (el) {
+                document.querySelectorAll('.filter-option').forEach(o => o.classList.remove('selected'));
+                el.classList.add('selected');
+                document.getElementById('filterDropdown').classList.remove('active');
+            }
+            markers.forEach(m => {
+                if (role === 'all' || m.roleType === role) { m.addTo(map); } else { map.removeLayer(m); }
+            });
+        }
+
+        window.onclick = function(e) { if (!e.target.closest('.map-controls-wrapper')) { document.getElementById('filterDropdown').classList.remove('active'); } };
+
+        function zoomIn() { map.zoomIn(); }
+        function zoomOut() { map.zoomOut(); }
+
+        var panel = document.getElementById('profile-panel');
+        var contentArea = document.getElementById('teammate-content-area');
+        window.currentUser = null;
+
+        map.on('zoomend', function() {
+            var currentZoom = map.getZoom();
+            if (currentZoom <= 6) {
+                document.querySelectorAll('.filter-option').forEach(o => o.classList.remove('selected'));
+                document.querySelector('.filter-option:first-child').classList.add('selected');
+                applyFilter('all');
+            }
+        });
+
+        function openProfile(user) {
+            window.currentUser = user;
+            map.flyTo([user.lat, user.lng], 9, { duration:1.2 });
+            panel.classList.add('active');
+
+            const t = translations[currentLang];
+            const labels = t.labels;
+
+            var extraInfoText = "";
+            if (user.role === 'farmer') extraInfoText = `${labels.crops}: ${user.crops} | ${labels.price}: ${user.price}`;
+            if (user.role === 'investor') extraInfoText = `${labels.area}: ${user.area} | ${labels.returnRate}: ${user.returnRate}`;
+            if (user.role === 'consumer') extraInfoText = `${labels.location}: ${user.location}`;
+
+            var btnText = "", btnColor = "";
+            if (user.role === 'farmer') { btnText = t.btn_contact; btnColor = "#0F4C5C"; } // Teal
+            else if (user.role === 'investor') { btnText = t.btn_invest; btnColor = "#E07A5F"; } // Orange
+            else { btnText = t.btn_offer; btnColor = "#E07A5F"; } // Orange
+
+            var btnClick = user.role === 'consumer' ? `onclick="openOfferModal('${user.name}')"` : "";
+
+            contentArea.innerHTML = `
+                <div class="profile-content-inner">
+                    <img src="${user.img}" class="profile-header-img">
+                    <div class="profile-name">${user.name}</div>
+                    <div class="profile-role-badge ${getRoleClass(user.role)}">${getRoleArabic(user.role)}</div>
+                    
+                    <div class="profile-text-detail">${user.description}</div>
+                    <div class="profile-extra-info">${extraInfoText}</div>
+                    
+                    <button class="btn-action-full" style="background:${btnColor}" ${btnClick}>${btnText}</button>
+                </div>`;
+        }
+
+        function closePanel() { 
+            window.currentUser = null;
+            panel.classList.remove('active'); 
+        }
+
+        var offerModal = document.getElementById('offerModal');
+        var offerToNameSpan = document.getElementById('offerToName');
+
+        function openOfferModal(name) {
+            offerToNameSpan.innerText = name;
+            offerModal.style.display = 'flex';
+        }
+
+        function closeOfferModal() { offerModal.style.display = 'none'; }
+
+        function sendOffer() {
+            closeOfferModal();
+            closePanel();
+            alert(translations[currentLang].alert_sent);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List Your Farm | Zera3a-Tech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           CSS VARIABLES
+           ========================================= */
+        :root {
+            /* Light Theme Variables */
+            --primary: #1e5959;
+            --primary-dark: #164545;
+            --primary-light: #e6f0f0;
+            --secondary: #e67e3a;
+            --secondary-dark: #d46b25;
+            --background: #f8f9fa;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e5e5e5;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --nav-bg: #ffffff;
+            --nav-text: #333;
+            --btn-hover: #f0f0f0;
+            --input-bg: #ffffff;
+            --transition-speed: 0.4s;
+        }
+
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --primary: #4db6ac;
+            --primary-dark: #1e5959;
+            --primary-light: #263238;
+            --secondary: #ffab91;
+            --secondary-dark: #e67e3a;
+            --background: #121212;
+            --surface: #1e1e1e;
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border: #333333;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --nav-bg: #1e1e1e;
+            --nav-text: #f5f5f5;
+            --btn-hover: #2c2c2c;
+            --input-bg: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", "Inter", sans-serif;
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            padding-top: 80px; /* Space for fixed topbar */
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           TOPBAR DESIGN
+           ========================================= */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+           
+        }
+
+        .topbar-left, .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--nav-text);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .topbar-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+        }
+
+        .topbar-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* =========================================
+           PAGE LAYOUT
+           ========================================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            padding: 4rem 0 2rem;
+            background: linear-gradient(135deg, var(--background) 0%, #f0ebe4 100%);
+            text-align: center;
+        }
+
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, var(--background) 0%, #1a1a1a 100%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: color var(--transition-speed);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 30px var(--shadow);
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            transition: color var(--transition-speed);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: color var(--transition-speed);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text);
+            outline: none;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(30, 89, 89, 0.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: var(--secondary);
+            color: white;
+            font-weight: 600;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 107, 37, 0.25);
+        }
+
+        @media(max-width:768px) {
+            .topbar { padding: 0 20px; }
+            .form-container { padding: 2rem 1.5rem; }
+            .form-container h2 { font-size: 1.75rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+        }
+        /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <!-- Left: Back Button -->
+        <div class="topbar-left" style="display:flex; align-items:center; gap:10px;">
+          <a href="./animals.html" class="topbar-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-i18n="btn_back">Back Home</span>
+          </a>
+        </div>
+
+        <!-- Right: Controls -->
+        <div class="topbar-right" style="display:flex; align-items:center; gap:10px;">
+          <button id="langToggle" class="topbar-btn">
+            <span data-i18n="btn_lang" style="font-weight:bold;">عربي</span>
+            <i class="fa-solid fa-language"></i>
+          </button>
+          <button id="modeToggle" class="topbar-btn">
+            🌙
+          </button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-i18n="hero_title">List Your Farm / Land</h1>
+            <p data-i18n="hero_subtitle">Submit your farm details to get seen by buyers on our marketplace.</p>
+        </div>
+    </section>
+
+    <!-- FORM SECTION -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <h2 data-i18n="form_title">Submit Your Farm Details</h2>
+                <form id="farmForm">
+                    <div class="form-group">
+                        <label for="ownerName" data-i18n="label_owner">Owner Name</label>
+                        <input type="text" id="ownerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="landTitle" data-i18n="label_title">Land / Farm Title</label>
+                        <input type="text" id="landTitle" data-i18n-placeholder="ph_title" placeholder="e.g., Agricultural Land – Fayoum" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags" data-i18n="label_tags">Tags</label>
+                        <input type="text" id="tags" data-i18n-placeholder="ph_tags" placeholder="e.g., Crops • Irrigated • Clay Soil" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="size" data-i18n="label_size">Size (Feddan)</label>
+                        <input type="number" id="size" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="waterSource" data-i18n="label_water">Water Source</label>
+                        <select id="waterSource" required>
+                            <option value="" data-i18n="opt_select">Select</option>
+                            <option value="Nile Irrigation" data-i18n="opt_nile">Nile Irrigation</option>
+                            <option value="Well" data-i18n="opt_well">Well</option>
+                            <option value="Canal" data-i18n="opt_canal">Canal</option>
+                            <option value="Other" data-i18n="opt_other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="roadAccess" data-i18n="label_road">Road Access</label>
+                        <select id="roadAccess" required>
+                            <option value="" data-i18n="opt_select">Select</option>
+                            <option value="Available" data-i18n="opt_available">Available</option>
+                            <option value="Not Available" data-i18n="opt_not_available">Not Available</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" data-i18n="label_price">Price (EGP)</label>
+                        <input type="number" id="price" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit" data-i18n="btn_submit">Submit Listing</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ==========================================
+        // 1. FORM LOGIC
+        // ==========================================
+        const farmForm = document.getElementById('farmForm');
+
+        farmForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const farmData = {
+                ownerName: document.getElementById('ownerName').value,
+                landTitle: document.getElementById('landTitle').value,
+                tags: document.getElementById('tags').value,
+                size: document.getElementById('size').value,
+                waterSource: document.getElementById('waterSource').value,
+                roadAccess: document.getElementById('roadAccess').value,
+                price: document.getElementById('price').value
+            };
+
+            let farms = JSON.parse(localStorage.getItem('farms')) || [];
+            farms.push(farmData);
+            localStorage.setItem('farms', JSON.stringify(farms));
+
+            window.location.href = '5️⃣buyland.html';
+        });
+
+        // ==========================================
+        // 2. THEME LOGIC
+        // ==========================================
+        const modeToggle = document.getElementById('modeToggle');
+        
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                modeToggle.innerText = '☀️'; // Change emoji
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                modeToggle.innerText = '🌙'; // Change emoji
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        modeToggle.addEventListener('click', toggleTheme);
+
+        // Load saved theme immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if(savedTheme === 'dark') {
+                modeToggle.innerText = '☀️';
+            }
+        } else {
+            // Check system preference if no saved theme
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                modeToggle.innerText = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // ==========================================
+        // 3. TRANSLATION LOGIC (Full Dictionary)
+        // ==========================================
+        const translations = {
+            en: {
+                btn_back: "Back Home",
+                btn_lang: "عربي",
+                hero_title: "List Your Farm / Land",
+                hero_subtitle: "Submit your farm details to get seen by buyers on our marketplace.",
+                form_title: "Submit Your Farm Details",
+                label_owner: "Owner Name",
+                label_title: "Land / Farm Title",
+                label_tags: "Tags",
+                label_size: "Size (Feddan)",
+                label_water: "Water Source",
+                label_road: "Road Access",
+                label_price: "Price (EGP)",
+                btn_submit: "Submit Listing",
+                ph_title: "e.g., Agricultural Land – Fayoum",
+                ph_tags: "e.g., Crops • Irrigated • Clay Soil",
+                opt_select: "Select",
+                opt_nile: "Nile Irrigation",
+                opt_well: "Well",
+                opt_canal: "Canal",
+                opt_other: "Other",
+                opt_available: "Available",
+                opt_not_available: "Not Available"
+            },
+            ar: {
+                btn_back: "العودة للرئيسية",
+                btn_lang: "English",
+                hero_title: "سجل مزرعتك / أرضك",
+                hero_subtitle: "قدم تفاصيل مزرعتك لتظهر للمشترين في سوقنا.",
+                form_title: "إرسال تفاصيل المزرعة",
+                label_owner: "اسم المالك",
+                label_title: "عنوان الأرض / المزرعة",
+                label_tags: "العلامات",
+                label_size: "المساحة (فدان)",
+                label_water: "مصدر المياه",
+                label_road: "الوصول للطريق",
+                label_price: "السعر (جنيه مصري)",
+                btn_submit: "نشر الإعلان",
+                ph_title: "مثال: أرض زراعية – الفيوم",
+                ph_tags: "مثال: محاصيل • ري • طينية",
+                opt_select: "اختر",
+                opt_nile: "ري نيلي",
+                opt_well: "بئر",
+                opt_canal: "ترعة",
+                opt_other: "أخرى",
+                opt_available: "متاح",
+                opt_not_available: "غير متاح"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            const html = document.documentElement;
+            
+            if (currentLang === 'en') {
+                currentLang = 'ar';
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+            } else {
+                currentLang = 'en';
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+            }
+
+            // Apply translations for text content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            // Apply translations for placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
+            });
+            
+            // Save language preference
+            localStorage.setItem("lang", currentLang);
+        }
+
+        document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+        
+        // Load saved language on start
+        window.addEventListener('DOMContentLoaded', () => {
+             const savedLang = localStorage.getItem("lang");
+             if (savedLang && savedLang !== 'en') {
+                 toggleLanguage(); // Switch to Arabic if saved
+             }
+        });
+
+    </script>
+    <footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>
