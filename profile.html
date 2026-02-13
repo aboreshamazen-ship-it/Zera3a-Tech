@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Farm Dashboard</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F4C5C',    // Deep Teal
+                        secondary: '#E6D5B8',  // Warm Sand
+                        accent: '#E07A5F',     // Sunset Orange
+                        offwhite: '#FAF9F6',   // Off White
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        /* RTL Font Switch */
+        html[dir="rtl"] body {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Leaflet fix */
+        .leaflet-container {
+            z-index: 1 !important;
+        }
+
+        /* Scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .dark .custom-scroll::-webkit-scrollbar-track {
+            background: #3f3f46;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #0F4C5C;
+            border-radius: 10px;
+        }
+
+        /* Animations */
+        @keyframes slide-in-ltr {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slide-in-rtl {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes modal-in {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        html[dir="ltr"] .animate-slide-in {
+            animation: slide-in-ltr 0.3s ease-out forwards;
+        }
+
+        html[dir="rtl"] .animate-slide-in {
+            animation: slide-in-rtl 0.3s ease-out forwards;
+        }
+
+        .animate-modal-in {
+            animation: modal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Utility helpers */
+        .hidden-visually {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-offwhite text-slate-800 dark:bg-zinc-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
+
+    <!-- Header -->
+    <header id="main-header"
+        class="sticky top-0 z-50 p-4 md:px-10 flex justify-between items-center shadow-sm bg-white/90 dark:bg-zinc-800/90 backdrop-blur-md transition-colors">
+        <!-- Home Button -->
+        <button onclick="goHomeByRole()"
+            class="flex items-center gap-2 px-5 h-10 rounded-full border-2 font-bold transition-all border-primary text-primary hover:bg-primary hover:text-white">
+            <i class="fas fa-house home-icon-margin"></i>
+            <span data-i18n="home">Home</span>
+        </button>
+
+        <!-- Actions -->
+        <div class="flex gap-3">
+            <button onclick="toggleTheme()"
+                class="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all border-primary text-primary hover:bg-primary hover:text-white">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+
+            <button onclick="toggleLang()"
+                class="px-4 h-10 rounded-full border-2 flex items-center justify-center font-bold transition-all border-primary text-primary hover:bg-primary hover:text-white">
+                <span id="lang-label">EN</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8 pb-20">
+
+        <!-- Dashboard Top -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Profile Card -->
+            <div class="relative h-72 rounded-3xl overflow-hidden shadow-xl group">
+
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 z-10 bg-gradient-to-r from-green-800/80 via-green-600/40 to-transparent">
+                </div>
+
+                <!-- Background Image -->
+                <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=1200"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    alt="Farm Background">
+
+                <!-- Content -->
+                <div class="absolute inset-0 z-20 flex items-center gap-8 p-8 text-white">
+
+                    <!-- Profile Image Section -->
+                    <div class="flex flex-col items-center">
+
+                        <!-- Avatar -->
+                        <div class="w-32 h-32 rounded-full border-4 overflow-hidden shadow-2xl"
+                            style="border-color:white;">
+
+                            <img id="profileImage" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200"
+                                class="w-full h-full object-cover" alt="Avatar">
+                        </div>
+
+                        <label style="background-color:white;"
+                            class="mt-4 px-4 py-2 text-black font-semibold rounded-full cursor-pointer hover:scale-105 transition shadow-md text-sm">
+                            Change Photo
+                            <input type="file" id="imageUpload" accept="image/*" hidden>
+                        </label>
+
+
+                    </div>
+
+                    <!-- User Info -->
+                    <div>
+                        <h1 id="welcome-msg" class="text-3xl font-bold mb-2">
+                            Loading...
+                        </h1>
+
+                        <p id="user-role-display" class="font-medium capitalize mb-3" style="color: white;">
+                            Loading...
+                        </p>
+
+                        <div
+                            class="px-4 py-1 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-sm inline-block">
+                            Standard Member
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- Wallet Card -->
+            <div id="wallet-card"
+                class="rounded-3xl p-8 flex flex-col justify-between shadow-sm border border-secondary/30 bg-white dark:bg-zinc-800 dark:border-zinc-700 transition-colors">
+                <div>
+                    <p class="font-semibold text-lg text-primary dark:text-white" data-i18n="wallet">Wallet</p>
+                    <p class="text-slate-500 text-sm" data-i18n="available_balance">Available Balance</p>
+                    <div class="text-4xl font-bold text-primary dark:text-accent mt-2">
+                        <span id="wallet-balance">0</span> <span class="text-lg font-medium"
+                            data-i18n="currency">EGP</span>
+                    </div>
+                </div>
+                <div class="mt-6 flex flex-wrap justify-between items-end gap-4">
+                    <div>
+                        <p class="text-xs font-semibold mb-2 text-slate-400" data-i18n="payment_methods">Payment
+                            Methods:</p>
+                        <div class="flex gap-4">
+                            <span class="font-bold text-primary dark:text-accent">VISA</span>
+                            <span class="font-bold text-accent">Meeza</span>
+                            <span class="font-bold text-primary dark:text-accent">Telda</span>
+                        </div>
+                    </div>
+                    <a href="../wallet.html"
+                        class="flex items-center gap-2 font-semibold text-primary hover:text-accent transition-all">
+                        <span data-i18n="manage_wallet">Manage Wallet</span>
+                        <i class="fas fa-arrow-right wallet-arrow-icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two Column Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- My Listings -->
+            <div id="listings-card"
+                class="rounded-3xl p-6 shadow-sm border border-secondary/30 bg-white dark:bg-zinc-800 dark:border-zinc-700 transition-colors">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-primary dark:text-white" data-i18n="my_listings">My Listings</h2>
+                    <div class="flex items-center gap-3">
+                        <span onclick="openModal('tasks')"
+                            class="cursor-pointer bg-green-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+                            <i class="fas fa-check-circle"></i> 3 <span data-i18n="completed">Completed</span>
+                        </span>
+                        <button class="text-sm font-semibold text-slate-500 hover:text-primary"
+                            data-i18n="view_all">View All</button>
+                    </div>
+                </div>
+                <div id="jobs-container" class="space-y-4">
+                    <!-- Jobs injected via JS -->
+                </div>
+            </div>
+
+            <!-- Favorite Workers -->
+            <div id="workers-card"
+                class="rounded-3xl p-6 shadow-sm border border-secondary/30 bg-white dark:bg-zinc-800 dark:border-zinc-700 transition-colors">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-primary dark:text-white" data-i18n="favorite_workers">Favorite
+                        Workers</h2>
+                    <button class="text-sm font-semibold text-slate-500 hover:text-primary" data-i18n="view_all">View
+                        All</button>
+                </div>
+                <div id="workers-container" class="divide-y divide-secondary/20 dark:divide-zinc-700">
+                    <!-- Workers injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <section id="map-card"
+            class="rounded-3xl p-6 shadow-sm border mb-12 border-secondary/30 bg-white dark:bg-zinc-800 dark:border-zinc-700 transition-colors">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold flex items-center gap-3 text-primary dark:text-white">
+                    <i class="fas fa-map-marked-alt text-primary"></i> <span data-i18n="job_locations">Job
+                        Locations</span>
+                </h2>
+                <a href="../map.html">
+                    <button
+                        class="bg-primary text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-accent transition-colors shadow-lg">
+                        <i class="fas fa-plus add-icon-margin"></i> <span data-i18n="add_location">Add Location</span>
+                    </button>
+                </a>
+            </div>
+            <div id="farm-map"
+                class="h-96 rounded-2xl overflow-hidden border border-secondary/30 dark:border-zinc-700 z-0"></div>
+        </section>
+
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-8 right-8 z-[100] flex flex-col gap-3 rtl:left-8 rtl:right-auto">
+    </div>
+
+    <!-- Universal Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-primary/40 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div id="modal-content"
+            class="relative w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl animate-modal-in bg-offwhite dark:bg-zinc-800">
+            <!-- Modal Header -->
+            <div class="bg-primary p-6 text-white flex justify-between items-center">
+                <h3 id="modal-title" class="text-xl font-bold">Modal Title</h3>
+                <button onclick="closeModal()" class="text-2xl hover:text-accent">&times;</button>
+            </div>
+            <!-- Modal Body -->
+            <div id="modal-body" class="p-8 max-h-[80vh] overflow-y-auto custom-scroll">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase & App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // --- 1. CONFIGURATION & DATA ---
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+            authDomain: "smart-farm-8d3f5.firebaseapp.com",
+            projectId: "smart-farm-8d3f5",
+            storageBucket: "smart-farm-8d3f5.appspot.com",
+            messagingSenderId: "317371842198",
+            appId: "1:317371842198:web:4765ea8c0036ae64b10cb7",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Expose to window for onclick handlers
+        window.goHomeByRole = async () => {
+            const user = auth.currentUser;
+            if (!user) {
+                window.location.href = "./signinsignup/signin.html";
+                return;
+            }
+            try {
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                if (userSnap.exists()) {
+                    const { role } = userSnap.data();
+                    if (role === "farmer") window.location.href = "../farmer-ar.html";
+                    else if (role === "worker") window.location.href = "../worker.html";
+                    else if (role === "investor") window.location.href = "../investor.html";
+                }
+            } catch (error) {
+                console.error("Error checking role:", error);
+            }
+        };
+
+        const TRANSLATIONS = {
+            en: {
+                smart_farm: "Smart Farm", home: "Home", jobs: "Jobs", workers: "Workers", profile: "Profile",
+                farmer: "Farmer", "Ahmed Fahmy": "Ahmed Fahmy", standard_member: "Standard Member",
+                wallet: "Wallet", available_balance: "Available Balance", currency: "EGP",
+                payment_methods: "Payment Methods:", manage_wallet: "Manage Wallet",
+                my_listings: "My Listings", view_all: "View All", completed: "Completed",
+                active_job_requests: "Active Job Requests", wheat_harvesting: "Wheat Harvesting",
+                greenhouse_care: "Greenhouse Care", rice_planting: "Rice Planting",
+                favorite_workers: "Favorite Workers", available: "Available", busy: "Busy",
+                job_locations: "Job Locations", add_location: "Add Location",
+                hiring_again: "Hiring Again", chat: "Chat", hire_worker: "Hire Worker",
+                job_type: "Job Type", job_title: "Job Title", duration: "Duration",
+                offer_egp: "Offer (EGP)", msg_worker: "Message to Worker", send_offer: "Send Hiring Offer",
+                job_statistics: "Job Statistics", started_on: "Started On", worker_rating: "Worker Rating",
+                my_feedback: "My Feedback", incomplete_tasks: "Incomplete Tasks",
+                "Fadil Ahmed": "Fadil Ahmed", "Sami Hassan": "Sami Hassan", "Ehab Elsayed": "Ehab Elsayed",
+                "Senior Harvester": "Senior Harvester", "Greenhouse Specialist": "Greenhouse Specialist",
+                "Field Expert": "Field Expert", egp_day: "EGP / Day", egp_week: "EGP / Week", egp_season: "EGP / Season"
+            },
+            ar: {
+                smart_farm: "المزارع الذكي", home: "الرئيسية", jobs: "الوظائف", workers: "العاملين", profile: "الملف الشخصي",
+                farmer: "مزارع", "Ahmed Fahmy": "أحمد فهمي", standard_member: "عضو قياسي",
+                wallet: "المحفظة", available_balance: "الرصيد المتاح", currency: "ج.م",
+                payment_methods: "طرق الدفع:", manage_wallet: "إدارة المحفظة",
+                my_listings: "قوائمي", view_all: "عرض الكل", completed: "مكتمل",
+                active_job_requests: "طلبات الوظائف النشطة", wheat_harvesting: "حصاد القمح",
+                greenhouse_care: "رعاية الصوبة", rice_planting: "زراعة الأرز",
+                favorite_workers: "العمال المفضلون", available: "متاح", busy: "مشغول",
+                job_locations: "مواقع العمل", add_location: "إضافة موقع",
+                hiring_again: "توظيف مجدداً", chat: "دردشة", hire_worker: "توظيف عامل",
+                job_type: "نوع الوظيفة", job_title: "المسمى الوظيفي", duration: "المدة",
+                offer_egp: "العرض (ج.م)", msg_worker: "رسالة للعامل", send_offer: "إرسال العرض",
+                job_statistics: "إحصائيات الوظيفة", started_on: "بدأ في", worker_rating: "تقييم العامل",
+                my_feedback: "تقييمي الشخصي", incomplete_tasks: "مهام غير مكتملة",
+                "Fadil Ahmed": "فاضل أحمد", "Sami Hassan": "سامي حسن", "Ehab Elsayed": "إيهاب السيد",
+                "Senior Harvester": "حاصد خبير", "Greenhouse Specialist": "أخصائي صوبة",
+                "Field Expert": "خبير ميداني", egp_day: "ج.م / يوم", egp_week: "ج.م / أسبوع", egp_season: "ج.م / موسم"
+            }
+        };
+
+        const MOCK_WORKERS = [
+            { id: "1", name: "Fadil Ahmed", nameKey: "Fadil Ahmed", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200", role: "Senior Harvester", roleKey: "Senior Harvester", status: "Available", rating: 4.8, startDate: "Oct 15, 2023", duration: "45 Days", myRating: "5 Stars", myReview: "Fadil has been amazing. He arrived on time and completed harvesting early." },
+            { id: "2", name: "Sami Hassan", nameKey: "Sami Hassan", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200", role: "Greenhouse Specialist", roleKey: "Greenhouse Specialist", status: "Available", rating: 4.5, startDate: "Nov 01, 2023", duration: "14 Days", myRating: "4 Stars", myReview: "Good work, needs slightly better humidity control monitoring." },
+            { id: "3", name: "Ehab Elsayed", nameKey: "Ehab Elsayed", avatar: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200", role: "Field Expert", roleKey: "Field Expert", status: "Busy", rating: 5.0, startDate: "Sept 05, 2023", duration: "Ongoing", myRating: "Not Rated", myReview: "Scheduled for next season." }
+        ];
+
+        const MOCK_JOBS = [
+            { id: "j1", titleKey: "wheat_harvesting", location: "Kafr El-Sheikh", price: "400", periodKey: "egp_day", image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=100", type: "Daily" },
+            { id: "j2", titleKey: "greenhouse_care", location: "El Gharbia", price: "3,000", periodKey: "egp_week", image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=100", type: "Weekly" },
+            { id: "j3", titleKey: "rice_planting", location: "Beheira", price: "6,000", periodKey: "egp_season", image: "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=100", type: "Seasonal" }
+        ];
+
+        // --- 2. STATE MANAGEMENT ---
+        let state = {
+            lang: 'en',
+            theme: 'light',
+            user: null,
+            walletBalance: 0
+        };
+
+        // --- 3. DOM ELEMENTS ---
+        const els = {
+            html: document.documentElement,
+            themeIcon: document.getElementById('theme-icon'),
+            langLabel: document.getElementById('lang-label'),
+            welcomeMsg: document.getElementById('welcome-msg'),
+            userRole: document.getElementById('user-role-display'),
+            walletBalance: document.getElementById('wallet-balance'),
+            jobsContainer: document.getElementById('jobs-container'),
+            workersContainer: document.getElementById('workers-container'),
+            modalOverlay: document.getElementById('modal-overlay'),
+            modalTitle: document.getElementById('modal-title'),
+            modalBody: document.getElementById('modal-body'),
+            toastContainer: document.getElementById('toast-container'),
+            arrowIcons: document.querySelectorAll('.wallet-arrow-icon, .add-icon-margin, .home-icon-margin')
+        };
+
+        // --- 4. HELPER FUNCTIONS ---
+        const t = (key) => TRANSLATIONS[state.lang][key] || key;
+
+        const formatMoney = (amount) => {
+            return parseInt(amount || 0).toLocaleString();
+        };
+
+        // --- 5. RENDER LOGIC ---
+        const updateUIText = () => {
+            // Update static text
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.textContent = t(key);
+            });
+
+            // Update Icons directions
+            els.arrowIcons.forEach(icon => {
+                if (state.lang === 'ar') {
+                    icon.classList.remove('fa-arrow-right', 'fa-plus', 'fa-house');
+                    // House stays house, others flip
+                    if (icon.classList.contains('wallet-arrow-icon')) icon.classList.add('fa-arrow-left');
+                    if (icon.classList.contains('add-icon-margin')) icon.classList.add('fa-plus'); // Plus doesn't flip
+                    if (icon.classList.contains('home-icon-margin')) icon.classList.add('fa-house');
+                } else {
+                    icon.classList.remove('fa-arrow-left', 'fa-plus', 'fa-house');
+                    if (icon.classList.contains('wallet-arrow-icon')) icon.classList.add('fa-arrow-right');
+                    if (icon.classList.contains('add-icon-margin')) icon.classList.add('fa-plus');
+                    if (icon.classList.contains('home-icon-margin')) icon.classList.add('fa-house');
+                }
+            });
+
+            // Re-render dynamic lists
+            renderJobs();
+            renderWorkers();
+
+            // Update User Greeting if user exists
+            if (state.user) {
+                const name = state.user.fullName || state.user.name || "User";
+                els.welcomeMsg.textContent = state.lang === 'ar' ? `أهلاً ${name}` : `Welcome ${name}`;
+                const role = state.user.role || "";
+                els.userRole.textContent = state.lang === 'ar'
+                    ? (role === 'farmer' ? 'مزارع' : role === 'worker' ? 'عامل' : role === 'investor' ? 'مستثمر' : role)
+                    : role;
+            }
+        };
+
+        const renderJobs = () => {
+            els.jobsContainer.innerHTML = MOCK_JOBS.map(job => `
+                <div class="flex items-center p-4 rounded-2xl transition-all cursor-pointer hover:-translate-y-1 hover:shadow-md bg-secondary/10 dark:bg-zinc-700 hover:bg-white dark:hover:bg-zinc-600 border border-transparent hover:border-secondary">
+                    <img src="${job.image}" class="w-16 h-16 rounded-xl object-cover" alt="${t(job.titleKey)}">
+                    <div class="ml-4 flex-1 ${state.lang === 'ar' ? 'mr-4 ml-0' : ''}">
+                        <h3 class="font-bold text-primary dark:text-white">${t(job.titleKey)}</h3>
+                        <p class="text-xs text-slate-500">${job.type} - ${job.location}</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-primary dark:text-accent">${job.price}</div>
+                        <div class="text-[10px] text-slate-500 uppercase tracking-tighter">${t(job.periodKey)}</div>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        const renderWorkers = () => {
+            els.workersContainer.innerHTML = MOCK_WORKERS.map(worker => `
+                <div onclick="window.openWorkerModal('${worker.id}')" class="flex items-center py-4 group cursor-pointer hover:bg-secondary/20 dark:hover:bg-zinc-700/50 px-2 rounded-xl transition-colors">
+                    <img src="${worker.avatar}" class="w-12 h-12 rounded-full object-cover ring-2 ring-white" alt="${t(worker.nameKey)}">
+                    <div class="ml-4 flex-1 ${state.lang === 'ar' ? 'mr-4 ml-0' : ''}">
+                        <h4 class="font-bold text-sm transition-colors group-hover:text-primary dark:group-hover:text-accent">
+                            ${t(worker.nameKey)}
+                        </h4>
+                        <p class="text-xs text-slate-500 line-clamp-1">${t(worker.roleKey)}</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-[10px] font-bold ${worker.status === 'Available' ? 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-400' : 'bg-accent/10 text-accent'}">
+                        ${t(worker.status.toLowerCase())}
+                    </span>
+                </div>
+            `).join('');
+        };
+
+        // --- 6. EVENT HANDLERS ---
+        window.toggleLang = () => {
+            state.lang = state.lang === 'en' ? 'ar' : 'en';
+            els.langLabel.textContent = state.lang.toUpperCase();
+            els.html.setAttribute('dir', state.lang === 'ar' ? 'rtl' : 'ltr');
+            updateUIText();
+            // Re-render map to update popup text language
+            initMap();
+        };
+
+        window.toggleTheme = () => {
+            state.theme = state.theme === 'light' ? 'dark' : 'light';
+            if (state.theme === 'dark') {
+                els.html.classList.add('dark');
+                els.themeIcon.classList.remove('fa-moon');
+                els.themeIcon.classList.add('fa-sun');
+            } else {
+                els.html.classList.remove('dark');
+                els.themeIcon.classList.remove('fa-sun');
+                els.themeIcon.classList.add('fa-moon');
+            }
+        };
+
+        window.showToast = (message, type = 'info') => {
+            const id = Date.now();
+            const toast = document.createElement('div');
+            const iconClass = type === 'success' ? 'fa-check-circle text-green-500' : type === 'warning' ? 'fa-exclamation-triangle text-accent' : 'fa-info-circle text-primary';
+            const borderClass = type === 'success' ? 'border-green-500' : type === 'warning' ? 'border-accent' : 'border-primary';
+
+            toast.className = `flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl border-l-4 transition-all animate-slide-in bg-white dark:bg-zinc-800 text-primary dark:text-white ${borderClass}`;
+            toast.innerHTML = `<i class="fas ${iconClass}"></i><span class="font-medium">${message}</span>`;
+
+            els.toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+
+        // Modal Logic
+        window.openModal = (type) => {
+            els.modalOverlay.classList.remove('hidden');
+            els.modalOverlay.classList.add('flex');
+
+            if (type === 'tasks') {
+                els.modalTitle.textContent = t('incomplete_tasks');
+                els.modalBody.innerHTML = [1, 2, 3].map(i => `
+                    <div class="flex items-center justify-between p-4 rounded-2xl border hover:border-accent/30 transition-all shadow-sm bg-white dark:bg-zinc-700 border-secondary/20 dark:border-zinc-600 mb-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-6 h-6 rounded-full border-2 border-primary dark:border-accent" />
+                            <div>
+                                <h4 class="font-bold text-sm text-primary dark:text-white">Task #${i} for Farmer</h4>
+                                <p class="text-[10px] text-slate-500">Requirement details go here...</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-accent uppercase">Pending</span>
+                    </div>
+                `).join('');
+            }
+        };
+
+        window.openWorkerModal = (workerId) => {
+            const worker = MOCK_WORKERS.find(w => w.id === workerId);
+            if (!worker) return;
+
+            els.modalOverlay.classList.remove('hidden');
+            els.modalOverlay.classList.add('flex');
+            els.modalTitle.textContent = t(worker.nameKey);
+
+            els.modalBody.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="text-center p-6 rounded-2xl border transition-colors duration-300 shadow-sm bg-white dark:bg-zinc-700 border-secondary/30 dark:border-zinc-600">
+                        <img src="${worker.avatar}" class="w-32 h-32 rounded-full mx-auto border-4 border-secondary mb-4 object-cover shadow-lg" alt="">
+                        <h4 class="text-xl font-bold mb-1 text-primary dark:text-accent">${t(worker.nameKey)}</h4>
+                        <p class="text-slate-500 text-sm mb-4">${t(worker.roleKey)}</p>
+                        <span class="px-4 py-1 rounded-full text-xs font-bold shadow-sm ${worker.status === 'Available' ? 'bg-green-600 text-white' : 'bg-accent text-white'}">
+                            ${t(worker.status.toLowerCase())}
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h5 class="text-accent font-bold uppercase text-xs tracking-widest">${t('job_statistics')}</h5>
+                        <div class="flex justify-between border-b pb-2 dark:border-zinc-700">
+                            <span class="text-slate-500 text-sm">${t('started_on')}</span>
+                            <span class="font-bold text-sm text-primary dark:text-white">${worker.startDate}</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-2 dark:border-zinc-700">
+                            <span class="text-slate-500 text-sm">${t('duration')}</span>
+                            <span class="font-bold text-sm text-primary dark:text-white">${worker.duration}</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-2 dark:border-zinc-700">
+                            <span class="text-slate-500 text-sm">${t('worker_rating')}</span>
+                            <span class="font-bold text-sm text-yellow-500"><i class="fas fa-star mr-1"></i> ${worker.rating}</span>
+                        </div>
+
+                        <div class="p-4 rounded-xl mt-4 border shadow-sm transition-colors duration-300 bg-white dark:bg-zinc-700 border-secondary/20 dark:border-zinc-600">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm font-bold text-primary dark:text-white">${t('my_feedback')}</span>
+                                <span class="text-xs text-yellow-500 font-bold">${worker.myRating}</span>
+                            </div>
+                            <p class="text-xs italic leading-relaxed text-slate-600 dark:text-slate-300">"${worker.myReview}"</p>
+                        </div>
+
+                        <div class="flex gap-3 pt-4">
+                            <button onclick="window.openHireModal('${worker.id}')" class="flex-1 bg-accent text-white font-bold py-3 rounded-xl hover:bg-accent/90 transition-colors shadow-md">
+                                <i class="fas fa-plus-circle ${state.lang === 'ar' ? 'ml-2' : 'mr-2'}"></i> ${t('hiring_again')}
+                            </button>
+                            <a href="../chat.html" class="flex-1">
+                                <button class="w-full border-2 font-bold py-3 rounded-xl transition-all border-primary text-primary hover:bg-primary hover:text-white dark:border-primary dark:text-primary dark:hover:bg-primary dark:hover:text-white">
+                                    <i class="fas fa-comment-dots ${state.lang === 'ar' ? 'ml-2' : 'mr-2'}"></i> ${t('chat')}
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        window.openHireModal = (workerId) => {
+            const worker = MOCK_WORKERS.find(w => w.id === workerId);
+            els.modalTitle.textContent = t('hire_worker');
+            els.modalBody.innerHTML = `
+                <form onsubmit="event.preventDefault(); window.handleHireSubmit();" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-600 dark:text-slate-300">${t('job_type')}</label>
+                            <select required class="w-full bg-white dark:bg-zinc-700 rounded-xl px-4 py-3 outline-none border-2 border-secondary/30 dark:border-zinc-600 focus:border-primary shadow-sm transition-colors duration-300">
+                                <option value="">Select Job Type</option>
+                                <option>Harvesting</option>
+                                <option>Irrigation</option>
+                                <option>Planting</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-600 dark:text-slate-300">${t('job_title')}</label>
+                            <input type="text" placeholder="e.g. Wheat Harvesting" class="w-full bg-white dark:bg-zinc-700 rounded-xl px-4 py-3 outline-none border-2 border-secondary/30 dark:border-zinc-600 focus:border-primary shadow-sm transition-colors duration-300">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-600 dark:text-slate-300">${t('duration')}</label>
+                            <select required class="w-full bg-white dark:bg-zinc-700 rounded-xl px-4 py-3 outline-none border-2 border-secondary/30 dark:border-zinc-600 focus:border-primary shadow-sm transition-colors duration-300">
+                                <option>Daily</option>
+                                <option>Weekly</option>
+                                <option>Seasonal</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-600 dark:text-slate-300">${t('offer_egp')}</label>
+                            <input type="number" placeholder="400" class="w-full bg-white dark:bg-zinc-700 rounded-xl px-4 py-3 outline-none border-2 border-secondary/30 dark:border-zinc-600 focus:border-primary shadow-sm transition-colors duration-300">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2 text-slate-600 dark:text-slate-300">${t('msg_worker')}</label>
+                        <textarea placeholder="Tell the worker about the job..." rows="4" class="w-full bg-white dark:bg-zinc-700 rounded-xl px-4 py-3 outline-none border-2 border-secondary/30 dark:border-zinc-600 focus:border-primary shadow-sm resize-none transition-colors duration-300"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-accent text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-none hover:translate-y-1 transition-all">
+                        ${t('send_offer')}
+                    </button>
+                </form>
+            `;
+        };
+
+        window.handleHireSubmit = () => {
+            showToast(state.lang === 'ar' ? 'تم إرسال العرض بنجاح!' : 'Hiring offer sent successfully!', 'success');
+            closeModal();
+        };
+
+        window.closeModal = () => {
+            els.modalOverlay.classList.add('hidden');
+            els.modalOverlay.classList.remove('flex');
+        };
+
+        // --- 7. MAP INITIALIZATION ---
+        window.initMap = () => {
+            const mapContainer = document.getElementById('farm-map');
+            if (!mapContainer) return;
+
+            // Clear previous map instance if any (basic cleanup)
+            if (window.farmMapInstance) {
+                window.farmMapInstance.remove();
+            }
+
+            window.farmMapInstance = L.map('farm-map', {
+                scrollWheelZoom: false
+            }).setView([31.0, 30.8], 8);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(window.farmMapInstance);
+
+            // Fix default icon
+            delete L.Icon.Default.prototype._getIconUrl;
+            L.Icon.Default.mergeOptions({
+                iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+                iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+            });
+
+            MOCK_JOBS.forEach((job, idx) => {
+                const marker = L.marker([31.0 + (idx * 0.1), 30.8 + (idx * 0.2)]);
+                const popupContent = `
+                    <div class="text-center font-sans p-1">
+                        <h3 class="font-bold text-[#0F4C5C] text-sm">${t(job.titleKey)}</h3>
+                        <p class="text-xs text-slate-500">${job.location}</p>
+                    </div>
+                `;
+                marker.bindPopup(popupContent).addTo(window.farmMapInstance);
+            });
+        };
+
+        // --- 8. AUTH & INITIALIZATION ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const userRef = doc(db, "users", user.uid);
+                    const userSnap = await getDoc(userRef);
+                    if (userSnap.exists()) {
+                        state.user = userSnap.data();
+                        state.walletBalance = state.user.walletBalance ?? 0;
+                        els.walletBalance.textContent = formatMoney(state.walletBalance);
+                        updateUIText();
+                    } else {
+                        state.user = { name: user.displayName };
+                        updateUIText();
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                // Redirect to sign in if needed, or handle guest state
+                // window.location.href = "./signinsignup/signin.html";
+            }
+            // Initialize map after data loads or immediately if no user
+            window.initMap();
+            renderJobs();
+            renderWorkers();
+        });
+
+        // Initial render in case Auth takes time
+        updateUIText();
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const profileImage = document.getElementById("profileImage");
+            const imageUpload = document.getElementById("imageUpload");
+
+            // تحميل الصورة من localStorage أول ما الصفحة تفتح
+            const savedImage = localStorage.getItem("profileImage");
+
+            if (savedImage) {
+                profileImage.src = savedImage;
+            }
+
+            // عند اختيار صورة جديدة
+            imageUpload.addEventListener("change", function (event) {
+
+                const file = event.target.files[0];
+                if (!file) return;
+
+                if (!file.type.startsWith("image/")) {
+                    alert("Please select a valid image");
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+
+                    const imageData = e.target.result;
+
+                    // عرض الصورة فورًا
+                    profileImage.src = imageData;
+
+                    // حفظ في localStorage
+                    localStorage.setItem("profileImage", imageData);
+
+                    alert("Profile image saved successfully ✅");
+                };
+
+                reader.readAsDataURL(file);
+            });
+
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
