@@ -64,6 +64,7 @@
       width: min(1200px, 94%);
       height: 64px;
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -71,10 +72,7 @@
       border-radius: var(--radius-pill);
       z-index: 1000;
     }
-.topbar-left{
-  border: 2px solid var(--primary);
-  border-radius: 25px;
-}
+
     .topbar-btn {
       height: 42px;
       padding: 0 18px;
@@ -96,7 +94,7 @@
     }
 
     .back-btn {
-      background-color: var(--primary);
+      background-color: var(--bg-profit-section);
       color: var(--secondary);
       border: 1px solid var(--border);
     }
@@ -371,3 +369,4 @@
       .users-grid { grid-template-columns: 1fr; }
       .topbar { width: 92%; padding: 0 15px; }
     }
+
