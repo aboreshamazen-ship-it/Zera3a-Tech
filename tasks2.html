@@ -313,7 +313,7 @@
             const handleBackToHome = () => {
                 // ✅ إذا كان المستخدم فلاح، يروح لصفحة الفلاح
                 if (window.userRole === 'farmer') {
-                    window.location.href = '../farmer-ar.html';
+                    window.location.href = './farmer-ar.html';
                 }
                 // ✅ إذا كان مستثمر أو أي دور آخر، يروح للصفحة الرئيسية
                 else {
@@ -1148,7 +1148,7 @@
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 alert('لازم تسجّل دخول الأول');
-                window.location.href = '../signinsignup/signin.html';
+                window.location.href = './signin.html';
                 return;
             }
 
@@ -1158,7 +1158,7 @@
 
                 if (!userSnap.exists()) {
                     alert('بيانات المستخدم غير موجودة');
-                    window.location.href = '../signinsignup/signin.html';
+                    window.location.href = './signin.html';
                     return;
                 }
 
@@ -1183,16 +1183,17 @@
 
                 else {
                     alert('❗ دور غير معروف');
-                    window.location.href = '../signinsignup/signin.html';
+                    window.location.href = './signin.html';
                 }
 
             } catch (error) {
                 console.error(error);
                 alert('حصل خطأ أثناء التحقق من الصلاحيات');
-                window.location.href = '../signinsignup/signin.html';
+                window.location.href = './signin.html';
             }
         });
     </script>
 </body>
+
 
 </html>
