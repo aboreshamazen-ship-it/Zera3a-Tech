@@ -6,7 +6,7 @@
 <title>Smart Farm - Intelligent Agricultural Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./English/u2.css">
+<link rel="stylesheet" href="./u2.css">
 <style>
         /* ===== NAVBAR ===== */
         /* Footer */
@@ -328,10 +328,10 @@
 
         <!-- LOGGED IN LINKS -->
         <ul class="navbar-links navbar-center" id="authLinks" style="display:none">
-            <li><a href="tasks.html" data-key="nav_community">community</a></li>
+            <li><a href="tasks2.html" data-key="nav_community">community</a></li>
             <li><a href="contact-about.html" data-key="nav_contact">contact us</a></li>
             <li><a href="banks.html" data-key="nav_banks">agricultural banks</a></li>
-            <li><a href="./offer/ddd.html" data-key="nav_packages">packages</a></li>
+            <li><a href="offer.html" data-key="nav_packages">packages</a></li>
 
 
 
@@ -357,7 +357,7 @@
                 </div>
 
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="./Profile/profile.html" data-key="profileLink">
+                    <a href="./profile.html" data-key="profileLink">
                         <i class="fas fa-id-badge"></i> Profile
                     </a>
                     <a href="#" id="logoutBtn" data-key="logoutBtn">
@@ -368,7 +368,7 @@
 
             <!-- SIGN IN -->
             <button id="signInBtn" class="btn-signin">
-                <a href="./signinsignup/signin.html" data-key="signin_btn">sign in </a>
+                <a href="./signin.html" data-key="signin_btn">sign in </a>
             </button>
 
         </div>
@@ -2434,7 +2434,7 @@ onAuthStateChanged(auth, async (user) => {
 
     if (!userSnap.exists()) {
       await signOut(auth);
-      location.href = "./signinsignup/signin.html";
+      location.href = "./signin.html";
       return;
     }
 
@@ -2470,7 +2470,7 @@ onAuthStateChanged(auth, async (user) => {
   } catch (error) {
     console.error("Auth Error:", error);
     await signOut(auth);
-    location.href = "./signinsignup/signin.html";
+    location.href = "./signin.html";
   }
 });
 
@@ -2485,7 +2485,7 @@ function redirectByRole(role) {
   } else if (role === "investor") {
     location.href = "investor.html";
   } else {
-    location.href = "./signinsignup/signin.html";
+    location.href = "./signin.html";
   }
 }
 
@@ -2503,7 +2503,7 @@ userNameBox?.addEventListener("click", () => {
 logoutBtn?.addEventListener("click", async (e) => {
   e.preventDefault();
   await signOut(auth);
-  location.href = "./signinsignup/signin.html";
+  location.href = "./signin.html";
 });
 </script>
 <footer class="site-footer">
@@ -2558,4 +2558,5 @@ logoutBtn?.addEventListener("click", async (e) => {
   </div>
 </footer>
 </body>
+
 </html>
