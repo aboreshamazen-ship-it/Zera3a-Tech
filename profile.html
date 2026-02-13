@@ -237,7 +237,7 @@
                             <span class="font-bold text-primary dark:text-accent">Telda</span>
                         </div>
                     </div>
-                    <a href="../wallet.html"
+                    <a href="./wallet.html"
                         class="flex items-center gap-2 font-semibold text-primary hover:text-accent transition-all">
                         <span data-i18n="manage_wallet">Manage Wallet</span>
                         <i class="fas fa-arrow-right wallet-arrow-icon"></i>
@@ -290,7 +290,7 @@
                     <i class="fas fa-map-marked-alt text-primary"></i> <span data-i18n="job_locations">Job
                         Locations</span>
                 </h2>
-                <a href="../map.html">
+                <a href="./map.html">
                     <button
                         class="bg-primary text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-accent transition-colors shadow-lg">
                         <i class="fas fa-plus add-icon-margin"></i> <span data-i18n="add_location">Add Location</span>
@@ -349,7 +349,7 @@
         window.goHomeByRole = async () => {
             const user = auth.currentUser;
             if (!user) {
-                window.location.href = "./signinsignup/signin.html";
+                window.location.href = "./signin.html";
                 return;
             }
             try {
@@ -357,9 +357,9 @@
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
                     const { role } = userSnap.data();
-                    if (role === "farmer") window.location.href = "../farmer-ar.html";
-                    else if (role === "worker") window.location.href = "../worker.html";
-                    else if (role === "investor") window.location.href = "../investor.html";
+                    if (role === "farmer") window.location.href = "./farmer-ar.html";
+                    else if (role === "worker") window.location.href = "./worker.html";
+                    else if (role === "investor") window.location.href = "./investor.html";
                 }
             } catch (error) {
                 console.error("Error checking role:", error);
@@ -630,7 +630,7 @@
                             <button onclick="window.openHireModal('${worker.id}')" class="flex-1 bg-accent text-white font-bold py-3 rounded-xl hover:bg-accent/90 transition-colors shadow-md">
                                 <i class="fas fa-plus-circle ${state.lang === 'ar' ? 'ml-2' : 'mr-2'}"></i> ${t('hiring_again')}
                             </button>
-                            <a href="../chat.html" class="flex-1">
+                            <a href="./chat.html" class="flex-1">
                                 <button class="w-full border-2 font-bold py-3 rounded-xl transition-all border-primary text-primary hover:bg-primary hover:text-white dark:border-primary dark:text-primary dark:hover:bg-primary dark:hover:text-white">
                                     <i class="fas fa-comment-dots ${state.lang === 'ar' ? 'ml-2' : 'mr-2'}"></i> ${t('chat')}
                                 </button>
@@ -752,7 +752,7 @@
                 }
             } else {
                 // Redirect to sign in if needed, or handle guest state
-                // window.location.href = "./signinsignup/signin.html";
+                // window.location.href = "./signin.html";
             }
             // Initialize map after data loads or immediately if no user
             window.initMap();
@@ -813,5 +813,6 @@
 
 
 </body>
+
 
 </html>
