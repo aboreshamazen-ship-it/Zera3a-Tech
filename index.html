@@ -2,1411 +2,1197 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>بوابة الزراعة الذكية - Zera3a-Tech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroHire | منصة الزراعة الذكية</title>
 
-    <!-- Fonts: Cairo for Arabic, Inter for English -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
         :root {
-            /* Light Mode Default Colors */
-            --primary: #1e5959;
-            --primary-dark: #c86428;
-            --primary-light: rgba(230, 126, 58, 0.15);
-            
-            --secondary: #e67e3a;
-            --secondary-dark: #c86428;
-            --accent: #f3d3b6;
+            --agro-teal: #0F4C5C;
+            --agro-sand: #E6D5B8;
+            --agro-orange: #E07A5F;
+            --agro-offwhite: #FAF9F6;
 
-            --bg-body: #fafaf9;
-            --bg-surface: #ffffff;
-            --bg-surface-alt: #f6f2ee;
-            --bg-glass: rgba(255, 255, 255, 0.85);
-
-            --text-main: #1a1a1a;
-            --text-secondary: #666666;
-            --text-muted: #888888;
-            --text-on-primary: #ffffff;
-
-            --border-color: #e5e5e5;
-
-            --radius-card: 24px;
-            --radius-btn: 12px;
-            --radius-nav: 50px;
-
-            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 28px 60px rgba(230, 126, 58, 0.35);
-
-            --trans-fast: 0.2s ease;
-            --trans-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --agro-primary: var(--agro-teal);
+            --agro-dark: var(--agro-teal);
+            --agro-bg: var(--agro-offwhite);
+            --agro-accent: var(--agro-orange);
+            --agro-card: #ffffff;
+            --agro-text: var(--agro-teal);
+            --agro-text-muted: #71717a;
         }
 
-        /* Dark Mode Overrides */
-        body.dark-mode {
-            /* Primary is now matching brand teal from light mode, consistent across modes */
-            --primary: #1e5959; 
-            --primary-dark: #fbbf24;
-            --primary-light: rgba(45, 212, 191, 0.15);
-
-            /* Secondary Orange */
-            --secondary: #fb923c;
-            --secondary-dark: #ea580c;
-            --accent: #1e293b;
-
-            /* Deep Slate Backgrounds (Professional Dark Mode) */
-            --bg-body: #0f172a;       /* Deep Slate (Main Background) */
-            --bg-surface: #1e293b;    /* Lighter Slate (Cards) */
-            --bg-surface-alt: #111827;/* Darker Slate (Section Alt) */
-            --bg-glass: rgba(15, 23, 42, 0.85); /* Glass Effect */
-
-            /* Light Text Colors for Dark Mode */
-            --text-main: #f8fafc;     /* White-ish (Headings) */
-            --text-secondary: #cbd5e1;/* Light Grey (Body Text) */
-            --text-muted: #94a3b8;   /* Muted Grey (Captions) */
-            --text-on-primary: #ffffff;
-
-            /* Visible Borders */
-            --border-color: #334155;
-        }
-
-        /* =========================================
-        RESET & BASE STYLES
-        ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
+        html.dark {
+            --agro-bg: #0A0F12;
+            --agro-dark: #ffffff;
+            --agro-card: #121A1E;
+            --agro-text: #E2E8F0;
+            --agro-text-muted: #94a3b8;
+            --agro-sand: #2A2F33;
         }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
             font-family: 'Cairo', sans-serif;
-            transition: background-color var(--trans-smooth), color var(--trans-smooth);
+            background-color: var(--agro-bg);
+            color: var(--agro-text);
+            margin: 0;
             overflow-x: hidden;
-            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Font Switching based on Language/Dir */
-        html[dir="ltr"] body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Layout Utilities */
-        .container {
-            max-width: 1300px;
-            margin-inline: auto;
-            padding-inline: 24px;
-            width: 90%;
-        }
-
-        .section-padding {
-            padding: 100px 0;
-        }
-
-        .text-center { text-align: center; }
-
-        /* Grid System */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-        }
-
-        @media (max-width: 1200px) {
-            .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .grid-3, .grid-4 { grid-template-columns: 1fr; }
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-weight: 800;
-            line-height: 1.25;
-            color: var(--text-main);
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2.4rem;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 16px;
-        }
-
-        .section-header h2::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px;
-            height: 4px;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-        }
-
-        /* =========================================
-        NAVBAR (Glassmorphism)
-        ========================================= */
-        .navbar-main {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 1400px;
-            height: 80px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: var(--radius-nav);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            z-index: 1000;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-        }
-
-       .navbar-logo {
-            display: flex;
-            align-items: center;   
-            gap: 10px;             
-            cursor: pointer;
-        }
-
-        .navbar-logo img {
-            height: 45px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .navbar-logo span {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-            white-space: nowrap;  
-        }
-
-        .navbar-links {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-        }
-
-        .navbar-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-
-        .navbar-links a:hover, .navbar-links a.active {
-            background: var(--primary-light);
-            color: var(--primary-dark);
-        }
-
-        .btn-nav {
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn-nav:hover {
-            background: var(--primary);
-            color: #fff;
-        }
-
-        .user-menu {
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .user-name {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            border-radius: 20px;
-            color: var(--text-main);
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 110%;
-            inset-inline-end: 0;
-            background: var(--bg-surface);
-            min-width: 160px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
+        body.hidden {
             display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
         }
 
-        .user-dropdown a {
-            padding: 12px 15px;
-            color: var(--text-main);
-            text-decoration: none;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            transition: 0.3s;
-        }
-
-        .user-dropdown a:hover {
-            background: var(--bg-surface-alt);
-        }
-
-        /* =========================================
-        HERO SECTION
-        ========================================= */
-        .hero-intro {
-            padding-top: 120px;
-            padding-bottom: 100px;
-            position: relative;
-            background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 40%),
-                radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.1), transparent 40%);
-        }
-
-        .hero-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 24px;
-            letter-spacing: -1px;
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            max-width: 90%;
-        }
-
-        .hero-image img {
-            border-radius: 30px;
-            box-shadow: var(--shadow-lg);
-            border: 5px solid var(--bg-surface);
-        }
-
-        /* Buttons */
-        .hero-btns {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 32px;
-            font-weight: 700;
-            border-radius: 30px;
-            border: none;
-            background: var(--primary);
-            color: #fff;
-            cursor: pointer;
-            transition: .25s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: inherit;
-        }
-
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn.outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn.outline:hover {
-            background: var(--primary);
-            color: #fff;
-        }
-
-        /* Video Card */
-        .video-hero-card {
-            display: flex;
-            background: var(--bg-surface);
-            border-radius: var(--radius-card);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            max-width: 800px;
-            margin: 60px auto 0;
-            border: 1px solid var(--border-color);
-        }
-
-        .video-thumb {
-            flex: 0 0 35%;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .video-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            font-size: 1.5rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-        }
-
-        .video-thumb:hover .play-btn { transform: translate(-50%, -50%) scale(1.1); }
-
-        .video-info { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
-
-        /* =========================================
-        CHALLENGES SECTION
-        ========================================= */
-        .challenges-v2 {
-            background: radial-gradient(circle at top, var(--bg-surface-alt), var(--bg-surface));
-        }
-
-        .challenge-group {
-            background: linear-gradient(180deg, var(--bg-surface), var(--bg-surface-alt));
-            border-radius: 32px;
-            padding: 50px 40px 55px;
-            margin-bottom: 60px;
-            box-shadow: var(--shadow-md);
-            position: relative;
-            border: 1px solid var(--border-color);
-        }
-
-        .challenge-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            position: relative;
-            padding-bottom: 14px;
-        }
-
-        .challenge-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-        }
-
-        .challenge-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
-        }
-
-        .challenge-items p {
-            background: var(--bg-surface);
-            border-inline-start: 5px solid var(--primary);
-            color: var(--text-secondary);
-            padding: 20px 54px 20px 22px; 
-            position: relative;
-            font-size: 0.95rem;
-            border-radius: 18px;
-            box-shadow: var(--shadow-sm);
-            transition: 0.3s;
-            text-align: start;
-        }
-
-        /* Logical handling for RTL/LTR padding */
-        html[dir="ltr"] .challenge-items p { padding: 20px 22px 20px 54px; border-inline-start: none; border-inline-end: 5px solid var(--primary); }
-
-        /* Bullet position based on direction */
-        html[dir="rtl"] .challenge-items p::before { right: 22px; left: auto; }
-        html[dir="ltr"] .challenge-items p::before { left: 22px; right: auto; }
-
-        .challenge-items p:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-
-        /* Footer */
-    .site-footer {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      padding: 4rem 0 1.5rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2.5rem;
-    }
-
-    .footer-brand img {
-      height: 55px;
-      margin-bottom: 1rem;
-      filter: brightness(0) invert(1);
-    }
-
-    .footer-brand p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .site-footer h4 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.6rem;
-    }
-
-    .footer-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      transition: 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: var(--secondary);
-      padding-left: 5px;
-    }
-
-    .footer-contact p {
-      font-size: 0.95rem;
-      margin-bottom: 0.6rem;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .footer-social {
-      margin-top: 1rem;
-      display: flex;
-      gap: 12px;
-    }
-
-    .footer-social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 18px;
-      color: #fff;
-      transition: 0.3s;
-    }
-
-    .footer-social a:hover {
-      background: var(--secondary);
-      transform: translateY(-3px);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.75);
-    }
-        /* =========================================
-        CARDS (Advantages, Features)
-        ========================================= */
-        .card {
-            background: var(--bg-surface);
-            border-radius: var(--radius-card);
-            padding: 36px 28px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: 0.35s ease;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 22px;
-            transition: 0.3s ease;
-        }
-
-        .card:hover .card-icon {
-            background: var(--primary);
-            color: #fff;
-            transform: scale(1.1) rotate(6deg);
-        }
-
-        .card h4 { font-size: 1.3rem; margin-bottom: 14px; color: var(--text-main); }
-        
-        .card p, .card li {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 10px;
-        }
-
-        .card ul { list-style: none; text-align: start; margin-top: auto; }
-        
-        .card li i { color: var(--secondary); margin-inline-end: 8px; }
-
-        /* Feature Split Section */
-        .feature-split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            margin-bottom: 80px;
-        }
-
-        .feature-content h3 { font-size: 2rem; margin-bottom: 15px; }
-        
-        .feature-img img {
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-lg);
-            width: 100%;
-        }
-
-        /* =========================================
-        FOOTER & FLOATING
-        ========================================= */
-        .footer-cta {
-            background: var(--primary);
-            color: var(--text-on-primary);
-            text-align: center;
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-cta h2 { color: #fff; margin-bottom: 20px; font-size: 2.5rem; }
-        .footer-cta p { color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 40px; }
-
-        footer {
-            background: var(--bg-body);
-            padding: 40px 0;
-            border-top: 1px solid var(--bg-surface-alt);
-        }
-
-        .floating-controls {
+        .loading-screen {
             position: fixed;
-            bottom: 30px;
-            inset-inline-end: 30px; 
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--agro-bg);
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            z-index: 999;
-        }
-
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--bg-surface);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-md);
-            cursor: pointer;
-            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            transition: 0.3s;
+            z-index: 99999;
+            transition: opacity 0.5s ease;
         }
 
-        .control-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.1);
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* =========================================
-        ANIMATIONS
-        ========================================= */
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(224, 122, 95, 0.1);
+            border-top: 8px solid #E07A5F;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .bg-agro-bg {
+            background-color: var(--agro-bg);
+        }
+
+        .bg-agro-card {
+            background-color: var(--agro-card);
+        }
+
+        .text-agro-dark {
+            color: var(--agro-dark);
+        }
+
+        .text-agro-text {
+            color: var(--agro-text);
+        }
+
+        .text-agro-text-muted {
+            color: var(--agro-text-muted);
+        }
+
+        .border-agro-border {
+            border-color: rgba(128, 128, 128, 0.1);
+        }
+
+        .serif-font {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in { opacity: 0; animation: fadeIn 0.6s ease forwards; }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-        /* Responsive */
-        @media (max-width: 992px) {
-            .navbar-main { width: 98%; padding: 0 20px; height: 70px; top: 10px; }
-            .navbar-center { display: none; }
-            .hero-wrapper { grid-template-columns: 1fr; text-align: center; }
-            .hero-text p { margin: 0 auto 30px; }
-            .hero-btns { justify-content: center; }
-            .feature-split { grid-template-columns: 1fr; }
-            .hero-text h1 { font-size: 2.5rem; }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--agro-teal);
+            border-radius: 10px;
         }
     </style>
 </head>
 
-<body>
-
-    <!-- NAVBAR -->
-    <nav class="navbar-main">
-        <!-- LOGO -->
-        <div class="navbar-logo">
-            <!-- Placeholder for logo image -->
-            <img src="./smart_farm_no_bg-removebg-preview.png" alt="Logo" style="width:40px;height:40px;border-radius:50%;">
-            <span id="siteName" data-i18n="siteName">Zera3a-Tech</span>
-        </div>
-
-        <!-- CENTER LINKS (Auth) -->
-        <ul class="navbar-links navbar-center" id="authLinks" style="display:none">
-            <li><a href="farmer.html" data-i18n="nav_market">Marketplace</a></li>
-            <li><a href="animals.html" data-i18n="nav_animals">Animals</a></li>
-            <li><a href="wallet.html" data-i18n="nav_wallet">Wallet</a></li>
-            <li><a href="application.html" data-i18n="nav_community">Community</a></li>
-        </ul>
-
-        <!-- CENTER LINKS (Guest) -->
-        <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
-            <li><a href="about.html" data-i18n="nav_about">About Us</a></li>
-                <li><a href="animals.html" data-i18n="nav_animals">Animals</a></li>
-                <li><a href="investment.html" data-i18n="nav_investment">Investment</a></li>
-                <li><a href="application-workers.html" data-i18n="nav_community">Community</a></li>
-        </ul>
-
-        <!-- RIGHT SIDE CONTROLS -->
-        <div class="navbar-right" style="display: flex; align-items: center; gap: 15px;">
-            
-            <!-- LANGUAGE & THEME TOGGLES (Always Visible) -->
-            <button id="langToggle" class="btn-nav" title="Change Language">EN</button>
-            <button id="themeToggle" class="btn-nav" title="Toggle Theme">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-
-            <!-- USER MENU (Logged In) -->
-            <div class="user-menu" id="userMenu" style="display:none">
-                <div class="user-name" id="userName">
-                    <i class="fas fa-user-circle"></i>
-                    <span data-i18n="nav_user">User</span>
-                    <i class="fas fa-caret-down"></i>
-                </div>
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="./Profile/profile.html" data-i18n="nav_profile">Profile</a>
-                    <a href="#" id="logoutBtn" data-i18n="nav_logout">Logout</a>
-                </div>
-            </div>
-
-            <!-- SIGN IN BUTTON (Guest) -->
-            <button onclick="window.location.href='./signin.html'" id="signInBtn" class="btn-nav" style="display:flex;">
-                <span data-i18n="btn_signin">Sign In</span>
-            </button>
-        </div>
-    </nav>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-intro">
-            <div class="container">
-                <div class="hero-wrapper">
-                    <div class="hero-text fade-in">
-                        <span class="hero-badge" data-i18n="hero_badge">Future of Digital Farming</span>
-                        <h1 data-i18n="hero_title">The Integrated Smart Agriculture Platform</h1>
-                        <p data-i18n="hero_desc">
-                            A digital agricultural future connecting farmers, investors, and workers, guaranteeing security, transparency, and profitability for everyone using latest AI technologies.
-                        </p>
-                        <div class="hero-btns">
-                            <a href="#farmer-section" class="btn">
-                                <i class="fas fa-rocket"></i> <span data-i18n="role_farmer">Farmer</span>
-                            </a>
-                            <a href="#worker-section" class="btn outline">
-                                <i class="fas fa-hard-hat"></i> <span data-i18n="role_worker">Worker</span>
-                            </a>
-                            <a href="#investor-section" class="btn outline">
-                                <i class="fas fa-chart-pie"></i> <span data-i18n="role_investor">Investor</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="hero-image fade-in" style="animation-delay: 0.2s;">
-                        <img src="https://picsum.photos/seed/smartfarming2/600/450" alt="Smart Farming">
-                    </div>
-                </div>
-
-                <!-- VIDEO CARD -->
-                <div class="video-hero-card fade-in" id="videoGuide">
-                    <div class="video-thumb">
-                        <img src="https://picsum.photos/seed/agrivideo/400/300" alt="Video">
-                        <div class="play-btn"><i class="fas fa-play"></i></div>
-                    </div>
-                    <div class="video-info">
-                        <h4 style="font-size: 1.3rem; margin-bottom: 10px;" data-i18n="video_title">Complete Guide to Platform</h4>
-                        <p style="font-size: 0.95rem; margin-bottom: 15px;" data-i18n="video_desc">Watch how to register, manage crops, and benefit from returns.</p>
-                        <div style="font-size: 0.85rem; color: var(--text-muted);">
-                            <span><i class="far fa-clock"></i> <span data-i18n="video_time">3 mins</span></span>
-                            <span style="margin-inline: 10px;">|</span>
-                            <span><i class="far fa-eye"></i> 5.2k <span data-i18n="video_views">views</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHALLENGES SECTION -->
-        <section class="section-padding challenges-v2">
-            <div class="container">
-                <!-- Farmer Challenges -->
-                <div class="challenge-group">
-                    <h2 class="challenge-title" data-i18n="chall_farmer_title">Farmer Challenges</h2>
-                    <div class="challenge-items">
-                        <p data-i18n="cf_1">No smart tool to determine the most suitable crop for the land.</p>
-                        <p data-i18n="cf_2">Lack of clarity on planting and harvest dates.</p>
-                        <p data-i18n="cf_3">High costs with no guaranteed return.</p>
-                        <p data-i18n="cf_4">Sudden appearance of diseases and pests.</p>
-                        <p data-i18n="cf_5">Total reliance on the merchant to sell the crop.</p>
-                        <p data-i18n="cf_6">Not knowing the real market price.</p>
-                    </div>
-                </div>
-
-                <!-- Worker Challenges -->
-                <div class="challenge-group">
-                    <h2 class="challenge-title" data-i18n="chall_worker_title">Worker Challenges</h2>
-                    <div class="challenge-items">
-                        <p data-i18n="cw_1">Difficulty accessing stable job opportunities.</p>
-                        <p data-i18n="cw_2">Unclear wages and payment system.</p>
-                        <p data-i18n="cw_3">Lack of an authority to guarantee worker rights.</p>
-                        <p data-i18n="cw_4">Reliance on unreliable intermediaries.</p>
-                        <p data-i18n="cw_5">Absence of fair performance evaluation.</p>
-                    </div>
-                </div>
-
-                <!-- Investor Challenges -->
-                <div class="challenge-group">
-                    <h2 class="challenge-title" data-i18n="chall_investor_title">Investor Challenges</h2>
-                    <div class="challenge-items">
-                        <p data-i18n="ci_1" >Lack of accurate data before investing.</p>
-                        <p data-i18n="ci_2">Difficulty monitoring project progress in real-time.</p>
-                        <p data-i18n="ci_3">High risk percentage.</p>
-                        <p data-i18n="ci_4">Absence of performance reports and financial analysis.</p>
-                        <p data-i18n="ci_5">Difficulty making correct investment decisions.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ADVANTAGES -->
-        <section class="section-padding">
-            <div class="container">
-                <div class="section-header">
-                    <h2 data-i18n="adv_title">Why Choose Zera3a-Tech?</h2>
-                </div>
-
-                <div class="grid-4">
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h4 data-i18n="adv_1_title">Security & Transparency</h4>
-                        <p data-i18n="adv_1_desc">Documented electronic contracts and full data encryption.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-brain"></i></div>
-                        <h4 data-i18n="adv_2_title">Artificial Intelligence</h4>
-                        <p data-i18n="adv_2_desc">Data analysis to increase productivity and reduce risks.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-headset"></i></div>
-                        <h4 data-i18n="adv_3_title">24/7 Support</h4>
-                        <p data-i18n="adv_3_desc">A team available to help you at any time.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-wallet"></i></div>
-                        <h4 data-i18n="adv_4_title">Secure Payments</h4>
-                        <p data-i18n="adv_4_desc">Electronic payment system guaranteeing rights for all.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FARMER SECTION -->
-        <section id="farmer-section" class="section-padding" style="background: var(--bg-surface-alt);">
-            <div class="container">
-                <div class="section-header">
-                    <h2 data-i18n="farm_title">Comprehensive Farmer Services</h2>
-                </div>
-
-                <div class="feature-split">
-                    <div class="feature-content">
-                        <h3 data-i18n="farm_feat_title">Track Farming Seasons & Growth</h3>
-                        <p data-i18n="farm_feat_desc">A smart system that monitors soil moisture, temperature, and crop growth stages step-by-step. Get periodic reports and instant alerts.</p>
-                        <ul>
-                            <li data-i18n="farm_li1"><i class="fas fa-check-circle"></i> Precise stage tracking</li>
-                            <li data-i18n="farm_li2"><i class="fas fa-check-circle"></i> AI alerts</li>
-                            <li data-i18n="farm_li3"><i class="fas fa-check-circle"></i> Accurate harvest dates</li>
-                        </ul>
-                    </div>
-                    <div class="feature-img">
-                        <img src="https://picsum.photos/seed/croptrack/600/400" alt="Tracking">
-                    </div>
-                </div>
-
-                <div class="grid-3">
-                    <div class="card">
-                        <h4 data-i18n="farm_card1_title">Direct Market</h4>
-                        <p data-i18n="farm_card1_desc">Connect your crops directly with factories and consumers.</p>
-                    </div>
-                    <div class="card">
-                        <h4 data-i18n="farm_card2_title">Profit Calculator</h4>
-                        <p data-i18n="farm_card2_desc">Enter costs and area, get an instant detailed profit report.</p>
-                    </div>
-                    <div class="card">
-                        <h4 data-i18n="farm_card3_title">Cheaper Purchases</h4>
-                        <p data-i18n="farm_card3_desc">Buy fertilizers and seeds directly from factories.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- INVESTOR SECTION -->
-        <section id="investor-section" class="section-padding">
-            <div class="container">
-                <div class="section-header">
-                    <h2 data-i18n="inv_title">Professional Investor Portal</h2>
-                </div>
-
-                <div class="grid-3">
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                        <h4 data-i18n="inv_card1_title">Auto Feasibility Study</h4>
-                        <p data-i18n="inv_card1_desc">Enter land and crop data, get an instant financial report.</p>
-                        <ul>
-                            <li data-i18n="inv_li1"><i class="fas fa-check"></i> Accurate cost estimation</li>
-                            <li data-i18n="inv_li2"><i class="fas fa-check"></i> Expected return rate</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-laptop-house"></i></div>
-                        <h4 data-i18n="inv_card2_title">Live Monitoring</h4>
-                        <p data-i18n="inv_card2_desc">Track your investments and crops via a smart dashboard.</p>
-                        <ul>
-                            <li data-i18n="inv_li3"><i class="fas fa-check"></i> Instant updates</li>
-                            <li data-i18n="inv_li4"><i class="fas fa-check"></i> Live photos & videos</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                        <h4 data-i18n="inv_card3_title">Diversified Investment</h4>
-                        <p data-i18n="inv_card3_desc">Invest in crops, livestock, or agro-processing.</p>
-                        <ul>
-                            <li data-i18n="inv_li5"><i class="fas fa-check"></i> Diverse portfolios</li>
-                            <li data-i18n="inv_li6"><i class="fas fa-check"></i> Continuous profits</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- WORKER SECTION -->
-        <section id="worker-section" class="section-padding" style="background: var(--bg-surface-alt);">
-            <div class="container">
-                <div class="section-header">
-                    <h2 data-i18n="work_title">Jobs & Labor</h2>
-                </div>
-
-                <div class="grid-3">
-                    <div class="card">
-                        <h4 data-i18n="work_card1_title">Guaranteed Jobs</h4>
-                        <p data-i18n="work_card1_desc">Jobs in verified farms with clear contracts.</p>
-                    </div>
-                    <div class="card">
-                        <h4 data-i18n="work_card2_title">Rating & Reputation</h4>
-                        <p data-i18n="work_card2_desc">Mutual rating system ensuring quality and rights.</p>
-                    </div>
-                    <div class="card">
-                        <h4 data-i18n="work_card3_title">Vocational Training</h4>
-                        <p data-i18n="work_card3_desc">Free courses to improve worker skills.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA FOOTER -->
-        <section class="footer-cta">
-            <div class="container">
-                <h2 data-i18n="footer_title">Ready to Launch?</h2>
-                <p data-i18n="footer_desc">Join over 5,000 farmers and investors on the platform today.</p>
-                <a href="./signin.html" class="btn" style="background: white; color: var(--primary-dark); font-size: 1.2rem; padding: 15px 40px;" data-i18n="footer_btn">Join the Community</a>
-            </div>
-        </section>
-    </main>
-
-    
-
-    <!-- FLOATING CONTROLS -->
-    <div class="floating-controls">
-        <button id="langToggleFloat" class="control-btn" title="Change Language"><i class="fas fa-globe"></i></button>
-        <button id="darkModeToggle" class="control-btn" title="Dark Mode"><i class="fa-solid fa-moon"></i></button>
+<body class="hidden">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="spinner"></div>
+        <p class="text-2xl font-black text-[#E07A5F] animate-pulse">AgroHire</p>
+        <p class="text-sm font-bold text-agro-text-muted mt-4">جاري التحقق من الصلاحيات...</p>
     </div>
 
-    <!-- UI LOGIC: TRANSLATION & THEME -->
-    <script>
-        // ==========================
-        // 1. TRANSLATION DICTIONARY
-        // ==========================
-        const translations = {
-            ar: {
-                siteName: "Zera3a-Tech",
-                nav_market: "المتجر",
-                nav_animals: "الحيوانات",
-                nav_wallet: "المحفظة",
-                nav_community: "المجتمع",
-                nav_about: "من نحن",
-                nav_investment: "الاستثمار",
-                nav_user: "مستخدم",
-                nav_profile: "الملف الشخصي",
-                nav_logout: "تسجيل خروج",
-                btn_signin: "تسجيل دخول",
-                hero_badge: "مستقبل الزراعة الرقمية",
-                hero_title: "المنصة المتكاملة للزراعة الذكية",
-                hero_desc: "مستقبل زراعي رقمي يربط المزارعين والمستثمرين والعمال، ويضمن الأمان والشفافية والربحية للجميع باستخدام أحدث تقنيات الذكاء الاصطناعي.",
-                role_farmer: "مزارع",
-                role_worker: "عامل",
-                role_investor: "مستثمر",
-                video_title: "الدليل الكامل للمنصة",
-                video_desc: "شاهد كيفية التسجيل وإدارة المحاصيل والاستفادة من العوائد.",
-                video_time: "3 دقائق",
-                video_views: "مشاهدة",
-                chall_farmer_title: "تحديات المزارع",
-                cf_1: "غياب أداة ذكية لتحديد المحصول الأنسب للأرض.",
-                cf_2: "عدم وضوح مواعيد الزراعة والحصاد.",
-                cf_3: "تكاليف عالية دون ضمان العائد.",
-                cf_4: "ظهور الأمراض والآفات فجأة.",
-                cf_5: "الاعتماد الكلي على التاجر لبيع المحصول.",
-                cf_6: "عدم معرفة السعر الحقيقي في السوق.",
-                chall_worker_title: "تحديات العامل",
-                cw_1: "صعوبة الوصول لفرص عمل مستقرة.",
-                cw_2: "عدم وضوح الأجور ونظام الدفع.",
-                cw_3: "غياب جهة تضمن حقوق العامل.",
-                cw_4: "الاعتماد على وسطاء غير موثوقين.",
-                cw_5: "غياب التقييم العادل للأداء.",
-                chall_investor_title: "تحديات المستثمر",
-                ci_1: "غياب البيانات الدقيقة قبل الاستثمار.",
-                ci_2: "صعوبة متابعة تقدم المشروع بشكل فوري.",
-                ci_3: "نسبة مخاطر عالية.",
-                ci_4: "غياب تقارير الأداء والتحليل المالي.",
-                ci_5: "صعوبة اتخاذ قرارات الاستثمار الصحيحة.",
-                adv_title: "لماذا تختار Zera3a-Tech؟",
-                adv_1_title: "الأمان والشفافية",
-                adv_1_desc: "عقود إلكترونية موثقة وتشفير كامل للبيانات.",
-                adv_2_title: "الذكاء الاصطناعي",
-                adv_2_desc: "تحليل البيانات لزيادة الإنتاجية وتقليل المخاطر.",
-                adv_3_title: "دعم على مدار الساعة",
-                adv_3_desc: "فريق متاح لمساعدتك في أي وقت.",
-                adv_4_title: "مدفوعات آمنة",
-                adv_4_desc: "نظام دفع إلكتروني يضمن حقوق الجميع.",
-                farm_title: "خدمات المزارع الشاملة",
-                farm_feat_title: "تتبع المواسم الزراعية والنمو",
-                farm_feat_desc: "نظام ذكي يرصد رطوبة التربة ودرجة الحرارة ومراحل نمو المحصول خطوة بخطوة. احصل على تقارير دورية وتنبيهات فورية.",
-                farm_li1: "تتبع دقيق للمراحل",
-                farm_li2: "تنبيهات ذكية بالذكاء الاصطناعي",
-                farm_li3: "مواعيد حصاد دقيقة",
-                farm_card1_title: "سوق مباشر",
-                farm_card1_desc: "اربط محاصيلك مباشرة بالمصانع والمستهلكين.",
-                farm_card2_title: "حاسبة الأرباح",
-                farm_card2_desc: "أدخل التكاليف والمساحة واحصل على تقرير ربحي مفصل فوراً.",
-                farm_card3_title: "مشتريات أرخص",
-                farm_card3_desc: "اشتر الأسمدة والبذور مباشرة من المصانع.",
-                inv_title: "بوابة المستثمر المحترف",
-                inv_card1_title: "دراسة جدوى تلقائية",
-                inv_card1_desc: "أدخل بيانات الأرض والمحصول واحصل على تقرير مالي فوري.",
-                inv_li1: "تقدير دقيق للتكاليف",
-                inv_li2: "معدل عائد متوقع",
-                inv_card2_title: "متابعة حية",
-                inv_card2_desc: "تتبع استثماراتك ومحاصيلك عبر لوحة تحكم ذكية.",
-                inv_li3: "تحديثات فورية",
-                inv_li4: "صور وفيديوهات حية",
-                inv_card3_title: "استثمار متنوع",
-                inv_card3_desc: "استثمر في المحاصيل أو الثروة الحيوانية أو التصنيع الزراعي.",
-                inv_li5: "محافظ متنوعة",
-                inv_li6: "أرباح مستمرة",
-                work_title: "الوظائف والعمالة",
-                work_card1_title: "وظائف مضمونة",
-                work_card1_desc: "وظائف في مزارع موثقة بعقود واضحة.",
-                work_card2_title: "التقييم والسمعة",
-                work_card2_desc: "نظام تقييم متبادل يضمن الجودة والحقوق.",
-                work_card3_title: "التدريب المهني",
-                work_card3_desc: "دورات مجانية لتحسين مهارات العمال.",
-                footer_title: "جاهز للإطلاق؟",
-                footer_desc: "انضم لأكثر من 5,000 مزارع ومستثمر على المنصة اليوم.",
-                footer_btn: "انضم للمجتمع",
-                copyright: "© 2023 منصة Zera3a-Tech. جميع الحقوق محفوظة."
-            },
-            en: {
-                siteName: "Zera3a-Tech",
-                nav_market: "Marketplace",
-                nav_animals: "Animals",
-                nav_wallet: "Wallet",
-                nav_community: "Community",
-                nav_about: "About Us",
-                nav_investment: "Investment",
-                nav_user: "User",
-                nav_profile: "Profile",
-                nav_logout: "Logout",
-                btn_signin: "Sign In",
-                hero_badge: "Future of Digital Farming",
-                hero_title: "The Integrated Smart Agriculture Platform",
-                hero_desc: "A digital agricultural future connecting farmers, investors, and workers, guaranteeing security, transparency, and profitability for everyone using latest AI technologies.",
-                role_farmer: "Farmer",
-                role_worker: "Worker",
-                role_investor: "Investor",
-                video_title: "Complete Guide to Platform",
-                video_desc: "Watch how to register, manage crops, and benefit from returns.",
-                video_time: "3 mins",
-                video_views: "views",
-                chall_farmer_title: "Farmer Challenges",
-                cf_1: "No smart tool to determine the most suitable crop for the land.",
-                cf_2: "Lack of clarity on planting and harvest dates.",
-                cf_3: "High costs with no guaranteed return.",
-                cf_4: "Sudden appearance of diseases and pests.",
-                cf_5: "Total reliance on the merchant to sell the crop.",
-                cf_6: "Not knowing the real market price.",
-                chall_worker_title: "Worker Challenges",
-                cw_1: "Difficulty accessing stable job opportunities.",
-                cw_2: "Unclear wages and payment system.",
-                cw_3: "Lack of an authority to guarantee worker rights.",
-                cw_4: "Reliance on unreliable intermediaries.",
-                cw_5: "Absence of fair performance evaluation.",
-                chall_investor_title: "Investor Challenges",
-                ci_1: "Lack of accurate data before investing.",
-                ci_2: "Difficulty monitoring project progress in real-time.",
-                ci_3: "High risk percentage.",
-                ci_4: "Absence of performance reports and financial analysis.",
-                ci_5: "Difficulty making correct investment decisions.",
-                adv_title: "Why Choose Zera3a-Tech?",
-                adv_1_title: "Security & Transparency",
-                adv_1_desc: "Documented electronic contracts and full data encryption.",
-                adv_2_title: "Artificial Intelligence",
-                adv_2_desc: "Data analysis to increase productivity and reduce risks.",
-                adv_3_title: "24/7 Support",
-                adv_3_desc: "A team available to help you at any time.",
-                adv_4_title: "Secure Payments",
-                adv_4_desc: "Electronic payment system guaranteeing rights for all.",
-                farm_title: "Comprehensive Farmer Services",
-                farm_feat_title: "Track Farming Seasons & Growth",
-                farm_feat_desc: "A smart system that monitors soil moisture, temperature, and crop growth stages step-by-step. Get periodic reports and instant alerts.",
-                farm_li1: "Precise stage tracking",
-                farm_li2: "AI alerts",
-                farm_li3: "Accurate harvest dates",
-                farm_card1_title: "Direct Market",
-                farm_card1_desc: "Connect your crops directly with factories and consumers.",
-                farm_card2_title: "Profit Calculator",
-                farm_card2_desc: "Enter costs and area, get an instant detailed profit report.",
-                farm_card3_title: "Cheaper Purchases",
-                farm_card3_desc: "Buy fertilizers and seeds directly from factories.",
-                inv_title: "Professional Investor Portal",
-                inv_card1_title: "Auto Feasibility Study",
-                inv_card1_desc: "Enter land and crop data, get an instant financial report.",
-                inv_li1: "Accurate cost estimation",
-                inv_li2: "Expected return rate",
-                inv_card2_title: "Live Monitoring",
-                inv_card2_desc: "Track your investments and crops via a smart dashboard.",
-                inv_li3: "Instant updates",
-                inv_li4: "Live photos & videos",
-                inv_card3_title: "Diversified Investment",
-                inv_card3_desc: "Invest in crops, livestock, or agro-processing.",
-                inv_li5: "Diverse portfolios",
-                inv_li6: "Continuous profits",
-                work_title: "Jobs & Labor",
-                work_card1_title: "Guaranteed Jobs",
-                work_card1_desc: "Jobs in verified farms with clear contracts.",
-                work_card2_title: "Rating & Reputation",
-                work_card2_desc: "Mutual rating system ensuring quality and rights.",
-                work_card3_title: "Vocational Training",
-                work_card3_desc: "Free courses to improve worker skills.",
-                footer_title: "Ready to Launch?",
-                footer_desc: "Join over 5,000 farmers and investors on the platform today.",
-                footer_btn: "Join the Community",
-                copyright: "&copy; 2023 Zera3a-Tech Platform. All rights reserved."
-            }
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- Mock Data Generator (نفس الكود السابق) ---
+        const generateWorkers = (count = 27) => {
+            const namesAr = [
+                "أحمد محمود", "محمد علي", "محمود حسن", "علي إبراهيم", "سيد عبد الله",
+                "إبراهيم صلاح", "صلاح الدين", "حسن يوسف", "حسين جابر", "عبد الله كمال",
+                "زياد طارق", "ياسر شريف", "خالد وليد", "عمر الفاروق", "طارق يحيى",
+                "سامح نبيل", "هاني رمزي", "مصطفى كامل", "مجدي يعقوب", "رفعت إسماعيل",
+                "كمال الشناوي", "سعيد صالح", "جابر عصفور", "عوض محمد", "فتحي غانم",
+                "شريف منير", "عزت أبو عوف"
+            ];
+
+            const namesEn = [
+                "Ahmed Mahmoud", "Mohamed Ali", "Mahmoud Hassan", "Ali Ibrahim", "Sayed Abdullah",
+                "Ibrahim Salah", "Salah El-Din", "Hassan Youssef", "Hussein Gaber", "Abdullah Kamal",
+                "Ziad Tarek", "Yasser Sherif", "Khaled Walid", "Omar El-Farouk", "Tarek Yehia",
+                "Sameh Nabil", "Hany Ramzy", "Mustafa Kamel", "Magdy Yacoub", "Refaat Ismail",
+                "Kamal El-Shennawy", "Said Saleh", "Gaber Asfour", "Awad Mohamed", "Fathy Ghanem",
+                "Sherif Mounir", "Ezzat Abu Auf"
+            ];
+
+            const regionsAr = ["الجيزة", "أسيوط", "المنوفية", "الدقهلية", "البحيرة", "الفيوم", "سوهاج", "الإسماعيلية", "الأقصر", "القليوبية"];
+            const regionsEn = ["Giza", "Asyut", "Monofiya", "Dakahlia", "Beheira", "Fayoum", "Sohag", "Ismailia", "Luxor", "Qalyubia"];
+
+            const jobs = ["سائق جرار", "خبير ري", "حصاد محاصيل", "فني صوبات", "مشرف ميداني", "صيانة معدات", "خبير وقاية نبات", "فني لاندسكيب"];
+            const jobsEn = ["Tractor Driver", "Irrigation Expert", "Harvest Specialist", "Greenhouse Tech", "Field Supervisor", "Equipment Maint.", "Plant Protection", "Landscape Tech"];
+            const skillsList = [["حرث", "ري حديث"], ["حصاد", "تعبئة"], ["تسميد", "وقاية"], ["تصريف", "تقليم"], ["توجيه", "إشراف"], ["تشخيص أمراض", "مكافحة"]];
+            const skillsEn = [["Plowing", "Modern Irrigation"], ["Harvest", "Packing"], ["Fertilizing", "Protection"], ["Drainage", "Pruning"], ["Leadership", "Oversight"], ["Diagnosis", "Control"]];
+
+            const biosAr = [
+                "خبير في التعامل مع المحاصيل الاستراتيجية وإدارة فرق الحصاد الكبرى بكفاءة عالية.",
+                "متخصص في أنظمة الري الحديثة وصيانة الشبكات لضمان أقصى كفاءة مائية للمزرعة.",
+                "فني محترف في تجهيز الصوبات الزراعية وحماية المحاصيل من الآفات الموسمية.",
+                "مشرف ميداني ذو خبرة واسعة في تخطيط المهام اليومية ومتابعة معايير الجودة.",
+                "سائق محترف للمعدات الثقيلة مع دراية تامة بأساليب الحرث العميق وتجهيز التربة.",
+                "خبير في برامج التسميد العضوي والكيماوي لزيادة إنتاجية الفدان بطرق آمنة."
+            ];
+
+            const biosEn = [
+                "Expert in handling strategic crops and efficiently managing large harvest teams.",
+                "Specialist in modern irrigation systems and network maintenance for maximum water efficiency.",
+                "Professional technician in greenhouse preparation and seasonal pest protection.",
+                "Field supervisor with extensive experience in planning tasks and quality monitoring.",
+                "Professional heavy equipment driver with full knowledge of deep plowing methods.",
+                "Expert in organic and chemical fertilization programs to increase safe productivity."
+            ];
+
+            return Array.from({ length: count }, (_, i) => {
+                const jobIdx = i % jobs.length;
+                const regionIdx = i % regionsAr.length;
+                const skillIdx = i % skillsList.length;
+                const bioIdx = i % biosAr.length;
+                const nameIdx = i % namesAr.length;
+                const price = 250 + ((i % 10) * 20);
+
+                return {
+                    id: i + 1,
+                    name: namesAr[nameIdx],
+                    nameEn: namesEn[nameIdx],
+                    job: jobs[jobIdx],
+                    jobEn: jobsEn[jobIdx],
+                    rating: 4.5 + (Math.random() * 0.5),
+                    reviews: 10 + Math.floor(Math.random() * 120),
+                    price: price,
+                    location: regionsAr[regionIdx],
+                    locationEn: regionsEn[regionIdx],
+                    img: [
+                        "https://i.pinimg.com/1200x/6a/d1/57/6ad157c8278e090a7151341adc8eaaa6.jpg",
+                        "https://i.pinimg.com/736x/52/43/2b/52432bd24fcb9087ce0c392320f067a5.jpg",
+                        "https://i.pinimg.com/1200x/2c/e3/98/2ce398b6e5a2999258f2327bbbb72a73.jpg",
+                        "https://i.pinimg.com/736x/a6/80/74/a68074a753c3549cd8050bd1811063ba.jpg",
+                        "https://i.pinimg.com/1200x/01/c4/3b/01c43bbb39cf74d24c9190d4832a080c.jpg",
+                        "https://i.pinimg.com/736x/58/80/94/5880947a46b1bc24324af9b70ff77900.jpg",
+                        "https://i.pinimg.com/1200x/55/06/62/55066253d0d056c690cfb49f4f91ff82.jpg",
+                        "https://i.pinimg.com/736x/50/1d/f1/501df15ed64623ab3b8054eb2b9bb0d0.jpg",
+                        "https://i.pinimg.com/736x/67/d4/73/67d473ac5acd3069d909813c79d55942.jpg",
+                    ][i % 9],
+                    isVip: i % 5 === 0,
+                    experience: 3 + (i % 12),
+                    completionRate: 90 + (i % 10),
+                    skills: skillsList[skillIdx],
+                    skillsEn: skillsEn[skillIdx],
+                    isVerified: true,
+                    projectsCount: 20 + (i * 3),
+                    isAvailable: i % 4 !== 0,
+                    bio: biosAr[bioIdx],
+                    bioEn: biosEn[bioIdx]
+                };
+            });
         };
 
-        // ==========================
-        // 2. THEME TOGGLE LOGIC
-        // ==========================
-        const themeBtns = document.querySelectorAll('#themeToggle, #darkModeToggle');
-        const body = document.body;
+        const workersData = generateWorkers(27);
 
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-mode');
-            updateIcons(true);
-        }
+        // --- Components ---
 
-        themeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                body.classList.toggle('dark-mode');
-                const isDark = body.classList.contains('dark-mode');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                updateIcons(isDark);
-            });
-        });
+        const TreeSilhouette = () => {
+            return (
+                <div className="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none z-0">
+                    <svg viewBox="0 0 1440 400" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-[300px] opacity-20">
+                        <path fill="#0F4C5C" opacity="0.2" d="M0,400 L0,320 C100,280 200,340 300,300 S500,260 650,320 S850,240 1000,310 S1250,280 1440,330 L1440,400 Z" />
+                        <path fill="#5DAE66" opacity="0.1" d="M0,400 L0,360 Q50,320 100,350 T200,330 T300,360 T400,310 T500,360 T600,300 T700,370 T800,310 T900,380 T1000,320 T1100,370 T1200,300 T1300,375 T1440,340 L1440,400 Z" />
+                    </svg>
+                </div>
+            );
+        };
 
-        function updateIcons(isDark) {
-            const iconClass = isDark ? 'fa-sun' : 'fa-moon';
-            themeBtns.forEach(btn => {
-                const i = btn.querySelector('i');
-                if (i) i.className = `fa-solid ${iconClass}`;
-            });
-        }
+        const Footer = ({ lang }) => {
+            return (
+                <footer className="mt-auto py-16 px-8 bg-agro-card border-t border-gray-100 dark:border-white/5 transition-colors duration-300">
+                    <div className={`max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                        <div className={`flex items-center gap-4 ${lang === 'en' ? 'flex-row-reverse' : ''}`}>
+                            <div className="w-12 h-12 bg-[#5DAE66] rounded-2xl flex items-center justify-center shadow-lg">
+                                <i className="fas fa-leaf text-white text-xl"></i>
+                            </div>
+                            <span className="text-2xl font-black tracking-tighter serif-font text-agro-dark">AgroHire</span>
+                        </div>
+                        <div className="flex gap-4">
+                            {['facebook', 'instagram', 'linkedin', 'twitter'].map(i => (
+                                <a key={i} href="#" className="w-12 h-12 rounded-2xl bg-agro-bg flex items-center justify-center text-agro-text-muted hover:text-[#E07A5F] hover:bg-white dark:hover:bg-white/10 transition-all shadow-sm">
+                                    <i className={`fab fa-${i} text-lg`}></i>
+                                </a>
+                            ))}
+                        </div>
+                        <div className="text-[11px] font-black uppercase tracking-[0.4em] text-agro-text-muted">
+                            <p>{lang === 'ar' ? '© 2024 AGROHIRE. جميع الحقوق محفوظة.' : '© 2024 AGROHIRE. ALL RIGHTS RESERVED.'}</p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
 
-        // ==========================
-        // 3. LANGUAGE TOGGLE LOGIC
-        // ==========================
-        const langBtns = document.querySelectorAll('#langToggle, #langToggleFloat');
-        let currentLang = 'ar'; // Default
+        const Header = ({ activePage, onPageChange, isDarkMode, toggleDarkMode, lang, toggleLanguage }) => {
+            const labels = {
+                ar: { home: 'الرئيسية', backHome: 'العودة للرئيسية' },
+                en: { home: 'Home', backHome: 'Back to Home' }
+            };
+            const t = labels[lang];
 
-        // Function to update content
-        function setLanguage(lang) {
-            currentLang = lang;
-            const dir = lang === 'ar' ? 'rtl' : 'ltr';
-            
-            // Set HTML attributes
-            document.documentElement.lang = lang;
-            document.documentElement.dir = dir;
-
-            // Update Language Toggle Button Text (The one in navbar)
-            const navLangBtn = document.getElementById('langToggle');
-            if(navLangBtn) {
-                navLangBtn.innerText = lang === 'ar' ? 'EN' : 'عربي';
-            }
-
-            // Replace text for all elements with data-i18n
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    el.innerText = translations[lang][key];
+            // ✅ تعديل زر العودة للرئيسية حسب الـ Role
+            const handleBackToHome = () => {
+                // ✅ إذا كان المستخدم فلاح، يروح لصفحة الفلاح
+                if (window.userRole === 'farmer') {
+                    window.location.href = '../farmer-ar.html';
                 }
+                // ✅ إذا كان مستثمر أو أي دور آخر، يروح للصفحة الرئيسية
+                else {
+                    onPageChange('home');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+
+            return (
+                <header className="fixed top-0 w-full z-[100] px-6 md:px-12 py-6 pointer-events-none">
+                    <div className={`max-w-screen-2xl mx-auto flex items-center justify-between pointer-events-auto ${lang === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                        <div className={`flex items-center gap-3 ${lang === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                            <button onClick={toggleLanguage} className="bg-[#0F4C5C] text-white px-6 py-3 rounded-2xl text-[12px] font-black uppercase shadow-2xl hover:bg-[#E07A5F] transition-all flex items-center gap-3 border-2 border-white/20">
+                                <i className="fas fa-globe text-sm"></i>
+                                {lang === 'ar' ? 'English' : 'عربي'}
+                            </button>
+                            <button onClick={toggleDarkMode} className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-2xl border-2 ${isDarkMode ? 'bg-white text-[#0F4C5C] border-[#0F4C5C]/10' : 'bg-[#0F4C5C] text-white border-white/20'} hover:scale-105 active:scale-95`}>
+                                <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} text-lg`}></i>
+                            </button>
+                        </div>
+                        <div className={`flex items-center bg-white/95 dark:bg-black/40 backdrop-blur-xl rounded-[28px] p-1.5 border-2 border-gray-100 dark:border-white/10 shadow-2xl ${lang === 'en' ? 'flex-row-reverse' : 'flex-row'}`}>
+                            <button onClick={handleBackToHome} className={`flex items-center gap-3 px-6 py-3.5 rounded-2xl transition-all group active:scale-95 bg-[#E07A5F] text-white shadow-lg hover:shadow-orange-500/30 ${lang === 'ar' ? 'ml-2' : 'mr-2'}`}>
+                                <i className="fas fa-home transition-transform group-hover:-translate-y-0.5"></i>
+                                <span className="text-[11px] font-black uppercase tracking-wider">{t.backHome}</span>
+                            </button>
+                            <div className={`flex items-center gap-3 cursor-pointer group px-4 py-2 rounded-2xl ${lang === 'en' ? 'flex-row-reverse' : 'flex-row'}`} onClick={handleBackToHome}>
+                                <span className="text-xl md:text-2xl font-black tracking-tighter text-[#0F4C5C] dark:text-white serif-font">Zera3a<span className="text-[#E07A5F]">Tech</span></span>
+                                <div className="w-9 h-9 bg-[#E07A5F] rounded-xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform">
+                                    <i className="fas fa-leaf text-white text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            );
+        };
+
+        const Hero = ({ lang, onPageChange }) => {
+            const content = {
+                ar: { badge: "ثورة تقنيات الزراعة الذكية", title: "طور مزرعتك بسهولة ", titleSpan: "وكفاءة", sub: "اعثر على أفضل الخدمات والعمال الزراعيين لتنمية مزرعتك وحل المشكلات الميدانية بأمان تام" },
+                en: { badge: "Smart Farming Tech Revolution", title: "Develop Your Farm with Ease ", titleSpan: "& Efficiency", sub: "Find the best agricultural services and elite workers to grow your farm and solve field issues safely" }
+            };
+            const t = content[lang];
+
+            return (
+                <section className="relative min-h-[95vh] flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
+                    <div className="absolute inset-0 z-0">
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover brightness-[0.5]" alt="Wheat Field" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#FAF9F6] dark:to-[#0A0F12]"></div>
+                    </div>
+                    <div className="relative z-10 w-full max-w-6xl text-center text-white space-y-12 animate-fade-in">
+                        <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20">
+                            <span className="w-2 h-2 rounded-full bg-[#E07A5F]"></span>
+                            <p className="text-[11px] font-black text-white/90 tracking-wider uppercase">{t.badge}</p>
+                        </div>
+                        <div className="space-y-6">
+                            <h1 className="text-6xl md:text-8xl font-black leading-tight drop-shadow-2xl tracking-tighter">{t.title} <span className="text-[#E07A5F]">{t.titleSpan}</span></h1>
+                            <p className="text-lg md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-bold">{t.sub}</p>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Stats = ({ lang }) => {
+            const stats = [
+                { num: '5,000+', ar: 'فدان تحت الإدارة', en: 'Acres Managed', icon: 'fa-vector-square' },
+                { num: '850+', ar: 'عامل معتمد', en: 'Certified Workers', icon: 'fa-user-check' },
+                { num: '120+', ar: 'مزرعة نشطة', en: 'Active Farms', icon: 'fa-tractor' },
+                { num: '15+', ar: 'سنة خبرة ميدانية', en: 'Years Experience', icon: 'fa-award' }
+            ];
+            return (
+                <section className="bg-[#0F4C5C] py-20 px-10 relative z-10 mx-6 md:mx-12 rounded-[56px] shadow-2xl border border-white/5 mt-10">
+                    <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-12 text-center relative z-10">
+                        {stats.map((s, idx) => (
+                            <div key={idx} className="relative group">
+                                <div className="mb-6 inline-flex items-center justify-center w-16 h-16 bg-white/5 rounded-[24px] text-[#E07A5F] text-2xl group-hover:scale-110 group-hover:bg-[#E07A5F] group-hover:text-white transition-all duration-500 shadow-xl border border-white/5">
+                                    <i className={`fas ${s.icon}`}></i>
+                                </div>
+                                <p className="text-4xl md:text-6xl font-black text-white mb-3 serif-font tracking-tighter drop-shadow-lg">{s.num}</p>
+                                <p className="text-[#E6D5B8] text-[11px] font-black uppercase tracking-[0.2em] opacity-60">{lang === 'ar' ? s.ar : s.en}</p>
+                                {idx < stats.length - 1 && <div className={`hidden lg:block absolute top-1/2 ${lang === 'ar' ? '-left-6' : '-right-6'} w-px h-12 bg-white/10 -translate-y-1/2`}></div>}
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        };
+
+        const WorkerGrid = ({ limit, title, onHireWorker, lang }) => {
+            const [activeCategory, setActiveCategory] = React.useState('all');
+            const jobsAr = ["سائق جرار", "خبير ري", "حصاد محاصيل", "فني صوبات", "مشرف ميداني", "صيانة معدات", "خبير وقاية نبات", "فني لاندسكيب"];
+            const jobsEn = ["Tractor Driver", "Irrigation Expert", "Harvest Specialist", "Greenhouse Tech", "Field Supervisor", "Equipment Maint.", "Plant Protection", "Landscape Tech"];
+            const categories = lang === 'ar' ? [{ id: 'all', label: 'الكل' }, ...jobsAr.map(j => ({ id: j, label: j }))] : [{ id: 'all', label: 'All' }, ...jobsEn.map(j => ({ id: j, label: j }))];
+
+            const filteredByCategory = activeCategory === 'all' ? workersData : workersData.filter(w => (lang === 'ar' ? w.job : w.jobEn) === activeCategory);
+            const displayedWorkers = limit ? filteredByCategory.slice(0, limit) : filteredByCategory;
+
+            const labels = {
+                ar: { hire: "توظيف", chat: "دردشة", perDay: "جنية / يوم", available: "متاح الآن", busy: "في مهمة حالياً", bio: "نبذة عن الكادر:", noResults: "لا يوجد عمال متاحين في هذا التخصص حالياً" },
+                en: { hire: "Hire", chat: "Chat", perDay: "LE / Day", available: "Available Now", busy: "In Mission", bio: "About Specialist:", noResults: "No workers available in this category yet" }
+            };
+            const t = labels[lang];
+
+            return (
+                <section className="py-24 px-6 max-w-7xl mx-auto bg-agro-bg transition-colors duration-300">
+                    <div className={`flex flex-col items-center justify-center mb-16 gap-10 text-center`}>
+                        <div className="space-y-4">
+                            <h2 className="text-4xl md:text-5xl font-black text-agro-dark tracking-tight leading-tight">{title}</h2>
+                        </div>
+                        {!limit && (
+                            <div className="flex flex-wrap items-center justify-center gap-3 w-full max-w-5xl animate-fade-in">
+                                {categories.map((cat) => (
+                                    <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`px-6 py-3 rounded-2xl text-[11px] font-black uppercase tracking-wider transition-all duration-300 border shadow-sm ${activeCategory === cat.id ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-lg scale-105' : 'bg-agro-card text-agro-text-muted border-gray-100 dark:border-white/5 hover:border-[#E07A5F] hover:text-[#E07A5F] hover:shadow-md'}`}>
+                                        {cat.label}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    {displayedWorkers.length === 0 ? (
+                        <div className="py-32 text-center bg-agro-card rounded-[48px] border border-dashed border-gray-200 dark:border-white/10">
+                            <i className="fas fa-user-slash text-gray-200 dark:text-white/5 text-8xl mb-6 block"></i>
+                            <p className="text-xl font-bold text-agro-text-muted">{t.noResults}</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                            {displayedWorkers.map((m) => (
+                                <div key={m.id} className="bg-agro-card rounded-[40px] overflow-hidden group shadow-lg hover:shadow-2xl transition-all border border-gray-100 dark:border-white/5 flex flex-col relative animate-fade-in">
+                                    <div className="h-72 overflow-hidden relative">
+                                        <img src={m.img} className="w-full h-full object-cover transition-transform duration-700 brightness-95 group-hover:brightness-100" alt={m.name} />
+                                        <div className={`absolute top-6 ${lang === 'ar' ? 'right-6' : 'left-6'} flex flex-col gap-2`}>
+                                            {m.isVip && <div className="bg-[#E07A5F] text-white px-4 py-1.5 rounded-2xl text-[10px] font-black shadow-xl">EXPERT VIP</div>}
+                                            <div className={`px-4 py-1.5 rounded-2xl text-[10px] font-black shadow-xl ${m.isAvailable ? 'bg-[#5DAE66] text-white' : 'bg-gray-500 text-white'}`}>{m.isAvailable ? t.available : t.busy}</div>
+                                        </div>
+                                    </div>
+                                    <div className={`p-10 flex-grow flex flex-col ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div>
+                                                <h4 className="text-[#E07A5F] text-[10px] font-black uppercase tracking-[0.3em] mb-1">{lang === 'ar' ? m.job : m.jobEn}</h4>
+                                                <h3 className="text-2xl font-black text-agro-dark group-hover:text-[#E07A5F] transition-colors leading-tight">{lang === 'ar' ? m.name : m.nameEn}</h3>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-2xl font-black text-agro-dark serif-font">{m.price}</p>
+                                                <p className="text-[9px] text-agro-text-muted font-black uppercase">{t.perDay}</p>
+                                            </div>
+                                        </div>
+                                        <div className="mb-6">
+                                            <p className="text-[9px] font-black text-agro-text-muted uppercase tracking-widest mb-1 opacity-60">{t.bio}</p>
+                                            <p className="text-sm font-bold text-agro-dark/80 italic line-clamp-2">"{lang === 'ar' ? m.bio : m.bioEn}"</p>
+                                        </div>
+                                        <div className={`flex flex-wrap gap-4 mb-8 text-xs font-bold text-agro-text-muted border-b border-gray-100 dark:border-white/5 pb-6 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
+                                            <span className="flex items-center gap-2"><i className="fas fa-location-dot text-[#E07A5F]"></i> {lang === 'ar' ? m.location : m.locationEn}</span>
+                                            <span className="flex items-center gap-2"><i className="fas fa-star text-yellow-400"></i> {m.rating.toFixed(1)}</span>
+                                        </div>
+                                        <div className={`flex items-center gap-3 mt-auto ${lang === 'ar' ? 'flex-row' : 'flex-row'}`}>
+                                            <button onClick={() => alert(lang === 'ar' ? 'جاري فتح المحادثة...' : 'Opening chat...')} className="w-14 h-14 bg-agro-bg dark:bg-white/5 text-[#E07A5F] rounded-[22px] flex items-center justify-center hover:bg-[#E07A5F] hover:text-white transition-all shadow-md border border-gray-200 dark:border-white/10 active:scale-90" title={t.chat}>
+                                                <i className="fas fa-comment-dots text-xl"></i>
+                                            </button>
+                                            <button onClick={() => onHireWorker?.(m)} className="flex-grow bg-[#0F4C5C] hover:bg-[#E07A5F] text-white h-14 rounded-[22px] font-black uppercase tracking-widest text-[11px] transition-all shadow-lg flex items-center justify-center gap-2 active:scale-95">
+                                                <i className="fas fa-user-plus"></i> {t.hire}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </section>
+            );
+        };
+
+        const CreateTaskForm = ({ onTaskCreated, initialWorker, lang }) => {
+            const [step, setStep] = React.useState(1);
+            const [loading, setLoading] = React.useState(false);
+            const [isTranslating, setIsTranslating] = React.useState(false);
+            const fileInputRef = React.useRef(null);
+            const dropdownRef = React.useRef(null);
+            const [imagePreview, setImagePreview] = React.useState(null);
+            const [workerSearch, setWorkerSearch] = React.useState('');
+            const [showWorkerDropdown, setShowWorkerDropdown] = React.useState(false);
+            const [errorMsg, setErrorMsg] = React.useState(null);
+            const allWorkers = workersData;
+            const availableWorkers = allWorkers.filter(w => w.isAvailable);
+
+            const [formData, setFormData] = React.useState({
+                title: '', titleEn: '', location: '', locationEn: '', crop: '', cropEn: '',
+                priority: 'Normal', vision: '', visionEn: '', startDate: '', endDate: '',
+                workerCount: 5, budget: 2000, selectedWorkerId: initialWorker?.id || null,
+                selectedEquipment: [], safety: { helmet: true, gloves: true, boots: true, vest: true }
             });
-        }
 
-        // Initialize Language
-        // (Optional: Check localStorage for language preference if you want to persist it)
-        setLanguage('ar');
+            React.useEffect(() => {
+                if (initialWorker) {
+                    setWorkerSearch(lang === 'ar' ? initialWorker.name : initialWorker.nameEn);
+                    setFormData(prev => ({ ...prev, selectedWorkerId: initialWorker.id }));
+                }
+            }, [initialWorker, lang]);
 
-        // Add Click Events
-        langBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const newLang = currentLang === 'ar' ? 'en' : 'ar';
-                setLanguage(newLang);
-            });
-        });
+            React.useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) setShowWorkerDropdown(false);
+                };
+                document.addEventListener('mousedown', handleClickOutside);
+                return () => document.removeEventListener('mousedown', handleClickOutside);
+            }, []);
 
+            const labels = {
+                ar: {
+                    mainTitle: 'تخطيط مهمة ميدانية', subtitle: 'أدخل البيانات المطلوبة لبدء العمل الميداني',
+                    steps: ['البيانات الأساسية', 'الموارد والجدول', 'التدقيق النهائي'],
+                    taskNameLabel: 'اسم المهمة / العملية', taskNamePlaceholder: 'مثال: حصاد القمح - قطاع 4',
+                    locationLabel: 'الموقع الميداني (المزرعة)', locationPlaceholder: 'اكتب اسم الموقع هنا...',
+                    cropLabel: 'نوع المحصول المستهدف *', cropPlaceholder: 'اختر المحصول...',
+                    priorityLabel: 'درجة الاستعجال', urgent: 'عاجلة جداً', normal: 'مهمة عادية',
+                    visionLabel: 'وصف المهمة / الرؤية التقنية (ذكاء اصطناعي)', visionPlaceholder: 'صف تفاصيل العملية الميدانية هنا...',
+                    addImage: 'أيقونة المهمة', selectWorker: 'قائد الكادر الميداني', workerSearchPlaceholder: 'ابحث عن اسم قائد الفريق...',
+                    startDate: 'تاريخ البدء المتوقع', endDate: 'تاريخ الانتهاء المتوقع', workerCount: 'عدد العمال المطلوب', budget: 'الميزانية المرصودة (جنيه)',
+                    equipmentTitle: 'تجهيز المعدات والآلات', safetyTitle: 'بروتوكول السلامة الميداني',
+                    summaryTitle: 'مراجعة الميزانية والتفاصيل', summaryDesc: 'تأكد من صحة البيانات المالية واللوجستية قبل النشر الميداني',
+                    workerWages: 'أجور طاقم العمل الميداني', equipmentRental: 'تكلفة استخدام المعدات', adminFees: 'تأمين ورسوم إدارية', totalAmount: 'إجمالي الميزانية المعتمدة',
+                    teamLeader: 'قائد الفريق المسؤول', assignedEquip: 'المعدات المخصصة للمهمة', assignedSafety: 'معدات السلامة المعتمدة', noEquip: 'لم يتم اختيار معدات',
+                    submitBtn: 'اعتماد ونشر المهمة', nextBtn: 'حفظ ومتابعة', backBtn: 'رجوع',
+                    crops: ["قمح", "أرز", "قطن", "ذرة", "برسيم", "قصب سكر", "بنجر سكر", "موالح", "مانجو", "عنب", "بطاطس", "طماطم", "بصل", "ثوم", "فاصوليا", "عدس", "كتان", "خيار", "فراولة", "تمور"],
+                    validationError: "يرجى ملء جميع الحقول المطلوبة قبل المتابعة", translating: "جاري ترجمة البيانات آلياً...",
+                    equipmentItems: [{ id: 'tractor', icon: 'fa-tractor', label: 'جرار', labelEn: 'Tractor' }, { id: 'plow', icon: 'fa-vector-square', label: 'محراث', labelEn: 'Plow' }, { id: 'harvester', icon: 'fa-shuttle-space', label: 'حاصدة', labelEn: 'Harvester' }, { id: 'truck', icon: 'fa-truck', label: 'شاحنة', labelEn: 'Truck' }, { id: 'pump', icon: 'fa-faucet', label: 'مضخة', labelEn: 'Pump' }, { id: 'sprayer', icon: 'fa-spray-can', label: 'مرشة', labelEn: 'Sprayer' }],
+                    safetyItems: [{ id: 'helmet', icon: 'fa-hard-hat', label: 'خوذة' }, { id: 'gloves', icon: 'fa-mitten', label: 'قفازات' }, { id: 'boots', icon: 'fa-boot', label: 'حذاء' }, { id: 'vest', icon: 'fa-vest', label: 'سترة' }]
+                },
+                en: {
+                    mainTitle: 'Field Task Planning', subtitle: 'Enter details to start the field operation',
+                    steps: ['Basic Data', 'Resources', 'Verification'],
+                    taskNameLabel: 'Task Name / Operation', taskNamePlaceholder: 'e.g., Grape Harvest - Sector 4',
+                    locationLabel: 'Field Location (Farm)', locationPlaceholder: 'Type location name here...',
+                    cropLabel: 'Target Crop Type *', cropPlaceholder: 'Select crop...',
+                    priorityLabel: 'Priority Level', urgent: 'Urgent', normal: 'Normal',
+                    visionLabel: 'Task Description / AI Technical Vision', visionPlaceholder: 'Describe field goals here...',
+                    addImage: 'Task Icon', selectWorker: 'Team Leader', workerSearchPlaceholder: 'Search leader name...',
+                    startDate: 'Expected Start Date', endDate: 'Expected End Date', workerCount: 'Required Workers Count', budget: 'Allocated Budget (LE)',
+                    equipmentTitle: 'Machinery & Equipment', safetyTitle: 'Safety Protocol',
+                    summaryTitle: 'Budget & Task Review', summaryDesc: 'Verify financial and logistic details before field publishing',
+                    workerWages: 'Field Workforce Wages', equipmentRental: 'Machinery Rental Cost', adminFees: 'Insurance & Admin Fees', totalAmount: 'Total Approved Budget',
+                    teamLeader: 'Assigned Team Leader', assignedEquip: 'Task Assigned Equipment', assignedSafety: 'Approved Safety Gear', noEquip: 'No equipment selected',
+                    submitBtn: 'Authorize & Publish', nextBtn: 'Save & Continue', backBtn: 'Back',
+                    crops: ["Wheat", "Rice", "Cotton", "Maize", "Clover", "Sugar Cane", "Sugar Beet", "Citrus", "Mango", "Grapes", "Potatoes", "Tomatoes", "Onions", "Garlic", "Beans", "Lentils", "Flax", "Cucumber", "Strawberry", "Dates"],
+                    validationError: "Please fill all required fields before continuing", translating: "Auto-translating task data...",
+                    equipmentItems: [{ id: 'tractor', icon: 'fa-tractor', label: 'جرار', labelEn: 'Tractor' }, { id: 'plow', icon: 'fa-vector-square', label: 'محراث', labelEn: 'Plow' }, { id: 'harvester', icon: 'fa-shuttle-space', label: 'حاصدة', labelEn: 'Harvester' }, { id: 'truck', icon: 'fa-truck', label: 'شاحنة', labelEn: 'Truck' }, { id: 'pump', icon: 'fa-faucet', label: 'مضخة', labelEn: 'Pump' }, { id: 'sprayer', icon: 'fa-spray-can', label: 'مرشة', labelEn: 'Sprayer' }],
+                    safetyItems: [{ id: 'helmet', icon: 'fa-hard-hat', label: 'Helmet' }, { id: 'gloves', icon: 'fa-mitten', label: 'Gloves' }, { id: 'boots', icon: 'fa-boot', label: 'Boots' }, { id: 'vest', icon: 'fa-vest', label: 'Vest' }]
+                }
+            };
+
+            const t = labels[lang];
+            const labelStyles = `text-[18px] font-black text-[#E07A5F] uppercase tracking-wider block mb-3 flex items-center gap-3`;
+            const inputStyles = "w-full bg-agro-bg border-2 border-gray-100 dark:border-white/5 rounded-[24px] h-[72px] px-8 focus:ring-[8px] focus:ring-[#E07A5F]/10 focus:border-[#E07A5F] transition-all font-bold text-agro-dark outline-none text-xl placeholder:text-agro-dark/30 shadow-sm";
+
+            const translateData = async () => {
+                setIsTranslating(true);
+                try {
+                    await new Promise(r => setTimeout(r, 1500));
+                    setFormData(prev => ({
+                        ...prev,
+                        titleEn: lang === 'ar' ? prev.title + " (En)" : prev.title,
+                        locationEn: lang === 'ar' ? prev.location + " (En)" : prev.location,
+                        cropEn: lang === 'ar' ? prev.crop + " (En)" : prev.crop,
+                        visionEn: lang === 'ar' ? prev.vision + " (En)" : prev.vision,
+                    }));
+                } catch (error) {
+                    console.error("Translation failed", error);
+                } finally {
+                    setIsTranslating(false);
+                }
+            };
+
+            const validateStep = (currentStep) => {
+                setErrorMsg(null);
+                if (currentStep === 1) {
+                    if (!formData.title || !formData.location || !formData.crop || !formData.selectedWorkerId) {
+                        setErrorMsg(t.validationError);
+                        return false;
+                    }
+                } else if (currentStep === 2) {
+                    if (!formData.startDate || !formData.endDate || formData.budget <= 0) {
+                        setErrorMsg(t.validationError);
+                        return false;
+                    }
+                }
+                return true;
+            };
+
+            const handleNext = async () => {
+                if (validateStep(step)) {
+                    if (step === 1) await translateData();
+                    setStep(prev => Math.min(prev + 1, 3));
+                }
+            };
+
+            const handleBack = () => {
+                setErrorMsg(null);
+                setStep(prev => Math.max(prev - 1, 1));
+            };
+
+            const selectWorker = (w) => {
+                setFormData({ ...formData, selectedWorkerId: w.id });
+                setWorkerSearch(lang === 'ar' ? w.name : w.nameEn);
+                setShowWorkerDropdown(false);
+            };
+
+            const toggleEquipment = (id) => {
+                setFormData(prev => ({ ...prev, selectedEquipment: prev.selectedEquipment.includes(id) ? prev.selectedEquipment.filter(item => item !== id) : [...prev.selectedEquipment, id] }));
+            };
+
+            const toggleSafety = (id) => {
+                setFormData(prev => ({ ...prev, safety: { ...prev.safety, [id]: !prev.safety[id] } }));
+            };
+
+            const WorkerCard = ({ w }) => (
+                <button onClick={() => selectWorker(w)} className={`w-full flex items-center gap-4 p-4 rounded-[20px] hover:bg-agro-bg transition-all group border-b border-gray-50 dark:border-white/5 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                    <img src={w.img} className="w-14 h-14 rounded-xl object-cover ring-2 ring-gray-50 dark:ring-white/5 group-hover:ring-[#E07A5F]" />
+                    <div className={`text-right flex-grow ${lang === 'en' ? 'text-left' : ''}`}>
+                        <p className="font-black text-agro-dark text-lg">{lang === 'ar' ? w.name : w.nameEn}</p>
+                        <p className="text-[10px] font-bold text-agro-text-muted uppercase">{lang === 'ar' ? w.job : w.jobEn}</p>
+                    </div>
+                    <p className="text-sm font-black text-[#E07A5F]">{w.price} LE</p>
+                </button>
+            );
+
+            return (
+                <div className="max-w-6xl mx-auto px-6 py-6 relative">
+                    <div className="text-center mb-16 animate-fade-in">
+                        <h1 className="text-4xl md:text-6xl font-black text-[#E07A5F] mb-3 tracking-tighter">{t.mainTitle}</h1>
+                        <p className="text-lg font-bold text-agro-text-muted">{t.subtitle}</p>
+                    </div>
+                    <div className="bg-agro-card rounded-[48px] shadow-2xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-100 dark:border-white/5 p-8 md:p-16 transition-all duration-300">
+                        {isTranslating && (<div className="fixed inset-0 z-[999] bg-agro-bg/80 backdrop-blur-sm flex items-center justify-center flex-col gap-6"><div className="w-20 h-20 border-8 border-t-[#E07A5F] border-agro-card rounded-full animate-spin"></div><p className="text-2xl font-black text-[#E07A5F] animate-pulse">{t.translating}</p></div>)}
+                        {errorMsg && (<div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl text-center font-bold animate-pulse"><i className="fas fa-circle-exclamation mr-2"></i> {errorMsg}</div>)}
+                        <div className={`flex items-center justify-between mb-20 max-w-2xl mx-auto ${lang === 'ar' ? 'flex-row-reverse' : 'flex-row'}`}>
+                            {[1, 2, 3].map((s) => (
+                                <div key={s} className="flex flex-col items-center gap-3 flex-1 relative">
+                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-black transition-all duration-300 z-10 ${step === s ? 'bg-[#E07A5F] text-white ring-[10px] ring-[#E07A5F]/10 scale-110 shadow-lg' : step > s ? 'bg-[#5DAE66] text-white' : 'bg-agro-bg text-gray-300 dark:text-gray-600'}`}>{step > s ? <i className="fas fa-check"></i> : s}</div>
+                                    <span className={`text-[11px] font-black uppercase tracking-widest ${step === s ? 'text-[#E07A5F]' : 'text-gray-300 dark:text-gray-600'}`}>{t.steps[s - 1]}</span>
+                                    {s < 3 && <div className="absolute top-6 w-full h-[2px] -z-0 bg-agro-bg dark:bg-white/5"></div>}
+                                </div>
+                            ))}
+                        </div>
+                        <div className={`space-y-12 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                            {step === 1 && (
+                                <div className="animate-fade-in space-y-12">
+                                    <div className={`flex flex-col md:flex-row gap-12 items-start ${lang === 'ar' ? 'md:flex-row-reverse' : ''}`}>
+                                        <div className="w-full md:w-1/3 space-y-10">
+                                            <div className="flex flex-col items-center gap-4">
+                                                <div onClick={() => fileInputRef.current?.click()} className="relative group cursor-pointer w-48 h-48 rounded-[40px] border-2 border-dashed border-gray-200 dark:border-white/10 bg-agro-bg flex flex-col items-center justify-center overflow-hidden transition-all hover:border-[#E07A5F] hover:bg-agro-card shadow-sm">
+                                                    {imagePreview ? <img src={imagePreview} className="w-full h-full object-cover" /> : <i className="fas fa-camera text-4xl text-gray-300 dark:text-gray-700"></i>}
+                                                    <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={(e) => { const file = e.target.files?.[0]; if (file) { const reader = new FileReader(); reader.onloadend = () => setImagePreview(reader.result); reader.readAsDataURL(file); } }} />
+                                                </div>
+                                                <p className={`text-[11px] font-black uppercase tracking-widest text-agro-text-muted`}>{t.addImage}</p>
+                                            </div>
+                                            <div className="space-y-3 relative" ref={dropdownRef}>
+                                                <label className={labelStyles}><i className="fas fa-user-circle text-2xl"></i> {t.selectWorker} *</label>
+                                                <div className="relative">
+                                                    <input type="text" className={`w-full bg-agro-bg border-2 rounded-2xl h-[64px] px-6 font-bold text-agro-dark outline-none transition-all text-lg placeholder:text-agro-dark/20 shadow-inner ${errorMsg && !formData.selectedWorkerId ? 'border-red-500/50' : 'border-gray-100 dark:border-white/5 focus:border-[#E07A5F]'}`} placeholder={t.workerSearchPlaceholder} value={workerSearch} onChange={e => { setWorkerSearch(e.target.value); setShowWorkerDropdown(true); }} onFocus={() => setShowWorkerDropdown(true)} />
+                                                    {showWorkerDropdown && (
+                                                        <div className="absolute top-full left-0 right-0 z-[100] mt-3 bg-agro-card border border-gray-100 dark:border-white/10 rounded-[30px] shadow-2xl max-h-[350px] overflow-y-auto p-2 space-y-1 animate-fade-in custom-scrollbar">
+                                                            {availableWorkers.filter(w => (lang === 'ar' ? w.name : w.nameEn).toLowerCase().includes(workerSearch.toLowerCase())).slice(0, 8).map(w => <WorkerCard key={w.id} w={w} />)}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full md:w-2/3 space-y-10">
+                                            <div className="space-y-3"><label className={labelStyles}><i className="fas fa-edit text-xl"></i> {t.taskNameLabel} *</label><input type="text" placeholder={t.taskNamePlaceholder} className={`${inputStyles} ${errorMsg && !formData.title ? 'border-red-500/50' : ''}`} value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} /></div>
+                                            <div className="space-y-3"><label className={labelStyles}><i className="fas fa-map-pin text-xl"></i> {t.locationLabel} *</label><input type="text" placeholder={t.locationPlaceholder} className={`${inputStyles} ${errorMsg && !formData.location ? 'border-red-500/50' : ''}`} value={formData.location} onChange={e => setFormData({ ...formData, location: e.target.value })} /></div>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                                <div className="space-y-3"><label className={labelStyles}><i className="fas fa-leaf text-xl"></i> {t.cropLabel}</label><select className={`${inputStyles} ${errorMsg && !formData.crop ? 'border-red-500/50' : ''}`} value={formData.crop} onChange={e => setFormData({ ...formData, crop: e.target.value })}><option value="">{t.cropPlaceholder}</option>{t.crops.map(c => <option key={c} value={c}>{c}</option>)}</select></div>
+                                                <div className="space-y-3"><label className={labelStyles}><i className="fas fa-bolt text-xl"></i> {t.priorityLabel}</label><div className="flex bg-agro-bg rounded-[24px] border-2 border-gray-100 dark:border-white/5 p-1.5 h-[72px] items-center shadow-inner">{[{ key: 'Normal', label: t.normal }, { key: 'Urgent', label: t.urgent }].map(p => (<button key={p.key} onClick={() => setFormData({ ...formData, priority: p.key })} className={`flex-1 h-full rounded-[18px] text-[12px] font-black uppercase transition-all duration-300 ${formData.priority === p.key ? 'bg-agro-card text-[#E07A5F] shadow-sm' : 'text-agro-text-muted hover:text-agro-dark'}`}>{p.label}</button>))}</div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4"><label className={labelStyles}><i className="fas fa-align-right text-xl"></i> {t.visionLabel}</label><textarea rows={4} className={`${inputStyles} h-auto py-8 resize-none text-xl leading-relaxed custom-scrollbar`} value={formData.vision} onChange={e => setFormData({ ...formData, vision: e.target.value })} placeholder={t.visionPlaceholder} /></div>
+                                </div>
+                            )}
+                            {step === 2 && (
+                                <div className="animate-fade-in space-y-16">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-calendar-day text-xl"></i> {t.startDate} *</label><input type="date" className={`${inputStyles} ${errorMsg && !formData.startDate ? 'border-red-500/50' : ''}`} value={formData.startDate} onChange={e => setFormData({ ...formData, startDate: e.target.value })} /></div>
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-calendar-check text-xl"></i> {t.endDate} *</label><input type="date" className={`${inputStyles} ${errorMsg && !formData.endDate ? 'border-red-500/50' : ''}`} value={formData.endDate} onChange={e => setFormData({ ...formData, endDate: e.target.value })} /></div>
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-users text-xl"></i> {t.workerCount}</label><input type="number" className={inputStyles} value={formData.workerCount} onChange={e => setFormData({ ...formData, workerCount: parseInt(e.target.value) || 0 })} /></div>
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-coins text-xl"></i> {t.budget} (LE) *</label><input type="number" className={`${inputStyles} ${errorMsg && formData.budget <= 0 ? 'border-red-500/50' : ''}`} value={formData.budget} onChange={e => setFormData({ ...formData, budget: parseInt(e.target.value) || 0 })} /></div>
+                                    </div>
+                                    <div className="space-y-12">
+                                        <div className="bg-agro-bg/60 dark:bg-black/20 rounded-[32px] p-10 border border-gray-100 dark:border-white/5 space-y-8 shadow-inner">
+                                            <label className="text-xl font-black text-agro-text-muted flex items-center gap-4"><i className="fas fa-tools"></i> {t.equipmentTitle}</label>
+                                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">{t.equipmentItems.map((item) => (<button key={item.id} onClick={() => toggleEquipment(item.id)} className={`p-6 rounded-[24px] border-2 transition-all flex flex-col items-center gap-3 group ${formData.selectedEquipment.includes(item.id) ? 'bg-[#E07A5F] border-[#E07A5F] text-white shadow-lg' : 'bg-agro-card border-gray-100 dark:border-white/5 text-gray-300 dark:text-gray-700 hover:border-[#E07A5F] hover:text-[#E07A5F]'}`}><i className={`fas ${item.icon} text-2xl`}></i><span className="text-[10px] font-black uppercase text-center">{item.label}</span></button>))}</div>
+                                        </div>
+                                        <div className="bg-agro-bg/60 dark:bg-black/20 rounded-[32px] p-10 border border-gray-100 dark:border-white/5 space-y-8 shadow-inner">
+                                            <label className="text-xl font-black text-agro-text-muted flex items-center gap-4"><i className="fas fa-user-shield"></i> {t.safetyTitle}</label>
+                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">{t.safetyItems.map((item) => (<button key={item.id} onClick={() => toggleSafety(item.id)} className={`p-6 rounded-[24px] border-2 transition-all flex items-center gap-4 ${formData.safety[item.id] ? 'bg-[#5DAE66] border-[#5DAE66] text-white shadow-md' : 'bg-agro-card border-gray-100 dark:border-white/5 text-gray-400 dark:text-gray-700 hover:border-[#5DAE66] hover:text-[#5DAE66]'}`}><i className={`fas ${item.icon} text-xl`}></i><span className="text-sm font-black uppercase">{item.label}</span></button>))}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {step === 3 && (
+                                <div className="animate-fade-in space-y-12">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                                        <div className="space-y-8">
+                                            <div className="bg-agro-bg dark:bg-black/20 rounded-[40px] p-10 border-2 border-white dark:border-white/5 shadow-sm h-full">
+                                                <div className="flex items-center gap-4 mb-8"><div className="w-12 h-12 bg-[#E07A5F] rounded-2xl flex items-center justify-center text-white shadow-lg"><i className="fas fa-file-invoice"></i></div><h3 className="text-2xl font-black text-agro-dark">{lang === 'ar' ? 'كشف مراجعة المهمة' : 'Mission Audit Review'}</h3></div>
+                                                <div className="space-y-8">
+                                                    <div><p className="text-[11px] font-black text-[#E07A5F] uppercase tracking-[0.3em] mb-2">{t.taskNameLabel}</p><p className="text-3xl font-black text-agro-dark leading-tight">{formData.title || '---'}</p></div>
+                                                    <div className="grid grid-cols-2 gap-8">
+                                                        <div><p className="text-[10px] font-black text-agro-text-muted uppercase tracking-widest mb-1">{t.cropLabel}</p><div className="flex items-center gap-2 font-black text-agro-dark text-lg"><i className="fas fa-leaf text-[#5DAE66]"></i> {formData.crop || '---'}</div></div>
+                                                        <div><p className="text-[10px] font-black text-agro-text-muted uppercase tracking-widest mb-1">{t.teamLeader}</p><div className="flex items-center gap-2 font-black text-agro-dark text-lg"><i className="fas fa-user-shield text-blue-500"></i> {workerSearch || '---'}</div></div>
+                                                    </div>
+                                                    <div className="pt-6 border-t border-gray-200 dark:border-white/5"><p className="text-[11px] font-black text-[#E07A5F] uppercase tracking-[0.3em] mb-4">{t.assignedEquip}</p><div className="flex flex-wrap gap-3">{formData.selectedEquipment.length > 0 ? formData.selectedEquipment.map(id => { const item = t.equipmentItems.find(i => i.id === id); return (<div key={id} className="bg-agro-card px-5 py-3 rounded-2xl flex items-center gap-3 border border-gray-100 dark:border-white/5 shadow-sm"><i className={`fas ${item?.icon} text-[#E07A5F]`}></i><span className="text-sm font-black text-agro-dark">{item?.label}</span></div>); }) : <p className="text-agro-text-muted italic text-sm font-bold">{t.noEquip}</p>}</div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="bg-agro-card rounded-[48px] p-12 border-2 border-[#E07A5F]/10 shadow-2xl shadow-orange-100/20 dark:shadow-black/40 flex flex-col">
+                                            <div className="text-center mb-10"><h3 className="text-3xl font-black text-agro-dark mb-2">{t.summaryTitle}</h3><p className="text-sm font-bold text-agro-text-muted">{t.summaryDesc}</p></div>
+                                            <div className="space-y-6 mb-10 flex-grow">
+                                                <div className="flex justify-between items-center text-lg font-bold p-5 bg-agro-bg dark:bg-black/20 rounded-[24px]"><span className="text-agro-text-muted">{t.workerWages}</span><span className="text-agro-dark serif-font font-black">LE {(formData.budget * 0.6).toLocaleString()}</span></div>
+                                                <div className="flex justify-between items-center text-lg font-bold p-5 bg-agro-bg dark:bg-black/20 rounded-[24px]"><span className="text-agro-text-muted">{t.equipmentRental}</span><span className="text-agro-dark serif-font font-black">LE {(formData.budget * 0.3).toLocaleString()}</span></div>
+                                                <div className="flex justify-between items-center text-lg font-bold p-5 bg-agro-bg dark:bg-black/20 rounded-[24px]"><span className="text-agro-text-muted">{t.adminFees}</span><span className="text-agro-dark serif-font font-black">LE {(formData.budget * 0.1).toLocaleString()}</span></div>
+                                                <div className="h-px bg-gray-100 dark:bg-white/5 my-8"></div>
+                                                <div className={`flex justify-between items-center ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                                                    <div className={lang === 'ar' ? 'text-right' : 'text-left'}><p className="text-[11px] font-black text-[#E07A5F] uppercase tracking-[0.4em] mb-2">{t.totalAmount}</p><p className="text-7xl font-black text-agro-dark serif-font tracking-tighter">LE {formData.budget.toLocaleString()}</p></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            <div className="pt-16 flex justify-center gap-8 items-center">
+                                {step > 1 && (<button onClick={handleBack} className="text-agro-text-muted font-black px-10 py-5 hover:bg-agro-bg rounded-2xl transition-all text-lg uppercase tracking-widest">{t.backBtn}</button>)}
+                                <button onClick={step === 3 ? () => {
+                                    if (!validateStep(1) || !validateStep(2)) return;
+                                    setLoading(true);
+                                    const selectedWorker = availableWorkers.find(w => w.id === formData.selectedWorkerId);
+                                    const equipmentAr = formData.selectedEquipment.map(id => t.equipmentItems.find(i => i.id === id)?.label || id);
+                                    setTimeout(() => {
+                                        onTaskCreated({
+                                            id: `TSK-${Math.floor(1000 + Math.random() * 9000)}`, title: formData.title, titleEn: formData.titleEn, date: formData.startDate, location: formData.location, locationEn: formData.locationEn, budget: formData.budget.toLocaleString(), status: 'pending', progress: 0, workers: Array(formData.workerCount).fill('Worker'), priority: formData.priority === 'Urgent' ? 'High' : 'Medium', crop: formData.crop, cropEn: formData.cropEn, startTime: '08:00 AM', teamLeader: selectedWorker ? selectedWorker.name : workerSearch, teamLeaderEn: selectedWorker ? selectedWorker.nameEn : workerSearch, description: formData.vision, descriptionEn: formData.visionEn, equipment: equipmentAr, equipmentEn: equipmentAr, riskLevel: formData.priority === 'Urgent' ? 'Moderate' : 'Safe', milestones: [{ label: 'تم الإنشاء', labelEn: 'Created', status: 'done', time: 'الآن', timeEn: 'Now' }]
+                                        });
+                                        setLoading(false);
+                                    }, 1500);
+                                } : handleNext} disabled={loading || isTranslating} className={`bg-[#E07A5F] text-white px-20 py-6 rounded-[24px] font-black shadow-xl shadow-[#E07A5F]/20 hover:scale-[1.05] active:scale-95 transition-all text-xl uppercase tracking-widest border-4 border-white/20 ${loading || isTranslating ? 'opacity-70' : ''}`}>
+                                    {loading ? <i className="fas fa-sync-alt fa-spin"></i> : (step === 3 ? t.submitBtn : t.nextBtn)}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const TrackTasks = ({ tasks, onBack, lang }) => {
+            const [selectedTask, setSelectedTask] = React.useState(null);
+            const [filter, setFilter] = React.useState('all');
+
+            React.useEffect(() => {
+                if (selectedTask) document.body.style.overflow = 'hidden';
+                else document.body.style.overflow = 'unset';
+                return () => { document.body.style.overflow = 'unset'; };
+            }, [selectedTask]);
+
+            const filteredTasks = tasks.filter(task => filter === 'all' ? true : task.status === filter);
+            const getStatusConfig = (status) => {
+                switch (status) {
+                    case 'active': return { color: 'bg-[#5DAE66]', lightColor: 'bg-[#5DAE66]/10', textColor: 'text-[#5DAE66]', icon: 'fa-spinner fa-spin' };
+                    case 'completed': return { color: 'bg-teal-600', lightColor: 'bg-teal-600/10', textColor: 'text-teal-600', icon: 'fa-check' };
+                    default: return { color: 'bg-[#E07A5F]', lightColor: 'bg-[#E07A5F]/10', textColor: 'text-[#E07A5F]', icon: 'fa-clock' };
+                }
+            };
+
+            const labels = {
+                ar: { tag: "مركز العمليات", title: "متابعة ", titleSpan: "المهام", all: "الكل", active: "نشطة", pending: "انتظار", completed: "مكتملة", noTasks: "لا توجد مهام حالياً في هذا القسم", progress: "نسبة الإنجاز", details: "التفاصيل", milestones: "المسار التشغيلي الميداني", budget: "الميزانية المرصودة", leader: "القائد المسؤول", crop: "المحصول", location: "الموقع الميداني", download: "تحميل التقرير الميداني", close: "إغلاق", opDetails: "تفاصيل العملية الميدانية", taskId: "معرف المهمة", startTime: "وقت البدء", risk: "مستوى المخاطر", equipment: "المعدات والآلات المخصصة", vision: "الرؤية التقنية للمهمة", date: "التاريخ" },
+                en: { tag: "Operations Center", title: "Track ", titleSpan: "Tasks", all: "All", active: "Active", pending: "Pending", completed: "Completed", noTasks: "No tasks found", progress: "Progress", details: "Details", milestones: "Field Operations Track", budget: "Allocated Budget", leader: "Assigned Leader", crop: "Crop Type", location: "Field Location", download: "Download Report", close: "Close", opDetails: "Operation Details", taskId: "Task ID", startTime: "Start Time", risk: "Risk Level", equipment: "Assigned Equipment", vision: "Technical Mission Vision", date: "Date" }
+            };
+            const t = labels[lang];
+
+            const getRiskColor = (risk) => {
+                if (risk.toLowerCase().includes('high')) return 'text-red-500 bg-red-50 dark:bg-red-500/10';
+                if (risk.toLowerCase().includes('moderate')) return 'text-orange-500 bg-orange-50 dark:bg-orange-500/10';
+                return 'text-green-500 bg-green-50 dark:bg-green-500/10';
+            };
+
+            const getEquipmentDisplay = (task) => (lang === 'en' && task.equipmentEn && task.equipmentEn.length > 0) ? task.equipmentEn : task.equipment;
+
+            return (
+                <section className="py-12 px-6 max-w-7xl mx-auto space-y-10 bg-agro-bg transition-colors duration-300">
+                    <div className={`flex flex-col md:flex-row items-center justify-between gap-8 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                        <div className="flex bg-agro-card p-1.5 rounded-[28px] shadow-sm border border-gray-100 dark:border-white/5">
+                            {[{ id: 'completed', label: t.completed }, { id: 'pending', label: t.pending }, { id: 'active', label: t.active }, { id: 'all', label: t.all }].map(f => (
+                                <button key={f.id} onClick={() => setFilter(f.id)} className={`px-8 py-3 rounded-[24px] text-xs font-black transition-all duration-300 ${filter === f.id ? 'bg-[#E07A5F] text-white shadow-xl' : 'text-agro-text-muted hover:text-agro-dark'}`}>{f.label}</button>
+                            ))}
+                        </div>
+                        <div className={`flex items-center gap-6 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                            <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
+                                <p className="text-[#5DAE66] font-black uppercase tracking-[0.4em] text-[10px] mb-1">{t.tag}</p>
+                                <h2 className="text-4xl md:text-5xl font-black text-agro-dark">{t.title} <span className="text-[#E07A5F]">{t.titleSpan}</span></h2>
+                            </div>
+                            <button onClick={onBack} className={`w-14 h-14 rounded-2xl bg-agro-card border border-gray-100 dark:border-white/10 flex items-center justify-center text-agro-dark hover:bg-[#0F4C5C] hover:text-white transition-all shadow-sm group ${lang === 'en' ? 'rotate-180' : ''}`}><i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i></button>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-6">
+                        {filteredTasks.length === 0 ? (
+                            <div className="py-32 text-center bg-agro-card rounded-[48px] border border-dashed border-gray-200 dark:border-white/10"><i className="fas fa-clipboard-list text-gray-200 dark:text-white/5 text-8xl mb-6 block"></i><p className="text-xl font-bold text-agro-text-muted">{t.noTasks}</p></div>
+                        ) : filteredTasks.map(task => {
+                            const config = getStatusConfig(task.status);
+                            return (
+                                <div key={task.id} onClick={() => setSelectedTask(task)} className={`bg-agro-card p-6 md:p-10 rounded-[40px] shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 cursor-pointer relative overflow-hidden group ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                                    <div className={`absolute ${lang === 'ar' ? 'right-0' : 'left-0'} top-0 bottom-0 w-2 ${config.color}`}></div>
+                                    <div className={`flex items-center gap-8 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                                        <div className={`w-20 h-20 rounded-[28px] flex items-center justify-center text-2xl ${config.lightColor} ${config.textColor}`}><i className={`fas ${config.icon}`}></i></div>
+                                        <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
+                                            <h4 className="text-2xl md:text-3xl font-black text-agro-dark group-hover:text-[#E07A5F] transition-colors">{lang === 'ar' ? task.title : (task.titleEn || task.title)}</h4>
+                                            <div className={`flex gap-6 items-center text-agro-text-muted text-sm font-bold mt-2 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}>
+                                                <span className="flex items-center gap-2">{lang === 'ar' ? task.crop : (task.cropEn || task.crop)} <i className="fas fa-leaf text-[#5DAE66]"></i></span>
+                                                <span className="flex items-center gap-2">{lang === 'ar' ? task.location : (task.locationEn || task.location)} <i className="fas fa-location-dot text-[#E07A5F]"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col items-center flex-grow">
+                                        <div className={`flex flex-col gap-3 w-full max-w-[240px] ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                            <p className="text-[10px] font-black text-agro-text-muted uppercase tracking-widest">{t.progress}</p>
+                                            <div className="flex items-center gap-5"><span className="font-black text-agro-dark text-lg serif-font">%{task.progress}</span><div className="flex-grow h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden"><div className={`h-full ${config.color} transition-all duration-1000`} style={{ width: `${task.progress}%` }}></div></div></div>
+                                        </div>
+                                    </div>
+                                    <div className="translate-y-2"><button className="bg-agro-bg text-agro-dark px-10 py-4 rounded-2xl text-xs font-black transition-all hover:bg-[#0F4C5C] hover:text-white border border-gray-100 dark:border-white/10 hover:shadow-lg active:scale-95">{t.details}</button></div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    {selectedTask && (
+                        <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden p-4 md:p-8">
+                            <div className="fixed inset-0 bg-black/75 backdrop-blur-2xl transition-opacity duration-300" onClick={() => setSelectedTask(null)}></div>
+                            <div className={`relative bg-agro-card w-full max-w-6xl rounded-[50px] md:rounded-[60px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col md:flex-row max-h-[90vh] overflow-hidden animate-fade-in border border-white/20 dark:border-white/5 z-[10000] ${lang === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                                <div className="md:w-[35%] bg-agro-bg/50 dark:bg-black/30 p-8 md:p-12 flex flex-col items-center justify-between border-agro-border relative shrink-0">
+                                    <button onClick={() => setSelectedTask(null)} className={`absolute top-6 ${lang === 'ar' ? 'left-6' : 'right-6'} w-12 h-12 bg-agro-card rounded-2xl flex items-center justify-center text-agro-dark shadow-md hover:scale-110 transition-all border border-gray-100 dark:border-white/5 active:scale-95 z-50`}><i className="fas fa-xmark text-xl"></i></button>
+                                    <div className="text-center w-full mt-10"><p className="text-[12px] font-black text-agro-text-muted uppercase tracking-[0.3em] mb-2">{t.budget}</p><p className="text-4xl md:text-6xl font-black text-[#E07A5F] serif-font leading-none">LE {selectedTask.budget}</p></div>
+                                    <div className="flex flex-col items-center py-6 md:py-10">
+                                        <div className="relative w-44 h-44 md:w-56 md:h-56">
+                                            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100"><circle className="text-gray-200 dark:text-white/5" strokeWidth="8" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50" /><circle className="text-[#0F4C5C] dark:text-[#5DAE66]" strokeWidth="8" strokeDasharray={263.8} strokeDashoffset={263.8 - (263.8 * selectedTask.progress) / 100} strokeLinecap="round" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50" /></svg>
+                                            <div className="absolute inset-0 flex flex-col items-center justify-center text-agro-dark"><span className="text-5xl md:text-6xl font-black serif-font leading-none">%{selectedTask.progress}</span><span className="text-[10px] font-black uppercase tracking-widest mt-2 opacity-70">{t.progress}</span></div>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4 w-full max-w-[280px] mb-4">
+                                        <button className="w-full bg-[#0F4C5C] dark:bg-[#E07A5F] hover:bg-[#E07A5F] dark:hover:bg-[#E07A5F]/80 text-white py-4 md:py-5 rounded-[24px] font-black uppercase tracking-widest text-[10px] md:text-xs transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95"><i className="fas fa-file-pdf text-base"></i> {t.download}</button>
+                                        <button onClick={() => setSelectedTask(null)} className="w-full bg-agro-card text-agro-text-muted py-4 md:py-5 rounded-[24px] font-black uppercase tracking-widest text-[10px] md:text-xs border border-gray-100 dark:border-white/5 shadow-sm hover:bg-agro-bg transition-all active:scale-95">{t.close}</button>
+                                    </div>
+                                </div>
+                                <div className="md:w-[65%] p-8 md:p-16 overflow-y-auto custom-scrollbar bg-agro-card">
+                                    <div className={`mb-12 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                        <div className={`flex flex-wrap items-center gap-3 mb-6 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}><span className="px-4 py-2 bg-[#E07A5F]/10 text-[#E07A5F] text-[9px] font-black rounded-xl uppercase tracking-widest border border-[#E07A5F]/20">{t.taskId}: {selectedTask.id}</span><span className="px-4 py-2 bg-[#5DAE66]/10 text-[#5DAE66] text-[9px] font-black rounded-xl uppercase tracking-widest border border-[#5DAE66]/20">{t.date}: {selectedTask.date}</span></div>
+                                        <h2 className="text-3xl md:text-5xl font-black text-agro-dark leading-tight mb-6">{lang === 'ar' ? selectedTask.title : (selectedTask.titleEn || selectedTask.title)}</h2>
+                                        <div className="bg-agro-bg dark:bg-white/5 p-6 rounded-[30px] border border-gray-100 dark:border-white/5 italic"><p className="text-agro-text-muted font-bold text-base md:text-lg leading-relaxed">"{lang === 'ar' ? selectedTask.description : (selectedTask.descriptionEn || selectedTask.description)}"</p></div>
+                                    </div>
+                                    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                        {[
+                                            { label: t.location, value: (lang === 'ar' ? selectedTask.location : (selectedTask.locationEn || selectedTask.location)), icon: 'fa-location-dot', color: 'text-[#E07A5F]' },
+                                            { label: t.crop, value: (lang === 'ar' ? selectedTask.crop : (selectedTask.cropEn || selectedTask.crop)), icon: 'fa-leaf', color: 'text-[#5DAE66]' },
+                                            { label: t.leader, value: (lang === 'ar' ? selectedTask.teamLeader : (selectedTask.teamLeaderEn || selectedTask.teamLeader)), icon: 'fa-user-shield', color: 'text-blue-500' },
+                                            { label: t.startTime, value: selectedTask.startTime, icon: 'fa-clock', color: 'text-orange-400' }
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="bg-agro-bg/30 dark:bg-white/5 p-6 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm flex flex-col group hover:shadow-md transition-all">
+                                                <p className="text-[9px] font-black text-agro-text-muted uppercase tracking-[0.2em] mb-2">{item.label}</p>
+                                                <p className="font-black text-agro-dark text-lg leading-snug flex items-center gap-3"><i className={`fas ${item.icon} ${item.color} text-xl`}></i> {item.value}</p>
+                                            </div>
+                                        ))}
+                                        <div className="bg-agro-bg/30 dark:bg-white/5 p-6 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm flex flex-col group hover:shadow-md transition-all sm:col-span-2">
+                                            <p className="text-[9px] font-black text-agro-text-muted uppercase tracking-[0.2em] mb-2">{t.risk}</p>
+                                            <p className={`font-black text-base px-5 py-2 rounded-[16px] text-center w-fit ${getRiskColor(selectedTask.riskLevel)}`}>{selectedTask.riskLevel}</p>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                                        <div className={`${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                            <h3 className="text-lg font-black text-agro-dark mb-5 flex items-center gap-3 uppercase tracking-widest"><i className="fas fa-tools text-[#E07A5F] text-xl"></i> {t.equipment}</h3>
+                                            <div className={`flex flex-wrap gap-2 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}>{getEquipmentDisplay(selectedTask).map((item, idx) => (<span key={idx} className="px-5 py-2.5 bg-agro-bg dark:bg-white/10 rounded-xl text-[11px] font-black text-agro-dark border border-gray-100 dark:border-white/5 shadow-sm hover:bg-[#E07A5F] hover:text-white transition-colors cursor-default">{item}</span>))}</div>
+                                        </div>
+                                        <div className={`${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                            <h3 className="text-lg font-black text-agro-dark mb-5 flex items-center gap-3 uppercase tracking-widest"><i className="fas fa-route text-[#5DAE66] text-xl"></i> {t.milestones}</h3>
+                                            <div className="space-y-5 relative">{selectedTask.milestones.map((m, i) => (<div key={i} className={`flex items-center gap-4 ${m.status === 'waiting' ? 'opacity-30' : ''} ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}><div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${m.status === 'done' ? 'bg-[#5DAE66]' : m.status === 'current' ? 'bg-[#E07A5F] ring-4 ring-[#E07A5F]/20' : 'bg-gray-300'}`}></div><p className={`font-bold text-base flex-grow ${lang === 'ar' ? 'text-right' : 'text-left'} ${m.status === 'current' ? 'text-agro-dark scale-105' : 'text-agro-text-muted'} transition-all`}>{lang === 'ar' ? m.label : (m.labelEn || m.label)}</p>{(m.time || m.timeEn) && (<span className="text-[10px] font-black text-agro-text-muted serif-font">{lang === 'ar' ? m.time : (m.timeEn || m.time)}</span>)}</div>))}</div>
+                                        </div>
+                                    </div>
+                                    <div className="h-20"></div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </section>
+            );
+        };
+
+        const Features = ({ lang }) => {
+            const featuresList = [
+                { id: '01', arTitle: 'أعلى معايير السلامة', enTitle: 'Safety Standards', arDesc: 'بروتوكولات صارمة تضمن سلامة كل عامل في الميدان بشكل يومي.', enDesc: 'Strict protocols ensuring every worker\'s safety in the field daily.', icon: 'fa-shield-heart' },
+                { id: '02', arTitle: 'تطوير المهارات', enTitle: 'Skill Growth', arDesc: 'برامج اعتماد مستمرة في الري، البستنة، وتشغيل المعدات الثقيلة.', enDesc: 'Continuous certification in irrigation, horticulture, and equipment.', icon: 'fa-graduation-cap' },
+                { id: '03', arTitle: 'نظام مكافآت شفاف', enTitle: 'Clear Rewards', arDesc: 'وضوح تام في الحوافز والمكافآت بناءً على جودة التنفيذ والالتزام.', enDesc: 'Full transparency in incentives based on quality and commitment.', icon: 'fa-wallet' },
+                { id: '04', arTitle: 'دعم تقني متواصل', enTitle: 'Tech Support', arDesc: 'متابعة لحظية لكل العمليات الميدانية لضمان سير العمل بدقة.', enDesc: 'Real-time monitoring of field operations for precise execution.', icon: 'fa-headset' }
+            ];
+            return (
+                <section className="bg-transparent py-32 px-6 overflow-hidden relative">
+                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
+                        {featuresList.map((f) => (
+                            <div key={f.id} className="group p-10 rounded-[40px] bg-[#E07A5F] border border-[#E07A5F] hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 shadow-lg shadow-[#E07A5F]/20">
+                                <div className={`flex justify-between items-start mb-10 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-[#E07A5F] text-2xl group-hover:bg-[#0F4C5C] group-hover:text-white transition-all duration-500 shadow-sm"><i className={`fas ${f.icon}`}></i></div>
+                                    <span className="serif-font text-5xl font-black text-white/10 group-hover:text-white/20 transition-colors leading-none select-none">{f.id}</span>
+                                </div>
+                                <h3 className={`text-xl font-black text-white mb-4 tracking-tight ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? f.arTitle : f.enTitle}</h3>
+                                <p className={`text-white/90 text-sm leading-relaxed font-bold ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? f.arDesc : f.enDesc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        };
+
+        const About = ({ lang }) => {
+            const content = {
+                ar: { tag: "ثقافتنا العملية", title: "نبني مسارات مهنية، لا ", titleSpan: "مجرد وظائف", desc: "AgroHire تلتزم بأن تكون جهة التوظيف رقم 1 في قطاع الزراعة. نحن لا نوظف عمالاً فحسب، بل نصقل مهارات الخبراء. كل عضو في الفريق لديه مسار واضح من متدرب إلى مشرف ميداني.", statLabel: "معدل الاستبقاء", card1: "توازن الحياة والعمل", card1Desc: "جدولة مرنة ودورات إجازة مضمونة للراحة والتطوير.", card2: "حوافز النمو", card2Desc: "مكافآت مجزية مقابل إتقان المهارات الجديدة والالتزام.", btn: "انضم إلى فريقنا المتميز" },
+                en: { tag: "Our Work Culture", title: "Building Careers, Not ", titleSpan: "Just Jobs", desc: "AgroHire is committed to being the #1 employer in the agriculture sector. We don't just hire workers, we cultivate experts. Every team member has a clear path from trainee to field supervisor.", statLabel: "Retention Rate", card1: "Work-Life Balance", card1Desc: "Flexible scheduling and guaranteed leave cycles for rest and growth.", card2: "Growth Incentives", card2Desc: "Rewarding bonuses for mastering new skills and commitment.", btn: "Join Our Elite Team" }
+            };
+            const t = content[lang];
+            return (
+                <section className="py-24 px-6 overflow-hidden bg-agro-bg transition-colors duration-300">
+                    <div className={`max-w-7xl mx-auto flex flex-col ${lang === 'ar' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-16`}>
+                        <div className="relative w-full lg:w-1/2">
+                            <div className="grid grid-cols-2 gap-4">
+                                <img src="https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&q=80&w=400" className="rounded-[32px] mt-12 shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all" alt="Worker Precision" />
+                                <img src="https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80&w=400" className="rounded-[32px] mb-12 shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all" alt="Team Training" />
+                            </div>
+                            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#E07A5F] text-white p-8 rounded-[40px] shadow-2xl flex items-center space-x-4 border-8 border-agro-bg transition-all ${lang === 'ar' ? 'space-x-reverse' : ''}`}>
+                                <span className="text-6xl font-black serif-font">98%</span>
+                                <span className="text-[10px] font-black leading-tight uppercase tracking-widest">{t.statLabel}</span>
+                            </div>
+                        </div>
+                        <div className={`w-full lg:w-1/2 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                            <p className="text-[#E07A5F] font-black uppercase tracking-[0.4em] mb-4 text-xs">{t.tag}</p>
+                            <h2 className="text-5xl font-black text-agro-dark mb-6 leading-tight">{t.title} <span className="text-[#E07A5F]">{t.titleSpan}</span></h2>
+                            <p className="text-agro-text-muted mb-8 leading-relaxed text-xl font-medium">{t.desc}</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                                <div className="bg-agro-card p-8 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm"><h4 className="font-black text-agro-dark text-xl mb-2">{t.card1}</h4><p className="text-sm text-agro-text-muted">{t.card1Desc}</p></div>
+                                <div className="bg-agro-card p-8 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm"><h4 className="font-black text-agro-dark text-xl mb-2">{t.card2}</h4><p className="text-sm text-agro-text-muted">{t.card2Desc}</p></div>
+                            </div>
+                            <button className="bg-agro-teal dark:bg-[#E07A5F] hover:scale-105 text-white px-12 py-5 rounded-2xl text-sm font-black uppercase tracking-widest transition-all shadow-2xl">{t.btn}</button>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Commitment = ({ lang }) => {
+            const pointsAr = ['إحاطات سلامة أسبوعية', 'شهادة الإسعافات الأولية', 'تدريب المعدات الثقيلة', 'شهادات التعامل الكيميائي', 'الامتثال البيئي التام', 'خطة الاستجابة للطوارئ'];
+            const pointsEn = ['Weekly Safety Briefings', 'First Aid Certification', 'Heavy Equipment Training', 'Chemical Handling Certs', 'Full Eco Compliance', 'Emergency Response Plan'];
+            const content = {
+                ar: { tag: "Safety First Always", title: "التزامنا الراسخ ", titleSpan: "بسلامة الميدان", desc: "يتم تدريب كل فرد في الفريق ومراجعته أسبوعياً لضمان استيفاء أعلى معايير السلامة في كل موقع عمل. نحن نؤمن أن التميز يبدأ بفريق محمي ومستعد تماماً.", badge: "100%", badgeSub: "حماية معتمدة" },
+                en: { tag: "Safety First Always", title: "Steadfast Commitment to ", titleSpan: "Field Safety", desc: "Every team member is trained and reviewed weekly to ensure the highest safety standards at every site. We believe excellence starts with a protected and fully prepared team.", badge: "100%", badgeSub: "Certified Protection" }
+            };
+            const t = content[lang];
+            const points = lang === 'ar' ? pointsAr : pointsEn;
+            return (
+                <section className="bg-[#0F4C5C] text-white pt-56 pb-32 px-6 relative mt-20 overflow-hidden">
+                    <TreeSilhouette />
+                    <div className={`max-w-7xl mx-auto flex flex-col ${lang === 'ar' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-20 relative z-10`}>
+                        <div className={`w-full lg:w-1/2 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                            <div className={`flex items-center gap-3 mb-4 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}><div className="w-10 h-1 bg-[#E07A5F] rounded-full"></div><p className="text-[#E07A5F] font-black uppercase tracking-[0.4em] text-[10px]">{t.tag}</p></div>
+                            <h2 className="text-5xl md:text-6xl font-black mb-8 leading-tight tracking-tight">{t.title} <br /><span className="text-[#5DAE66]">{t.titleSpan}</span></h2>
+                            <p className="text-white/80 text-lg mb-12 leading-relaxed font-bold max-w-2xl mx-auto lg:mx-0">{t.desc}</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {points.map((p, idx) => (<div key={idx} className={`flex items-center gap-4 text-white font-black text-[11px] uppercase tracking-widest bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/5 hover:border-[#E07A5F] hover:bg-white/15 transition-all ${lang === 'ar' ? 'flex-row-reverse' : 'flex-row'}`}><span className="text-[#E07A5F] text-sm">★</span> {p}</div>))}
+                            </div>
+                        </div>
+                        <div className="w-full lg:w-1/2 relative group">
+                            <div className="relative z-10 rounded-[48px] overflow-hidden shadow-2xl border-8 border-white/5">
+                                <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover brightness-90 group-hover:brightness-100 transition-all duration-700" alt="Safety Gear" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0F4C5C]/60 to-transparent"></div>
+                                <div className={`absolute bottom-10 ${lang === 'ar' ? 'right-10' : 'left-10'} bg-white p-6 rounded-3xl shadow-2xl text-[#0F4C5C]`}><p className="text-4xl font-black mb-1">{t.badge}</p><p className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t.badgeSub}</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- Main App Component ---
+        const App = () => {
+            const [activePage, setActivePage] = React.useState('home');
+            const [selectedWorkerForTask, setSelectedWorkerForTask] = React.useState(null);
+            const [showNotification, setShowNotification] = React.useState(false);
+            const [isDarkMode, setIsDarkMode] = React.useState(false);
+            const [lang, setLang] = React.useState('ar');
+
+            const [tasks, setTasks] = React.useState([
+                { id: "TSK-1024", title: "حصاد القمح - مزرعة السيدة زينب", titleEn: "Wheat Harvest - El Sayeda Zeinab Farm", date: "2024-10-25", location: "الجيزة، أهرامات", locationEn: "Giza, Pyramids", budget: "5,000", status: "active", progress: 65, workers: ["سعيد", "محمد", "علي"], priority: 'High', crop: 'قمح (سلالة مصر 3)', cropEn: 'Wheat (Egypt 3)', startTime: '06:00 AM', teamLeader: "سعيد فرح", teamLeaderEn: "Said Farah", description: "عملية حصاد مكثفة لـ 50 فدان قمح باستخدام أحدث التقنيات.", descriptionEn: "Intensive harvesting operation for 50 acres of wheat using latest technologies.", equipment: ["حاصدة عملاقة", "شاحنات نقل"], equipmentEn: ["Giant Harvester", "Transport Trucks"], riskLevel: 'Moderate', milestones: [{ label: 'تجهيز المعدات', labelEn: 'Equipment Prep', status: 'done', time: '05:30 AM', timeEn: '05:30 AM' }, { label: 'بدء الحصاد الميداني', labelEn: 'Field Harvest Start', status: 'current', time: '06:15 AM', timeEn: '06:15 AM' }, { label: 'فرز المحصول', labelEn: 'Crop Sorting', status: 'waiting' }] },
+                { id: "TSK-1025", title: "صيانة شبكة الري - قطاع ب", titleEn: "Irrigation Maintenance - Sector B", date: "2024-10-26", location: "المنوفية، شبين", locationEn: "Monofiya, Shebin", budget: "2,500", status: "pending", progress: 10, workers: ["أحمد"], priority: 'Medium', crop: 'برتقال صيفي', cropEn: 'Summer Orange', startTime: '08:00 AM', teamLeader: "علي سعد", teamLeaderEn: "Ali Saad", description: "فحص وإصلاح شبكة الري بالتنقيط.", descriptionEn: "Inspect and repair drip irrigation system.", equipment: ["أدوات سباكة", "قطع غيار"], equipmentEn: ["Plumbing Tools", "Spare Parts"], riskLevel: 'Safe', milestones: [{ label: 'فحص المحابس', labelEn: 'Valve Check', status: 'done', time: '08:30 AM', timeEn: '08:30 AM' }] },
+                { id: "TSK-1028", title: "تجهيز أرض القطن - الدقهلية", titleEn: "Cotton Land Prep - Dakahlia", date: "2024-11-02", location: "الدقهلية، المنصورة", locationEn: "Dakahlia, Mansoura", budget: "3,800", status: "active", progress: 45, workers: ["فتحي", "خالد"], priority: 'High', crop: 'قطن (جيزة 94)', cropEn: 'Cotton (Giza 94)', startTime: '05:30 AM', teamLeader: "فتحي غانم", teamLeaderEn: "Fathy Ghanem", description: "حرث عميق وتجهيز التربة لموسم زراعة القطن الجديد.", descriptionEn: "Deep plowing and soil preparation for the new cotton planting season.", equipment: ["جرار زراعي", "محراث عملاق"], equipmentEn: ["Agricultural Tractor", "Giant Plow"], riskLevel: 'Moderate', milestones: [{ label: 'الحرث الأول', labelEn: 'First Plowing', status: 'done', time: '06:00 AM', timeEn: '06:00 AM' }, { label: 'تخطيط الأرض', labelEn: 'Land Planning', status: 'current', time: '09:00 AM', timeEn: '09:00 AM' }] },
+                { id: "TSK-1030", title: "تقليم أشجار المانجو - الأقصر", titleEn: "Mango Pruning - Luxor", date: "2024-11-05", location: "الأقصر، القرنة", locationEn: "Luxor, Qurna", budget: "4,200", status: "pending", progress: 0, workers: ["إبراهيم", "ياسر"], priority: 'Medium', crop: 'مانجو عويس', cropEn: 'Awees Mango', startTime: '07:00 AM', teamLeader: "إبراهيم صلاح", teamLeaderEn: "Ibrahim Salah", description: "عملية تقليم فنية لتحسين الإنتاجية وتجهيز الأشجار للموسم القادم.", descriptionEn: "Technical pruning process to improve productivity and prepare trees for next season.", equipment: ["مقصات آلية", "سلالم هيدروليكية"], equipmentEn: ["Power Pruners", "Hydraulic Ladders"], riskLevel: 'Safe', milestones: [{ label: 'توزيع العمال', labelEn: 'Worker Distribution', status: 'waiting' }] },
+                { id: "TSK-1032", title: "حصاد الأرز الشعير - البحيرة", titleEn: "Rice Harvest - Beheira", date: "2024-10-30", location: "البحيرة، دمنهور", locationEn: "Beheira, Damanhur", budget: "7,500", status: "active", progress: 85, workers: ["خالد", "زياد", "طارق", "سامح"], priority: 'High', crop: 'أرز عريض الحبة', cropEn: 'Long Grain Rice', startTime: '05:00 AM', teamLeader: "خالد وليد", teamLeaderEn: "Khaled Walid", description: "حصاد مساحات واسعة من الأرز ونقله لمراكز التجميع.", descriptionEn: "Harvesting large areas of rice and transporting them to collection centers.", equipment: ["دراسة أرز", "مقطورات نقل"], equipmentEn: ["Rice Thresher", "Transport Trailers"], riskLevel: 'Moderate', milestones: [{ label: 'بدء الدراسة', labelEn: 'Threshing Start', status: 'done', time: '06:00 AM', timeEn: '06:00 AM' }, { label: 'تعبئة الأجولة', labelEn: 'Bagging', status: 'current', time: '11:00 AM', timeEn: '11:00 AM' }] },
+                { id: "TSK-1035", title: "تسميد نخيل البلح - الفيوم", titleEn: "Date Palm Fertilization - Fayoum", date: "2024-11-10", location: "الفيوم، إبشواي", locationEn: "Fayoum, Ibshaway", budget: "3,100", status: "pending", progress: 0, workers: ["حسن", "حسين"], priority: 'Medium', crop: 'بلح سيوة', cropEn: 'Siwa Dates', startTime: '08:00 AM', teamLeader: "حسن يوسف", teamLeaderEn: "Hassan Youssef", description: "برنامج تسميد عضوي متكامل لنخيل البلح السيوي.", descriptionEn: "Integrated organic fertilization program for Siwi date palms.", equipment: ["عربات توزيع", "أدوات يدوية"], equipmentEn: ["Spreader Carts", "Hand Tools"], riskLevel: 'Safe', milestones: [{ label: 'استلام الأسمدة', labelEn: 'Fertilizer Delivery', status: 'waiting' }] },
+                { id: "TSK-1040", title: "مكافحة آفات الصوبات - الإسماعيلية", titleEn: "Greenhouse Pest Control - Ismailia", date: "2024-10-24", location: "الإسماعيلية، القنطرة", locationEn: "Ismailia, Qantara", budget: "2,200", status: "completed", progress: 100, workers: ["شريف"], priority: 'High', crop: 'فلفل ألوان', cropEn: 'Bell Peppers', startTime: '06:00 AM', teamLeader: "شريف منير", teamLeaderEn: "Sherif Mounir", description: "رش وقائي وعلاجي لآفات الصوبات الزراعية.", descriptionEn: "Preventive and curative spraying for greenhouse pests.", equipment: ["موتور رش", "ملابس وقاية"], equipmentEn: ["Spray Motor", "Safety Suits"], riskLevel: 'High Risk', milestones: [{ label: 'بدء الرش', labelEn: 'Spraying Start', status: 'done', time: '06:30 AM', timeEn: '06:30 AM' }, { label: 'فحص النتائج', labelEn: 'Result Check', status: 'done', time: '04:00 PM', timeEn: '04:00 PM' }] }
+            ]);
+
+            const toggleDarkMode = () => {
+                setIsDarkMode(!isDarkMode);
+                document.documentElement.classList.toggle('dark');
+            };
+
+            const toggleLanguage = () => {
+                const newLang = lang === 'ar' ? 'en' : 'ar';
+                setLang(newLang);
+                document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+                document.documentElement.lang = newLang;
+            };
+
+            const handleAddTask = (newTask) => {
+                setTasks([newTask, ...tasks]);
+                setActivePage('tasks');
+                setShowNotification(true);
+            };
+
+            React.useEffect(() => {
+                if (showNotification) {
+                    const timer = setTimeout(() => setShowNotification(false), 4000);
+                    return () => clearTimeout(timer);
+                }
+            }, [showNotification]);
+
+            const handleHireWorker = (worker) => {
+                setSelectedWorkerForTask(worker);
+                setActivePage('create');
+            };
+
+            const handlePageChange = (page) => {
+                setActivePage(page);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col bg-agro-bg text-agro-text transition-colors duration-300 selection:bg-[#E07A5F] selection:text-white">
+                    <Header activePage={activePage} onPageChange={handlePageChange} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} lang={lang} toggleLanguage={toggleLanguage} />
+                    <main className="flex-grow">
+                        {activePage === 'home' && (
+                            <div>
+                                <Hero lang={lang} onPageChange={handlePageChange} />
+                                <WorkerGrid lang={lang} limit={3} title={lang === 'ar' ? "أفضل العمال الميدانيين" : "Top Field Workers"} onHireWorker={handleHireWorker} />
+                                <Stats lang={lang} />
+                                <About lang={lang} />
+                                <Features lang={lang} />
+                                <Commitment lang={lang} />
+                                <div className="h-40"></div>
+                            </div>
+                        )}
+                        {activePage === 'workers' && (
+                            <div className="pt-32">
+                                <div className="max-w-7xl mx-auto px-6 mb-12">
+                                    <div className="text-center mb-10">
+                                        <p className="text-[#E07A5F] font-black uppercase tracking-[0.4em] text-[10px] mb-2">{lang === 'ar' ? 'البحث المتقدم' : 'Advanced Search'}</p>
+                                        <h2 className="text-4xl font-black text-agro-dark">{lang === 'ar' ? 'استكشف كل العمال' : 'Explore All Workers'}</h2>
+                                    </div>
+                                </div>
+                                <WorkerGrid lang={lang} title={lang === 'ar' ? "عمالنا الميدانيين المحترفين" : "Professional Field Workers"} onHireWorker={handleHireWorker} />
+                                <div className="h-40"></div>
+                            </div>
+                        )}
+                        {activePage === 'create' && (
+                            <div className="pt-24 min-h-screen">
+                                <CreateTaskForm lang={lang} onTaskCreated={handleAddTask} initialWorker={selectedWorkerForTask} />
+                                <div className="h-20"></div>
+                            </div>
+                        )}
+                        {activePage === 'tasks' && (
+                            <div className="pt-32">
+                                <TrackTasks lang={lang} tasks={tasks} onBack={() => handlePageChange('home')} />
+                                <div className="h-40"></div>
+                            </div>
+                        )}
+                    </main>
+                    <nav className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] w-full max-w-2xl px-6 pointer-events-none">
+                        <div className="bg-agro-card/95 backdrop-blur-2xl border border-white/40 shadow-xl rounded-[40px] p-2 flex items-center justify-between pointer-events-auto transition-colors duration-300">
+                            {[
+                                { id: 'home', label: lang === 'ar' ? 'الرئيسية' : 'Home', icon: 'fa-home' },
+                                { id: 'create', label: lang === 'ar' ? 'إنشاء مهمة' : 'Create', icon: 'fa-plus' },
+                                { id: 'workers', label: lang === 'ar' ? 'كل العمال' : 'Workers', icon: 'fa-user-group' },
+                                { id: 'tasks', label: lang === 'ar' ? 'تتبع' : 'Tasks', icon: 'fa-layer-group' }
+                            ].map((item) => (
+                                <button key={item.id} onClick={() => handlePageChange(item.id)} className={`flex items-center gap-3 px-6 py-4 rounded-[30px] transition-all duration-300 ${activePage === item.id ? 'bg-[#E07A5F] text-white shadow-xl scale-105' : 'text-gray-400 hover:text-[#E07A5F] hover:bg-orange-50 dark:hover:bg-orange-950/30'}`}>
+                                    <i className={`fas ${item.icon} text-lg`}></i>
+                                    <span className="text-sm font-black whitespace-nowrap hidden sm:inline">{item.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </nav>
+                    <Footer lang={lang} />
+                </div>
+            );
+        };
+
+        // ✅ نخلي React ينتظر Firebase قبل الـ Render
+        window.renderApp = function () {
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(<App />);
+
+            // إخفاء شاشة التحميل وإظهار المحتوى
+            document.body.classList.remove('hidden');
+            document.getElementById('loading-screen').classList.add('hidden');
+        };
     </script>
 
-    <!-- FIREBASE LOGIC (Kept as Module) -->
     <script type="module">
-        /* =========================
-        🔥 Firebase Imports
-        ========================== */
+        // 🔥 Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { 
-        getAuth, 
-        onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { 
-        getFirestore, 
-        doc, 
-        getDoc 
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        /* =========================
-        🔧 Firebase Config
-        ========================== */
+        // ⚙️ Firebase config
         const firebaseConfig = {
-        apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
-        authDomain: "smart-farm-8d3f5.firebaseapp.com",
-        projectId: "smart-farm-8d3f5",
-        storageBucket: "smart-farm-8d3f5.appspot.com",
-        messagingSenderId: "317371842198",
-        appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+            apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+            authDomain: "smart-farm-8d3f5.firebaseapp.com",
+            projectId: "smart-farm-8d3f5",
+            storageBucket: "smart-farm-8d3f5.appspot.com",
+            messagingSenderId: "317371842198",
+            appId: "1:317371842198:web:4765ea8c0036ae64b10cb7",
         };
 
-        /* =========================
-        🚀 Initialize Firebase
-        ========================== */
+        // 🚀 Init Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        /* =========================
-        🔐 Landing Page Guard
-        ========================== */
+        /* ============================
+           🔒 حماية الصفحة حسب الـ Role
+        ============================ */
         onAuthStateChanged(auth, async (user) => {
-
-        // ✅ Guest → مسموح له يكمل
-        if (!user) {
-            console.log("Guest user – landing page allowed");
-            return;
-        }
-
-        // 🚫 Logged in → نجيب الدور ونحوّل
-        try {
-            const userRef = doc(db, "users", user.uid);
-            const userSnap = await getDoc(userRef);
-
-            if (!userSnap.exists()) {
-            console.warn("No user data in Firestore");
-            return;
+            if (!user) {
+                alert('لازم تسجّل دخول الأول');
+                window.location.href = '../signinsignup/signin.html';
+                return;
             }
 
-            const role = userSnap.data().role;
+            try {
+                const userRef = doc(db, 'users', user.uid);
+                const userSnap = await getDoc(userRef);
 
-            if (role === "farmer") {
-            window.location.replace("./farmer-ar.html");
-            } 
-            else if (role === "worker") {
-            window.location.replace("./worker.html");
-            } 
-            else if (role === "investor") {
-            window.location.replace("./investor.html");
-            } 
-            else {
-            console.warn("Unknown role:", role);
+                if (!userSnap.exists()) {
+                    alert('بيانات المستخدم غير موجودة');
+                    window.location.href = '../signinsignup/signin.html';
+                    return;
+                }
+
+                const { role } = userSnap.data();
+
+                // ✅ تخزين الـ Role في المتغير العام
+                window.userRole = role;
+
+                // 👷 عامل
+                if (role === 'worker') {
+                    alert('❌ هذه الصفحة غير متاحة للعمال');
+                    window.location.href = 'worker.html';
+                    return;
+                }
+
+                // 🧑‍🌾 فلاح أو 💼 مستثمر (المسموح لهم)
+                else if (role === 'farmer' || role === 'investor') {
+                    console.log(`✅ ${role === 'farmer' ? 'فلاح' : 'مستثمر'} – دخول مسموح`);
+                    // ✅ تشغيل React بعد التحقق من الصلاحية
+                    window.renderApp();
+                }
+
+                else {
+                    alert('❗ دور غير معروف');
+                    window.location.href = '../signinsignup/signin.html';
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert('حصل خطأ أثناء التحقق من الصلاحيات');
+                window.location.href = '../signinsignup/signin.html';
             }
-
-        } catch (error) {
-            console.error("Auth redirect error:", error);
-        }
         });
     </script>
-    <footer class="site-footer">
-  <div class="container footer-grid">
-
-    <div class="footer-brand">
-      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
-      <p>
-        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
-        investors, and suppliers through modern technology.
-      </p>
-    </div>
-
-    <div class="footer-links">
-      <h4>Platform</h4>
-      <ul>
-        <li><a href="#">Marketplace</a></li>
-        <li><a href="#">Crop Tracking</a></li>
-        <li><a href="#">Cost Calculator</a></li>
-        <li><a href="#">Community</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-links">
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="#">Farming Tips</a></li>
-        <li><a href="#">Livestock Guide</a></li>
-        <li><a href="#">Expert Advice</a></li>
-        <li><a href="#">Investment Opportunities</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>📍 Cairo, Egypt</p>
-      <p>📞 +20 123 456 7890</p>
-      <p>📧 support@zera3a-tech.com</p>
-
-      <div class="footer-social">
-        <a href="#">🌐</a>
-        <a href="#">📘</a>
-        <a href="#">🐦</a>
-        <a href="#">📸</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 2025 Zera3a-Tech. All rights reserved.
-  </div>
-</footer>
 </body>
 
 </html>
