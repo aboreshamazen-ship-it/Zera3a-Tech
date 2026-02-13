@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل الدخول | Zera3a-Tech</title>
+
+  <!-- Google Font & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ========== RESET & VARIABLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Cairo", sans-serif;
+    }
+
+    :root {
+      --primary: #0f4c5c;
+      --secondary: #e67e5f;
+      --bg: #faf9f6;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --text: #0f172a;
+      --muted: #6b7280;
+      
+      /* Navbar Vars */
+      --primary-teal: #0f4c5c;
+      --action-orange: #e67e5f;
+      --text-secondary: #6b7280;
+    }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --primary: #38bdf8;
+      --secondary: #fb923c;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+      
+      --primary-teal: #38bdf8;
+      --action-orange: #fb923c;
+      --text-secondary: #cbd5e1;
+    }
+
+    /* ========== LAYOUT ========== */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    /* ========== TOP NAV ========== */
+    .top-nav-bar {
+      position: fixed;
+      top: 20px;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      padding: 8px 12px;
+      border-radius: 40px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    html[dir="rtl"] .top-nav-bar { right: 20px; left: auto; }
+    html[dir="ltr"] .top-nav-bar { left: 20px; right: auto; }
+
+    body.dark .top-nav-bar {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: #475569;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary-teal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+    .nav-btn:hover { background: rgba(15, 76, 92, 0.1); color: var(--action-orange); }
+
+    .nav-divider { width: 1px; height: 24px; background-color: #ddd; margin: 0 4px; }
+    body.dark .nav-divider { background-color: #475569; }
+
+    .control-pill {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+    .control-pill:hover { background: rgba(0,0,0,0.05); color: var(--primary-teal); }
+    body.dark .control-pill:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    /* ========== LEFT (FORM) ========== */
+    .left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--card);
+      width: 100%;
+      max-width: 520px;
+      padding: 50px 45px;
+      border-radius: 24px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--primary);
+    }
+
+    input {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 15px;
+      background: var(--card);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    input:focus { border-color: var(--primary); }
+
+    button.submit-button {
+      margin-top: 10px;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: var(--secondary);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    button.submit-button:hover { opacity: 0.9; }
+
+    .signup-link {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .signup-link a {
+      color: var(--primary);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .forgot-link {
+      margin-top: 12px;
+      text-align: center;
+    }
+    .forgot-link a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    /* ========== RIGHT PANEL ========== */
+    .right {
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px;
+    }
+
+    .brand {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 30px;
+    }
+    .welcome {
+      font-size: 34px;
+      font-weight: 800;
+      margin-bottom: 30px;
+    }
+    .features { list-style: none; font-size: 16px; }
+    .features li { margin-bottom: 14px; }
+
+    /* ========== RESPONSIVE ========== */
+    @media(max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+      .right { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP NAV BAR -->
+  <div class="top-nav-bar">
+    <button class="nav-btn" onclick="goBackAction()">
+      <i class="fas fa-arrow-right"></i> 
+      <span data-i18n="back-btn">العودة</span>
+    </button>
+    <button class="nav-btn" onclick="goHome()">
+      <i class="fas fa-home"></i> 
+      <span data-i18n="home-btn">الرئيسية</span>
+    </button>
+    <div class="nav-divider"></div>
+    <button class="control-pill" onclick="toggleTheme()">
+      <i class="fas fa-adjust"></i> 
+      <span id="themeText" data-i18n="dark-mode">الليلي</span>
+    </button>
+    <button class="control-pill" onclick="toggleLanguage()">
+      <i class="fas fa-globe"></i> 
+      <span id="langText">English</span>
+    </button>
+  </div>
+
+  <div class="page">
+
+    <!-- RIGHT PANEL (Branding) -->
+    <div class="right">
+      <div class="brand">SMART FARM 🌱</div>
+      <div class="welcome" data-i18n="hero-title">أهلاً بك مجدداً</div>
+      <ul class="features">
+        <li data-i18n="feat-1">✔ إدارة محاصيلك بسهولة</li>
+        <li data-i18n="feat-2">✔ وصول مباشر للمستهلكين</li>
+        <li data-i18n="feat-3">✔ أمان وشفافية</li>
+      </ul>
+    </div>
+
+    <!-- LEFT PANEL (Form) -->
+    <div class="left">
+      <div class="card">
+        <h2 class="title" data-i18n="title">تسجيل الدخول</h2>
+        <p class="subtitle" data-i18n="sub">أدخل بياناتك للدخول لحسابك</p>
+
+        <form id="signinForm">
+          <div class="form-group">
+            <label data-i18n="lbl-email">البريد الإلكتروني</label>
+            <input type="email" id="signinEmail" required data-i18n-ph="ph-email" />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl-pass">كلمة المرور</label>
+            <input type="password" id="signinPassword" required />
+          </div>
+
+          <button class="submit-button" type="submit" data-i18n="btn-submit">تسجيل الدخول</button>
+
+          <!-- Forgot password link -->
+          <div class="forgot-link">
+            <a href="#" id="forgotPasswordLink" data-i18n="link-forgot">
+              نسيت كلمة المرور؟
+            </a>
+          </div>
+        </form>
+
+        <div class="signup-link">
+          <span data-i18n="txt-no-account">ليس لديك حساب؟</span> 
+          <a href="signup.html" data-i18n="link-signup">إنشاء حساب جديد</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<!-- ========== FIREBASE MODULE ========== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+    authDomain: "smart-farm-8d3f5.firebaseapp.com",
+    projectId: "smart-farm-8d3f5",
+    storageBucket: "smart-farm-8d3f5.appspot.com",
+    messagingSenderId: "317371842198",
+    appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Sign In Logic
+  document.getElementById("signinForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("signinEmail").value;
+    const password = document.getElementById("signinPassword").value;
+    const lang = currentLang; // Get current language from global scope
+
+    try {
+      // Sign in
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Get user role from Firestore
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+
+      if (!userDoc.exists()) {
+        alert(translations[lang]["err-data-not-found"] || "User data not found!");
+        return;
+      }
+
+      const userData = userDoc.data();
+      const role = userData.role;
+
+      alert(`${translations[lang]["alert-welcome"] || "Welcome"} ${user.displayName || userData.fullName}!`);
+
+      // Redirect based on role
+      if (role === "farmer") {
+        window.location.href = "../farmer-ar.html";
+      } else if (role === "investor") {
+        window.location.href = "../investor.html";
+      } else if (role === "worker") {
+        window.location.href = "../worker.html";
+      } else {
+        alert(translations[lang]["err-unknown-role"] || "Unknown role!");
+      }
+
+    } catch (error) {
+      const t = translations[lang];
+      if (error.code === "auth/user-not-found") {
+        alert(t["err-user-not-found"] || "User not found.");
+      } else if (error.code === "auth/wrong-password") {
+        alert(t["err-wrong-pass"] || "Wrong password.");
+      } else {
+        alert(error.message);
+      }
+    }
+  });
+
+  // Forgot Password Logic
+  document.getElementById("forgotPasswordLink").addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("signinEmail").value.trim();
+    const lang = currentLang;
+
+    if (!email) {
+      alert(translations[lang]["err-enter-email"] || "Please enter your email first.");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert(translations[lang]["alert-reset-sent"] || "Password reset email sent!");
+    } catch (error) {
+      const t = translations[lang];
+      if (error.code === "auth/user-not-found") {
+        alert(t["err-user-not-found"] || "No account found with this email.");
+      } else if (error.code === "auth/invalid-email") {
+        alert(t["err-invalid-email"] || "Invalid email address.");
+      } else {
+        alert(error.message);
+      }
+    }
+  });
+</script>
+
+<!-- ========== UI LOGIC (Translation & Theme) ========== -->
+<script>
+    let currentLang = "ar";
+    let isDarkMode = false;
+
+    const translations = {
+        ar: {
+            "back-btn": "العودة",
+            "home-btn": "الرئيسية",
+            "dark-mode": "الليلي",
+            "light-mode": "النهاري",
+            "title": "تسجيل الدخول",
+            "sub": "أدخل بياناتك للدخول لحسابك",
+            "lbl-email": "البريد الإلكتروني",
+            "lbl-pass": "كلمة المرور",
+            "btn-submit": "تسجيل الدخول",
+            "link-forgot": "نسيت كلمة المرور؟",
+            "txt-no-account": "ليس لديك حساب؟",
+            "link-signup": "إنشاء حساب جديد",
+            "hero-title": "أهلاً بك مجدداً",
+            "feat-1": "✔ إدارة محاصيلك بسهولة",
+            "feat-2": "✔ وصول مباشر للمستهلكين",
+            "feat-3": "✔ أمان وشفافية",
+            "ph-email": "example@mail.com",
+            // Error Messages
+            "alert-welcome": "أهلاً",
+            "err-data-not-found": "لم يتم العثور على بيانات المستخدم!",
+            "err-unknown-role": "دور غير معروف!",
+            "err-user-not-found": "المستخدم غير موجود.",
+            "err-wrong-pass": "كلمة المرور غير صحيحة.",
+            "err-enter-email": "يرجى إدخال البريد الإلكتروني أولاً.",
+            "alert-reset-sent": "تم إرسال رابط إعادة تعيين كلمة المرور! تفقد بريدك الوارد.",
+            "err-invalid-email": "عنوان بريد إلكتروني غير صالح."
+        },
+        en: {
+            "back-btn": "Back",
+            "home-btn": "Home",
+            "dark-mode": "Dark Mode",
+            "light-mode": "Light Mode",
+            "title": "Sign In",
+            "sub": "Enter your details to sign in",
+            "lbl-email": "Email Address",
+            "lbl-pass": "Password",
+            "btn-submit": "Sign In",
+            "link-forgot": "Forgot Password?",
+            "txt-no-account": "Don't have an account?",
+            "link-signup": "Create new account",
+            "hero-title": "Welcome Back",
+            "feat-1": "✔ Manage crops easily",
+            "feat-2": "✔ Direct access to consumers",
+            "feat-3": "✔ Security & Transparency",
+            "ph-email": "example@mail.com",
+            // Error Messages
+            "alert-welcome": "Welcome",
+            "err-data-not-found": "User data not found!",
+            "err-unknown-role": "Unknown role!",
+            "err-user-not-found": "User not found.",
+            "err-wrong-pass": "Wrong password.",
+            "err-enter-email": "Please enter your email first.",
+            "alert-reset-sent": "Password reset email sent! Check your inbox.",
+            "err-invalid-email": "Invalid email address."
+        }
+    };
+
+    function toggleTheme() {
+        isDarkMode = !isDarkMode;
+        document.body.classList.toggle("dark");
+        updateThemeText();
+    }
+
+    function toggleLanguage() {
+        currentLang = currentLang === "ar" ? "en" : "ar";
+        document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+        
+        // Update Text Content
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (translations[currentLang][key]) {
+                el.innerText = translations[currentLang][key];
+            }
+        });
+
+        // Update Placeholders
+        document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+            const key = el.getAttribute("data-i18n-ph");
+            if (translations[currentLang][key]) {
+                el.placeholder = translations[currentLang][key];
+            }
+        });
+
+        // Update Buttons Text
+        document.getElementById("langText").innerText = currentLang === "ar" ? "English" : "العربية";
+        updateThemeText();
+    }
+
+    function updateThemeText() {
+        const themeKey = isDarkMode ? "light-mode" : "dark-mode";
+        document.getElementById("themeText").innerText = translations[currentLang][themeKey];
+    }
+
+    function goBackAction() {
+        history.back();
+    }
+
+    function goHome() {
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>
