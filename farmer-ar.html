@@ -372,7 +372,7 @@
 
             <!-- SIGN IN -->
             <button id="signInBtn" class="btn-signin">
-                <a href="./signinsignup/signin.html" data-key="signin_btn">تسجيل الدخول</a>
+                <a href="./signin.html" data-key="signin_btn">تسجيل الدخول</a>
             </button>
 
         </div>
@@ -2360,7 +2360,7 @@
 
                 if (!userSnap.exists()) {
                     await signOut(auth);
-                    location.href = "./signinsignup/signin.html";
+                    location.href = "./signin.html";
                     return;
                 }
 
@@ -2396,7 +2396,7 @@
             } catch (error) {
                 console.error("Auth Error:", error);
                 await signOut(auth);
-                location.href = "./signinsignup/signin.html";
+                location.href = "./signin.html";
             }
         });
 
@@ -2411,7 +2411,7 @@
             } else if (role === "investor") {
                 location.href = "investor.html";
             } else {
-                location.href = "./signinsignup/signin.html";
+                location.href = "./signin.html";
             }
         }
 
@@ -2429,7 +2429,7 @@
         logoutBtn?.addEventListener("click", async (e) => {
             e.preventDefault();
             await signOut(auth);
-            location.href = "./signinsignup/signin.html";
+            location.href = "./signin.html";
         });
     </script>
 
@@ -2489,3 +2489,4 @@
 
 
 </html>
+
