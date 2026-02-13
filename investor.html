@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Farm - منصة الاستثمار الزراعي الذكي</title>
-    <link rel="stylesheet" href="./home2/hom2.css">
+    <link rel="stylesheet" href="./hom2.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -324,7 +324,7 @@
             <li><a href="tasks.html" data-key="nav_community">Community</a></li>
             <li><a href="contact-about.html" data-key="nav_contact">contact us</a></li>
             <li><a href="banks.html" data-key="nav_banks">banks</a></li>
-            <li><a href="./offer/ddd.html" data-key="nav_packages">packages</a></li>
+            <li><a href="offer.html" data-key="nav_packages">packages</a></li>
 
 
 
@@ -332,7 +332,7 @@
 
         <!-- GUEST LINKS -->
         <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
-            <li><a href="about.html" data-key="nav_about">About Us</a></li>
+            <li><a href="contact-about.html" data-key="nav_about">About Us</a></li>
         </ul>
 
         <!-- RIGHT -->
@@ -358,7 +358,7 @@
 
 
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="./Profile/profile.html" data-key="profileLink">
+                    <a href="./profile.html" data-key="profileLink">
                         <i class="fas fa-id-badge"></i> Profile
                     </a>
                     <a href="#" id="logoutBtn" data-key="logoutBtn">
@@ -369,7 +369,7 @@
 
             <!-- SIGN IN -->
             <button id="signInBtn" class="btn-signin">
-                <a href="./signinsignup/signin.html" data-key="signin_btn">Sign In</a>
+                <a href="./signin.html" data-key="signin_btn">Sign In</a>
             </button>
 
         </div>
@@ -1345,7 +1345,7 @@
 
                 if (!userSnap.exists()) {
                     await signOut(auth);
-                    location.href = "././signinsignup/signin.html";
+                    location.href = "./signin.html";
                     return;
                 }
 
@@ -1371,7 +1371,7 @@
             } catch (err) {
                 console.error(err);
                 await signOut(auth);
-                location.href = "././signinsignup/signin.html";
+                location.href = "./signin.html";
             }
         });
 
@@ -1386,7 +1386,7 @@
             } else if (role === "investor") {
                 location.href = "investor.html";
             } else {
-                location.href = "././signinsignup/signin.html";
+                location.href = "./signin.html";
             }
         }
 
@@ -1404,7 +1404,7 @@
         logoutBtn?.addEventListener("click", async (e) => {
             e.preventDefault();
             await signOut(auth);
-            location.href = "./signinsignup/signin.html";
+            location.href = "./signin.html";
         });
     </script>
       <script>
@@ -1475,5 +1475,6 @@
   </div>
 </footer>
 </body>
+
 
 </html>
