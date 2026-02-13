@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap">
     <!-- ملف CSS الخارجي -->
-    <link rel="stylesheet" href="./banks.css">
+    <link rel="stylesheet" href="./بنوك زراعيه333/banks.css">
     <style>
         /* Footer */
     .site-footer {
@@ -100,37 +100,178 @@
       font-size: 0.9rem;
       color: rgba(255,255,255,0.75);
     }
+    :root {
+  --primary: #1e5959;
+  --text: #1e293b;
+  --radius-pill: 50px;
+}
+
+/* ===== TOPBAR ===== */
+
+.topbar {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, 94%);
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 18px;
+
+ 
+
+  z-index: 1000;
+}
+
+/* ===== LEFT ===== */
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  min-width: 0; /* مهم */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ✨ الصورة مظبوطة */
+.logo img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0; /* مهم */
+}
+
+/* ===== RIGHT ===== */
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap; /* مهم */
+}
+
+/* ===== BUTTON ===== */
+
+.topbar-btn {
+  height: 38px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.3s ease;
+}
+
+.topbar-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ========================= */
+/* 📱 MOBILE FIX الحقيقي */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .topbar {
+    height: 60px;
+    padding: 0 10px;
+  }
+
+  .logo span {
+    display: none;
+    color: white; /* يخفي اسم الموقع ويوفر مساحة */
+  }
+
+  .topbar-btn span {
+    display: none; /* يخفي النص ويخلي أيقونات بس */
+  }
+
+  .topbar-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+  }
+
+}
+body.light {
+  background: #ffffff;
+  color: #1e293b;
+}
+
+body.dark {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+body.dark .topbar {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+body.dark .topbar-btn {
+  border-color: #1e5959;
+  color: #1e5959;
+}
+
+body.dark .topbar-btn:hover {
+  background: #1e5959;
+  color: #000;
+}
+
     </style>
 </head>
 
 <body>
-    <!-- الشريط العلوي -->
-    <div class="top-bar">
-        <div class="container">
-            <a href="#home" class="logo">
-                <img src="smart_farm_no_bg-removebg-preview.png" alt="zera3a-tech Logo">
-                <span>zera3a-tech</span>
-            </a>
-            <div class="top-bar-actions">
-                
+    <div class="topbar">
 
-                <span id="topBarText" style="margin-top: -1000px;">المنصة الأولى للتمويل الزراعي</span>
-                <button class="action-btn" id="themeToggleBtn">
-                    <i class="fas fa-moon"></i>
-                    <span>الوضع </span>
-                </button>
-                <button class="action-btn" id="languageToggleBtn">
-                    <i class="fas fa-globe"></i>
-                    <span>English</span>
-                </button>
-                <button class="action-btn back-home-btn" id="backHomeBtn">
-    <i class="fas fa-arrow-right"></i>
-    <span>العودة للرئيسية</span>
-</button>
-
-            </div>
-        </div>
+    <div class="topbar-left">
+        <a href="#home" class="logo">
+            <img src="smart_farm_no_bg-removebg-preview.png" alt="zera3a-tech Logo">
+            <span>zera3a-tech</span>
+        </a>
     </div>
+
+    <div class="topbar-right">
+        <button class="topbar-btn" id="themeToggleBtn">
+            <i class="fas fa-moon"></i>
+            <span>الوضع</span>
+        </button>
+
+        <button class="topbar-btn" id="languageToggleBtn">
+            <i class="fas fa-globe"></i>
+            <span>English</span>
+        </button>
+
+        <button class="topbar-btn" id="backHomeBtn">
+            <i class="fas fa-arrow-right"></i>
+            <span>العودة للرئيسية</span>
+        </button>
+    </div>
+
+</div>
+
+
 
     <!-- قسم البطل -->
     <section class="hero" id="home">
@@ -165,7 +306,7 @@
 
                 <div class="hero-visual">
                     <!-- صورة عن الاستثمار والبنوك الزراعية -->
-                    <img src=" ./WhatsApp Image 2026-01-28 at 12.23.47 PM.jpeg"
+                    <img src="بنوك زراعيه333/WhatsApp Image 2026-01-28 at 12.23.47 PM.jpeg"
                         alt="الاستثمار والبنوك الزراعية">
                 </div>
             </div>
@@ -581,14 +722,12 @@
         </div>
     </section>
 
-    <!-- الفوتر -->
-   
 
     <!-- إشعار -->
     <div class="notification" id="notification"></div>
 
     <!-- ملف JavaScript الخارجي -->
-    <script src="./banks.js"></script>
+    <script src="./بنوك زراعيه333/banks.js"></script>
 <script type="module">
     /* ================= Firebase Imports ================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -671,7 +810,7 @@ onAuthStateChanged(auth, async (user) => {
 
   // ❌ مش مسجل دخول
   if (!user) {
-    window.location.href = "./signin.html";
+    window.location.href = "./signinsignup/signin.html";
     return;
   }
 
@@ -680,7 +819,7 @@ onAuthStateChanged(auth, async (user) => {
     const userSnap = await getDoc(userRef);
 
     if (!userSnap.exists()) {
-      window.location.href = "./signin.html";
+      window.location.href = "./signinsignup/signin.html";
       return;
     }
 
@@ -690,7 +829,7 @@ onAuthStateChanged(auth, async (user) => {
     if (role !== "farmer" && role !== "worker") {
       alert("⚠️ انت موجود في صفحة غير مخصصة ليك");
       setTimeout(() => {
-        window.location.href = "./signin.html";
+        window.location.href = "./signinsignup/signin.html";
       }, 1500);
       return;
     }
@@ -703,7 +842,7 @@ onAuthStateChanged(auth, async (user) => {
 
   } catch (error) {
     console.error(error);
-    window.location.href = "./signin.html";
+    window.location.href = "./signinsignup/signin.html";
   }
 });
 
@@ -712,7 +851,7 @@ if (backHomeBtn) {
   backHomeBtn.addEventListener("click", async () => {
     const user = auth.currentUser;
     if (!user) {
-      window.location.href = "./signin.html";
+      window.location.href = "./signinsignup/signin.html";
       return;
     }
 
@@ -721,7 +860,7 @@ if (backHomeBtn) {
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
-        window.location.href = "./signin.html";
+        window.location.href = "./signinsignup/signin.html";
         return;
       }
 
@@ -738,7 +877,7 @@ if (backHomeBtn) {
 
     } catch (err) {
       console.error(err);
-      window.location.href = "./signin.html";
+      window.location.href = "./signinsignup/signin.html";
     }
   });
 }
@@ -748,7 +887,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     await signOut(auth);
-    window.location.href = "./signin.html";
+    window.location.href = "./signinsignup/signin.html";
   });
 }
 
@@ -807,10 +946,4 @@ if (logoutBtn) {
 
 </body>
 
-
 </html>
-
-
-
-
-
