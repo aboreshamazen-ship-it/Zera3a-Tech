@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>بوابة الزراعة الذكية - Zera3a-Tech</title>
 
     <!-- Fonts: Cairo for Arabic, Inter for English -->
@@ -26,7 +26,7 @@
             --bg-body: #fafaf9;
             --bg-surface: #ffffff;
             --bg-surface-alt: #f6f2ee;
-            --bg-glass: rgba(255, 255, 255, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.9);
 
             --text-main: #1a1a1a;
             --text-secondary: #666666;
@@ -46,45 +46,38 @@
 
             --trans-fast: 0.2s ease;
             --trans-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --header-height: 80px;
         }
 
         /* Dark Mode Overrides */
         body.dark-mode {
-            /* Primary is now matching brand teal from light mode, consistent across modes */
             --primary: #1e5959; 
             --primary-dark: #fbbf24;
             --primary-light: rgba(45, 212, 191, 0.15);
 
-            /* Secondary Orange */
             --secondary: #fb923c;
             --secondary-dark: #ea580c;
             --accent: #1e293b;
 
-            /* Deep Slate Backgrounds (Professional Dark Mode) */
-            --bg-body: #0f172a;       /* Deep Slate (Main Background) */
-            --bg-surface: #1e293b;    /* Lighter Slate (Cards) */
-            --bg-surface-alt: #111827;/* Darker Slate (Section Alt) */
-            --bg-glass: rgba(15, 23, 42, 0.85); /* Glass Effect */
+            --bg-body: #0f172a;       
+            --bg-surface: #1e293b;    
+            --bg-surface-alt: #111827;
+            --bg-glass: rgba(15, 23, 42, 0.9); 
 
-            /* Light Text Colors for Dark Mode */
-            --text-main: #f8fafc;     /* White-ish (Headings) */
-            --text-secondary: #cbd5e1;/* Light Grey (Body Text) */
-            --text-muted: #94a3b8;   /* Muted Grey (Captions) */
+            --text-main: #f8fafc;     
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;   
             --text-on-primary: #ffffff;
 
-            /* Visible Borders */
             --border-color: #334155;
         }
 
         /* =========================================
         RESET & BASE STYLES
         ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-body);
@@ -95,74 +88,29 @@
             line-height: 1.6;
         }
 
-        /* Font Switching based on Language/Dir */
-        html[dir="ltr"] body {
-            font-family: 'Inter', sans-serif;
-        }
+        /* Font Switching */
+        html[dir="ltr"] body { font-family: 'Inter', sans-serif; }
 
         /* Layout Utilities */
-        .container {
-            max-width: 1300px;
-            margin-inline: auto;
-            padding-inline: 24px;
-            width: 90%;
-        }
-
-        .section-padding {
-            padding: 100px 0;
-        }
-
+        .container { max-width: 1300px; margin-inline: auto; padding-inline: 20px; width: 100%; }
+        .section-padding { padding: 80px 0; }
         .text-center { text-align: center; }
 
         /* Grid System */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-        }
-
-        @media (max-width: 1200px) {
-            .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .grid-3, .grid-4 { grid-template-columns: 1fr; }
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-weight: 800;
-            line-height: 1.25;
-            color: var(--text-main);
-        }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
 
         /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
+        .section-header { text-align: center; margin-bottom: 50px; }
         .section-header h2 {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             position: relative;
             display: inline-block;
             padding-bottom: 16px;
         }
-
         .section-header h2::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px;
-            height: 4px;
-            border-radius: 4px;
+            content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 4px; border-radius: 4px;
             background: linear-gradient(90deg, var(--primary), var(--primary-dark));
         }
 
@@ -170,559 +118,246 @@
         NAVBAR (Glassmorphism)
         ========================================= */
         .navbar-main {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 1400px;
-            height: 80px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: var(--radius-nav);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            z-index: 1000;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
+            position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+            width: 95%; max-width: 1400px; height: 70px;
+            background: var(--bg-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-nav); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 25px; z-index: 1000; border: 1px solid var(--border-color); transition: 0.3s;
         }
 
-       .navbar-logo {
-            display: flex;
-            align-items: center;   
-            gap: 10px;             
-            cursor: pointer;
-        }
+        .navbar-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
+        .navbar-logo img { height: 40px; width: auto; object-fit: contain; }
+        .navbar-logo span { font-size: 1.4rem; font-weight: 800; color: var(--primary); line-height: 1; }
 
-        .navbar-logo img {
-            height: 45px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .navbar-logo span {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-            white-space: nowrap;  
-        }
-
-        .navbar-links {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-        }
-
+        /* Desktop Links */
+        .navbar-links { list-style: none; display: flex; gap: 10px; }
         .navbar-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: 0.3s;
+            text-decoration: none; color: var(--text-secondary); font-weight: 600;
+            padding: 8px 14px; border-radius: 20px; transition: 0.3s; white-space: nowrap;
         }
-
         .navbar-links a:hover, .navbar-links a.active {
-            background: var(--primary-light);
-            color: var(--primary-dark);
+            background: var(--primary-light); color: var(--primary-dark);
         }
 
         .btn-nav {
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            border: 2px solid var(--primary); background: transparent; color: var(--primary);
+            padding: 6px 14px; border-radius: 20px; font-weight: 700; cursor: pointer;
+            transition: 0.3s; font-family: inherit; display: inline-flex; align-items: center; justify-content: center;
         }
-        
-        .btn-nav:hover {
-            background: var(--primary);
-            color: #fff;
-        }
+        .btn-nav:hover { background: var(--primary); color: #fff; }
 
-        .user-menu {
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .user-name {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            border-radius: 20px;
-            color: var(--text-main);
-        }
+        .user-menu { position: relative; cursor: pointer; }
+        .user-name { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 20px; color: var(--text-main); font-weight: 600; }
 
         .user-dropdown {
-            position: absolute;
-            top: 110%;
-            inset-inline-end: 0;
-            background: var(--bg-surface);
-            min-width: 160px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+            position: absolute; top: 110%; inset-inline-end: 0; background: var(--bg-surface);
+            min-width: 160px; border-radius: 12px; box-shadow: var(--shadow-lg);
+            display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color);
+        }
+        .user-dropdown a { padding: 12px 15px; color: var(--text-main); text-decoration: none; display: flex; gap: 10px; align-items: center; transition: 0.3s; }
+        .user-dropdown a:hover { background: var(--bg-surface-alt); }
+
+        /* Mobile Toggle & Nav */
+        .mobile-toggle { display: none; background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; padding: 5px; }
+
+        /* Mobile Navigation Overlay */
+        .mobile-nav-overlay {
+            position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
+            background: var(--bg-surface); z-index: 1001; box-shadow: -5px 0 30px rgba(0,0,0,0.2);
+            padding: 80px 30px 30px; transition: right 0.4s ease;
+            display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--border-color);
         }
 
-        .user-dropdown a {
-            padding: 12px 15px;
-            color: var(--text-main);
-            text-decoration: none;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            transition: 0.3s;
+        html[dir="ltr"] .mobile-nav-overlay {
+            right: auto; left: -100%; border-left: none; border-right: 1px solid var(--border-color);
+        }
+        html[dir="ltr"] .mobile-nav-overlay.active { left: 0; }
+        .mobile-nav-overlay.active { right: 0; }
+
+        .mobile-nav-overlay a {
+            font-size: 1.1rem; color: var(--text-main); text-decoration: none; padding: 12px 0;
+            border-bottom: 1px solid var(--border-color); display: block; font-weight: 600;
         }
 
-        .user-dropdown a:hover {
-            background: var(--bg-surface-alt);
+        .close-mobile-nav {
+            position: absolute; top: 20px; right: 20px; background: none; border: none;
+            font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;
         }
+        html[dir="ltr"] .close-mobile-nav { right: auto; left: 20px; }
+
+        .backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+            z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s;
+        }
+        .backdrop.active { display: block; opacity: 1; }
 
         /* =========================================
         HERO SECTION
         ========================================= */
         .hero-intro {
-            padding-top: 120px;
-            padding-bottom: 100px;
-            position: relative;
-            background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 40%),
-                radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.1), transparent 40%);
+            padding-top: 110px; padding-bottom: 80px; position: relative;
+            background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.08), transparent 40%),
+                radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.08), transparent 40%);
         }
-
-        .hero-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
+        .hero-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
 
         .hero-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 24px;
+            display: inline-block; padding: 6px 14px; background: var(--primary-light);
+            color: var(--primary-dark); border-radius: 50px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px;
         }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 24px;
-            letter-spacing: -1px;
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            max-width: 90%;
-        }
-
-        .hero-image img {
-            border-radius: 30px;
-            box-shadow: var(--shadow-lg);
-            border: 5px solid var(--bg-surface);
-        }
+        .hero-text h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+        .hero-text p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 30px; max-width: 95%; }
+        .hero-image img { border-radius: 24px; box-shadow: var(--shadow-lg); border: 4px solid var(--bg-surface); width: 100%; height: auto; }
 
         /* Buttons */
-        .hero-btns {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
+        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
         .btn {
-            padding: 14px 32px;
-            font-weight: 700;
-            border-radius: 30px;
-            border: none;
-            background: var(--primary);
-            color: #fff;
-            cursor: pointer;
-            transition: .25s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: inherit;
+            padding: 12px 28px; font-weight: 700; border-radius: 30px; border: none; background: var(--primary);
+            color: #fff; cursor: pointer; transition: .25s ease; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px; font-family: inherit; font-size: 1rem;
         }
-
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn.outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn.outline:hover {
-            background: var(--primary);
-            color: #fff;
-        }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn.outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn.outline:hover { background: var(--primary); color: #fff; }
 
         /* Video Card */
         .video-hero-card {
-            display: flex;
-            background: var(--bg-surface);
-            border-radius: var(--radius-card);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            max-width: 800px;
-            margin: 60px auto 0;
+            display: flex; background: var(--bg-surface); border-radius: var(--radius-card);
+            overflow: hidden; box-shadow: var(--shadow-lg); max-width: 800px; margin: 50px auto 0;
             border: 1px solid var(--border-color);
         }
-
-        .video-thumb {
-            flex: 0 0 35%;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .video-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .video-thumb { flex: 0 0 40%; position: relative; cursor: pointer; }
+        .video-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            font-size: 1.5rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 50px; height: 50px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: var(--secondary);
+            font-size: 1.2rem; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); transition: 0.3s;
         }
-
         .video-thumb:hover .play-btn { transform: translate(-50%, -50%) scale(1.1); }
-
-        .video-info { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
+        .video-info { padding: 25px; display: flex; flex-direction: column; justify-content: center; }
 
         /* =========================================
         CHALLENGES SECTION
         ========================================= */
-        .challenges-v2 {
-            background: radial-gradient(circle at top, var(--bg-surface-alt), var(--bg-surface));
-        }
-
+        .challenges-v2 { background: radial-gradient(circle at top, var(--bg-surface-alt), var(--bg-surface)); }
         .challenge-group {
-            background: linear-gradient(180deg, var(--bg-surface), var(--bg-surface-alt));
-            border-radius: 32px;
-            padding: 50px 40px 55px;
-            margin-bottom: 60px;
-            box-shadow: var(--shadow-md);
-            position: relative;
-            border: 1px solid var(--border-color);
+            background: linear-gradient(180deg, var(--bg-surface), var(--bg-surface-alt)); border-radius: 24px;
+            padding: 40px 25px; margin-bottom: 40px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
         }
-
         .challenge-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            position: relative;
-            padding-bottom: 14px;
+            text-align: center; font-size: 1.6rem; margin-bottom: 30px; position: relative; padding-bottom: 12px;
         }
-
         .challenge-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-dark));
         }
-
-        .challenge-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
-        }
-
+        .challenge-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
         .challenge-items p {
-            background: var(--bg-surface);
-            border-inline-start: 5px solid var(--primary);
-            color: var(--text-secondary);
-            padding: 20px 54px 20px 22px; 
-            position: relative;
-            font-size: 0.95rem;
-            border-radius: 18px;
-            box-shadow: var(--shadow-sm);
-            transition: 0.3s;
-            text-align: start;
+            background: var(--bg-surface); border-inline-start: 4px solid var(--primary); color: var(--text-secondary);
+            padding: 15px 15px 15px 20px; position: relative; font-size: 0.9rem;
+            border-radius: 12px; box-shadow: var(--shadow-sm); transition: 0.3s;
         }
+        html[dir="ltr"] .challenge-items p { padding: 15px 20px 15px 15px; border-inline-start: none; border-inline-end: 4px solid var(--primary); }
+        .challenge-items p:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 
-        /* Logical handling for RTL/LTR padding */
-        html[dir="ltr"] .challenge-items p { padding: 20px 22px 20px 54px; border-inline-start: none; border-inline-end: 5px solid var(--primary); }
-
-        /* Bullet position based on direction */
-        html[dir="rtl"] .challenge-items p::before { right: 22px; left: auto; }
-        html[dir="ltr"] .challenge-items p::before { left: 22px; right: auto; }
-
-        .challenge-items p:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-
-        /* Footer */
-    .site-footer {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      padding: 4rem 0 1.5rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2.5rem;
-    }
-
-    .footer-brand img {
-      height: 55px;
-      margin-bottom: 1rem;
-      filter: brightness(0) invert(1);
-    }
-
-    .footer-brand p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .site-footer h4 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.6rem;
-    }
-
-    .footer-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      transition: 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: var(--secondary);
-      padding-left: 5px;
-    }
-
-    .footer-contact p {
-      font-size: 0.95rem;
-      margin-bottom: 0.6rem;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .footer-social {
-      margin-top: 1rem;
-      display: flex;
-      gap: 12px;
-    }
-
-    .footer-social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 18px;
-      color: #fff;
-      transition: 0.3s;
-    }
-
-    .footer-social a:hover {
-      background: var(--secondary);
-      transform: translateY(-3px);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.75);
-    }
         /* =========================================
-        CARDS (Advantages, Features)
+        CARDS & FEATURES
         ========================================= */
         .card {
-            background: var(--bg-surface);
-            border-radius: var(--radius-card);
-            padding: 36px 28px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: 0.35s ease;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            background: var(--bg-surface); border-radius: var(--radius-card); padding: 30px 20px; text-align: center;
+            box-shadow: var(--shadow-sm); transition: 0.35s ease; border: 1px solid var(--border-color);
+            display: flex; flex-direction: column; height: 100%;
         }
-
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: var(--shadow-hover);
-        }
-
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
         .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 22px;
-            transition: 0.3s ease;
+            width: 60px; height: 60px; border-radius: 16px; background: var(--primary-light);
+            color: var(--primary-dark); display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin: 0 auto 18px; transition: 0.3s ease;
         }
-
-        .card:hover .card-icon {
-            background: var(--primary);
-            color: #fff;
-            transform: scale(1.1) rotate(6deg);
-        }
-
-        .card h4 { font-size: 1.3rem; margin-bottom: 14px; color: var(--text-main); }
-        
-        .card p, .card li {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 10px;
-        }
-
+        .card:hover .card-icon { background: var(--primary); color: #fff; transform: scale(1.1); }
+        .card h4 { font-size: 1.2rem; margin-bottom: 12px; color: var(--text-main); }
+        .card p, .card li { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 8px; }
         .card ul { list-style: none; text-align: start; margin-top: auto; }
-        
-        .card li i { color: var(--secondary); margin-inline-end: 8px; }
+        .card li i { color: var(--secondary); margin-inline-end: 6px; }
 
-        /* Feature Split Section */
-        .feature-split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            margin-bottom: 80px;
-        }
-
-        .feature-content h3 { font-size: 2rem; margin-bottom: 15px; }
-        
-        .feature-img img {
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-lg);
-            width: 100%;
-        }
+        .feature-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 60px; }
+        .feature-content h3 { font-size: 1.6rem; margin-bottom: 12px; }
+        .feature-img img { border-radius: var(--radius-card); box-shadow: var(--shadow-lg); width: 100%; }
 
         /* =========================================
         FOOTER & FLOATING
         ========================================= */
-        .footer-cta {
-            background: var(--primary);
-            color: var(--text-on-primary);
-            text-align: center;
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-cta h2 { color: #fff; margin-bottom: 20px; font-size: 2.5rem; }
-        .footer-cta p { color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 40px; }
-
-        footer {
-            background: var(--bg-body);
-            padding: 40px 0;
-            border-top: 1px solid var(--bg-surface-alt);
-        }
+        .footer-cta { background: var(--primary); color: var(--text-on-primary); text-align: center; padding: 60px 0; }
+        .footer-cta h2 { color: #fff; margin-bottom: 15px; font-size: 2rem; }
+        .footer-cta p { color: rgba(255,255,255,0.85); margin-bottom: 30px; }
+        footer { background: var(--bg-body); padding: 40px 0 20px; border-top: 1px solid var(--bg-surface-alt); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+        .footer-brand img { height: 45px; margin-bottom: 15px; filter: brightness(0) invert(1); }
+        .footer-brand p { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+        .site-footer h4 { font-size: 1.1rem; margin-bottom: 15px; color: #fff; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { text-decoration: none; color: rgba(255,255,255,0.8); transition: 0.3s; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--secondary); margin-inline-start: 5px; }
+        .footer-contact p { font-size: 0.9rem; margin-bottom: 8px; color: rgba(255,255,255,0.8); }
+        .footer-social { display: flex; gap: 10px; margin-top: 15px; }
+        .footer-social a { width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: 0.3s; }
+        .footer-social a:hover { background: var(--secondary); transform: translateY(-3px); }
+        .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); font-size: 0.85rem; }
 
         .floating-controls {
-            position: fixed;
-            bottom: 30px;
-            inset-inline-end: 30px; 
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 999;
+            position: fixed; bottom: 20px; inset-inline-end: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 990;
         }
-
         .control-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--bg-surface);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-md);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: 0.3s;
+            width: 45px; height: 45px; border-radius: 50%; background: var(--bg-surface); color: var(--text-main);
+            border: 1px solid var(--border-color); box-shadow: var(--shadow-md); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: 0.3s;
         }
+        .control-btn:hover { background: var(--primary); color: white; transform: scale(1.1); }
 
-        .control-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.1);
-        }
-
-        /* =========================================
-        ANIMATIONS
-        ========================================= */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { opacity: 0; animation: fadeIn 0.6s ease forwards; }
 
-        /* Responsive */
+        /* RESPONSIVE */
         @media (max-width: 992px) {
-            .navbar-main { width: 98%; padding: 0 20px; height: 70px; top: 10px; }
-            .navbar-center { display: none; }
-            .hero-wrapper { grid-template-columns: 1fr; text-align: center; }
+            .navbar-main { width: 98%; padding: 0 20px; height: 65px; top: 10px; }
+            .navbar-center { display: none !important; }
+            .mobile-toggle { display: block; }
+            .navbar-right { gap: 10px; }
+            .btn-nav span { display: none; }
+            .btn-nav { padding: 8px; border-radius: 50%; }
+            .user-name span { display: none; }
+            .hero-wrapper { grid-template-columns: 1fr; text-align: center; gap: 40px; }
             .hero-text p { margin: 0 auto 30px; }
             .hero-btns { justify-content: center; }
-            .feature-split { grid-template-columns: 1fr; }
             .hero-text h1 { font-size: 2.5rem; }
+            .feature-split { grid-template-columns: 1fr; }
+            .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .section-padding { padding: 50px 0; }
+            .hero-intro { padding-top: 100px; padding-bottom: 50px; }
+            .hero-text h1 { font-size: 2rem; }
+            .hero-text p { font-size: 1rem; }
+            .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 24px; }
+            .card { padding: 25px 20px; }
+            .challenge-group { padding: 30px 20px; }
+            .challenge-title { font-size: 1.4rem; }
+            .video-hero-card { flex-direction: column; margin: 40px 0 0; }
+            .video-thumb { height: 200px; flex: none; width: 100%; }
+            .video-info { padding: 20px; text-align: center; }
+            .footer-cta { padding: 50px 0; }
+            .footer-cta h2 { font-size: 1.6rem; }
+            .floating-controls { bottom: 15px; inset-inline-end: 15px; }
+        }
+        @media (max-width: 480px) {
+            .navbar-main { padding: 0 15px; }
+            .hero-text h1 { font-size: 1.8rem; }
+            .btn { width: 100%; justify-content: center; margin-bottom: 10px; }
+            .hero-btns { flex-direction: column; width: 100%; }
         }
     </style>
 </head>
@@ -732,13 +367,12 @@
     <!-- NAVBAR -->
     <nav class="navbar-main">
         <!-- LOGO -->
-        <div class="navbar-logo">
-            <!-- Placeholder for logo image -->
-            <img src="./smart_farm_no_bg-removebg-preview.png" alt="Logo" style="width:40px;height:40px;border-radius:50%;">
+        <a href="#" class="navbar-logo">
+            <img src="./smart_farm_no_bg-removebg-preview.png" alt="Logo" onerror="this.style.display='none'">
             <span id="siteName" data-i18n="siteName">Zera3a-Tech</span>
-        </div>
+        </a>
 
-        <!-- CENTER LINKS (Auth) -->
+        <!-- CENTER LINKS (Desktop) -->
         <ul class="navbar-links navbar-center" id="authLinks" style="display:none">
             <li><a href="farmer-market.html" data-i18n="nav_market">Marketplace</a></li>
             <li><a href="animals.html" data-i18n="nav_animals">Animals</a></li>
@@ -746,19 +380,20 @@
             <li><a href="tasks2.html" data-i18n="nav_community">Community</a></li>
         </ul>
 
-        <!-- CENTER LINKS (Guest) -->
         <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
             <li><a href="contact-about.html" data-i18n="nav_about">About Us</a></li>
-                <li><a href="animals.html" data-i18n="nav_animals">Animals</a></li>
-                <li><a href="investment.html" data-i18n="nav_investment">Investment</a></li>
-                <li><a href="tasks.html" data-i18n="nav_community">Community</a></li>
+            <li><a href="animals.html" data-i18n="nav_animals">Animals</a></li>
+            <li><a href="investment.html" data-i18n="nav_investment">Investment</a></li>
+            <li><a href="tasks.html" data-i18n="nav_community">Community</a></li>
         </ul>
 
         <!-- RIGHT SIDE CONTROLS -->
-        <div class="navbar-right" style="display: flex; align-items: center; gap: 15px;">
+        <div class="navbar-right" style="display: flex; align-items: center; gap: 12px;">
             
-            <!-- LANGUAGE & THEME TOGGLES (Always Visible) -->
-            <button id="langToggle" class="btn-nav" title="Change Language">EN</button>
+            <!-- LANGUAGE & THEME TOGGLES -->
+            <button id="langToggle" class="btn-nav" title="Change Language">
+                <span>EN</span>
+            </button>
             <button id="themeToggle" class="btn-nav" title="Toggle Theme">
                 <i class="fa-solid fa-moon"></i>
             </button>
@@ -768,7 +403,6 @@
                 <div class="user-name" id="userName">
                     <i class="fas fa-user-circle"></i>
                     <span data-i18n="nav_user">User</span>
-                    <i class="fas fa-caret-down"></i>
                 </div>
                 <div class="user-dropdown" id="userDropdown">
                     <a href="./profile.html" data-i18n="nav_profile">Profile</a>
@@ -780,8 +414,43 @@
             <button onclick="window.location.href='./signin.html'" id="signInBtn" class="btn-nav" style="display:flex;">
                 <span data-i18n="btn_signin">Sign In</span>
             </button>
+
+            <!-- MOBILE HAMBURGER -->
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- MOBILE NAVIGATION OVERLAY -->
+    <div class="backdrop" id="backdrop"></div>
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <button class="close-mobile-nav" id="closeMobileNav">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        
+        <!-- Mobile Auth Links -->
+        <div id="mobileAuthLinks" style="display:none">
+            <a href="farmer-market.html" data-i18n="nav_market">Marketplace</a>
+            <a href="animals.html" data-i18n="nav_animals">Animals</a>
+            <a href="wallet.html" data-i18n="nav_wallet">Wallet</a>
+            <a href="tasks2.html" data-i18n="nav_community">Community</a>
+        </div>
+
+        <!-- Mobile Guest Links -->
+        <div id="mobileGuestLinks">
+            <a href="contact-about.html" data-i18n="nav_about">About Us</a>
+            <a href="animals.html" data-i18n="nav_animals">Animals</a>
+            <a href="investment.html" data-i18n="nav_investment">Investment</a>
+            <a href="tasks.html" data-i18n="nav_community">Community</a>
+        </div>
+
+        <!-- Mobile User Links -->
+        <div id="mobileUserLinks" style="display:none; border-top: 1px solid var(--border-color); padding-top: 15px;">
+            <a href="./profile.html" data-i18n="nav_profile">Profile</a>
+            <a href="#" id="mobileLogoutBtn" data-i18n="nav_logout" style="color: var(--secondary);">Logout</a>
+        </div>
+    </div>
 
     <main>
         <!-- Hero Section -->
@@ -818,11 +487,11 @@
                         <div class="play-btn"><i class="fas fa-play"></i></div>
                     </div>
                     <div class="video-info">
-                        <h4 style="font-size: 1.3rem; margin-bottom: 10px;" data-i18n="video_title">Complete Guide to Platform</h4>
-                        <p style="font-size: 0.95rem; margin-bottom: 15px;" data-i18n="video_desc">Watch how to register, manage crops, and benefit from returns.</p>
-                        <div style="font-size: 0.85rem; color: var(--text-muted);">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 8px;" data-i18n="video_title">Complete Guide to Platform</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 12px;" data-i18n="video_desc">Watch how to register, manage crops, and benefit from returns.</p>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">
                             <span><i class="far fa-clock"></i> <span data-i18n="video_time">3 mins</span></span>
-                            <span style="margin-inline: 10px;">|</span>
+                            <span style="margin-inline: 8px;">|</span>
                             <span><i class="far fa-eye"></i> 5.2k <span data-i18n="video_views">views</span></span>
                         </div>
                     </div>
@@ -833,7 +502,6 @@
         <!-- CHALLENGES SECTION -->
         <section class="section-padding challenges-v2">
             <div class="container">
-                <!-- Farmer Challenges -->
                 <div class="challenge-group">
                     <h2 class="challenge-title" data-i18n="chall_farmer_title">Farmer Challenges</h2>
                     <div class="challenge-items">
@@ -846,7 +514,6 @@
                     </div>
                 </div>
 
-                <!-- Worker Challenges -->
                 <div class="challenge-group">
                     <h2 class="challenge-title" data-i18n="chall_worker_title">Worker Challenges</h2>
                     <div class="challenge-items">
@@ -858,7 +525,6 @@
                     </div>
                 </div>
 
-                <!-- Investor Challenges -->
                 <div class="challenge-group">
                     <h2 class="challenge-title" data-i18n="chall_investor_title">Investor Challenges</h2>
                     <div class="challenge-items">
@@ -878,7 +544,6 @@
                 <div class="section-header">
                     <h2 data-i18n="adv_title">Why Choose Zera3a-Tech?</h2>
                 </div>
-
                 <div class="grid-4">
                     <div class="card">
                         <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
@@ -910,7 +575,6 @@
                 <div class="section-header">
                     <h2 data-i18n="farm_title">Comprehensive Farmer Services</h2>
                 </div>
-
                 <div class="feature-split">
                     <div class="feature-content">
                         <h3 data-i18n="farm_feat_title">Track Farming Seasons & Growth</h3>
@@ -925,7 +589,6 @@
                         <img src="https://picsum.photos/seed/croptrack/600/400" alt="Tracking">
                     </div>
                 </div>
-
                 <div class="grid-3">
                     <div class="card">
                         <h4 data-i18n="farm_card1_title">Direct Market</h4>
@@ -949,7 +612,6 @@
                 <div class="section-header">
                     <h2 data-i18n="inv_title">Professional Investor Portal</h2>
                 </div>
-
                 <div class="grid-3">
                     <div class="card">
                         <div class="card-icon"><i class="fas fa-chart-line"></i></div>
@@ -988,7 +650,6 @@
                 <div class="section-header">
                     <h2 data-i18n="work_title">Jobs & Labor</h2>
                 </div>
-
                 <div class="grid-3">
                     <div class="card">
                         <h4 data-i18n="work_card1_title">Guaranteed Jobs</h4>
@@ -1011,12 +672,53 @@
             <div class="container">
                 <h2 data-i18n="footer_title">Ready to Launch?</h2>
                 <p data-i18n="footer_desc">Join over 5,000 farmers and investors on the platform today.</p>
-                <a href="./signin.html" class="btn" style="background: white; color: var(--primary-dark); font-size: 1.2rem; padding: 15px 40px;" data-i18n="footer_btn">Join the Community</a>
+                <a href="./signin.html" class="btn" style="background: white; color: var(--primary-dark); padding: 12px 30px;" data-i18n="footer_btn">Join the Community</a>
             </div>
         </section>
     </main>
 
-    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+                <p>Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers, investors, and suppliers through modern technology.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#">Marketplace</a></li>
+                    <li><a href="#">Crop Tracking</a></li>
+                    <li><a href="#">Cost Calculator</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Farming Tips</a></li>
+                    <li><a href="#">Livestock Guide</a></li>
+                    <li><a href="#">Expert Advice</a></li>
+                    <li><a href="#">Investment Opportunities</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>📍 Cairo, Egypt</p>
+                <p>📞 +20 123 456 7890</p>
+                <p>📧 support@zera3a-tech.com</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fas fa-globe"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span data-i18n="copyright">© 2025 Zera3a-Tech. All rights reserved.</span>
+        </div>
+    </footer>
 
     <!-- FLOATING CONTROLS -->
     <div class="floating-controls">
@@ -1024,7 +726,7 @@
         <button id="darkModeToggle" class="control-btn" title="Dark Mode"><i class="fa-solid fa-moon"></i></button>
     </div>
 
-    <!-- UI LOGIC: TRANSLATION & THEME -->
+    <!-- UI LOGIC -->
     <script>
         // ==========================
         // 1. TRANSLATION DICTIONARY
@@ -1041,7 +743,7 @@
                 nav_user: "مستخدم",
                 nav_profile: "الملف الشخصي",
                 nav_logout: "تسجيل خروج",
-                btn_signin: "تسجيل دخول",
+                btn_signin: "دخول",
                 hero_badge: "مستقبل الزراعة الرقمية",
                 hero_title: "المنصة المتكاملة للزراعة الذكية",
                 hero_desc: "مستقبل زراعي رقمي يربط المزارعين والمستثمرين والعمال، ويضمن الأمان والشفافية والربحية للجميع باستخدام أحدث تقنيات الذكاء الاصطناعي.",
@@ -1115,7 +817,7 @@
                 footer_title: "جاهز للإطلاق؟",
                 footer_desc: "انضم لأكثر من 5,000 مزارع ومستثمر على المنصة اليوم.",
                 footer_btn: "انضم للمجتمع",
-                copyright: "© 2023 منصة Zera3a-Tech. جميع الحقوق محفوظة."
+                copyright: "© 2025 منصة Zera3a-Tech. جميع الحقوق محفوظة."
             },
             en: {
                 siteName: "Zera3a-Tech",
@@ -1202,17 +904,46 @@
                 footer_title: "Ready to Launch?",
                 footer_desc: "Join over 5,000 farmers and investors on the platform today.",
                 footer_btn: "Join the Community",
-                copyright: "&copy; 2023 Zera3a-Tech Platform. All rights reserved."
+                copyright: "&copy; 2025 Zera3a-Tech Platform. All rights reserved."
             }
         };
 
         // ==========================
-        // 2. THEME TOGGLE LOGIC
+        // 2. MOBILE NAVIGATION LOGIC
+        // ==========================
+        const mobileToggle = document.getElementById('mobileToggle');
+        const closeMobileNav = document.getElementById('closeMobileNav');
+        const mobileNav = document.getElementById('mobileNav');
+        const backdrop = document.getElementById('backdrop');
+        const mobileLinks = mobileNav.querySelectorAll('a');
+
+        function openMenu() {
+            mobileNav.classList.add('active');
+            backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeMenu() {
+            mobileNav.classList.remove('active');
+            backdrop.classList.remove('active');
+            document.body.style.overflow = ''; 
+        }
+
+        if(mobileToggle) mobileToggle.addEventListener('click', openMenu);
+        if(closeMobileNav) closeMobileNav.addEventListener('click', closeMenu);
+        if(backdrop) backdrop.addEventListener('click', closeMenu);
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // ==========================
+        // 3. THEME TOGGLE LOGIC
         // ==========================
         const themeBtns = document.querySelectorAll('#themeToggle, #darkModeToggle');
         const body = document.body;
 
-        // Load saved theme
+        // Check Local Storage
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             body.classList.add('dark-mode');
@@ -1237,42 +968,45 @@
         }
 
         // ==========================
-        // 3. LANGUAGE TOGGLE LOGIC
+        // 4. LANGUAGE TOGGLE LOGIC (FIXED)
         // ==========================
         const langBtns = document.querySelectorAll('#langToggle, #langToggleFloat');
-        let currentLang = 'ar'; // Default
+        let currentLang = 'ar'; 
 
-        // Function to update content
         function setLanguage(lang) {
             currentLang = lang;
-            const dir = lang === 'ar' ? 'rtl' : 'ltr';
             
-            // Set HTML attributes
+            // 1. Set Direction (RTL/LTR)
+            const dir = lang === 'ar' ? 'rtl' : 'ltr';
             document.documentElement.lang = lang;
             document.documentElement.dir = dir;
 
-            // Update Language Toggle Button Text (The one in navbar)
+            // 2. Update Language Button Text in Navbar
             const navLangBtn = document.getElementById('langToggle');
             if(navLangBtn) {
-                navLangBtn.innerText = lang === 'ar' ? 'EN' : 'عربي';
+                // If Arabic is active, button should show "EN", else show "عربي"
+                navLangBtn.innerHTML = lang === 'ar' ? '<span>EN</span>' : '<span>عربي</span>';
             }
 
-            // Replace text for all elements with data-i18n
+            // 3. Translate All Elements with data-i18n
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
-                    el.innerText = translations[lang][key];
+                    // Using textContent ensures we only replace the text, not child elements (if any were kept)
+                    // However, for elements like <span data-i18n="key">Text</span>, this works perfectly.
+                    el.textContent = translations[lang][key];
                 }
             });
         }
 
-        // Initialize Language
-        // (Optional: Check localStorage for language preference if you want to persist it)
+        // Initialize Language on Load
+        // (Optional: You can check localStorage here if you want to persist language)
         setLanguage('ar');
 
-        // Add Click Events
+        // Add Click Events to Toggle Buttons
         langBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent jump if inside anchor
                 const newLang = currentLang === 'ar' ? 'en' : 'ar';
                 setLanguage(newLang);
             });
@@ -1280,133 +1014,74 @@
 
     </script>
 
-    <!-- FIREBASE LOGIC (Kept as Module) -->
+    <!-- FIREBASE LOGIC (Module) -->
     <script type="module">
-        /* =========================
-        🔥 Firebase Imports
-        ========================== */
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { 
-        getAuth, 
-        onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { 
-        getFirestore, 
-        doc, 
-        getDoc 
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        /* =========================
-        🔧 Firebase Config
-        ========================== */
         const firebaseConfig = {
-        apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
-        authDomain: "smart-farm-8d3f5.firebaseapp.com",
-        projectId: "smart-farm-8d3f5",
-        storageBucket: "smart-farm-8d3f5.appspot.com",
-        messagingSenderId: "317371842198",
-        appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+            apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+            authDomain: "smart-farm-8d3f5.firebaseapp.com",
+            projectId: "smart-farm-8d3f5",
+            storageBucket: "smart-farm-8d3f5.appspot.com",
+            messagingSenderId: "317371842198",
+            appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
         };
 
-        /* =========================
-        🚀 Initialize Firebase
-        ========================== */
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        /* =========================
-        🔐 Landing Page Guard
-        ========================== */
+        const authLinks = document.getElementById('authLinks');
+        const guestLinks = document.getElementById('guestLinks');
+        const userMenu = document.getElementById('userMenu');
+        const signInBtn = document.getElementById('signInBtn');
+        
+        const mobileAuthLinks = document.getElementById('mobileAuthLinks');
+        const mobileGuestLinks = document.getElementById('mobileGuestLinks');
+        const mobileUserLinks = document.getElementById('mobileUserLinks');
+
         onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                // Guest State
+                authLinks.style.display = 'none';
+                guestLinks.style.display = 'flex';
+                userMenu.style.display = 'none';
+                signInBtn.style.display = 'flex';
 
-        // ✅ Guest → مسموح له يكمل
-        if (!user) {
-            console.log("Guest user – landing page allowed");
-            return;
-        }
-
-        // 🚫 Logged in → نجيب الدور ونحوّل
-        try {
-            const userRef = doc(db, "users", user.uid);
-            const userSnap = await getDoc(userRef);
-
-            if (!userSnap.exists()) {
-            console.warn("No user data in Firestore");
-            return;
+                mobileAuthLinks.style.display = 'none';
+                mobileGuestLinks.style.display = 'block';
+                mobileUserLinks.style.display = 'none';
+                return;
             }
 
-            const role = userSnap.data().role;
+            // Logged In State
+            try {
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
 
-            if (role === "farmer") {
-            window.location.replace("./farmer-ar.html");
-            } 
-            else if (role === "worker") {
-            window.location.replace("./worker.html");
-            } 
-            else if (role === "investor") {
-            window.location.replace("./investor.html");
-            } 
-            else {
-            console.warn("Unknown role:", role);
+                if (!userSnap.exists()) return;
+
+                const role = userSnap.data().role;
+
+                authLinks.style.display = 'flex';
+                guestLinks.style.display = 'none';
+                userMenu.style.display = 'block';
+                signInBtn.style.display = 'none';
+
+                mobileAuthLinks.style.display = 'block';
+                mobileGuestLinks.style.display = 'none';
+                mobileUserLinks.style.display = 'block';
+
+                if (role === "farmer") window.location.replace("./farmer-ar.html");
+                else if (role === "worker") window.location.replace("./worker.html");
+                else if (role === "investor") window.location.replace("./investor.html");
+
+            } catch (error) {
+                console.error("Auth redirect error:", error);
             }
-
-        } catch (error) {
-            console.error("Auth redirect error:", error);
-        }
         });
     </script>
-    <footer class="site-footer">
-  <div class="container footer-grid">
-
-    <div class="footer-brand">
-      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
-      <p>
-        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
-        investors, and suppliers through modern technology.
-      </p>
-    </div>
-
-    <div class="footer-links">
-      <h4>Platform</h4>
-      <ul>
-        <li><a href="#">Marketplace</a></li>
-        <li><a href="#">Crop Tracking</a></li>
-        <li><a href="#">Cost Calculator</a></li>
-        <li><a href="#">Community</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-links">
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="#">Farming Tips</a></li>
-        <li><a href="#">Livestock Guide</a></li>
-        <li><a href="#">Expert Advice</a></li>
-        <li><a href="#">Investment Opportunities</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>📍 Cairo, Egypt</p>
-      <p>📞 +20 123 456 7890</p>
-      <p>📧 support@zera3a-tech.com</p>
-
-      <div class="footer-social">
-        <a href="#">🌐</a>
-        <a href="#">📘</a>
-        <a href="#">🐦</a>
-        <a href="#">📸</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 2025 Zera3a-Tech. All rights reserved.
-  </div>
-</footer>
 </body>
-
 </html>
