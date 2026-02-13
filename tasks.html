@@ -960,7 +960,7 @@
     onAuthStateChanged(auth, async (user) => {
         if (!user) {
             alert('لازم تسجّل دخول الأول');
-            window.location.href = './signinsignup/signin.html';
+            window.location.href = './signin.html';
             return;
         }
 
@@ -970,7 +970,7 @@
 
             if (!userSnap.exists()) {
                 alert('بيانات المستخدم غير موجودة');
-                window.location.href = './signinsignup/signin.html';
+                window.location.href = './signin.html';
                 return;
             }
 
@@ -995,13 +995,13 @@
 
             else {
                 alert('❗ دور غير معروف');
-                window.location.href = './signinsignup/signin.html';
+                window.location.href = './signin.html';
             }
 
         } catch (error) {
             console.error(error);
             alert('حصل خطأ أثناء التحقق من الصلاحيات');
-            window.location.href = './signinsignup/signin.html';
+            window.location.href = './signin.html';
         }
     });
 
@@ -1011,7 +1011,7 @@
     document.getElementById('home-btn').addEventListener('click', async () => {
         const user = auth.currentUser;
         if (!user) {
-            window.location.href = './signinsignup/signin.html';
+            window.location.href = './signin.html';
             return;
         }
 
@@ -1026,11 +1026,12 @@
         } else if (role === 'investor') {
             window.location.href = 'investor.html';
         } else {
-            window.location.href = './signinsignup/signin.html';
+            window.location.href = './signin.html';
         }
     });
 </script>
 
 
 </body>
+
 </html>
