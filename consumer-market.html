@@ -935,7 +935,7 @@ window.handleBack = function () {
   onAuthStateChanged(auth, async (user) => {
     // ❌ مش مسجل دخول
     if (!user) {
-      window.location.href = "main.html";
+      window.location.href = "index.html";
       return;
     }
 
@@ -944,7 +944,7 @@ window.handleBack = function () {
       const snap = await getDoc(userRef);
 
       if (!snap.exists()) {
-        window.location.href = "main.html";
+        window.location.href = "index.html";
         return;
       }
 
@@ -965,11 +965,11 @@ window.handleBack = function () {
       }
 
       // أي حالة تانية
-      window.location.href = "main.html";
+      window.location.href = "index.html";
 
     } catch (error) {
       console.error("Back button error:", error);
-      window.location.href = "main.html";
+      window.location.href = "index.html";
     }
   });
 };
@@ -1026,4 +1026,5 @@ window.handleBack = function () {
   </div>
 </footer>
 </body>
+
 </html>
