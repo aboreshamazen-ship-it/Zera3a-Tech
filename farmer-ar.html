@@ -99,6 +99,7 @@
       font-size: 0.9rem;
       color: rgba(255,255,255,0.75);
     }
+          /* ================= NAVBAR ================= */
         .navbar-main {
             background: #0f4c5c;
             position: fixed;
@@ -106,155 +107,112 @@
             left: 50%;
             transform: translateX(-50%);
             width: 95%;
+            max-width: 1200px;
             height: 75px;
             border-radius: 30px;
-            box-shadow: 0 6px 6px rgba(31, 38, 135, .37);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 30px;
+            padding: 0 25px;
             z-index: 1000;
-            transition: 0.3s;
-        }
-
-        .btn-signin {
-            background: #fff;
-            border: 2px solid #0f4c5c;
-            border-radius: 12px;
-            padding: 5px 20px;
-            cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        /* الرابط جوه الزرار */
-        .btn-signin a {
-            color: black;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        /* Hover */
-        .btn-signin:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-            /* background: linear-gradient(135deg, #0d6efd, #1fb6a6); */
-        }
-
-        /* Active */
-        .btn-signin:active {
-            transform: scale(0.96);
-        }
-
-        /* body.light .navbar-main { box-shadow: 0 6px 6px rgba(0,0,0,0.1); } */
-
-        /* LOGO */
+        /* ================= LOGO ================= */
         .navbar-logo {
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: 700;
             font-size: 22px;
-            transition: 0.3s;
+            white-space: nowrap;
+            z-index: 1001; /* لكي يظهر فوق القائمة المنسدلة */
         }
 
         .navbar-logo img {
-            height: 55px;
-            object-fit: contain;
+            height: 50px;
         }
 
         .navbar-logo span {
             color: #fff;
         }
 
-        body.light .navbar-logo {
-            color: #0f4c5c;
+        /* ================= LINKS (CENTER) ================= */
+        /* تعديل مهم: استخدام Flexbox للتمركز بدلاً من Absolute */
+        .navbar-center {
+            flex: 1; /* يأخذ المساحة الفارغة بين اللوغو والأزرار */
+            display: flex;
+            justify-content: center; /* يوسع المحتوى في المنتصف */
+            position: relative; /* لضبط القائمة المنسدلة في الموبايل */
         }
 
-        body.dark .navbar-logo {
-            color: #fff;
-        }
-
-        /* CENTER LINKS */
         .navbar-links {
             list-style: none;
             display: flex;
-            gap: 18px;
+            gap: 10px;
             align-items: center;
-        }
-
-        .navbar-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .navbar-links a {
             color: #fff;
             text-decoration: none;
             font-size: 15px;
-            padding: 6px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             transition: 0.3s;
-            white-space: nowrap;
-        }
-
-        body.dark .navbar-links a {
-            color: #fff;
         }
 
         .navbar-links a:hover {
             background: #e07a5f;
+        }
+
+        /* ================= RIGHT SIDE ================= */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+        }
+
+        /* ================= BUTTONS ================= */
+        .navbar-main .btn {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
             color: #fff;
-        }
-
-        /* BUTTONS */
-        .navbar-main .btn {
-            border: 1px solid white;
-            background: transparent;
-            color: white;
             padding: 6px 12px;
             border-radius: 20px;
             cursor: pointer;
-            text-decoration: none;
             transition: 0.3s;
-        }
-
-        .navbar-main .btn {
-            border: 1px solid white;
-            background: transparent;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-
-        body.light .btn {
-            border-color: #0f4c5c;
-            color: #0f4c5c;
+            font-size: 14px;
         }
 
         .btn:hover {
             background: #e07a5f;
             border-color: #e07a5f;
-            color: #fff;
         }
 
-        /* RIGHT SIDE */
-        .navbar-right {
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* ================= SIGNIN BUTTON ================= */
+        .btn-signin {
+            background: #fff;
+            border: 2px solid #fff; /* لون الحدود نفس لون الخلفية ليكون متناسقاً */
+            border-radius: 20px;
+            padding: 6px 18px;
+            transition: 0.3s;
         }
 
-        /* USER MENU */
+        .btn-signin a {
+            color: #0f4c5c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-signin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* ================= USER MENU ================= */
         .user-menu {
             position: relative;
             cursor: pointer;
@@ -264,93 +222,194 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 14px;
+            color: #fff;
+            padding: 5px 10px;
             border-radius: 20px;
             transition: 0.3s;
         }
 
         .user-name:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        body.light .user-name:hover {
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .user-dropdown {
             position: absolute;
-            top: 110%;
+            top: 120%;
             right: 0;
-            background: white;
+            background: #fff;
             min-width: 160px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            display: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none; /* مخفي افتراضياً */
             flex-direction: column;
             overflow: hidden;
-            z-index: 1000;
+            z-index: 1002;
         }
 
         .user-dropdown a {
-            padding: 12px 15px;
             color: #333;
+            padding: 12px 15px;
             text-decoration: none;
             display: flex;
-            gap: 10px;
             align-items: center;
-            transition: 0.3s;
+            gap: 10px;
+            border-radius: 0;
         }
 
         .user-dropdown a:hover {
-            background: #f1f1f1;
+            background: #f0f0f0;
+            color: #0f4c5c;
         }
 
-        /* DARK MODE */
+        /* ================= HAMBURGER (Menu Toggle) ================= */
+        .menu-toggle {
+            display: none; /* مخفي في الديسكتوب */
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* ================= DARK MODE STYLES ================= */
         body.dark {
-            background: #1f1f1f;
-            color: #fff;
+            background: #121212;
+            color: #e0e0e0;
         }
 
-        /* body.dark .navbar-main { background: #0a2e3a; } */
-        body.dark .btn {
-            border-color: #fff;
+        body.dark .navbar-main {
+            background: #0a2e3a; /* لون أغمق قليلاً */
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        body.dark .btn-signin {
+            background: #1e1e1e;
+            border-color: #0f4c5c; /* إرجاع لون البراند */
+        }
+
+        body.dark .btn-signin a {
             color: #fff;
         }
+        
+        body.dark .btn-signin:hover {
+             border-color: #e07a5f;
+        }
+
+        /* ================= RESPONSIVE (MOBILE) ================= */
+        @media (max-width: 768px) {
+            .navbar-main {
+                height: 70px; /* تقليل الارتفاع قليلاً للموبايل */
+                padding: 0 15px;
+            }
+
+            .menu-toggle {
+                display: block; /* إظهار زر القائمة */
+            }
+
+            /* إخفاء الروابط الوسطى في العرض العادي */
+            .navbar-center {
+                display: none; 
+                position: absolute;
+                top: 100%; /* تظهر مباشرة تحت النافبار */
+                left: 0;
+                width: 100%;
+                background: #0f4c5c;
+                padding: 20px 0;
+                border-radius: 0 0 15px 15px; /* زوايا أسفل الشريط */
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                flex-direction: column;
+                justify-content: flex-start;
+                z-index: 999;
+            }
+
+            /* إظهار الروابط عند تفعيل الكلاس active */
+            .navbar-center.active {
+                display: flex;
+                animation: slideDown 0.3s ease;
+            }
+
+            .navbar-links {
+                flex-direction: column;
+                width: 100%;
+                gap: 5px;
+            }
+
+            .navbar-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .navbar-links a {
+                display: block;
+                padding: 12px;
+                font-size: 16px;
+                width: 100%;
+            }
+
+            /* ضبط العناصر اليمنى (الأزرار) */
+            .navbar-right {
+                gap: 8px;
+            }
+
+            /* إخفاء زر تسجيل الدخول الكبير في النافبار ووضعه في القائمة (اختياري) */
+            /* .btn-signin { display: none; }  */
+
+            /* في الوضع المظلم للموبايل */
+            body.dark .navbar-center {
+                background: #0a2e3a;
+            }
+        }
+
+        /* حركة بسيطة للقائمة */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 
 <body>
 
     <div class="navbar-main">
-
         <!-- LOGO -->
         <div class="navbar-logo" id="navbarLogo">
-            <img src="smart_farm_no_bg-removebg-preview.png" alt="Logo">
+            <!-- تأكد من أن مسار الصورة صحيح -->
+            <img src="smart_farm_no_bg-removebg-preview.png" alt="Logo" onerror="this.style.display='none'">
             <span id="siteName" data-key="siteName">زراعة تك</span>
         </div>
 
-        <!-- LOGGED IN LINKS -->
-        <ul class="navbar-links navbar-center" id="authLinks" style="display:none ">
-            <li><a href="tasks2.html"style="color:white " data-key="nav_community">المجتمع</a></li>
-            <li><a href="banks.html"style="color:white " data-key="nav_banks">البنوك الزراعية</a></li>
-            <li><a href="offer.html"style="color:white " data-key="nav_packages">العروض</a></li>
-            <li><a href="contact-about.html"style="color:white " data-key="nav_contact">تواصل معنا</a></li>
+        <!-- CENTER LINKS -->
+        <div class="navbar-center" id="navbarCenter">
+            <!-- LOGGED IN LINKS -->
+            <ul class="navbar-links" id="authLinks" style="display:none">
+                <li><a href="tasks2.html" data-key="nav_community">المجتمع</a></li>
+                <li><a href="banks.html" data-key="nav_banks">البنوك الزراعية</a></li>
+                <li><a href="./offer/offer.html" data-key="nav_packages">العروض</a></li>
+                <li><a href="contact-about.html" data-key="nav_contact">تواصل معنا</a></li>
+            </ul>
 
-
-
-        </ul>
-
-        <!-- GUEST LINKS -->
-        <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
-            <li><a href="about.html" style="color:white " data-key="nav_about">من نحن</a></li>
-        </ul>
+            <!-- GUEST LINKS -->
+            <ul class="navbar-links" id="guestLinks" style="display:flex">
+                <li><a href="about.html" data-key="nav_about">من نحن</a></li>
+            </ul>
+        </div>
 
         <!-- RIGHT -->
         <div class="navbar-right">
+            <!-- زر القائمة للموبايل -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
 
-            <button id="langToggle" class="btn lang-btn" title="تبديل اللغة"><a
-                    style="text-decoration: none; color: white;" href="./farmer-en.html">EN</a></button>
-            <button id="themeToggle" class="btn">☀️</button>
+            <button id="langToggle" class="btn lang-btn" title="تبديل اللغة">
+                <a style="text-decoration: none; color: inherit;" href="./farmer-en.html">EN</a>
+            </button>
+            
+            <button id="themeToggle" class="btn" title="تبديل الوضع">
+                <i class="fas fa-sun"></i>
+            </button>
 
             <!-- USER MENU -->
             <div class="user-menu" id="userMenu" style="display:none">
@@ -361,7 +420,7 @@
                 </div>
 
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="./profile.html" data-key="profileLink">
+                    <a href="./Profile/profile.html" data-key="profileLink">
                         <i class="fas fa-id-badge"></i> الملف الشخصي
                     </a>
                     <a href="#" id="logoutBtn" data-key="logoutBtn">
@@ -370,14 +429,13 @@
                 </div>
             </div>
 
-            <!-- SIGN IN -->
+            <!-- SIGN IN BUTTON -->
             <button id="signInBtn" class="btn-signin">
-                <a href="./signin.html" data-key="signin_btn">تسجيل الدخول</a>
+                <a href="./signinsignup/signin.html" data-key="signin_btn">تسجيل الدخول</a>
             </button>
 
         </div>
     </div>
-
     <section class="hero" id="home">
         <div class="hero-text">
             <div class="badge" data-key="hero_badge">🌱 منصة زراعية متكاملة</div>
@@ -2485,10 +2543,24 @@
     © 2025 Zera3a-Tech. All rights reserved.
   </div>
 </footer>
+                <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navbarCenter = document.getElementById("navbarCenter");
+
+    menuToggle.addEventListener("click", function () {
+        navbarCenter.classList.toggle("active");
+    });
+
+});
+</script>
+
 </body>
 
 
 </html>
+
 
 
 
