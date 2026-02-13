@@ -427,7 +427,7 @@
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         alert("You must login first.");
-        window.location.href = "login.html";
+        window.location.href = "signin.html";
         return;
       }
       currentUserId = user.uid;
@@ -548,8 +548,9 @@
       });
     }
 
-    backBtn.addEventListener("click", () => { window.location.href = "./main.html"; });
+    backBtn.addEventListener("click", () => { window.location.href = "./index.html"; });
   </script>
   
 </body>
+
 </html>
