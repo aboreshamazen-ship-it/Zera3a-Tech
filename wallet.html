@@ -678,7 +678,7 @@
     /* ================= Auth State ================= */
     onAuthStateChanged(auth, async (user) => {
         if (!user) {
-            window.location.href = "./signinsignup/signin.html";
+            window.location.href = "./signin.html";
             return;
         }
 
@@ -784,7 +784,7 @@
 
             const user = auth.currentUser;
             if (!user) {
-                window.location.href = "./signinsignup/signin.html";
+                window.location.href = "./signin.html";
                 return;
             }
 
@@ -796,7 +796,6 @@
             if (role === "farmer") window.location.href = "farmer-ar.html";
             else if (role === "investor") window.location.href = "investor.html";
             else if (role === "worker") window.location.href = "worker.html";
-            else if (role === "consumer") window.location.href = "consumer.html";
         });
     }
 </script>
@@ -905,5 +904,6 @@
        
 
 </body>
+
 
 </html>
