@@ -821,7 +821,7 @@ window.goHomeByRole = function () {
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
       // ❌ مش مسجّل دخول
-      window.location.href = "../signinsignup/signin.html";
+      window.location.href = "./signin.html";
       return;
     }
 
@@ -840,15 +840,15 @@ window.goHomeByRole = function () {
       // ✅ تحويل حسب الدور
       switch (role) {
         case "farmer":
-          window.location.href = "../farmer-ar.html";
+          window.location.href = "./farmer-ar.html";
           break;
 
         case "worker":
-          window.location.href = "../worker.html";
+          window.location.href = "./worker.html";
           break;
 
         case "investor":
-          window.location.href = "../investor.html";
+          window.location.href = "./investor.html";
           break;
 
 
@@ -863,4 +863,5 @@ window.goHomeByRole = function () {
 </script>
 
 </body>
+
 </html>
