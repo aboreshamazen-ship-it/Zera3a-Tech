@@ -13,118 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Footer */
-    .site-footer {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      padding: 4rem 0 1.5rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2.5rem;
-    }
-
-    .footer-brand img {
-      height: 55px;
-      margin-bottom: 1rem;
-      filter: brightness(0) invert(1);
-    }
-
-    .footer-brand p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .site-footer h4 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.6rem;
-    }
-
-    .footer-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      transition: 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: var(--secondary);
-      padding-left: 5px;
-    }
-
-    .footer-contact p {
-      font-size: 0.95rem;
-      margin-bottom: 0.6rem;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .footer-social {
-      margin-top: 1rem;
-      display: flex;
-      gap: 12px;
-    }
-
-    .footer-social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 18px;
-      color: #fff;
-      transition: 0.3s;
-    }
-
-    .footer-social a:hover {
-      background: var(--secondary);
-      transform: translateY(-3px);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.75);
-    }
-       .back-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: var(--surface);
-            color: var(--primary-dark);
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .back-btn:hover {
-            background: var(--primary);
-            color: var(--surface);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(30, 89, 89, 0.3);
-        }
-
+      
         /* ==================== إعدادات الألوان ==================== */
         :root {
             --primary: #1e5959;       /* أخضر زراعي غامق */
@@ -169,168 +58,211 @@
         body.lang-en { font-family: 'Roboto', sans-serif; direction: ltr; }
 
         /* ==================== الهيدر مع الصورة الدائرية الدوارة ==================== */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: 3rem 5%;
-            color: white;
-            position: relative;
-            box-shadow: 0 10px 30px var(--shadow);
-            z-index: 50;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            overflow: hidden;
-            animation: slideDown 0.8s ease-out;
-            transition: background 0.3s;
-        }
+     /* ================= HEADER ================= */
 
-        header::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
-            transition: background 0.3s;
-        }
+header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 2rem 5%;
+    color: white;
+    position: relative;
+    box-shadow: 0 10px 30px var(--shadow);
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
 
-        /* الجزء الأيسر: الصورة */
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            animation: slideInLeft 1s ease-out;
-        }
+/* الشريط السفلي */
+header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+}
 
-        /* === الإطار الخارجي (يدور ببطء) === */
-        .circular-frame {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            padding: 6px; 
-            background: conic-gradient(from 0deg, var(--secondary), var(--accent), var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            animation: rotateOuter 5s linear infinite;
-        }
+/* ================= LEFT ================= */
 
-        /* === الحاوية الداخلية (الصورة) - تدور بسرعة مختلفة === */
-        .header-img-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid var(--primary-dark);
-            background-color: white;
-            animation: rotateInner 10s linear infinite;
-        }
+.header-left {
+    display: flex;
+    align-items: center;
+}
 
-        .header-rect-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            padding: 35px;
-        }
+/* الإطار الدائري */
+.circular-frame {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    padding: 6px;
+    background: conic-gradient(from 0deg, var(--secondary), var(--accent), var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotateOuter 8s linear infinite;
+}
 
-        /* الاسم والتعريف */
-        .header-right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            text-align: right;
-            animation: slideInRight 1s ease-out;
-        }
+.header-img-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--primary-dark);
+    background: white;
+    animation: rotateInner 15s linear infinite;
+}
 
-        .brand-title {
-            font-size: 4rem;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 5px;
-            letter-spacing: -2px;
-        }
+.header-rect-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 25px;
+}
 
-        .farm { color: var(--background); }
-        .tech { color: var(--secondary); }
+/* ================= RIGHT ================= */
 
-        .brand-desc {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.95);
-            max-width: 550px;
-            border-right: 5px solid var(--secondary);
-            padding-right: 20px;
-            background: rgba(255,255,255,0.1);
-            padding: 15px 25px;
-            border-radius: 10px 0 0 10px;
-        }
+.header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    flex: 1;
+}
 
-        .header-tools {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
+.brand-title {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+}
 
-        .search-input {
-            padding: 12px 25px;
-            border-radius: 50px;
-            border: none;
-            width: 280px;
-            font-family: inherit;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-        
-        /* Dark mode specific for search input */
-        [data-theme="dark"] .search-input {
-            background: rgba(0,0,0,0.4);
-            color: white;
-        }
+.farm { color: var(--background); }
+.tech { color: var(--secondary); }
 
-        .search-input:focus {
-            outline: none;
-            background: white;
-            color: var(--primary);
-            width: 320px;
-            box-shadow: 0 0 0 4px var(--secondary);
-        }
+.brand-desc {
+    font-size: 1rem;
+    margin-top: 10px;
+    max-width: 500px;
+    border-right: 4px solid var(--secondary);
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px 0 0 10px;
+}
 
-        /* Shared Button Styles */
-        .control-btn {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid var(--surface);
-            color: var(--background);
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-family: inherit;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+/* ================= TOOLS ================= */
 
-        .control-btn:hover {
-            background: var(--secondary);
-            color: var(--surface);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(230, 126, 58, 0.4);
-        }
+.header-tools {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
 
-        [data-theme="dark"] .control-btn {
-            background: rgba(0,0,0,0.3);
-            border-color: #aaa;
-        }
-        
-        /* Specific adjustment for theme button width */
-        .theme-btn {
-             padding: 12px 20px;
-        }
+/* زر الهوم الجديد */
+.home-btn {
+    background: var(--surface);
+    color: var(--primary-dark);
+    border: 2px solid var(--primary);
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.home-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* البحث */
+.search-input {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    width: 220px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.search-input:focus {
+    outline: none;
+    background: white;
+    color: var(--primary);
+}
+
+/* الأزرار العامة */
+.control-btn {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid var(--surface);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.control-btn:hover {
+    background: var(--secondary);
+}
+
+@media (max-width: 992px) {
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-right {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .circular-frame {
+        width: 140px;
+        height: 140px;
+    }
+
+    .brand-title {
+        font-size: 2.2rem;
+    }
+
+    /* نخلي التولز عمود */
+    .header-tools {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* السيرش فوق */
+    .search-input {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    /* حاوية الأزرار */
+    .header-tools .home-btn,
+    .header-tools #langBtn,
+    .header-tools #themeBtn {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* نلف الأزرار في سطر واحد */
+    .header-tools-buttons {
+        display: flex;
+        width: 100%;
+        max-width: 350px;
+        gap: 10px;
+    }
+}
+
 
         /* ==================== شريط التنقل ==================== */
         .nav-bar {
@@ -599,39 +531,150 @@
             body.lang-en .cart-float { left: 20px; }
         }
     </style>
+    <style>
+   
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+  </style>
 </head>
 <body>
 
-    <!-- الهيدر -->
     <header>
-<button class="back-btn" onclick="handleBack()">←</button>
 
-        <!-- اليسار: الصورة الدائرية -->
-        <div class="header-left">
-            <div class="circular-frame">
-                <div class="header-img-inner">
-                    <img src="smart_farm_no_bg-removebg-preview.png" alt="Zera3a- Tech" class="header-rect-img">
-                </div>
+    <!-- اليسار -->
+    <div class="header-left">
+        <div class="circular-frame">
+            <div class="header-img-inner">
+                <img src="smart_farm_no_bg-removebg-preview.png"
+                     alt="Zera3a-Tech"
+                     class="header-rect-img">
             </div>
         </div>
+    </div>
 
-        <!-- اليمين: الاسم والتعريف -->
-        <div class="header-right">
-            <div class="brand-title">
-                <span class="farm">Zera3a-</span> <span class="tech">Tech</span>
-            </div>
-            <div class="brand-desc" data-key="slogan">منصة ذكية توفر لك أجود محاصيل الأرض من المزرعة لمائدتك بجودة عالية وأسعار مناسبة</div>
-            
-            <div class="header-tools">
-                <input type="text" class="search-input" id="searchInput" placeholder="بحث عن منتج..." data-ph-key="search">
-                <button class="control-btn" id="langBtn">English</button>
-                <!-- زر الوضع الليلي الجديد -->
-                <button class="control-btn theme-btn" id="themeBtn">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-            </div>
+    <!-- اليمين -->
+    <div class="header-right">
+
+        <div class="brand-title">
+            <span class="farm">Zera3a-</span>
+            <span class="tech">Tech</span>
         </div>
-    </header>
+
+        <div class="brand-desc" data-key="slogan">
+            منصة ذكية توفر لك أجود محاصيل الأرض من المزرعة لمائدتك بجودة عالية وأسعار مناسبة
+        </div>
+
+       <div class="header-tools">
+
+    <!-- السيرش فوق -->
+    <input type="text"
+           class="search-input"
+           id="searchInput"
+           placeholder="بحث عن منتج..."
+           data-ph-key="search">
+
+    <!-- الأزرار جنب بعض -->
+    <div class="header-tools-buttons">
+<button class="home-btn" onclick="handleBack()">🏠</button>
+        <button class="control-btn" id="langBtn">EN</button>
+        <button class="control-btn theme-btn" id="themeBtn">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </div>
+
+</div>
+
+    </div>
+
+</header>
+
 
     <!-- شريط التنقل -->
     <nav class="nav-bar">
@@ -935,7 +978,7 @@ window.handleBack = function () {
   onAuthStateChanged(auth, async (user) => {
     // ❌ مش مسجل دخول
     if (!user) {
-      window.location.href = "index.html";
+      window.location.href = "main.html";
       return;
     }
 
@@ -944,7 +987,7 @@ window.handleBack = function () {
       const snap = await getDoc(userRef);
 
       if (!snap.exists()) {
-        window.location.href = "index.html";
+        window.location.href = "main.html";
         return;
       }
 
@@ -965,11 +1008,11 @@ window.handleBack = function () {
       }
 
       // أي حالة تانية
-      window.location.href = "index.html";
+      window.location.href = "main.html";
 
     } catch (error) {
       console.error("Back button error:", error);
-      window.location.href = "index.html";
+      window.location.href = "main.html";
     }
   });
 };
@@ -1025,6 +1068,6 @@ window.handleBack = function () {
     © 2025 Zera3a-Tech. All rights reserved.
   </div>
 </footer>
-</body>
 
+</body>
 </html>
