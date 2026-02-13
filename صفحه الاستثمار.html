@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زراعة-تك | منصة الاستثمار الزراعي والحيواني العربي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar" id="navbar">
+        <div class="logo-area">
+            <div class="logo"><img src="logo-removebg-preview.png" alt="" class="img"></div>
+            <div class="site-name">
+                <div class="site-name-en">Zera3a-Tech</div>
+                <div class="site-name-ar">زراعة-تك</div>
+            </div>
+        </div>
+
+        <div class="nav-content" id="navContent">
+
+
+            <div class="control-buttons">
+                <button class="control-btn home-btn" id="homeBtn" title="العودة للرئيسية">
+                    <i class="fas fa-home"></i>
+                </button>
+
+                <button class="control-btn" id="themeModeBtn" title="الوضع المظلم">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="control-btn" id="languageBtn" title="English">
+                    ع
+                </button>
+            </div>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- زر العودة للأعلى -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- الصفحة الرئيسية المعدلة -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <center>
+                <h1 class="hero-title" data-translate="hero.title">منصة للاستثمار الزراعي والحيواني</h1>
+            </center>
+            <center>
+                <p class="hero-subtitle" data-translate="hero.subtitle">أول منصة عربية تربط ملاك الأراضي الزراعية
+                    بالمستثمرين لتحقيق أعلى عائد من الاستثمار الزراعي والحيواني</p>
+            </center>
+            <center><a href="#categories" class="btn btn-primary browse-btn" data-translate="hero.browse">استعرض
+                    الأقسام</a></center>
+        </div>
+    </section>
+
+    <!-- التصنيفات الرئيسية -->
+    <section id="categories" class="section">
+        <div class="section-bg"></div>
+        <div class="section-pattern"></div>
+        <div class="container">
+            <div class="section-header">
+                <center>
+                    <h2 class="section-title" data-translate="categories.title">التصنيفات الرئيسية</h2>
+                </center>
+                <p class="section-desc" data-translate="categories.desc">اختر التصنيف الذي يناسب اهتماماتك الاستثمارية
+                    وابدأ رحلة الاستثمار الزراعي الناجحة</p>
+            </div>
+
+            <div class="categories-grid">
+                <!-- قسم الزراعة -->
+                <div class="category-card" id="agriculture-card">
+                    <div class="category-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="category-title" data-translate="categories.agriculture.title">الزراعة</h3>
+                    <p class="category-desc" data-translate="categories.agriculture.desc">جميع الخدمات والأقسام المتعلقة
+                        بالزراعة والمحاصيل والأراضي والاستثمار الزراعي بكافة أنواعه</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label" data-translate="categories.stats.subsections">أقسام فرعية</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label" data-translate="categories.stats.success">نسبة النجاح</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">35%</span>
+                            <span class="stat-label" data-translate="categories.stats.return">العائد السنوي</span>
+                        </div>
+                    </div>
+                    <center><button class="btn btn-primary view-agriculture-btn"
+                            onclick="scrollToSection('agriculture')" style="margin-top: 1rem;"
+                            data-translate="categories.view.agriculture">استعرض الزراعة</button></center>
+                </div>
+
+                <!-- قسم الثروة الحيوانية -->
+                <div class="category-card" id="livestock-card">
+                    <div class="category-icon">
+                        <i class="fas fa-cow"></i>
+                    </div>
+                    <h3 class="category-title" data-translate="categories.livestock.title">الثروة الحيوانية</h3>
+                    <p class="category-desc" data-translate="categories.livestock.desc">جميع الخدمات والأقسام المتعلقة
+                        بالثروة الحيوانية والمواشي والدواجن والاستثمار الحيواني بكافة أنواعه</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">7</span>
+                            <span class="stat-label" data-translate="categories.stats.subsections">أقسام فرعية</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">92%</span>
+                            <span class="stat-label" data-translate="categories.stats.success">نسبة النجاح</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50%</span>
+                            <span class="stat-label" data-translate="categories.stats.return">العائد السنوي</span>
+                        </div>
+                    </div>
+                    <center> <button class="btn btn-primary view-livestock-btn" onclick="scrollToSection('livestock')"
+                            style="margin-top: 1rem;" data-translate="categories.view.livestock">استعرض الثروة
+                            الحيوانية</button></center>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- أقسام الزراعة المعدلة -->
+    <section id="agriculture" class="section">
+        <div class="section-bg"></div>
+        <div class="section-pattern"></div>
+        <div class="container">
+            <div class="section-header">
+                <center>
+                    <h2 class="section-title" data-translate="agriculture.title">أقسام الزراعة</h2>
+                </center>
+                <p class="section-desc" data-translate="agriculture.desc">اختر القسم الزراعي الذي تريد الاستثمار فيه
+                    واستفد من فرص الاستثمار المربحة</p>
+            </div>
+
+            <div class="sections-container">
+                <!-- الاستثمار الزراعي -->
+                <div class="section-item" data-subsection="agricultural-investment">
+                    <div class="item-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 data-translate="agriculture.investment">الاستثمار الزراعي</h4>
+                    <p data-translate="agriculture.investment.desc">ربط الفلاحين بالمستثمرين في مشاريع زراعية متنوعة</p>
+                    <button class="btn btn-primary invest-btn"
+                        onclick="showSubsectionDetails('agricultural-investment')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- المحاصيل -->
+                <div class="section-item" data-subsection="crops">
+                    <div class="item-icon">
+                        <i class="fas fa-wheat-awn"></i>
+                    </div>
+                    <h4 data-translate="agriculture.crops">المحاصيل الزراعية</h4>
+                    <p data-translate="agriculture.crops.desc">المحاصيل الحقلية والخضر والفواكه بأنواعها المختلفة</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('crops')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- المعدات -->
+                <div class="section-item" data-subsection="equipment">
+                    <div class="item-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <h4 data-translate="agriculture.equipment">المعدات الزراعية</h4>
+                    <p data-translate="agriculture.equipment.desc">الجرارات، المحاريث، ماكينات الرش والحصاد</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('equipment')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الري -->
+                <div class="section-item" data-subsection="irrigation">
+                    <div class="item-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h4 data-translate="agriculture.irrigation">أنظمة الري</h4>
+                    <p data-translate="agriculture.irrigation.desc">أنظمة الري الحديثة والتنقيط والرش</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('irrigation')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- البيوت المحمية -->
+                <div class="section-item" data-subsection="greenhouses">
+                    <div class="item-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4 data-translate="agriculture.greenhouses">البيوت المحمية</h4>
+                    <p data-translate="agriculture.greenhouses.desc">الصوبات الزراعية والبيوت البلاستيكية</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('greenhouses')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الزراعة العضوية -->
+                <div class="section-item" data-subsection="organic">
+                    <div class="item-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4 data-translate="agriculture.organic">الزراعة العضوية</h4>
+                    <p data-translate="agriculture.organic.desc">الزراعة بدون كيماويات ومنتجات عضوية</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('organic')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الزراعة المائية -->
+                <div class="section-item" data-subsection="hydroponics">
+                    <div class="item-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h4 data-translate="agriculture.hydroponics">الزراعة المائية</h4>
+                    <p data-translate="agriculture.hydroponics.desc">الزراعة بدون تربة باستخدام المحاليل المغذية</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('hydroponics')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الزراعة الذكية -->
+                <div class="section-item" data-subsection="smart-agriculture">
+                    <div class="item-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4 data-translate="agriculture.smart">الزراعة الذكية</h4>
+                    <p data-translate="agriculture.smart.desc">استخدام التكنولوجيا في الزراعة والتحكم الذكي</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('smart-agriculture')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- إيجار الأرض الزراعية -->
+                <div class="section-item" data-subsection="land-rental">
+                    <div class="item-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h4 data-translate="agriculture.landRental">إيجار الأرض الزراعية</h4>
+                    <p data-translate="agriculture.landRental.desc">إيجار الأراضي الزراعية للزراعة الموسمية أو الطويلة
+                        الأمد</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('land-rental')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- بيع الأرض الزراعية -->
+                <div class="section-item" data-subsection="land-sale">
+                    <div class="item-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h4 data-translate="agriculture.landSale">بيع الأرض الزراعية</h4>
+                    <p data-translate="agriculture.landSale.desc">بيع وشراء الأراضي الزراعية بجميع مساحاتها وأنواعها</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('land-sale')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+            </div>
+
+            <!-- قسم تفاصيل الزراعة -->
+            <div id="agriculture-details" class="subsection-details compact-subsection"></div>
+        </div>
+    </section>
+
+    <!-- أقسام الثروة الحيوانية المعدلة -->
+    <section id="livestock" class="section">
+        <div class="section-bg"></div>
+        <div class="section-pattern"></div>
+        <div class="container">
+            <div class="section-header">
+                <center>
+                    <h2 class="section-title" data-translate="livestock.title">أقسام الثروة الحيوانية</h2>
+                </center>
+                <center>
+                    <p class="section-desc" data-translate="livestock.desc">اختر القسم الحيواني الذي تريد الاستثمار فيه
+                        واحصل على عوائد مضمونة</p>
+                </center>
+            </div>
+
+            <div class="sections-container">
+                <!-- المواشي الكبيرة -->
+                <div class="section-item" data-subsection="large-livestock">
+                    <div class="item-icon">
+                        <i class="fas fa-horse-head"></i>
+                    </div>
+                    <h4 data-translate="livestock.large">المواشي الكبيرة</h4>
+                    <p data-translate="livestock.large.desc">تربية وتسمين الأبقار، الإبل، والخيول</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('large-livestock')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الأغنام والماعز -->
+                <div class="section-item" data-subsection="sheep-goats">
+                    <div class="item-icon">
+                        <i class="fa-solid fa-hippo"></i>
+                    </div>
+                    <h4 data-translate="livestock.sheep">الأغنام والماعز</h4>
+                    <p data-translate="livestock.sheep.desc">تربية الأغنام والماعز لإنتاج اللحوم والصوف والحليب</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('sheep-goats')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الدواجن -->
+                <div class="section-item" data-subsection="poultry">
+                    <div class="item-icon">
+                        <i class="fas fa-kiwi-bird"></i>
+                    </div>
+                    <h4 data-translate="livestock.poultry">الدواجن</h4>
+                    <p data-translate="livestock.poultry.desc">مشاريع تربية الدواجن لإنتاج اللحوم والبيض</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('poultry')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الأسماك -->
+                <div class="section-item" data-subsection="fish-farming">
+                    <div class="item-icon">
+                        <i class="fas fa-fish-fins"></i>
+                    </div>
+                    <h4 data-translate="livestock.fish">تربية الأسماك</h4>
+                    <p data-translate="livestock.fish.desc">مشاريع تربية الأسماك في المزارع السمكية</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('fish-farming')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- النحل -->
+                <div class="section-item" data-subsection="beekeeping">
+                    <div class="item-icon">
+                        <i class="fa-solid fa-spider"></i>
+                    </div>
+                    <h4 data-translate="livestock.bees">تربية النحل</h4>
+                    <p data-translate="livestock.bees.desc">مشاريع تربية النحل لإنتاج العسل والشمع</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('beekeeping')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- الحيوانات الصغيرة -->
+                <div class="section-item" data-subsection="small-animals">
+                    <div class="item-icon">
+                        <i class="fa-solid fa-cat"></i>
+                    </div>
+                    <h4 data-translate="livestock.small">الحيوانات الصغيرة</h4>
+                    <p data-translate="livestock.small.desc">تربية الأرانب والطيور والحيوانات الصغيرة</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('small-animals')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+
+                <!-- إيجار الحظائر -->
+                <div class="section-item" data-subsection="barn-rental">
+                    <div class="item-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h4 data-translate="livestock.barnRental">إيجار الحظائر</h4>
+                    <p data-translate="livestock.barnRental.desc">إيجار الحظائر والمزارع الحيوانية الجاهزة للتربية</p>
+                    <button class="btn btn-primary invest-btn" onclick="showSubsectionDetails('barn-rental')"
+                        style="padding: 0.8rem 1.5rem; font-size: 0.9rem;" data-translate="agriculture.view.details">عرض
+                        التفاصيل</button>
+                </div>
+            </div>
+
+            <!-- قسم تفاصيل الثروة الحيوانية -->
+            <div id="livestock-details" class="subsection-details compact-subsection"></div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div class="footer-logo-img"><img src="logo-removebg-preview.png" alt="" class="img"></div>
+                    <div class="footer-logo-text">
+                        <span class="footer-logo-ar">زراعة-تك</span>
+                        <span class="footer-logo-en">Zera3a-Tech</span>
+                    </div>
+                </div>
+                <p class="footer-about-text" style="color: #ddd; line-height: 1.7; margin-top: 1rem;"
+                    data-translate="footer.about">منصة عربية رائدة لربط ملاك الأراضي والمستثمرين في المجال الزراعي
+                    والحيواني لتحقيق أعلى العوائد.</p>
+            </div>
+
+            <div class="footer-links">
+                <h5 class="footer-title" data-translate="footer.main">الأقسام الرئيسية</h5>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="nav.home">الرئيسية</span></a></li>
+                    <li><a href="#categories"><i class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="nav.categories">التصنيفات</span></a></li>
+                    <li><a href="#agriculture"><i class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="nav.agriculture">الزراعة</span></a></li>
+                    <li><a href="#livestock"><i class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="nav.livestock">الثروة الحيوانية</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h5 class="footer-title" data-translate="footer.quick">روابط سريعة</h5>
+                <ul>
+                    <li><a href="#" onclick="showSubsectionDetails('agricultural-investment'); return false;"><i
+                                class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="agriculture.investment">الاستثمار الزراعي</span></a></li>
+                    <li><a href="#" onclick="showSubsectionDetails('land-rental'); return false;"><i
+                                class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="agriculture.landRental">إيجار الأرض الزراعية</span></a></li>
+                    <li><a href="#" onclick="showSubsectionDetails('barn-rental'); return false;"><i
+                                class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="livestock.barnRental">إيجار الحظائر</span></a></li>
+                    <li><a href="#" onclick="showSubsectionDetails('poultry'); return false;"><i
+                                class="fas fa-chevron-left"></i> <span class="footer-link-text"
+                                data-translate="livestock.poultry">الدواجن</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h5 class="footer-title" data-translate="footer.info">معلومات الاتصال</h5>
+                <ul>
+                    <li><a href="tel:+201001234567"><i class="fas fa-phone"></i> <span class="footer-link-text">+20 100
+                                123 4567</span></a></li>
+                    <li><a href="mailto:info@zera3a-tech.com"><i class="fas fa-envelope"></i> <span
+                                class="footer-link-text">info@zera3a-tech.com</span></a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> <span class="footer-link-text">القاهرة،
+                                مصر</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p class="copyright-text" data-translate="footer.copyright">جميع الحقوق محفوظة © 2023 زراعة-تك | منصة
+                الاستثمار الزراعي والحيواني العربي</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script type="module">
+/* ================= Firebase ================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* Firebase config */
+const firebaseConfig = {
+  apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+  authDomain: "smart-farm-8d3f5.firebaseapp.com",
+  projectId: "smart-farm-8d3f5",
+  storageBucket: "smart-farm-8d3f5.appspot.com",
+  messagingSenderId: "317371842198",
+  appId: "1:317371842198:web:4765ea8c0036ae64b10cb7",
+};
+
+/* Init */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* ================= Page Guard ================= */
+// حماية الصفحة: المستثمر فقط
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "./signinsignup/signin.html";
+    return;
+  }
+
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+
+  if (!snap.exists() || snap.data().role !== "investor") {
+    alert("غير مسموح لك بدخول الصفحة");
+    window.location.href = "./signinsignup/signin.html";
+  }
+});
+
+/* ================= Home Button ================= */
+const homeBtn = document.getElementById("homeBtn");
+
+homeBtn.addEventListener("click", async () => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    window.location.href = "./signinsignup/signin.html";
+    return;
+  }
+
+  const snap = await getDoc(doc(db, "users", user.uid));
+  const role = snap.data().role;
+
+  switch (role) {
+    case "investor":
+      window.location.href = "../investor.html";
+      break;
+    case "farmer":
+      window.location.href = "../farmer-ar.html";
+      break;
+    case "worker":
+      window.location.href = "../worker.html";
+      break;
+  }
+});
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroHire | منصة الزراعة الذكية</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        :root {
+            --agro-teal: #0F4C5C;
+            --agro-sand: #E6D5B8;
+            --agro-orange: #E07A5F;
+            --agro-offwhite: #FAF9F6;
+
+            --agro-primary: var(--agro-teal);
+            --agro-dark: var(--agro-teal);
+            --agro-bg: var(--agro-offwhite);
+            --agro-accent: var(--agro-orange);
+            --agro-card: #ffffff;
+            --agro-text: var(--agro-teal);
+            --agro-text-muted: #71717a;
+        }
+
+        html.dark {
+            --agro-bg: #0A0F12;
+            --agro-dark: #ffffff;
+            --agro-card: #121A1E;
+            --agro-text: #E2E8F0;
+            --agro-text-muted: #94a3b8;
+            --agro-sand: #2A2F33;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--agro-bg);
+            color: var(--agro-text);
+            margin: 0;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.hidden {
+            display: none;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--agro-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(224, 122, 95, 0.1);
+            border-top: 8px solid #E07A5F;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .bg-agro-bg {
+            background-color: var(--agro-bg);
+        }
+
+        .bg-agro-card {
+            background-color: var(--agro-card);
+        }
+
+        .text-agro-dark {
+            color: var(--agro-dark);
+        }
+
+        .text-agro-text {
+            color: var(--agro-text);
+        }
+
+        .text-agro-text-muted {
+            color: var(--agro-text-muted);
+        }
+
+        .border-agro-border {
+            border-color: rgba(128, 128, 128, 0.1);
+        }
+
+        .serif-font {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--agro-teal);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="hidden">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="spinner"></div>
+        <p class="text-2xl font-black text-[#E07A5F] animate-pulse">AgroHire</p>
+        <p class="text-sm font-bold text-agro-text-muted mt-4">جاري التحقق من الصلاحيات...</p>
+    </div>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- Mock Data Generator (نفس الكود السابق) ---
+        const generateWorkers = (count = 27) => {
+            const namesAr = [
+                "أحمد محمود", "محمد علي", "محمود حسن", "علي إبراهيم", "سيد عبد الله",
+                "إبراهيم صلاح", "صلاح الدين", "حسن يوسف", "حسين جابر", "عبد الله كمال",
+                "زياد طارق", "ياسر شريف", "خالد وليد", "عمر الفاروق", "طارق يحيى",
+                "سامح نبيل", "هاني رمزي", "مصطفى كامل", "مجدي يعقوب", "رفعت إسماعيل",
+                "كمال الشناوي", "سعيد صالح", "جابر عصفور", "عوض محمد", "فتحي غانم",
+                "شريف منير", "عزت أبو عوف"
+            ];
+
+            const namesEn = [
+                "Ahmed Mahmoud", "Mohamed Ali", "Mahmoud Hassan", "Ali Ibrahim", "Sayed Abdullah",
+                "Ibrahim Salah", "Salah El-Din", "Hassan Youssef", "Hussein Gaber", "Abdullah Kamal",
+                "Ziad Tarek", "Yasser Sherif", "Khaled Walid", "Omar El-Farouk", "Tarek Yehia",
+                "Sameh Nabil", "Hany Ramzy", "Mustafa Kamel", "Magdy Yacoub", "Refaat Ismail",
+                "Kamal El-Shennawy", "Said Saleh", "Gaber Asfour", "Awad Mohamed", "Fathy Ghanem",
+                "Sherif Mounir", "Ezzat Abu Auf"
+            ];
+
+            const regionsAr = ["الجيزة", "أسيوط", "المنوفية", "الدقهلية", "البحيرة", "الفيوم", "سوهاج", "الإسماعيلية", "الأقصر", "القليوبية"];
+            const regionsEn = ["Giza", "Asyut", "Monofiya", "Dakahlia", "Beheira", "Fayoum", "Sohag", "Ismailia", "Luxor", "Qalyubia"];
+
+            const jobs = ["سائق جرار", "خبير ري", "حصاد محاصيل", "فني صوبات", "مشرف ميداني", "صيانة معدات", "خبير وقاية نبات", "فني لاندسكيب"];
+            const jobsEn = ["Tractor Driver", "Irrigation Expert", "Harvest Specialist", "Greenhouse Tech", "Field Supervisor", "Equipment Maint.", "Plant Protection", "Landscape Tech"];
+            const skillsList = [["حرث", "ري حديث"], ["حصاد", "تعبئة"], ["تسميد", "وقاية"], ["تصريف", "تقليم"], ["توجيه", "إشراف"], ["تشخيص أمراض", "مكافحة"]];
+            const skillsEn = [["Plowing", "Modern Irrigation"], ["Harvest", "Packing"], ["Fertilizing", "Protection"], ["Drainage", "Pruning"], ["Leadership", "Oversight"], ["Diagnosis", "Control"]];
+
+            const biosAr = [
+                "خبير في التعامل مع المحاصيل الاستراتيجية وإدارة فرق الحصاد الكبرى بكفاءة عالية.",
+                "متخصص في أنظمة الري الحديثة وصيانة الشبكات لضمان أقصى كفاءة مائية للمزرعة.",
+                "فني محترف في تجهيز الصوبات الزراعية وحماية المحاصيل من الآفات الموسمية.",
+                "مشرف ميداني ذو خبرة واسعة في تخطيط المهام اليومية ومتابعة معايير الجودة.",
+                "سائق محترف للمعدات الثقيلة مع دراية تامة بأساليب الحرث العميق وتجهيز التربة.",
+                "خبير في برامج التسميد العضوي والكيماوي لزيادة إنتاجية الفدان بطرق آمنة."
+            ];
+
+            const biosEn = [
+                "Expert in handling strategic crops and efficiently managing large harvest teams.",
+                "Specialist in modern irrigation systems and network maintenance for maximum water efficiency.",
+                "Professional technician in greenhouse preparation and seasonal pest protection.",
+                "Field supervisor with extensive experience in planning tasks and quality monitoring.",
+                "Professional heavy equipment driver with full knowledge of deep plowing methods.",
+                "Expert in organic and chemical fertilization programs to increase safe productivity."
+            ];
+
+            return Array.from({ length: count }, (_, i) => {
+                const jobIdx = i % jobs.length;
+                const regionIdx = i % regionsAr.length;
+                const skillIdx = i % skillsList.length;
+                const bioIdx = i % biosAr.length;
+                const nameIdx = i % namesAr.length;
+                const price = 250 + ((i % 10) * 20);
+
+                return {
+                    id: i + 1,
+                    name: namesAr[nameIdx],
+                    nameEn: namesEn[nameIdx],
+                    job: jobs[jobIdx],
+                    jobEn: jobsEn[jobIdx],
+                    rating: 4.5 + (Math.random() * 0.5),
+                    reviews: 10 + Math.floor(Math.random() * 120),
+                    price: price,
+                    location: regionsAr[regionIdx],
+                    locationEn: regionsEn[regionIdx],
+                    img: [
+                        "https://i.pinimg.com/1200x/6a/d1/57/6ad157c8278e090a7151341adc8eaaa6.jpg",
+                        "https://i.pinimg.com/736x/52/43/2b/52432bd24fcb9087ce0c392320f067a5.jpg",
+                        "https://i.pinimg.com/1200x/2c/e3/98/2ce398b6e5a2999258f2327bbbb72a73.jpg",
+                        "https://i.pinimg.com/736x/a6/80/74/a68074a753c3549cd8050bd1811063ba.jpg",
+                        "https://i.pinimg.com/1200x/01/c4/3b/01c43bbb39cf74d24c9190d4832a080c.jpg",
+                        "https://i.pinimg.com/736x/58/80/94/5880947a46b1bc24324af9b70ff77900.jpg",
+                        "https://i.pinimg.com/1200x/55/06/62/55066253d0d056c690cfb49f4f91ff82.jpg",
+                        "https://i.pinimg.com/736x/50/1d/f1/501df15ed64623ab3b8054eb2b9bb0d0.jpg",
+                        "https://i.pinimg.com/736x/67/d4/73/67d473ac5acd3069d909813c79d55942.jpg",
+                    ][i % 9],
+                    isVip: i % 5 === 0,
+                    experience: 3 + (i % 12),
+                    completionRate: 90 + (i % 10),
+                    skills: skillsList[skillIdx],
+                    skillsEn: skillsEn[skillIdx],
+                    isVerified: true,
+                    projectsCount: 20 + (i * 3),
+                    isAvailable: i % 4 !== 0,
+                    bio: biosAr[bioIdx],
+                    bioEn: biosEn[bioIdx]
+                };
+            });
+        };
+
+        const workersData = generateWorkers(27);
+
+        // --- Components ---
+
+        const TreeSilhouette = () => {
+            return (
+                <div className="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none z-0">
+                    <svg viewBox="0 0 1440 400" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-[300px] opacity-20">
+                        <path fill="#0F4C5C" opacity="0.2" d="M0,400 L0,320 C100,280 200,340 300,300 S500,260 650,320 S850,240 1000,310 S1250,280 1440,330 L1440,400 Z" />
+                        <path fill="#5DAE66" opacity="0.1" d="M0,400 L0,360 Q50,320 100,350 T200,330 T300,360 T400,310 T500,360 T600,300 T700,370 T800,310 T900,380 T1000,320 T1100,370 T1200,300 T1300,375 T1440,340 L1440,400 Z" />
+                    </svg>
+                </div>
+            );
+        };
+
+        const Footer = ({ lang }) => {
+            return (
+                <footer className="mt-auto py-16 px-8 bg-agro-card border-t border-gray-100 dark:border-white/5 transition-colors duration-300">
+                    <div className={`max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                        <div className={`flex items-center gap-4 ${lang === 'en' ? 'flex-row-reverse' : ''}`}>
+                            <div className="w-12 h-12 bg-[#5DAE66] rounded-2xl flex items-center justify-center shadow-lg">
+                                <i className="fas fa-leaf text-white text-xl"></i>
+                            </div>
+                            <span className="text-2xl font-black tracking-tighter serif-font text-agro-dark">AgroHire</span>
+                        </div>
+                        <div className="flex gap-4">
+                            {['facebook', 'instagram', 'linkedin', 'twitter'].map(i => (
+                                <a key={i} href="#" className="w-12 h-12 rounded-2xl bg-agro-bg flex items-center justify-center text-agro-text-muted hover:text-[#E07A5F] hover:bg-white dark:hover:bg-white/10 transition-all shadow-sm">
+                                    <i className={`fab fa-${i} text-lg`}></i>
+                                </a>
+                            ))}
+                        </div>
+                        <div className="text-[11px] font-black uppercase tracking-[0.4em] text-agro-text-muted">
+                            <p>{lang === 'ar' ? '© 2024 AGROHIRE. جميع الحقوق محفوظة.' : '© 2024 AGROHIRE. ALL RIGHTS RESERVED.'}</p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        const Header = ({ activePage, onPageChange, isDarkMode, toggleDarkMode, lang, toggleLanguage }) => {
+            const labels = {
+                ar: { home: 'الرئيسية', backHome: 'العودة للرئيسية' },
+                en: { home: 'Home', backHome: 'Back to Home' }
+            };
+            const t = labels[lang];
+
+            // ✅ تعديل زر العودة للرئيسية حسب الـ Role
+            const handleBackToHome = () => {
+                // ✅ إذا كان المستخدم فلاح، يروح لصفحة الفلاح
+                if (window.userRole === 'farmer') {
+                    window.location.href = '../farmer-ar.html';
+                }
+                // ✅ إذا كان مستثمر أو أي دور آخر، يروح للصفحة الرئيسية
+                else {
+                    onPageChange('home');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+
+            return (
+                <header className="fixed top-0 w-full z-[100] px-6 md:px-12 py-6 pointer-events-none">
+                    <div className={`max-w-screen-2xl mx-auto flex items-center justify-between pointer-events-auto ${lang === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                        <div className={`flex items-center gap-3 ${lang === 'en' ? 'flex-row' : 'flex-row-reverse'}`}>
+                            <button onClick={toggleLanguage} className="bg-[#0F4C5C] text-white px-6 py-3 rounded-2xl text-[12px] font-black uppercase shadow-2xl hover:bg-[#E07A5F] transition-all flex items-center gap-3 border-2 border-white/20">
+                                <i className="fas fa-globe text-sm"></i>
+                                {lang === 'ar' ? 'English' : 'عربي'}
+                            </button>
+                            <button onClick={toggleDarkMode} className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-2xl border-2 ${isDarkMode ? 'bg-white text-[#0F4C5C] border-[#0F4C5C]/10' : 'bg-[#0F4C5C] text-white border-white/20'} hover:scale-105 active:scale-95`}>
+                                <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} text-lg`}></i>
+                            </button>
+                        </div>
+                        <div className={`flex items-center bg-white/95 dark:bg-black/40 backdrop-blur-xl rounded-[28px] p-1.5 border-2 border-gray-100 dark:border-white/10 shadow-2xl ${lang === 'en' ? 'flex-row-reverse' : 'flex-row'}`}>
+                            <button onClick={handleBackToHome} className={`flex items-center gap-3 px-6 py-3.5 rounded-2xl transition-all group active:scale-95 bg-[#E07A5F] text-white shadow-lg hover:shadow-orange-500/30 ${lang === 'ar' ? 'ml-2' : 'mr-2'}`}>
+                                <i className="fas fa-home transition-transform group-hover:-translate-y-0.5"></i>
+                                <span className="text-[11px] font-black uppercase tracking-wider">{t.backHome}</span>
+                            </button>
+                            <div className={`flex items-center gap-3 cursor-pointer group px-4 py-2 rounded-2xl ${lang === 'en' ? 'flex-row-reverse' : 'flex-row'}`} onClick={handleBackToHome}>
+                                <span className="text-xl md:text-2xl font-black tracking-tighter text-[#0F4C5C] dark:text-white serif-font">Zera3a<span className="text-[#E07A5F]">Tech</span></span>
+                                <div className="w-9 h-9 bg-[#E07A5F] rounded-xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform">
+                                    <i className="fas fa-leaf text-white text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            );
+        };
+
+        const Hero = ({ lang, onPageChange }) => {
+            const content = {
+                ar: { badge: "ثورة تقنيات الزراعة الذكية", title: "طور مزرعتك بسهولة ", titleSpan: "وكفاءة", sub: "اعثر على أفضل الخدمات والعمال الزراعيين لتنمية مزرعتك وحل المشكلات الميدانية بأمان تام" },
+                en: { badge: "Smart Farming Tech Revolution", title: "Develop Your Farm with Ease ", titleSpan: "& Efficiency", sub: "Find the best agricultural services and elite workers to grow your farm and solve field issues safely" }
+            };
+            const t = content[lang];
+
+            return (
+                <section className="relative min-h-[95vh] flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
+                    <div className="absolute inset-0 z-0">
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover brightness-[0.5]" alt="Wheat Field" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#FAF9F6] dark:to-[#0A0F12]"></div>
+                    </div>
+                    <div className="relative z-10 w-full max-w-6xl text-center text-white space-y-12 animate-fade-in">
+                        <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20">
+                            <span className="w-2 h-2 rounded-full bg-[#E07A5F]"></span>
+                            <p className="text-[11px] font-black text-white/90 tracking-wider uppercase">{t.badge}</p>
+                        </div>
+                        <div className="space-y-6">
+                            <h1 className="text-6xl md:text-8xl font-black leading-tight drop-shadow-2xl tracking-tighter">{t.title} <span className="text-[#E07A5F]">{t.titleSpan}</span></h1>
+                            <p className="text-lg md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-bold">{t.sub}</p>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Stats = ({ lang }) => {
+            const stats = [
+                { num: '5,000+', ar: 'فدان تحت الإدارة', en: 'Acres Managed', icon: 'fa-vector-square' },
+                { num: '850+', ar: 'عامل معتمد', en: 'Certified Workers', icon: 'fa-user-check' },
+                { num: '120+', ar: 'مزرعة نشطة', en: 'Active Farms', icon: 'fa-tractor' },
+                { num: '15+', ar: 'سنة خبرة ميدانية', en: 'Years Experience', icon: 'fa-award' }
+            ];
+            return (
+                <section className="bg-[#0F4C5C] py-20 px-10 relative z-10 mx-6 md:mx-12 rounded-[56px] shadow-2xl border border-white/5 mt-10">
+                    <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-12 text-center relative z-10">
+                        {stats.map((s, idx) => (
+                            <div key={idx} className="relative group">
+                                <div className="mb-6 inline-flex items-center justify-center w-16 h-16 bg-white/5 rounded-[24px] text-[#E07A5F] text-2xl group-hover:scale-110 group-hover:bg-[#E07A5F] group-hover:text-white transition-all duration-500 shadow-xl border border-white/5">
+                                    <i className={`fas ${s.icon}`}></i>
+                                </div>
+                                <p className="text-4xl md:text-6xl font-black text-white mb-3 serif-font tracking-tighter drop-shadow-lg">{s.num}</p>
+                                <p className="text-[#E6D5B8] text-[11px] font-black uppercase tracking-[0.2em] opacity-60">{lang === 'ar' ? s.ar : s.en}</p>
+                                {idx < stats.length - 1 && <div className={`hidden lg:block absolute top-1/2 ${lang === 'ar' ? '-left-6' : '-right-6'} w-px h-12 bg-white/10 -translate-y-1/2`}></div>}
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        };
+
+        const WorkerGrid = ({ limit, title, onHireWorker, lang }) => {
+            const [activeCategory, setActiveCategory] = React.useState('all');
+            const jobsAr = ["سائق جرار", "خبير ري", "حصاد محاصيل", "فني صوبات", "مشرف ميداني", "صيانة معدات", "خبير وقاية نبات", "فني لاندسكيب"];
+            const jobsEn = ["Tractor Driver", "Irrigation Expert", "Harvest Specialist", "Greenhouse Tech", "Field Supervisor", "Equipment Maint.", "Plant Protection", "Landscape Tech"];
+            const categories = lang === 'ar' ? [{ id: 'all', label: 'الكل' }, ...jobsAr.map(j => ({ id: j, label: j }))] : [{ id: 'all', label: 'All' }, ...jobsEn.map(j => ({ id: j, label: j }))];
+
+            const filteredByCategory = activeCategory === 'all' ? workersData : workersData.filter(w => (lang === 'ar' ? w.job : w.jobEn) === activeCategory);
+            const displayedWorkers = limit ? filteredByCategory.slice(0, limit) : filteredByCategory;
+
+            const labels = {
+                ar: { hire: "توظيف", chat: "دردشة", perDay: "جنية / يوم", available: "متاح الآن", busy: "في مهمة حالياً", bio: "نبذة عن الكادر:", noResults: "لا يوجد عمال متاحين في هذا التخصص حالياً" },
+                en: { hire: "Hire", chat: "Chat", perDay: "LE / Day", available: "Available Now", busy: "In Mission", bio: "About Specialist:", noResults: "No workers available in this category yet" }
+            };
+            const t = labels[lang];
+
+            return (
+                <section className="py-24 px-6 max-w-7xl mx-auto bg-agro-bg transition-colors duration-300">
+                    <div className={`flex flex-col items-center justify-center mb-16 gap-10 text-center`}>
+                        <div className="space-y-4">
+                            <h2 className="text-4xl md:text-5xl font-black text-agro-dark tracking-tight leading-tight">{title}</h2>
+                        </div>
+                        {!limit && (
+                            <div className="flex flex-wrap items-center justify-center gap-3 w-full max-w-5xl animate-fade-in">
+                                {categories.map((cat) => (
+                                    <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`px-6 py-3 rounded-2xl text-[11px] font-black uppercase tracking-wider transition-all duration-300 border shadow-sm ${activeCategory === cat.id ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-lg scale-105' : 'bg-agro-card text-agro-text-muted border-gray-100 dark:border-white/5 hover:border-[#E07A5F] hover:text-[#E07A5F] hover:shadow-md'}`}>
+                                        {cat.label}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    {displayedWorkers.length === 0 ? (
+                        <div className="py-32 text-center bg-agro-card rounded-[48px] border border-dashed border-gray-200 dark:border-white/10">
+                            <i className="fas fa-user-slash text-gray-200 dark:text-white/5 text-8xl mb-6 block"></i>
+                            <p className="text-xl font-bold text-agro-text-muted">{t.noResults}</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                            {displayedWorkers.map((m) => (
+                                <div key={m.id} className="bg-agro-card rounded-[40px] overflow-hidden group shadow-lg hover:shadow-2xl transition-all border border-gray-100 dark:border-white/5 flex flex-col relative animate-fade-in">
+                                    <div className="h-72 overflow-hidden relative">
+                                        <img src={m.img} className="w-full h-full object-cover transition-transform duration-700 brightness-95 group-hover:brightness-100" alt={m.name} />
+                                        <div className={`absolute top-6 ${lang === 'ar' ? 'right-6' : 'left-6'} flex flex-col gap-2`}>
+                                            {m.isVip && <div className="bg-[#E07A5F] text-white px-4 py-1.5 rounded-2xl text-[10px] font-black shadow-xl">EXPERT VIP</div>}
+                                            <div className={`px-4 py-1.5 rounded-2xl text-[10px] font-black shadow-xl ${m.isAvailable ? 'bg-[#5DAE66] text-white' : 'bg-gray-500 text-white'}`}>{m.isAvailable ? t.available : t.busy}</div>
+                                        </div>
+                                    </div>
+                                    <div className={`p-10 flex-grow flex flex-col ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div>
+                                                <h4 className="text-[#E07A5F] text-[10px] font-black uppercase tracking-[0.3em] mb-1">{lang === 'ar' ? m.job : m.jobEn}</h4>
+                                                <h3 className="text-2xl font-black text-agro-dark group-hover:text-[#E07A5F] transition-colors leading-tight">{lang === 'ar' ? m.name : m.nameEn}</h3>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-2xl font-black text-agro-dark serif-font">{m.price}</p>
+                                                <p className="text-[9px] text-agro-text-muted font-black uppercase">{t.perDay}</p>
+                                            </div>
+                                        </div>
+                                        <div className="mb-6">
+                                            <p className="text-[9px] font-black text-agro-text-muted uppercase tracking-widest mb-1 opacity-60">{t.bio}</p>
+                                            <p className="text-sm font-bold text-agro-dark/80 italic line-clamp-2">"{lang === 'ar' ? m.bio : m.bioEn}"</p>
+                                        </div>
+                                        <div className={`flex flex-wrap gap-4 mb-8 text-xs font-bold text-agro-text-muted border-b border-gray-100 dark:border-white/5 pb-6 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
+                                            <span className="flex items-center gap-2"><i className="fas fa-location-dot text-[#E07A5F]"></i> {lang === 'ar' ? m.location : m.locationEn}</span>
+                                            <span className="flex items-center gap-2"><i className="fas fa-star text-yellow-400"></i> {m.rating.toFixed(1)}</span>
+                                        </div>
+                                        <div className={`flex items-center gap-3 mt-auto ${lang === 'ar' ? 'flex-row' : 'flex-row'}`}>
+                                            <button onClick={() => alert(lang === 'ar' ? 'جاري فتح المحادثة...' : 'Opening chat...')} className="w-14 h-14 bg-agro-bg dark:bg-white/5 text-[#E07A5F] rounded-[22px] flex items-center justify-center hover:bg-[#E07A5F] hover:text-white transition-all shadow-md border border-gray-200 dark:border-white/10 active:scale-90" title={t.chat}>
+                                                <i className="fas fa-comment-dots text-xl"></i>
+                                            </button>
+                                            <button onClick={() => onHireWorker?.(m)} className="flex-grow bg-[#0F4C5C] hover:bg-[#E07A5F] text-white h-14 rounded-[22px] font-black uppercase tracking-widest text-[11px] transition-all shadow-lg flex items-center justify-center gap-2 active:scale-95">
+                                                <i className="fas fa-user-plus"></i> {t.hire}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </section>
+            );
+        };
+
+        const CreateTaskForm = ({ onTaskCreated, initialWorker, lang }) => {
+            const [step, setStep] = React.useState(1);
+            const [loading, setLoading] = React.useState(false);
+            const [isTranslating, setIsTranslating] = React.useState(false);
+            const fileInputRef = React.useRef(null);
+            const dropdownRef = React.useRef(null);
+            const [imagePreview, setImagePreview] = React.useState(null);
+            const [workerSearch, setWorkerSearch] = React.useState('');
+            const [showWorkerDropdown, setShowWorkerDropdown] = React.useState(false);
+            const [errorMsg, setErrorMsg] = React.useState(null);
+            const allWorkers = workersData;
+            const availableWorkers = allWorkers.filter(w => w.isAvailable);
+
+            const [formData, setFormData] = React.useState({
+                title: '', titleEn: '', location: '', locationEn: '', crop: '', cropEn: '',
+                priority: 'Normal', vision: '', visionEn: '', startDate: '', endDate: '',
+                workerCount: 5, budget: 2000, selectedWorkerId: initialWorker?.id || null,
+                selectedEquipment: [], safety: { helmet: true, gloves: true, boots: true, vest: true }
+            });
+
+            React.useEffect(() => {
+                if (initialWorker) {
+                    setWorkerSearch(lang === 'ar' ? initialWorker.name : initialWorker.nameEn);
+                    setFormData(prev => ({ ...prev, selectedWorkerId: initialWorker.id }));
+                }
+            }, [initialWorker, lang]);
+
+            React.useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) setShowWorkerDropdown(false);
+                };
+                document.addEventListener('mousedown', handleClickOutside);
+                return () => document.removeEventListener('mousedown', handleClickOutside);
+            }, []);
+
+            const labels = {
+                ar: {
+                    mainTitle: 'تخطيط مهمة ميدانية', subtitle: 'أدخل البيانات المطلوبة لبدء العمل الميداني',
+                    steps: ['البيانات الأساسية', 'الموارد والجدول', 'التدقيق النهائي'],
+                    taskNameLabel: 'اسم المهمة / العملية', taskNamePlaceholder: 'مثال: حصاد القمح - قطاع 4',
+                    locationLabel: 'الموقع الميداني (المزرعة)', locationPlaceholder: 'اكتب اسم الموقع هنا...',
+                    cropLabel: 'نوع المحصول المستهدف *', cropPlaceholder: 'اختر المحصول...',
+                    priorityLabel: 'درجة الاستعجال', urgent: 'عاجلة جداً', normal: 'مهمة عادية',
+                    visionLabel: 'وصف المهمة / الرؤية التقنية (ذكاء اصطناعي)', visionPlaceholder: 'صف تفاصيل العملية الميدانية هنا...',
+                    addImage: 'أيقونة المهمة', selectWorker: 'قائد الكادر الميداني', workerSearchPlaceholder: 'ابحث عن اسم قائد الفريق...',
+                    startDate: 'تاريخ البدء المتوقع', endDate: 'تاريخ الانتهاء المتوقع', workerCount: 'عدد العمال المطلوب', budget: 'الميزانية المرصودة (جنيه)',
+                    equipmentTitle: 'تجهيز المعدات والآلات', safetyTitle: 'بروتوكول السلامة الميداني',
+                    summaryTitle: 'مراجعة الميزانية والتفاصيل', summaryDesc: 'تأكد من صحة البيانات المالية واللوجستية قبل النشر الميداني',
+                    workerWages: 'أجور طاقم العمل الميداني', equipmentRental: 'تكلفة استخدام المعدات', adminFees: 'تأمين ورسوم إدارية', totalAmount: 'إجمالي الميزانية المعتمدة',
+                    teamLeader: 'قائد الفريق المسؤول', assignedEquip: 'المعدات المخصصة للمهمة', assignedSafety: 'معدات السلامة المعتمدة', noEquip: 'لم يتم اختيار معدات',
+                    submitBtn: 'اعتماد ونشر المهمة', nextBtn: 'حفظ ومتابعة', backBtn: 'رجوع',
+                    crops: ["قمح", "أرز", "قطن", "ذرة", "برسيم", "قصب سكر", "بنجر سكر", "موالح", "مانجو", "عنب", "بطاطس", "طماطم", "بصل", "ثوم", "فاصوليا", "عدس", "كتان", "خيار", "فراولة", "تمور"],
+                    validationError: "يرجى ملء جميع الحقول المطلوبة قبل المتابعة", translating: "جاري ترجمة البيانات آلياً...",
+                    equipmentItems: [{ id: 'tractor', icon: 'fa-tractor', label: 'جرار', labelEn: 'Tractor' }, { id: 'plow', icon: 'fa-vector-square', label: 'محراث', labelEn: 'Plow' }, { id: 'harvester', icon: 'fa-shuttle-space', label: 'حاصدة', labelEn: 'Harvester' }, { id: 'truck', icon: 'fa-truck', label: 'شاحنة', labelEn: 'Truck' }, { id: 'pump', icon: 'fa-faucet', label: 'مضخة', labelEn: 'Pump' }, { id: 'sprayer', icon: 'fa-spray-can', label: 'مرشة', labelEn: 'Sprayer' }],
+                    safetyItems: [{ id: 'helmet', icon: 'fa-hard-hat', label: 'خوذة' }, { id: 'gloves', icon: 'fa-mitten', label: 'قفازات' }, { id: 'boots', icon: 'fa-boot', label: 'حذاء' }, { id: 'vest', icon: 'fa-vest', label: 'سترة' }]
+                },
+                en: {
+                    mainTitle: 'Field Task Planning', subtitle: 'Enter details to start the field operation',
+                    steps: ['Basic Data', 'Resources', 'Verification'],
+                    taskNameLabel: 'Task Name / Operation', taskNamePlaceholder: 'e.g., Grape Harvest - Sector 4',
+                    locationLabel: 'Field Location (Farm)', locationPlaceholder: 'Type location name here...',
+                    cropLabel: 'Target Crop Type *', cropPlaceholder: 'Select crop...',
+                    priorityLabel: 'Priority Level', urgent: 'Urgent', normal: 'Normal',
+                    visionLabel: 'Task Description / AI Technical Vision', visionPlaceholder: 'Describe field goals here...',
+                    addImage: 'Task Icon', selectWorker: 'Team Leader', workerSearchPlaceholder: 'Search leader name...',
+                    startDate: 'Expected Start Date', endDate: 'Expected End Date', workerCount: 'Required Workers Count', budget: 'Allocated Budget (LE)',
+                    equipmentTitle: 'Machinery & Equipment', safetyTitle: 'Safety Protocol',
+                    summaryTitle: 'Budget & Task Review', summaryDesc: 'Verify financial and logistic details before field publishing',
+                    workerWages: 'Field Workforce Wages', equipmentRental: 'Machinery Rental Cost', adminFees: 'Insurance & Admin Fees', totalAmount: 'Total Approved Budget',
+                    teamLeader: 'Assigned Team Leader', assignedEquip: 'Task Assigned Equipment', assignedSafety: 'Approved Safety Gear', noEquip: 'No equipment selected',
+                    submitBtn: 'Authorize & Publish', nextBtn: 'Save & Continue', backBtn: 'Back',
+                    crops: ["Wheat", "Rice", "Cotton", "Maize", "Clover", "Sugar Cane", "Sugar Beet", "Citrus", "Mango", "Grapes", "Potatoes", "Tomatoes", "Onions", "Garlic", "Beans", "Lentils", "Flax", "Cucumber", "Strawberry", "Dates"],
+                    validationError: "Please fill all required fields before continuing", translating: "Auto-translating task data...",
+                    equipmentItems: [{ id: 'tractor', icon: 'fa-tractor', label: 'جرار', labelEn: 'Tractor' }, { id: 'plow', icon: 'fa-vector-square', label: 'محراث', labelEn: 'Plow' }, { id: 'harvester', icon: 'fa-shuttle-space', label: 'حاصدة', labelEn: 'Harvester' }, { id: 'truck', icon: 'fa-truck', label: 'شاحنة', labelEn: 'Truck' }, { id: 'pump', icon: 'fa-faucet', label: 'مضخة', labelEn: 'Pump' }, { id: 'sprayer', icon: 'fa-spray-can', label: 'مرشة', labelEn: 'Sprayer' }],
+                    safetyItems: [{ id: 'helmet', icon: 'fa-hard-hat', label: 'Helmet' }, { id: 'gloves', icon: 'fa-mitten', label: 'Gloves' }, { id: 'boots', icon: 'fa-boot', label: 'Boots' }, { id: 'vest', icon: 'fa-vest', label: 'Vest' }]
+                }
+            };
+
+            const t = labels[lang];
+            const labelStyles = `text-[18px] font-black text-[#E07A5F] uppercase tracking-wider block mb-3 flex items-center gap-3`;
+            const inputStyles = "w-full bg-agro-bg border-2 border-gray-100 dark:border-white/5 rounded-[24px] h-[72px] px-8 focus:ring-[8px] focus:ring-[#E07A5F]/10 focus:border-[#E07A5F] transition-all font-bold text-agro-dark outline-none text-xl placeholder:text-agro-dark/30 shadow-sm";
+
+            const translateData = async () => {
+                setIsTranslating(true);
+                try {
+                    await new Promise(r => setTimeout(r, 1500));
+                    setFormData(prev => ({
+                        ...prev,
+                        titleEn: lang === 'ar' ? prev.title + " (En)" : prev.title,
+                        locationEn: lang === 'ar' ? prev.location + " (En)" : prev.location,
+                        cropEn: lang === 'ar' ? prev.crop + " (En)" : prev.crop,
+                        visionEn: lang === 'ar' ? prev.vision + " (En)" : prev.vision,
+                    }));
+                } catch (error) {
+                    console.error("Translation failed", error);
+                } finally {
+                    setIsTranslating(false);
+                }
+            };
+
+            const validateStep = (currentStep) => {
+                setErrorMsg(null);
+                if (currentStep === 1) {
+                    if (!formData.title || !formData.location || !formData.crop || !formData.selectedWorkerId) {
+                        setErrorMsg(t.validationError);
+                        return false;
+                    }
+                } else if (currentStep === 2) {
+                    if (!formData.startDate || !formData.endDate || formData.budget <= 0) {
+                        setErrorMsg(t.validationError);
+                        return false;
+                    }
+                }
+                return true;
+            };
+
+            const handleNext = async () => {
+                if (validateStep(step)) {
+                    if (step === 1) await translateData();
+                    setStep(prev => Math.min(prev + 1, 3));
+                }
+            };
+
+            const handleBack = () => {
+                setErrorMsg(null);
+                setStep(prev => Math.max(prev - 1, 1));
+            };
+
+            const selectWorker = (w) => {
+                setFormData({ ...formData, selectedWorkerId: w.id });
+                setWorkerSearch(lang === 'ar' ? w.name : w.nameEn);
+                setShowWorkerDropdown(false);
+            };
+
+            const toggleEquipment = (id) => {
+                setFormData(prev => ({ ...prev, selectedEquipment: prev.selectedEquipment.includes(id) ? prev.selectedEquipment.filter(item => item !== id) : [...prev.selectedEquipment, id] }));
+            };
+
+            const toggleSafety = (id) => {
+                setFormData(prev => ({ ...prev, safety: { ...prev.safety, [id]: !prev.safety[id] } }));
+            };
+
+            const WorkerCard = ({ w }) => (
+                <button onClick={() => selectWorker(w)} className={`w-full flex items-center gap-4 p-4 rounded-[20px] hover:bg-agro-bg transition-all group border-b border-gray-50 dark:border-white/5 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                    <img src={w.img} className="w-14 h-14 rounded-xl object-cover ring-2 ring-gray-50 dark:ring-white/5 group-hover:ring-[#E07A5F]" />
+                    <div className={`text-right flex-grow ${lang === 'en' ? 'text-left' : ''}`}>
+                        <p className="font-black text-agro-dark text-lg">{lang === 'ar' ? w.name : w.nameEn}</p>
+                        <p className="text-[10px] font-bold text-agro-text-muted uppercase">{lang === 'ar' ? w.job : w.jobEn}</p>
+                    </div>
+                    <p className="text-sm font-black text-[#E07A5F]">{w.price} LE</p>
+                </button>
+            );
+
+            return (
+                <div className="max-w-6xl mx-auto px-6 py-6 relative">
+                    <div className="text-center mb-16 animate-fade-in">
+                        <h1 className="text-4xl md:text-6xl font-black text-[#E07A5F] mb-3 tracking-tighter">{t.mainTitle}</h1>
+                        <p className="text-lg font-bold text-agro-text-muted">{t.subtitle}</p>
+                    </div>
+                    <div className="bg-agro-card rounded-[48px] shadow-2xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-100 dark:border-white/5 p-8 md:p-16 transition-all duration-300">
+                        {isTranslating && (<div className="fixed inset-0 z-[999] bg-agro-bg/80 backdrop-blur-sm flex items-center justify-center flex-col gap-6"><div className="w-20 h-20 border-8 border-t-[#E07A5F] border-agro-card rounded-full animate-spin"></div><p className="text-2xl font-black text-[#E07A5F] animate-pulse">{t.translating}</p></div>)}
+                        {errorMsg && (<div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl text-center font-bold animate-pulse"><i className="fas fa-circle-exclamation mr-2"></i> {errorMsg}</div>)}
+                        <div className={`flex items-center justify-between mb-20 max-w-2xl mx-auto ${lang === 'ar' ? 'flex-row-reverse' : 'flex-row'}`}>
+                            {[1, 2, 3].map((s) => (
+                                <div key={s} className="flex flex-col items-center gap-3 flex-1 relative">
+                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-black transition-all duration-300 z-10 ${step === s ? 'bg-[#E07A5F] text-white ring-[10px] ring-[#E07A5F]/10 scale-110 shadow-lg' : step > s ? 'bg-[#5DAE66] text-white' : 'bg-agro-bg text-gray-300 dark:text-gray-600'}`}>{step > s ? <i className="fas fa-check"></i> : s}</div>
+                                    <span className={`text-[11px] font-black uppercase tracking-widest ${step === s ? 'text-[#E07A5F]' : 'text-gray-300 dark:text-gray-600'}`}>{t.steps[s - 1]}</span>
+                                    {s < 3 && <div className="absolute top-6 w-full h-[2px] -z-0 bg-agro-bg dark:bg-white/5"></div>}
+                                </div>
+                            ))}
+                        </div>
+                        <div className={`space-y-12 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                            {step === 1 && (
+                                <div className="animate-fade-in space-y-12">
+                                    <div className={`flex flex-col md:flex-row gap-12 items-start ${lang === 'ar' ? 'md:flex-row-reverse' : ''}`}>
+                                        <div className="w-full md:w-1/3 space-y-10">
+                                            <div className="flex flex-col items-center gap-4">
+                                                <div onClick={() => fileInputRef.current?.click()} className="relative group cursor-pointer w-48 h-48 rounded-[40px] border-2 border-dashed border-gray-200 dark:border-white/10 bg-agro-bg flex flex-col items-center justify-center overflow-hidden transition-all hover:border-[#E07A5F] hover:bg-agro-card shadow-sm">
+                                                    {imagePreview ? <img src={imagePreview} className="w-full h-full object-cover" /> : <i className="fas fa-camera text-4xl text-gray-300 dark:text-gray-700"></i>}
+                                                    <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={(e) => { const file = e.target.files?.[0]; if (file) { const reader = new FileReader(); reader.onloadend = () => setImagePreview(reader.result); reader.readAsDataURL(file); } }} />
+                                                </div>
+                                                <p className={`text-[11px] font-black uppercase tracking-widest text-agro-text-muted`}>{t.addImage}</p>
+                                            </div>
+                                            <div className="space-y-3 relative" ref={dropdownRef}>
+                                                <label className={labelStyles}><i className="fas fa-user-circle text-2xl"></i> {t.selectWorker} *</label>
+                                                <div className="relative">
+                                                    <input type="text" className={`w-full bg-agro-bg border-2 rounded-2xl h-[64px] px-6 font-bold text-agro-dark outline-none transition-all text-lg placeholder:text-agro-dark/20 shadow-inner ${errorMsg && !formData.selectedWorkerId ? 'border-red-500/50' : 'border-gray-100 dark:border-white/5 focus:border-[#E07A5F]'}`} placeholder={t.workerSearchPlaceholder} value={workerSearch} onChange={e => { setWorkerSearch(e.target.value); setShowWorkerDropdown(true); }} onFocus={() => setShowWorkerDropdown(true)} />
+                                                    {showWorkerDropdown && (
+                                                        <div className="absolute top-full left-0 right-0 z-[100] mt-3 bg-agro-card border border-gray-100 dark:border-white/10 rounded-[30px] shadow-2xl max-h-[350px] overflow-y-auto p-2 space-y-1 animate-fade-in custom-scrollbar">
+                                                            {availableWorkers.filter(w => (lang === 'ar' ? w.name : w.nameEn).toLowerCase().includes(workerSearch.toLowerCase())).slice(0, 8).map(w => <WorkerCard key={w.id} w={w} />)}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full md:w-2/3 space-y-10">
+                                            <div className="space-y-3"><label className={labelStyles}><i className="fas fa-edit text-xl"></i> {t.taskNameLabel} *</label><input type="text" placeholder={t.taskNamePlaceholder} className={`${inputStyles} ${errorMsg && !formData.title ? 'border-red-500/50' : ''}`} value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} /></div>
+                                            <div className="space-y-3"><label className={labelStyles}><i className="fas fa-map-pin text-xl"></i> {t.locationLabel} *</label><input type="text" placeholder={t.locationPlaceholder} className={`${inputStyles} ${errorMsg && !formData.location ? 'border-red-500/50' : ''}`} value={formData.location} onChange={e => setFormData({ ...formData, location: e.target.value })} /></div>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                                <div className="space-y-3"><label className={labelStyles}><i className="fas fa-leaf text-xl"></i> {t.cropLabel}</label><select className={`${inputStyles} ${errorMsg && !formData.crop ? 'border-red-500/50' : ''}`} value={formData.crop} onChange={e => setFormData({ ...formData, crop: e.target.value })}><option value="">{t.cropPlaceholder}</option>{t.crops.map(c => <option key={c} value={c}>{c}</option>)}</select></div>
+                                                <div className="space-y-3"><label className={labelStyles}><i className="fas fa-bolt text-xl"></i> {t.priorityLabel}</label><div className="flex bg-agro-bg rounded-[24px] border-2 border-gray-100 dark:border-white/5 p-1.5 h-[72px] items-center shadow-inner">{[{ key: 'Normal', label: t.normal }, { key: 'Urgent', label: t.urgent }].map(p => (<button key={p.key} onClick={() => setFormData({ ...formData, priority: p.key })} className={`flex-1 h-full rounded-[18px] text-[12px] font-black uppercase transition-all duration-300 ${formData.priority === p.key ? 'bg-agro-card text-[#E07A5F] shadow-sm' : 'text-agro-text-muted hover:text-agro-dark'}`}>{p.label}</button>))}</div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4"><label className={labelStyles}><i className="fas fa-align-right text-xl"></i> {t.visionLabel}</label><textarea rows={4} className={`${inputStyles} h-auto py-8 resize-none text-xl leading-relaxed custom-scrollbar`} value={formData.vision} onChange={e => setFormData({ ...formData, vision: e.target.value })} placeholder={t.visionPlaceholder} /></div>
+                                </div>
+                            )}
+                            {step === 2 && (
+                                <div className="animate-fade-in space-y-16">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-calendar-day text-xl"></i> {t.startDate} *</label><input type="date" className={`${inputStyles} ${errorMsg && !formData.startDate ? 'border-red-500/50' : ''}`} value={formData.startDate} onChange={e => setFormData({ ...formData, startDate: e.target.value })} /></div>
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-calendar-check text-xl"></i> {t.endDate} *</label><input type="date" className={`${inputStyles} ${errorMsg && !formData.endDate ? 'border-red-500/50' : ''}`} value={formData.endDate} onChange={e => setFormData({ ...formData, endDate: e.target.value })} /></div>
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-users text-xl"></i> {t.workerCount}</label><input type="number" className={inputStyles} value={formData.workerCount} onChange={e => setFormData({ ...formData, workerCount: parseInt(e.target.value) || 0 })} /></div>
+                                        <div className="space-y-3"><label className={labelStyles}><i className="fas fa-coins text-xl"></i> {t.budget} (LE) *</label><input type="number" className={`${inputStyles} ${errorMsg && formData.budget <= 0 ? 'border-red-500/50' : ''}`} value={formData.budget} onChange={e => setFormData({ ...formData, budget: parseInt(e.target.value) || 0 })} /></div>
+                                    </div>
+                                    <div className="space-y-12">
+                                        <div className="bg-agro-bg/60 dark:bg-black/20 rounded-[32px] p-10 border border-gray-100 dark:border-white/5 space-y-8 shadow-inner">
+                                            <label className="text-xl font-black text-agro-text-muted flex items-center gap-4"><i className="fas fa-tools"></i> {t.equipmentTitle}</label>
+                                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">{t.equipmentItems.map((item) => (<button key={item.id} onClick={() => toggleEquipment(item.id)} className={`p-6 rounded-[24px] border-2 transition-all flex flex-col items-center gap-3 group ${formData.selectedEquipment.includes(item.id) ? 'bg-[#E07A5F] border-[#E07A5F] text-white shadow-lg' : 'bg-agro-card border-gray-100 dark:border-white/5 text-gray-300 dark:text-gray-700 hover:border-[#E07A5F] hover:text-[#E07A5F]'}`}><i className={`fas ${item.icon} text-2xl`}></i><span className="text-[10px] font-black uppercase text-center">{item.label}</span></button>))}</div>
+                                        </div>
+                                        <div className="bg-agro-bg/60 dark:bg-black/20 rounded-[32px] p-10 border border-gray-100 dark:border-white/5 space-y-8 shadow-inner">
+                                            <label className="text-xl font-black text-agro-text-muted flex items-center gap-4"><i className="fas fa-user-shield"></i> {t.safetyTitle}</label>
+                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">{t.safetyItems.map((item) => (<button key={item.id} onClick={() => toggleSafety(item.id)} className={`p-6 rounded-[24px] border-2 transition-all flex items-center gap-4 ${formData.safety[item.id] ? 'bg-[#5DAE66] border-[#5DAE66] text-white shadow-md' : 'bg-agro-card border-gray-100 dark:border-white/5 text-gray-400 dark:text-gray-700 hover:border-[#5DAE66] hover:text-[#5DAE66]'}`}><i className={`fas ${item.icon} text-xl`}></i><span className="text-sm font-black uppercase">{item.label}</span></button>))}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {step === 3 && (
+                                <div className="animate-fade-in space-y-12">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                                        <div className="space-y-8">
+                                            <div className="bg-agro-bg dark:bg-black/20 rounded-[40px] p-10 border-2 border-white dark:border-white/5 shadow-sm h-full">
+                                                <div className="flex items-center gap-4 mb-8"><div className="w-12 h-12 bg-[#E07A5F] rounded-2xl flex items-center justify-center text-white shadow-lg"><i className="fas fa-file-invoice"></i></div><h3 className="text-2xl font-black text-agro-dark">{lang === 'ar' ? 'كشف مراجعة المهمة' : 'Mission Audit Review'}</h3></div>
+                                                <div className="space-y-8">
+                                                    <div><p className="text-[11px] font-black text-[#E07A5F] uppercase tracking-[0.3em] mb-2">{t.taskNameLabel}</p><p className="text-3xl font-black text-agro-dark leading-tight">{formData.title || '---'}</p></div>
+                                                    <div className="grid grid-cols-2 gap-8">
+                                                        <div><p className="text-[10px] font-black text-agro-text-muted uppercase tracking-widest mb-1">{t.cropLabel}</p><div className="flex items-center gap-2 font-black text-agro-dark text-lg"><i className="fas fa-leaf text-[#5DAE66]"></i> {formData.crop || '---'}</div></div>
+                                                        <div><p className="text-[10px] font-black text-agro-text-muted uppercase tracking-widest mb-1">{t.teamLeader}</p><div className="flex items-center gap-2 font-black text-agro-dark text-lg"><i className="fas fa-user-shield text-blue-500"></i> {workerSearch || '---'}</div></div>
+                                                    </div>
+                                                    <div className="pt-6 border-t border-gray-200 dark:border-white/5"><p className="text-[11px] font-black text-[#E07A5F] uppercase tracking-[0.3em] mb-4">{t.assignedEquip}</p><div className="flex flex-wrap gap-3">{formData.selectedEquipment.length > 0 ? formData.selectedEquipment.map(id => { const item = t.equipmentItems.find(i => i.id === id); return (<div key={id} className="bg-agro-card px-5 py-3 rounded-2xl flex items-center gap-3 border border-gray-100 dark:border-white/5 shadow-sm"><i className={`fas ${item?.icon} text-[#E07A5F]`}></i><span className="text-sm font-black text-agro-dark">{item?.label}</span></div>); }) : <p className="text-agro-text-muted italic text-sm font-bold">{t.noEquip}</p>}</div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="bg-agro-card rounded-[48px] p-12 border-2 border-[#E07A5F]/10 shadow-2xl shadow-orange-100/20 dark:shadow-black/40 flex flex-col">
+                                            <div className="text-center mb-10"><h3 className="text-3xl font-black text-agro-dark mb-2">{t.summaryTitle}</h3><p className="text-sm font-bold text-agro-text-muted">{t.summaryDesc}</p></div>
+                                            <div className="space-y-6 mb-10 flex-grow">
+                                                <div className="flex justify-between items-center text-lg font-bold p-5 bg-agro-bg dark:bg-black/20 rounded-[24px]"><span className="text-agro-text-muted">{t.workerWages}</span><span className="text-agro-dark serif-font font-black">LE {(formData.budget * 0.6).toLocaleString()}</span></div>
+                                                <div className="flex justify-between items-center text-lg font-bold p-5 bg-agro-bg dark:bg-black/20 rounded-[24px]"><span className="text-agro-text-muted">{t.equipmentRental}</span><span className="text-agro-dark serif-font font-black">LE {(formData.budget * 0.3).toLocaleString()}</span></div>
+                                                <div className="flex justify-between items-center text-lg font-bold p-5 bg-agro-bg dark:bg-black/20 rounded-[24px]"><span className="text-agro-text-muted">{t.adminFees}</span><span className="text-agro-dark serif-font font-black">LE {(formData.budget * 0.1).toLocaleString()}</span></div>
+                                                <div className="h-px bg-gray-100 dark:bg-white/5 my-8"></div>
+                                                <div className={`flex justify-between items-center ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                                                    <div className={lang === 'ar' ? 'text-right' : 'text-left'}><p className="text-[11px] font-black text-[#E07A5F] uppercase tracking-[0.4em] mb-2">{t.totalAmount}</p><p className="text-7xl font-black text-agro-dark serif-font tracking-tighter">LE {formData.budget.toLocaleString()}</p></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            <div className="pt-16 flex justify-center gap-8 items-center">
+                                {step > 1 && (<button onClick={handleBack} className="text-agro-text-muted font-black px-10 py-5 hover:bg-agro-bg rounded-2xl transition-all text-lg uppercase tracking-widest">{t.backBtn}</button>)}
+                                <button onClick={step === 3 ? () => {
+                                    if (!validateStep(1) || !validateStep(2)) return;
+                                    setLoading(true);
+                                    const selectedWorker = availableWorkers.find(w => w.id === formData.selectedWorkerId);
+                                    const equipmentAr = formData.selectedEquipment.map(id => t.equipmentItems.find(i => i.id === id)?.label || id);
+                                    setTimeout(() => {
+                                        onTaskCreated({
+                                            id: `TSK-${Math.floor(1000 + Math.random() * 9000)}`, title: formData.title, titleEn: formData.titleEn, date: formData.startDate, location: formData.location, locationEn: formData.locationEn, budget: formData.budget.toLocaleString(), status: 'pending', progress: 0, workers: Array(formData.workerCount).fill('Worker'), priority: formData.priority === 'Urgent' ? 'High' : 'Medium', crop: formData.crop, cropEn: formData.cropEn, startTime: '08:00 AM', teamLeader: selectedWorker ? selectedWorker.name : workerSearch, teamLeaderEn: selectedWorker ? selectedWorker.nameEn : workerSearch, description: formData.vision, descriptionEn: formData.visionEn, equipment: equipmentAr, equipmentEn: equipmentAr, riskLevel: formData.priority === 'Urgent' ? 'Moderate' : 'Safe', milestones: [{ label: 'تم الإنشاء', labelEn: 'Created', status: 'done', time: 'الآن', timeEn: 'Now' }]
+                                        });
+                                        setLoading(false);
+                                    }, 1500);
+                                } : handleNext} disabled={loading || isTranslating} className={`bg-[#E07A5F] text-white px-20 py-6 rounded-[24px] font-black shadow-xl shadow-[#E07A5F]/20 hover:scale-[1.05] active:scale-95 transition-all text-xl uppercase tracking-widest border-4 border-white/20 ${loading || isTranslating ? 'opacity-70' : ''}`}>
+                                    {loading ? <i className="fas fa-sync-alt fa-spin"></i> : (step === 3 ? t.submitBtn : t.nextBtn)}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const TrackTasks = ({ tasks, onBack, lang }) => {
+            const [selectedTask, setSelectedTask] = React.useState(null);
+            const [filter, setFilter] = React.useState('all');
+
+            React.useEffect(() => {
+                if (selectedTask) document.body.style.overflow = 'hidden';
+                else document.body.style.overflow = 'unset';
+                return () => { document.body.style.overflow = 'unset'; };
+            }, [selectedTask]);
+
+            const filteredTasks = tasks.filter(task => filter === 'all' ? true : task.status === filter);
+            const getStatusConfig = (status) => {
+                switch (status) {
+                    case 'active': return { color: 'bg-[#5DAE66]', lightColor: 'bg-[#5DAE66]/10', textColor: 'text-[#5DAE66]', icon: 'fa-spinner fa-spin' };
+                    case 'completed': return { color: 'bg-teal-600', lightColor: 'bg-teal-600/10', textColor: 'text-teal-600', icon: 'fa-check' };
+                    default: return { color: 'bg-[#E07A5F]', lightColor: 'bg-[#E07A5F]/10', textColor: 'text-[#E07A5F]', icon: 'fa-clock' };
+                }
+            };
+
+            const labels = {
+                ar: { tag: "مركز العمليات", title: "متابعة ", titleSpan: "المهام", all: "الكل", active: "نشطة", pending: "انتظار", completed: "مكتملة", noTasks: "لا توجد مهام حالياً في هذا القسم", progress: "نسبة الإنجاز", details: "التفاصيل", milestones: "المسار التشغيلي الميداني", budget: "الميزانية المرصودة", leader: "القائد المسؤول", crop: "المحصول", location: "الموقع الميداني", download: "تحميل التقرير الميداني", close: "إغلاق", opDetails: "تفاصيل العملية الميدانية", taskId: "معرف المهمة", startTime: "وقت البدء", risk: "مستوى المخاطر", equipment: "المعدات والآلات المخصصة", vision: "الرؤية التقنية للمهمة", date: "التاريخ" },
+                en: { tag: "Operations Center", title: "Track ", titleSpan: "Tasks", all: "All", active: "Active", pending: "Pending", completed: "Completed", noTasks: "No tasks found", progress: "Progress", details: "Details", milestones: "Field Operations Track", budget: "Allocated Budget", leader: "Assigned Leader", crop: "Crop Type", location: "Field Location", download: "Download Report", close: "Close", opDetails: "Operation Details", taskId: "Task ID", startTime: "Start Time", risk: "Risk Level", equipment: "Assigned Equipment", vision: "Technical Mission Vision", date: "Date" }
+            };
+            const t = labels[lang];
+
+            const getRiskColor = (risk) => {
+                if (risk.toLowerCase().includes('high')) return 'text-red-500 bg-red-50 dark:bg-red-500/10';
+                if (risk.toLowerCase().includes('moderate')) return 'text-orange-500 bg-orange-50 dark:bg-orange-500/10';
+                return 'text-green-500 bg-green-50 dark:bg-green-500/10';
+            };
+
+            const getEquipmentDisplay = (task) => (lang === 'en' && task.equipmentEn && task.equipmentEn.length > 0) ? task.equipmentEn : task.equipment;
+
+            return (
+                <section className="py-12 px-6 max-w-7xl mx-auto space-y-10 bg-agro-bg transition-colors duration-300">
+                    <div className={`flex flex-col md:flex-row items-center justify-between gap-8 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                        <div className="flex bg-agro-card p-1.5 rounded-[28px] shadow-sm border border-gray-100 dark:border-white/5">
+                            {[{ id: 'completed', label: t.completed }, { id: 'pending', label: t.pending }, { id: 'active', label: t.active }, { id: 'all', label: t.all }].map(f => (
+                                <button key={f.id} onClick={() => setFilter(f.id)} className={`px-8 py-3 rounded-[24px] text-xs font-black transition-all duration-300 ${filter === f.id ? 'bg-[#E07A5F] text-white shadow-xl' : 'text-agro-text-muted hover:text-agro-dark'}`}>{f.label}</button>
+                            ))}
+                        </div>
+                        <div className={`flex items-center gap-6 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                            <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
+                                <p className="text-[#5DAE66] font-black uppercase tracking-[0.4em] text-[10px] mb-1">{t.tag}</p>
+                                <h2 className="text-4xl md:text-5xl font-black text-agro-dark">{t.title} <span className="text-[#E07A5F]">{t.titleSpan}</span></h2>
+                            </div>
+                            <button onClick={onBack} className={`w-14 h-14 rounded-2xl bg-agro-card border border-gray-100 dark:border-white/10 flex items-center justify-center text-agro-dark hover:bg-[#0F4C5C] hover:text-white transition-all shadow-sm group ${lang === 'en' ? 'rotate-180' : ''}`}><i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i></button>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-6">
+                        {filteredTasks.length === 0 ? (
+                            <div className="py-32 text-center bg-agro-card rounded-[48px] border border-dashed border-gray-200 dark:border-white/10"><i className="fas fa-clipboard-list text-gray-200 dark:text-white/5 text-8xl mb-6 block"></i><p className="text-xl font-bold text-agro-text-muted">{t.noTasks}</p></div>
+                        ) : filteredTasks.map(task => {
+                            const config = getStatusConfig(task.status);
+                            return (
+                                <div key={task.id} onClick={() => setSelectedTask(task)} className={`bg-agro-card p-6 md:p-10 rounded-[40px] shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 cursor-pointer relative overflow-hidden group ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                                    <div className={`absolute ${lang === 'ar' ? 'right-0' : 'left-0'} top-0 bottom-0 w-2 ${config.color}`}></div>
+                                    <div className={`flex items-center gap-8 ${lang === 'ar' ? '' : 'flex-row-reverse'}`}>
+                                        <div className={`w-20 h-20 rounded-[28px] flex items-center justify-center text-2xl ${config.lightColor} ${config.textColor}`}><i className={`fas ${config.icon}`}></i></div>
+                                        <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
+                                            <h4 className="text-2xl md:text-3xl font-black text-agro-dark group-hover:text-[#E07A5F] transition-colors">{lang === 'ar' ? task.title : (task.titleEn || task.title)}</h4>
+                                            <div className={`flex gap-6 items-center text-agro-text-muted text-sm font-bold mt-2 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}>
+                                                <span className="flex items-center gap-2">{lang === 'ar' ? task.crop : (task.cropEn || task.crop)} <i className="fas fa-leaf text-[#5DAE66]"></i></span>
+                                                <span className="flex items-center gap-2">{lang === 'ar' ? task.location : (task.locationEn || task.location)} <i className="fas fa-location-dot text-[#E07A5F]"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col items-center flex-grow">
+                                        <div className={`flex flex-col gap-3 w-full max-w-[240px] ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                            <p className="text-[10px] font-black text-agro-text-muted uppercase tracking-widest">{t.progress}</p>
+                                            <div className="flex items-center gap-5"><span className="font-black text-agro-dark text-lg serif-font">%{task.progress}</span><div className="flex-grow h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden"><div className={`h-full ${config.color} transition-all duration-1000`} style={{ width: `${task.progress}%` }}></div></div></div>
+                                        </div>
+                                    </div>
+                                    <div className="translate-y-2"><button className="bg-agro-bg text-agro-dark px-10 py-4 rounded-2xl text-xs font-black transition-all hover:bg-[#0F4C5C] hover:text-white border border-gray-100 dark:border-white/10 hover:shadow-lg active:scale-95">{t.details}</button></div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    {selectedTask && (
+                        <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden p-4 md:p-8">
+                            <div className="fixed inset-0 bg-black/75 backdrop-blur-2xl transition-opacity duration-300" onClick={() => setSelectedTask(null)}></div>
+                            <div className={`relative bg-agro-card w-full max-w-6xl rounded-[50px] md:rounded-[60px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col md:flex-row max-h-[90vh] overflow-hidden animate-fade-in border border-white/20 dark:border-white/5 z-[10000] ${lang === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                                <div className="md:w-[35%] bg-agro-bg/50 dark:bg-black/30 p-8 md:p-12 flex flex-col items-center justify-between border-agro-border relative shrink-0">
+                                    <button onClick={() => setSelectedTask(null)} className={`absolute top-6 ${lang === 'ar' ? 'left-6' : 'right-6'} w-12 h-12 bg-agro-card rounded-2xl flex items-center justify-center text-agro-dark shadow-md hover:scale-110 transition-all border border-gray-100 dark:border-white/5 active:scale-95 z-50`}><i className="fas fa-xmark text-xl"></i></button>
+                                    <div className="text-center w-full mt-10"><p className="text-[12px] font-black text-agro-text-muted uppercase tracking-[0.3em] mb-2">{t.budget}</p><p className="text-4xl md:text-6xl font-black text-[#E07A5F] serif-font leading-none">LE {selectedTask.budget}</p></div>
+                                    <div className="flex flex-col items-center py-6 md:py-10">
+                                        <div className="relative w-44 h-44 md:w-56 md:h-56">
+                                            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100"><circle className="text-gray-200 dark:text-white/5" strokeWidth="8" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50" /><circle className="text-[#0F4C5C] dark:text-[#5DAE66]" strokeWidth="8" strokeDasharray={263.8} strokeDashoffset={263.8 - (263.8 * selectedTask.progress) / 100} strokeLinecap="round" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50" /></svg>
+                                            <div className="absolute inset-0 flex flex-col items-center justify-center text-agro-dark"><span className="text-5xl md:text-6xl font-black serif-font leading-none">%{selectedTask.progress}</span><span className="text-[10px] font-black uppercase tracking-widest mt-2 opacity-70">{t.progress}</span></div>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4 w-full max-w-[280px] mb-4">
+                                        <button className="w-full bg-[#0F4C5C] dark:bg-[#E07A5F] hover:bg-[#E07A5F] dark:hover:bg-[#E07A5F]/80 text-white py-4 md:py-5 rounded-[24px] font-black uppercase tracking-widest text-[10px] md:text-xs transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95"><i className="fas fa-file-pdf text-base"></i> {t.download}</button>
+                                        <button onClick={() => setSelectedTask(null)} className="w-full bg-agro-card text-agro-text-muted py-4 md:py-5 rounded-[24px] font-black uppercase tracking-widest text-[10px] md:text-xs border border-gray-100 dark:border-white/5 shadow-sm hover:bg-agro-bg transition-all active:scale-95">{t.close}</button>
+                                    </div>
+                                </div>
+                                <div className="md:w-[65%] p-8 md:p-16 overflow-y-auto custom-scrollbar bg-agro-card">
+                                    <div className={`mb-12 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                        <div className={`flex flex-wrap items-center gap-3 mb-6 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}><span className="px-4 py-2 bg-[#E07A5F]/10 text-[#E07A5F] text-[9px] font-black rounded-xl uppercase tracking-widest border border-[#E07A5F]/20">{t.taskId}: {selectedTask.id}</span><span className="px-4 py-2 bg-[#5DAE66]/10 text-[#5DAE66] text-[9px] font-black rounded-xl uppercase tracking-widest border border-[#5DAE66]/20">{t.date}: {selectedTask.date}</span></div>
+                                        <h2 className="text-3xl md:text-5xl font-black text-agro-dark leading-tight mb-6">{lang === 'ar' ? selectedTask.title : (selectedTask.titleEn || selectedTask.title)}</h2>
+                                        <div className="bg-agro-bg dark:bg-white/5 p-6 rounded-[30px] border border-gray-100 dark:border-white/5 italic"><p className="text-agro-text-muted font-bold text-base md:text-lg leading-relaxed">"{lang === 'ar' ? selectedTask.description : (selectedTask.descriptionEn || selectedTask.description)}"</p></div>
+                                    </div>
+                                    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                        {[
+                                            { label: t.location, value: (lang === 'ar' ? selectedTask.location : (selectedTask.locationEn || selectedTask.location)), icon: 'fa-location-dot', color: 'text-[#E07A5F]' },
+                                            { label: t.crop, value: (lang === 'ar' ? selectedTask.crop : (selectedTask.cropEn || selectedTask.crop)), icon: 'fa-leaf', color: 'text-[#5DAE66]' },
+                                            { label: t.leader, value: (lang === 'ar' ? selectedTask.teamLeader : (selectedTask.teamLeaderEn || selectedTask.teamLeader)), icon: 'fa-user-shield', color: 'text-blue-500' },
+                                            { label: t.startTime, value: selectedTask.startTime, icon: 'fa-clock', color: 'text-orange-400' }
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="bg-agro-bg/30 dark:bg-white/5 p-6 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm flex flex-col group hover:shadow-md transition-all">
+                                                <p className="text-[9px] font-black text-agro-text-muted uppercase tracking-[0.2em] mb-2">{item.label}</p>
+                                                <p className="font-black text-agro-dark text-lg leading-snug flex items-center gap-3"><i className={`fas ${item.icon} ${item.color} text-xl`}></i> {item.value}</p>
+                                            </div>
+                                        ))}
+                                        <div className="bg-agro-bg/30 dark:bg-white/5 p-6 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm flex flex-col group hover:shadow-md transition-all sm:col-span-2">
+                                            <p className="text-[9px] font-black text-agro-text-muted uppercase tracking-[0.2em] mb-2">{t.risk}</p>
+                                            <p className={`font-black text-base px-5 py-2 rounded-[16px] text-center w-fit ${getRiskColor(selectedTask.riskLevel)}`}>{selectedTask.riskLevel}</p>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                                        <div className={`${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                            <h3 className="text-lg font-black text-agro-dark mb-5 flex items-center gap-3 uppercase tracking-widest"><i className="fas fa-tools text-[#E07A5F] text-xl"></i> {t.equipment}</h3>
+                                            <div className={`flex flex-wrap gap-2 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}>{getEquipmentDisplay(selectedTask).map((item, idx) => (<span key={idx} className="px-5 py-2.5 bg-agro-bg dark:bg-white/10 rounded-xl text-[11px] font-black text-agro-dark border border-gray-100 dark:border-white/5 shadow-sm hover:bg-[#E07A5F] hover:text-white transition-colors cursor-default">{item}</span>))}</div>
+                                        </div>
+                                        <div className={`${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                                            <h3 className="text-lg font-black text-agro-dark mb-5 flex items-center gap-3 uppercase tracking-widest"><i className="fas fa-route text-[#5DAE66] text-xl"></i> {t.milestones}</h3>
+                                            <div className="space-y-5 relative">{selectedTask.milestones.map((m, i) => (<div key={i} className={`flex items-center gap-4 ${m.status === 'waiting' ? 'opacity-30' : ''} ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}><div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${m.status === 'done' ? 'bg-[#5DAE66]' : m.status === 'current' ? 'bg-[#E07A5F] ring-4 ring-[#E07A5F]/20' : 'bg-gray-300'}`}></div><p className={`font-bold text-base flex-grow ${lang === 'ar' ? 'text-right' : 'text-left'} ${m.status === 'current' ? 'text-agro-dark scale-105' : 'text-agro-text-muted'} transition-all`}>{lang === 'ar' ? m.label : (m.labelEn || m.label)}</p>{(m.time || m.timeEn) && (<span className="text-[10px] font-black text-agro-text-muted serif-font">{lang === 'ar' ? m.time : (m.timeEn || m.time)}</span>)}</div>))}</div>
+                                        </div>
+                                    </div>
+                                    <div className="h-20"></div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </section>
+            );
+        };
+
+        const Features = ({ lang }) => {
+            const featuresList = [
+                { id: '01', arTitle: 'أعلى معايير السلامة', enTitle: 'Safety Standards', arDesc: 'بروتوكولات صارمة تضمن سلامة كل عامل في الميدان بشكل يومي.', enDesc: 'Strict protocols ensuring every worker\'s safety in the field daily.', icon: 'fa-shield-heart' },
+                { id: '02', arTitle: 'تطوير المهارات', enTitle: 'Skill Growth', arDesc: 'برامج اعتماد مستمرة في الري، البستنة، وتشغيل المعدات الثقيلة.', enDesc: 'Continuous certification in irrigation, horticulture, and equipment.', icon: 'fa-graduation-cap' },
+                { id: '03', arTitle: 'نظام مكافآت شفاف', enTitle: 'Clear Rewards', arDesc: 'وضوح تام في الحوافز والمكافآت بناءً على جودة التنفيذ والالتزام.', enDesc: 'Full transparency in incentives based on quality and commitment.', icon: 'fa-wallet' },
+                { id: '04', arTitle: 'دعم تقني متواصل', enTitle: 'Tech Support', arDesc: 'متابعة لحظية لكل العمليات الميدانية لضمان سير العمل بدقة.', enDesc: 'Real-time monitoring of field operations for precise execution.', icon: 'fa-headset' }
+            ];
+            return (
+                <section className="bg-transparent py-32 px-6 overflow-hidden relative">
+                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
+                        {featuresList.map((f) => (
+                            <div key={f.id} className="group p-10 rounded-[40px] bg-[#E07A5F] border border-[#E07A5F] hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 shadow-lg shadow-[#E07A5F]/20">
+                                <div className={`flex justify-between items-start mb-10 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-[#E07A5F] text-2xl group-hover:bg-[#0F4C5C] group-hover:text-white transition-all duration-500 shadow-sm"><i className={`fas ${f.icon}`}></i></div>
+                                    <span className="serif-font text-5xl font-black text-white/10 group-hover:text-white/20 transition-colors leading-none select-none">{f.id}</span>
+                                </div>
+                                <h3 className={`text-xl font-black text-white mb-4 tracking-tight ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? f.arTitle : f.enTitle}</h3>
+                                <p className={`text-white/90 text-sm leading-relaxed font-bold ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? f.arDesc : f.enDesc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        };
+
+        const About = ({ lang }) => {
+            const content = {
+                ar: { tag: "ثقافتنا العملية", title: "نبني مسارات مهنية، لا ", titleSpan: "مجرد وظائف", desc: "AgroHire تلتزم بأن تكون جهة التوظيف رقم 1 في قطاع الزراعة. نحن لا نوظف عمالاً فحسب، بل نصقل مهارات الخبراء. كل عضو في الفريق لديه مسار واضح من متدرب إلى مشرف ميداني.", statLabel: "معدل الاستبقاء", card1: "توازن الحياة والعمل", card1Desc: "جدولة مرنة ودورات إجازة مضمونة للراحة والتطوير.", card2: "حوافز النمو", card2Desc: "مكافآت مجزية مقابل إتقان المهارات الجديدة والالتزام.", btn: "انضم إلى فريقنا المتميز" },
+                en: { tag: "Our Work Culture", title: "Building Careers, Not ", titleSpan: "Just Jobs", desc: "AgroHire is committed to being the #1 employer in the agriculture sector. We don't just hire workers, we cultivate experts. Every team member has a clear path from trainee to field supervisor.", statLabel: "Retention Rate", card1: "Work-Life Balance", card1Desc: "Flexible scheduling and guaranteed leave cycles for rest and growth.", card2: "Growth Incentives", card2Desc: "Rewarding bonuses for mastering new skills and commitment.", btn: "Join Our Elite Team" }
+            };
+            const t = content[lang];
+            return (
+                <section className="py-24 px-6 overflow-hidden bg-agro-bg transition-colors duration-300">
+                    <div className={`max-w-7xl mx-auto flex flex-col ${lang === 'ar' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-16`}>
+                        <div className="relative w-full lg:w-1/2">
+                            <div className="grid grid-cols-2 gap-4">
+                                <img src="https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&q=80&w=400" className="rounded-[32px] mt-12 shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all" alt="Worker Precision" />
+                                <img src="https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80&w=400" className="rounded-[32px] mb-12 shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all" alt="Team Training" />
+                            </div>
+                            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#E07A5F] text-white p-8 rounded-[40px] shadow-2xl flex items-center space-x-4 border-8 border-agro-bg transition-all ${lang === 'ar' ? 'space-x-reverse' : ''}`}>
+                                <span className="text-6xl font-black serif-font">98%</span>
+                                <span className="text-[10px] font-black leading-tight uppercase tracking-widest">{t.statLabel}</span>
+                            </div>
+                        </div>
+                        <div className={`w-full lg:w-1/2 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                            <p className="text-[#E07A5F] font-black uppercase tracking-[0.4em] mb-4 text-xs">{t.tag}</p>
+                            <h2 className="text-5xl font-black text-agro-dark mb-6 leading-tight">{t.title} <span className="text-[#E07A5F]">{t.titleSpan}</span></h2>
+                            <p className="text-agro-text-muted mb-8 leading-relaxed text-xl font-medium">{t.desc}</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                                <div className="bg-agro-card p-8 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm"><h4 className="font-black text-agro-dark text-xl mb-2">{t.card1}</h4><p className="text-sm text-agro-text-muted">{t.card1Desc}</p></div>
+                                <div className="bg-agro-card p-8 rounded-[32px] border border-gray-100 dark:border-white/5 shadow-sm"><h4 className="font-black text-agro-dark text-xl mb-2">{t.card2}</h4><p className="text-sm text-agro-text-muted">{t.card2Desc}</p></div>
+                            </div>
+                            <button className="bg-agro-teal dark:bg-[#E07A5F] hover:scale-105 text-white px-12 py-5 rounded-2xl text-sm font-black uppercase tracking-widest transition-all shadow-2xl">{t.btn}</button>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Commitment = ({ lang }) => {
+            const pointsAr = ['إحاطات سلامة أسبوعية', 'شهادة الإسعافات الأولية', 'تدريب المعدات الثقيلة', 'شهادات التعامل الكيميائي', 'الامتثال البيئي التام', 'خطة الاستجابة للطوارئ'];
+            const pointsEn = ['Weekly Safety Briefings', 'First Aid Certification', 'Heavy Equipment Training', 'Chemical Handling Certs', 'Full Eco Compliance', 'Emergency Response Plan'];
+            const content = {
+                ar: { tag: "Safety First Always", title: "التزامنا الراسخ ", titleSpan: "بسلامة الميدان", desc: "يتم تدريب كل فرد في الفريق ومراجعته أسبوعياً لضمان استيفاء أعلى معايير السلامة في كل موقع عمل. نحن نؤمن أن التميز يبدأ بفريق محمي ومستعد تماماً.", badge: "100%", badgeSub: "حماية معتمدة" },
+                en: { tag: "Safety First Always", title: "Steadfast Commitment to ", titleSpan: "Field Safety", desc: "Every team member is trained and reviewed weekly to ensure the highest safety standards at every site. We believe excellence starts with a protected and fully prepared team.", badge: "100%", badgeSub: "Certified Protection" }
+            };
+            const t = content[lang];
+            const points = lang === 'ar' ? pointsAr : pointsEn;
+            return (
+                <section className="bg-[#0F4C5C] text-white pt-56 pb-32 px-6 relative mt-20 overflow-hidden">
+                    <TreeSilhouette />
+                    <div className={`max-w-7xl mx-auto flex flex-col ${lang === 'ar' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-20 relative z-10`}>
+                        <div className={`w-full lg:w-1/2 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                            <div className={`flex items-center gap-3 mb-4 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}><div className="w-10 h-1 bg-[#E07A5F] rounded-full"></div><p className="text-[#E07A5F] font-black uppercase tracking-[0.4em] text-[10px]">{t.tag}</p></div>
+                            <h2 className="text-5xl md:text-6xl font-black mb-8 leading-tight tracking-tight">{t.title} <br /><span className="text-[#5DAE66]">{t.titleSpan}</span></h2>
+                            <p className="text-white/80 text-lg mb-12 leading-relaxed font-bold max-w-2xl mx-auto lg:mx-0">{t.desc}</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {points.map((p, idx) => (<div key={idx} className={`flex items-center gap-4 text-white font-black text-[11px] uppercase tracking-widest bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/5 hover:border-[#E07A5F] hover:bg-white/15 transition-all ${lang === 'ar' ? 'flex-row-reverse' : 'flex-row'}`}><span className="text-[#E07A5F] text-sm">★</span> {p}</div>))}
+                            </div>
+                        </div>
+                        <div className="w-full lg:w-1/2 relative group">
+                            <div className="relative z-10 rounded-[48px] overflow-hidden shadow-2xl border-8 border-white/5">
+                                <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover brightness-90 group-hover:brightness-100 transition-all duration-700" alt="Safety Gear" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0F4C5C]/60 to-transparent"></div>
+                                <div className={`absolute bottom-10 ${lang === 'ar' ? 'right-10' : 'left-10'} bg-white p-6 rounded-3xl shadow-2xl text-[#0F4C5C]`}><p className="text-4xl font-black mb-1">{t.badge}</p><p className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t.badgeSub}</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- Main App Component ---
+        const App = () => {
+            const [activePage, setActivePage] = React.useState('home');
+            const [selectedWorkerForTask, setSelectedWorkerForTask] = React.useState(null);
+            const [showNotification, setShowNotification] = React.useState(false);
+            const [isDarkMode, setIsDarkMode] = React.useState(false);
+            const [lang, setLang] = React.useState('ar');
+
+            const [tasks, setTasks] = React.useState([
+                { id: "TSK-1024", title: "حصاد القمح - مزرعة السيدة زينب", titleEn: "Wheat Harvest - El Sayeda Zeinab Farm", date: "2024-10-25", location: "الجيزة، أهرامات", locationEn: "Giza, Pyramids", budget: "5,000", status: "active", progress: 65, workers: ["سعيد", "محمد", "علي"], priority: 'High', crop: 'قمح (سلالة مصر 3)', cropEn: 'Wheat (Egypt 3)', startTime: '06:00 AM', teamLeader: "سعيد فرح", teamLeaderEn: "Said Farah", description: "عملية حصاد مكثفة لـ 50 فدان قمح باستخدام أحدث التقنيات.", descriptionEn: "Intensive harvesting operation for 50 acres of wheat using latest technologies.", equipment: ["حاصدة عملاقة", "شاحنات نقل"], equipmentEn: ["Giant Harvester", "Transport Trucks"], riskLevel: 'Moderate', milestones: [{ label: 'تجهيز المعدات', labelEn: 'Equipment Prep', status: 'done', time: '05:30 AM', timeEn: '05:30 AM' }, { label: 'بدء الحصاد الميداني', labelEn: 'Field Harvest Start', status: 'current', time: '06:15 AM', timeEn: '06:15 AM' }, { label: 'فرز المحصول', labelEn: 'Crop Sorting', status: 'waiting' }] },
+                { id: "TSK-1025", title: "صيانة شبكة الري - قطاع ب", titleEn: "Irrigation Maintenance - Sector B", date: "2024-10-26", location: "المنوفية، شبين", locationEn: "Monofiya, Shebin", budget: "2,500", status: "pending", progress: 10, workers: ["أحمد"], priority: 'Medium', crop: 'برتقال صيفي', cropEn: 'Summer Orange', startTime: '08:00 AM', teamLeader: "علي سعد", teamLeaderEn: "Ali Saad", description: "فحص وإصلاح شبكة الري بالتنقيط.", descriptionEn: "Inspect and repair drip irrigation system.", equipment: ["أدوات سباكة", "قطع غيار"], equipmentEn: ["Plumbing Tools", "Spare Parts"], riskLevel: 'Safe', milestones: [{ label: 'فحص المحابس', labelEn: 'Valve Check', status: 'done', time: '08:30 AM', timeEn: '08:30 AM' }] },
+                { id: "TSK-1028", title: "تجهيز أرض القطن - الدقهلية", titleEn: "Cotton Land Prep - Dakahlia", date: "2024-11-02", location: "الدقهلية، المنصورة", locationEn: "Dakahlia, Mansoura", budget: "3,800", status: "active", progress: 45, workers: ["فتحي", "خالد"], priority: 'High', crop: 'قطن (جيزة 94)', cropEn: 'Cotton (Giza 94)', startTime: '05:30 AM', teamLeader: "فتحي غانم", teamLeaderEn: "Fathy Ghanem", description: "حرث عميق وتجهيز التربة لموسم زراعة القطن الجديد.", descriptionEn: "Deep plowing and soil preparation for the new cotton planting season.", equipment: ["جرار زراعي", "محراث عملاق"], equipmentEn: ["Agricultural Tractor", "Giant Plow"], riskLevel: 'Moderate', milestones: [{ label: 'الحرث الأول', labelEn: 'First Plowing', status: 'done', time: '06:00 AM', timeEn: '06:00 AM' }, { label: 'تخطيط الأرض', labelEn: 'Land Planning', status: 'current', time: '09:00 AM', timeEn: '09:00 AM' }] },
+                { id: "TSK-1030", title: "تقليم أشجار المانجو - الأقصر", titleEn: "Mango Pruning - Luxor", date: "2024-11-05", location: "الأقصر، القرنة", locationEn: "Luxor, Qurna", budget: "4,200", status: "pending", progress: 0, workers: ["إبراهيم", "ياسر"], priority: 'Medium', crop: 'مانجو عويس', cropEn: 'Awees Mango', startTime: '07:00 AM', teamLeader: "إبراهيم صلاح", teamLeaderEn: "Ibrahim Salah", description: "عملية تقليم فنية لتحسين الإنتاجية وتجهيز الأشجار للموسم القادم.", descriptionEn: "Technical pruning process to improve productivity and prepare trees for next season.", equipment: ["مقصات آلية", "سلالم هيدروليكية"], equipmentEn: ["Power Pruners", "Hydraulic Ladders"], riskLevel: 'Safe', milestones: [{ label: 'توزيع العمال', labelEn: 'Worker Distribution', status: 'waiting' }] },
+                { id: "TSK-1032", title: "حصاد الأرز الشعير - البحيرة", titleEn: "Rice Harvest - Beheira", date: "2024-10-30", location: "البحيرة، دمنهور", locationEn: "Beheira, Damanhur", budget: "7,500", status: "active", progress: 85, workers: ["خالد", "زياد", "طارق", "سامح"], priority: 'High', crop: 'أرز عريض الحبة', cropEn: 'Long Grain Rice', startTime: '05:00 AM', teamLeader: "خالد وليد", teamLeaderEn: "Khaled Walid", description: "حصاد مساحات واسعة من الأرز ونقله لمراكز التجميع.", descriptionEn: "Harvesting large areas of rice and transporting them to collection centers.", equipment: ["دراسة أرز", "مقطورات نقل"], equipmentEn: ["Rice Thresher", "Transport Trailers"], riskLevel: 'Moderate', milestones: [{ label: 'بدء الدراسة', labelEn: 'Threshing Start', status: 'done', time: '06:00 AM', timeEn: '06:00 AM' }, { label: 'تعبئة الأجولة', labelEn: 'Bagging', status: 'current', time: '11:00 AM', timeEn: '11:00 AM' }] },
+                { id: "TSK-1035", title: "تسميد نخيل البلح - الفيوم", titleEn: "Date Palm Fertilization - Fayoum", date: "2024-11-10", location: "الفيوم، إبشواي", locationEn: "Fayoum, Ibshaway", budget: "3,100", status: "pending", progress: 0, workers: ["حسن", "حسين"], priority: 'Medium', crop: 'بلح سيوة', cropEn: 'Siwa Dates', startTime: '08:00 AM', teamLeader: "حسن يوسف", teamLeaderEn: "Hassan Youssef", description: "برنامج تسميد عضوي متكامل لنخيل البلح السيوي.", descriptionEn: "Integrated organic fertilization program for Siwi date palms.", equipment: ["عربات توزيع", "أدوات يدوية"], equipmentEn: ["Spreader Carts", "Hand Tools"], riskLevel: 'Safe', milestones: [{ label: 'استلام الأسمدة', labelEn: 'Fertilizer Delivery', status: 'waiting' }] },
+                { id: "TSK-1040", title: "مكافحة آفات الصوبات - الإسماعيلية", titleEn: "Greenhouse Pest Control - Ismailia", date: "2024-10-24", location: "الإسماعيلية، القنطرة", locationEn: "Ismailia, Qantara", budget: "2,200", status: "completed", progress: 100, workers: ["شريف"], priority: 'High', crop: 'فلفل ألوان', cropEn: 'Bell Peppers', startTime: '06:00 AM', teamLeader: "شريف منير", teamLeaderEn: "Sherif Mounir", description: "رش وقائي وعلاجي لآفات الصوبات الزراعية.", descriptionEn: "Preventive and curative spraying for greenhouse pests.", equipment: ["موتور رش", "ملابس وقاية"], equipmentEn: ["Spray Motor", "Safety Suits"], riskLevel: 'High Risk', milestones: [{ label: 'بدء الرش', labelEn: 'Spraying Start', status: 'done', time: '06:30 AM', timeEn: '06:30 AM' }, { label: 'فحص النتائج', labelEn: 'Result Check', status: 'done', time: '04:00 PM', timeEn: '04:00 PM' }] }
+            ]);
+
+            const toggleDarkMode = () => {
+                setIsDarkMode(!isDarkMode);
+                document.documentElement.classList.toggle('dark');
+            };
+
+            const toggleLanguage = () => {
+                const newLang = lang === 'ar' ? 'en' : 'ar';
+                setLang(newLang);
+                document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+                document.documentElement.lang = newLang;
+            };
+
+            const handleAddTask = (newTask) => {
+                setTasks([newTask, ...tasks]);
+                setActivePage('tasks');
+                setShowNotification(true);
+            };
+
+            React.useEffect(() => {
+                if (showNotification) {
+                    const timer = setTimeout(() => setShowNotification(false), 4000);
+                    return () => clearTimeout(timer);
+                }
+            }, [showNotification]);
+
+            const handleHireWorker = (worker) => {
+                setSelectedWorkerForTask(worker);
+                setActivePage('create');
+            };
+
+            const handlePageChange = (page) => {
+                setActivePage(page);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col bg-agro-bg text-agro-text transition-colors duration-300 selection:bg-[#E07A5F] selection:text-white">
+                    <Header activePage={activePage} onPageChange={handlePageChange} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} lang={lang} toggleLanguage={toggleLanguage} />
+                    <main className="flex-grow">
+                        {activePage === 'home' && (
+                            <div>
+                                <Hero lang={lang} onPageChange={handlePageChange} />
+                                <WorkerGrid lang={lang} limit={3} title={lang === 'ar' ? "أفضل العمال الميدانيين" : "Top Field Workers"} onHireWorker={handleHireWorker} />
+                                <Stats lang={lang} />
+                                <About lang={lang} />
+                                <Features lang={lang} />
+                                <Commitment lang={lang} />
+                                <div className="h-40"></div>
+                            </div>
+                        )}
+                        {activePage === 'workers' && (
+                            <div className="pt-32">
+                                <div className="max-w-7xl mx-auto px-6 mb-12">
+                                    <div className="text-center mb-10">
+                                        <p className="text-[#E07A5F] font-black uppercase tracking-[0.4em] text-[10px] mb-2">{lang === 'ar' ? 'البحث المتقدم' : 'Advanced Search'}</p>
+                                        <h2 className="text-4xl font-black text-agro-dark">{lang === 'ar' ? 'استكشف كل العمال' : 'Explore All Workers'}</h2>
+                                    </div>
+                                </div>
+                                <WorkerGrid lang={lang} title={lang === 'ar' ? "عمالنا الميدانيين المحترفين" : "Professional Field Workers"} onHireWorker={handleHireWorker} />
+                                <div className="h-40"></div>
+                            </div>
+                        )}
+                        {activePage === 'create' && (
+                            <div className="pt-24 min-h-screen">
+                                <CreateTaskForm lang={lang} onTaskCreated={handleAddTask} initialWorker={selectedWorkerForTask} />
+                                <div className="h-20"></div>
+                            </div>
+                        )}
+                        {activePage === 'tasks' && (
+                            <div className="pt-32">
+                                <TrackTasks lang={lang} tasks={tasks} onBack={() => handlePageChange('home')} />
+                                <div className="h-40"></div>
+                            </div>
+                        )}
+                    </main>
+                    <nav className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] w-full max-w-2xl px-6 pointer-events-none">
+                        <div className="bg-agro-card/95 backdrop-blur-2xl border border-white/40 shadow-xl rounded-[40px] p-2 flex items-center justify-between pointer-events-auto transition-colors duration-300">
+                            {[
+                                { id: 'home', label: lang === 'ar' ? 'الرئيسية' : 'Home', icon: 'fa-home' },
+                                { id: 'create', label: lang === 'ar' ? 'إنشاء مهمة' : 'Create', icon: 'fa-plus' },
+                                { id: 'workers', label: lang === 'ar' ? 'كل العمال' : 'Workers', icon: 'fa-user-group' },
+                                { id: 'tasks', label: lang === 'ar' ? 'تتبع' : 'Tasks', icon: 'fa-layer-group' }
+                            ].map((item) => (
+                                <button key={item.id} onClick={() => handlePageChange(item.id)} className={`flex items-center gap-3 px-6 py-4 rounded-[30px] transition-all duration-300 ${activePage === item.id ? 'bg-[#E07A5F] text-white shadow-xl scale-105' : 'text-gray-400 hover:text-[#E07A5F] hover:bg-orange-50 dark:hover:bg-orange-950/30'}`}>
+                                    <i className={`fas ${item.icon} text-lg`}></i>
+                                    <span className="text-sm font-black whitespace-nowrap hidden sm:inline">{item.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </nav>
+                    <Footer lang={lang} />
+                </div>
+            );
+        };
+
+        // ✅ نخلي React ينتظر Firebase قبل الـ Render
+        window.renderApp = function () {
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(<App />);
+
+            // إخفاء شاشة التحميل وإظهار المحتوى
+            document.body.classList.remove('hidden');
+            document.getElementById('loading-screen').classList.add('hidden');
+        };
+    </script>
+
+    <script type="module">
+        // 🔥 Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // ⚙️ Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+            authDomain: "smart-farm-8d3f5.firebaseapp.com",
+            projectId: "smart-farm-8d3f5",
+            storageBucket: "smart-farm-8d3f5.appspot.com",
+            messagingSenderId: "317371842198",
+            appId: "1:317371842198:web:4765ea8c0036ae64b10cb7",
+        };
+
+        // 🚀 Init Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        /* ============================
+           🔒 حماية الصفحة حسب الـ Role
+        ============================ */
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                alert('لازم تسجّل دخول الأول');
+                window.location.href = '../signinsignup/signin.html';
+                return;
+            }
+
+            try {
+                const userRef = doc(db, 'users', user.uid);
+                const userSnap = await getDoc(userRef);
+
+                if (!userSnap.exists()) {
+                    alert('بيانات المستخدم غير موجودة');
+                    window.location.href = '../signinsignup/signin.html';
+                    return;
+                }
+
+                const { role } = userSnap.data();
+
+                // ✅ تخزين الـ Role في المتغير العام
+                window.userRole = role;
+
+                // 👷 عامل
+                if (role === 'worker') {
+                    alert('❌ هذه الصفحة غير متاحة للعمال');
+                    window.location.href = 'worker.html';
+                    return;
+                }
+
+                // 🧑‍🌾 فلاح أو 💼 مستثمر (المسموح لهم)
+                else if (role === 'farmer' || role === 'investor') {
+                    console.log(`✅ ${role === 'farmer' ? 'فلاح' : 'مستثمر'} – دخول مسموح`);
+                    // ✅ تشغيل React بعد التحقق من الصلاحية
+                    window.renderApp();
+                }
+
+                else {
+                    alert('❗ دور غير معروف');
+                    window.location.href = '../signinsignup/signin.html';
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert('حصل خطأ أثناء التحقق من الصلاحيات');
+                window.location.href = '../signinsignup/signin.html';
+            }
+        });
+    </script>
+</body>
+
+</html>
